@@ -1,10 +1,9 @@
 ﻿using Blog.Services;
-using Blog.Services.Identity;
+using Blog.Services.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using DependencyResolver = System.Web.Mvc.DependencyResolver;
 
 namespace Blog.Site
 {

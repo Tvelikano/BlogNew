@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Blog.Services.Identity;
 using Blog.Site.Models;
 using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
@@ -7,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Blog.Services;
+using Blog.Services.Interfaces;
+using Blog.Services.Models;
 
 namespace Blog.Site.Controllers
 {
@@ -20,6 +21,7 @@ namespace Blog.Site.Controllers
         {
             return View(UserService.GetAllUsers());
         }
+
         public ActionResult Create()
         {
             return View();
@@ -28,50 +30,75 @@ namespace Blog.Site.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(UserViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             var userDto = _mapper.Map<UserDTO>(model);
+
             var result = await UserService.CreateUser(userDto);
+
             MessageFromResult(result);
+
             if (result.IsSucceed)
+            {
                 return RedirectToAction("Index");
+            }
+                
             return View(model);
         }
 
         public async Task<ActionResult> Edit(string id)
         {
             var user = await UserService.GetUserById(id);
+
             if (user != null)
             {
                 return View(_mapper.Map<UserViewModel>(user));
             }
+
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public async Task<ActionResult> Edit(UserViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-            var result = await UserService.EditUserById(model.Id, model.UserName, model.Email, model.Password);
+            var userDto = _mapper.Map<UserDTO>(model);
+
+            var result = await UserService.EditUser(userDto);
+
             MessageFromResult(result);
+
             return RedirectToAction(result.IsSucceed ? "Index" : "Edit");
         }
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {
             MessageFromResult(await UserService.DeleteUserById(id));
+
             return RedirectToAction("Index");
         }
 
         private void MessageFromResult(OperationDetails result)
         {
             if (result.IsSucceed)
+            {
                 TempData["message"] = result.Message.FirstOrDefault();
+            }
             else
-                foreach (var mes in result.Message)
+            {
+                foreach (var message in result.Message)
                 {
-                    ModelState.AddModelError("", mes);
+                    ModelState.AddModelError("", message);
                 }
+            }
+                
         }
     }
 }

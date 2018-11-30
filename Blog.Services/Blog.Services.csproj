@@ -123,13 +123,14 @@
   <ItemGroup>
     <Compile Include="App_Start\DependencyResolver.cs" />
     <Compile Include="App_Start\Ninject.Web.Common.cs" />
-    <Compile Include="Identity\IUserService.cs" />
-    <Compile Include="OperationDetails.cs" />
-    <Compile Include="Identity\RoleDTO.cs" />
-    <Compile Include="Identity\ServiceCreator.cs" />
-    <Compile Include="Identity\UserDTO.cs" />
-    <Compile Include="Identity\UserService.cs" />
-    <Compile Include="IRecordService.cs" />
+    <Compile Include="Enums\RecordStateDTO.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Models\OperationDetails.cs" />
+    <Compile Include="RoleDTO.cs" />
+    <Compile Include="ServiceCreator.cs" />
+    <Compile Include="UserDTO.cs" />
+    <Compile Include="UserService.cs" />
+    <Compile Include="Interfaces\IRecordService.cs" />
     <Compile Include="RecordDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordService.cs" />

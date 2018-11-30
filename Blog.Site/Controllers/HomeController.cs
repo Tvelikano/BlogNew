@@ -1,9 +1,13 @@
-﻿using Blog.Site.Models;
+﻿using System;
+using Blog.Site.Models;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Blog.Services;
+using Blog.Services.Enums;
+using Blog.Services.Interfaces;
 
 namespace Blog.Site.Controllers
 {
@@ -17,51 +21,46 @@ namespace Blog.Site.Controllers
         }
 
         [ValidateInput(false)]
-        public ActionResult Index(string searchString = null, int page = 1)
+        public ActionResult Index(string searchString = "", int page = 1)
         {
             const int pageSize = 3;
-            var records = _service.GetAll();
-            records = HttpContext.User.Identity.IsAuthenticated ?
-                records.Where(rec => rec.State != RecordStateDTO.Private) :
-                records.Where(rec => rec.State == RecordStateDTO.Public);
-            if (searchString != null)
-            {
-                searchString = Server.HtmlEncode(searchString);
-                records = records.Where(prod => prod.Name.Contains(searchString));
-            }
-            if (!records.Any())
-            {
-                return Content("No records");
-            }
+
+            var records = _service.GetAll(HttpContext.User.Identity.IsAuthenticated, searchString, page, pageSize, out var count);
+
             var model = new RecordListViewModel()
             {
-                Records = records
-                    .Skip((page - 1) * pageSize)
-                    .Take(pageSize),
+                Records = records,
                 PageInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = records.Count()
+                    TotalItems = count
                 },
                 SearchString = searchString
             };
+
             return View(model);
         }
+
         [Authorize]
         public ViewResult Create()
         {
             return View();
         }
+
         [Authorize]
         [HttpPost]
         public async Task<ActionResult> Create(RecordDTO record)
         {
-            if (!ModelState.IsValid) return View(record);
+            if (!ModelState.IsValid)
+            {
+                return View(record);
+            }
 
             await _service.Insert(record);
 
             TempData["message"] = "Your post has been sent for moderation.";
+
             return RedirectToAction("Index");
         }
         
@@ -71,11 +70,14 @@ namespace Blog.Site.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var product = await _service.FindById(id);
+
             if (product == null)
             {
                 return HttpNotFound();
             }
+
             return View(product);
         }
     }

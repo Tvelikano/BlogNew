@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Blog.Data;
-using Blog.Data.Identity;
-using Blog.Services.Identity;
+using Blog.Data.Interfaces;
+using Blog.Data.Repository;
+using Blog.Data.Repository.Interfaces;
+using Blog.Services.Interfaces;
 using Ninject;
 
 namespace Blog.Services

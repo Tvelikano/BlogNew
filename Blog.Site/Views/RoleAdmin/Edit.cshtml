@@ -1,0 +1,13 @@
+﻿@model Blog.Services.Identity.RoleDTO
+@{
+    ViewBag.Title = "Change Role";
+}
+
+<h2>Change Role</h2>
+@Html.ValidationSummary()
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="roleName" value="@Model.Name" />
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-info" })
+}

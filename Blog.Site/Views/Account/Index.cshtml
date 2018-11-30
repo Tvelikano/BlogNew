@@ -1,0 +1,18 @@
+﻿@model System.Security.Principal.IPrincipal
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Account</h2>
+
+@Model.Identity.Name
+
+@if (Model.IsInRole("Admin"))
+{
+    <div>
+        @Html.ActionLink("Manage Records", "Index", "RecordAdmin", null, new { @class = "btn btn-info" })
+        @Html.ActionLink("Manage Users", "Index", "UserAdmin", null, new { @class = "btn btn-info" })
+        @Html.ActionLink("Manage Roles", "Index", "RoleAdmin", null, new { @class = "btn btn-info" })
+    </div>
+
+}

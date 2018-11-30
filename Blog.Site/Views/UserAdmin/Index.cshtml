@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Blog.Services.Identity.UserDTO>
+
+@{
+    ViewBag.Title = "Users";
+}
+@if (@TempData["message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["message"]
+    </div>
+}
+<div>
+    <div>Users</div>
+    @Html.ActionLink("CreateUser New", "Create", null, new { @class = "btn btn-primary" })
+    <table class="table table-striped table-bordered table-hover">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.UserName)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.DisplayNameFor(model => model.Role)</th>
+            <th></th>
+        </tr>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+                <td>
+                    @Html.ActionLink("Change", "Edit", new {id = user.Id},
+                        new {@class = "btn btn-primary"})
+                    @using (Html.BeginForm("Delete", "UserAdmin", new { id = user.Id }))
+                    {
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>

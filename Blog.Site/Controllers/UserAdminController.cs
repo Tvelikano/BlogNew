@@ -1,21 +1,24 @@
-﻿using System.Linq;
-using Blog.Site.Models;
-using Microsoft.AspNet.Identity.Owin;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Blog.Services;
 using Blog.Services.Interfaces;
 using Blog.Services.Models;
+using Blog.Site.Models;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Blog.Site.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class UserAdminController : Controller
     {
-        private IUserService UserService => HttpContext.GetOwinContext().GetUserManager<IUserService>();
         private readonly IMapper _mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
+        private IUserService UserService { get; }
+
+        public UserAdminController(IUserService service)
+        {
+            UserService = service;
+        }
 
         public ActionResult Index()
         {

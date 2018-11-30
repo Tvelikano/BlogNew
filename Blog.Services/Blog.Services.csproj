@@ -127,7 +127,6 @@
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Models\OperationDetails.cs" />
     <Compile Include="RoleDTO.cs" />
-    <Compile Include="ServiceCreator.cs" />
     <Compile Include="UserDTO.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Interfaces\IRecordService.cs" />

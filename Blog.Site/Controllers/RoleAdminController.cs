@@ -1,9 +1,7 @@
 ﻿using Blog.Services.Interfaces;
 using Blog.Services.Models;
-using Microsoft.AspNet.Identity.Owin;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Blog.Site.Controllers
@@ -11,7 +9,12 @@ namespace Blog.Site.Controllers
     [Authorize(Roles = "Admin")]
     public class RoleAdminController : Controller
     {
-        private IUserService UserService => HttpContext.GetOwinContext().GetUserManager<IUserService>();
+        private IUserService UserService { get; }
+
+        public RoleAdminController(IUserService service)
+        {
+            UserService = service;
+        }
 
         public ActionResult Index()
         {

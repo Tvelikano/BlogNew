@@ -1,21 +1,24 @@
-﻿using Blog.Site.Models;
-using Microsoft.AspNet.Identity.Owin;
+﻿using AutoMapper;
+using Blog.Services;
+using Blog.Services.Interfaces;
+using Blog.Services.Models;
+using Blog.Site.Models;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using Blog.Services;
-using Blog.Services.Interfaces;
-using Blog.Services.Models;
 
 namespace Blog.Site.Controllers
 {
     public class AccountController : Controller
     {
-        private IUserService UserService => HttpContext.GetOwinContext().GetUserManager<IUserService>();
         private IAuthenticationManager AuthManager => HttpContext.GetOwinContext().Authentication;
+        private IUserService UserService { get; }
 
+        public AccountController(IUserService service)
+        {
+            UserService = service;
+        }
 
         public ActionResult Register()
         {

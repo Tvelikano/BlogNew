@@ -14,12 +14,14 @@ namespace Blog.Services
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _database;
-        private readonly IMapper _userMapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-        private readonly IMapper _roleMapper = new MapperConfiguration(cfg => cfg.CreateMap<Role, RoleDTO>()).CreateMapper();
+        private readonly IMapper _userMapper;
+        private readonly IMapper _roleMapper;
 
-        public UserService(IUnitOfWork uow)
+        public UserService(IUnitOfWork uow, IMapper userMapper, IMapper roleMapper)
         {
             _database = uow;
+            _userMapper = userMapper;
+            _roleMapper = roleMapper;
         }
 
         public IEnumerable<UserDTO> GetAllUsers()

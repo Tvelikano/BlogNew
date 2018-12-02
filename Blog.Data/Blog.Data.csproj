@@ -82,6 +82,7 @@
     <Compile Include="AppIdentityDbContext.cs" />
     <Compile Include="AppRoleManager.cs" />
     <Compile Include="AppUserManager.cs" />
+    <Compile Include="Interfaces\IAppRoleManager.cs" />
     <Compile Include="Interfaces\IAppUserManager.cs" />
     <Compile Include="IdentityUnitOfWork.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />

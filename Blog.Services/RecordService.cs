@@ -14,11 +14,12 @@ namespace Blog.Services
     public class RecordService : IRecordService
     {
         private readonly IRecordRepository _repository;
-        private readonly IMapper _mapper = new MapperConfiguration(cfg => cfg.CreateMap<Record, RecordDTO>()).CreateMapper();
+        private readonly IMapper _mapper;
 
-        public RecordService(IRecordRepository repo)
+        public RecordService(IRecordRepository repo, IMapper mapper)
         {
             _repository = repo;
+            _mapper = mapper;
         }
 
         public IEnumerable<RecordDTO> GetAll()

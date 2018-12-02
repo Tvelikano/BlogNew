@@ -5,9 +5,9 @@ namespace Blog.Data.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        AppUserManager UserManager { get; }
+        IAppUserManager UserManager { get; }
 
-        AppRoleManager RoleManager { get; }
+        IAppRoleManager RoleManager { get; }
 
         Task SaveAsync();
     }

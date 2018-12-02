@@ -10,9 +10,9 @@ namespace Blog.Data
         private readonly AppIdentityDbContext _db;
         private bool _disposed;
 
-        public AppUserManager UserManager { get; }
+        public IAppUserManager UserManager { get; }
 
-        public AppRoleManager RoleManager { get; }
+        public IAppRoleManager RoleManager { get; }
 
         public IdentityUnitOfWork()
         {

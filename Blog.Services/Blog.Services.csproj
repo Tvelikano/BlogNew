@@ -121,10 +121,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperModule.cs" />
     <Compile Include="App_Start\DependencyResolver.cs" />
     <Compile Include="App_Start\Ninject.Web.Common.cs" />
     <Compile Include="Enums\RecordStateDTO.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Mappers\RecordMapper.cs" />
     <Compile Include="Models\OperationDetails.cs" />
     <Compile Include="RoleDTO.cs" />
     <Compile Include="UserDTO.cs" />

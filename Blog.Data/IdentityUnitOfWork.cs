@@ -14,7 +14,7 @@ namespace Blog.Data
 
         public IAppRoleManager RoleManager { get; }
 
-        public IdentityUnitOfWork()
+        public IdentityUnitOfWork(IAppUserManager userManager)
         {
             _db = new AppIdentityDbContext();
 

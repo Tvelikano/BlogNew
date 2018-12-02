@@ -6,6 +6,7 @@ using Blog.Data.Interfaces;
 using Blog.Data.Repository;
 using Blog.Data.Repository.Interfaces;
 using Blog.Services.Interfaces;
+using Microsoft.AspNet.Identity;
 using Ninject;
 
 namespace Blog.Services
@@ -30,6 +31,7 @@ namespace Blog.Services
         }
         private void AddBindings()
         {
+            _kernel.Bind<IAppUserManager>().To<AppUserManager>();
             _kernel.Bind<IRecordRepository>().To<EfRecordRepository>();
             _kernel.Bind<IRecordService>().To<RecordService>();
             _kernel.Bind<IUserService>().To<UserService>();

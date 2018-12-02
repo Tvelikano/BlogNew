@@ -6,18 +6,20 @@ using Blog.Site.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Ninject;
 
 namespace Blog.Site.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class UserAdminController : Controller
     {
-        private readonly IMapper _mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
+        private readonly IMapper _mapper;
         private IUserService UserService { get; }
 
-        public UserAdminController(IUserService service)
+        public UserAdminController(IUserService service, [Named("Site")] IMapper mapper)
         {
             UserService = service;
+            _mapper = mapper;
         }
 
         public ActionResult Index()

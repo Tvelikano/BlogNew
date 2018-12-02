@@ -8,6 +8,7 @@ using Blog.Data.Interfaces;
 using Blog.Services.Interfaces;
 using Blog.Services.Models;
 using Microsoft.AspNet.Identity;
+using Ninject;
 
 namespace Blog.Services
 {
@@ -17,7 +18,7 @@ namespace Blog.Services
         private readonly IMapper _userMapper;
         private readonly IMapper _roleMapper;
 
-        public UserService(IUnitOfWork uow, IMapper userMapper, IMapper roleMapper)
+        public UserService(IUnitOfWork uow, [Named("Service")] IMapper userMapper, [Named("Service")] IMapper roleMapper)
         {
             _database = uow;
             _userMapper = userMapper;

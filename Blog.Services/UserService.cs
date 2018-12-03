@@ -24,25 +24,58 @@ namespace Blog.Services
             _roleMapper = roleMapper;
         }
 
-        public IEnumerable<UserDTO> GetAllUsers()
+        public async Task<IEnumerable<UserDTO>> GetAllUsers()
         {
-            return _userMapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(_database.UserManager.Users);
+            var users = _database.UserManager.Users;
+
+            var usersDto = _userMapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
+
+            foreach (var user in users)
+            {
+                foreach (var role in user.Roles)
+                {
+                    var appRole = await _database.RoleManager.FindByIdAsync(role.RoleId);
+
+                    usersDto.FirstOrDefault(u => u.Id == user.Id).AppRoles.Add(_roleMapper.Map<RoleDTO>(appRole));
+                }
+            }
+
+            return usersDto;
         }
 
         public async Task<UserDTO> GetUserById(string id)
         {
             var user = await _database.UserManager.FindByIdAsync(id);
 
-            return _userMapper.Map<UserDTO>(user);
+            var userDto = _userMapper.Map<UserDTO>(user);
+
+            foreach (var role in user.Roles)
+            {
+                var appRole = await _database.RoleManager.FindByIdAsync(role.RoleId);
+
+                userDto.AppRoles.Add(_roleMapper.Map<RoleDTO>(appRole));
+            }
+
+            return userDto;
         }
 
-        public async Task<OperationDetails> EditUser(UserDTO userDto)
+        public async Task<OperationDetails> EditUser(UserDTO userDto, string[] rolesToAdd)
         {
             var user = await _database.UserManager.FindByIdAsync(userDto.Id);
 
             if (user == null)
             {
                 return new OperationDetails(false, new[] { "User not found" });
+            }
+
+            await _database.UserManager.RemoveFromRolesAsync(user.Id, GetAllRoles().Select(role => role.Name).ToArray());
+
+            if (rolesToAdd != null)
+            {
+                foreach (var role in rolesToAdd)
+                {
+                    await _database.UserManager.AddToRoleAsync(user.Id, role);
+                }
             }
 
             user.UserName = userDto.UserName;
@@ -78,7 +111,7 @@ namespace Blog.Services
 
             if (user != null)
             {
-                return new OperationDetails(false, new[] { "User with this login already exist" });
+                return new OperationDetails(false, new[] { "User with this Email already exist" });
             }
 
             user = new User { Email = userDto.Email, UserName = userDto.UserName };
@@ -89,8 +122,8 @@ namespace Blog.Services
             {
                 return new OperationDetails(false, result.Errors);
             }
-               
-            await _database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
+
+            await _database.UserManager.AddToRolesAsync(user.Id, "User");
 
             await _database.SaveAsync();
 
@@ -131,7 +164,7 @@ namespace Blog.Services
             {
                 return new OperationDetails(false, result.Errors);
             }
-                
+
             await _database.SaveAsync();
 
             return new OperationDetails(true, new[] { "Role successfully created" });
@@ -151,7 +184,7 @@ namespace Blog.Services
             {
                 return new OperationDetails(false, result.Errors);
             }
-                
+
             await _database.SaveAsync();
 
             return new OperationDetails(true, new[] { "User successfully deleted" });
@@ -167,7 +200,7 @@ namespace Blog.Services
             {
                 claim = await _database.UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             }
-                
+
             return claim;
         }
 

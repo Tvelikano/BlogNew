@@ -8,9 +8,9 @@ namespace Blog.Services.Interfaces
 {
     public interface IUserService : IDisposable
     {
-        IEnumerable<UserDTO> GetAllUsers();
+        Task<IEnumerable<UserDTO>> GetAllUsers();
         Task<UserDTO> GetUserById(string id);
-        Task<OperationDetails> EditUser(UserDTO userDto);
+        Task<OperationDetails> EditUser(UserDTO userDto, string[] rolesToAdd);
         Task<OperationDetails> DeleteUserById(string id);
         IEnumerable<RoleDTO> GetAllRoles();
         Task<OperationDetails> CreateRole(string name);

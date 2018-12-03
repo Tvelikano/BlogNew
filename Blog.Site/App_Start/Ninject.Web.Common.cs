@@ -43,7 +43,7 @@ namespace Blog.Site
             var kernel = new StandardKernel(new NinjectSettings
             {
                 AllowNullInjection = true
-            }, new ServiceAutoMapperModule(), new SiteAutoMapperModule() );
+            }, new ServiceAutoMapperModule(), new SiteAutoMapperModule());
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);

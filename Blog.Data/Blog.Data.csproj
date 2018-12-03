@@ -92,6 +92,10 @@
     <Compile Include="Identity\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Identity\Role.cs" />
     <Compile Include="Identity\User.cs" />
+    <Compile Include="Migrations\201812031045052_123.cs" />
+    <Compile Include="Migrations\201812031045052_123.Designer.cs">
+      <DependentUpon>201812031045052_123.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repository\Interfaces\IRecordRepository.cs" />
     <Compile Include="Migrations\201811281406067_first.cs" />
     <Compile Include="Migrations\201811281406067_first.Designer.cs">
@@ -110,6 +114,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201811281406067_first.resx">
       <DependentUpon>201811281406067_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812031045052_123.resx">
+      <DependentUpon>201812031045052_123.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

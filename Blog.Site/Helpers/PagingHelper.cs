@@ -13,32 +13,64 @@ namespace Blog.Site.Helpers
             Func<int, string> pageUrl)
         {
             var result = new StringBuilder();
-
-            for (var i = 1; i <= pagingInfo.TotalPages; i++)
+            
+            if (pagingInfo.CurrentPage != 1)
             {
-                var tag = new TagBuilder("a");
+                var tag = Build(pagingInfo.CurrentPage, pageUrl(pagingInfo.CurrentPage - 1), "<");
+                
+                result.Append(tag);
+            }
 
-                tag.MergeAttribute("href", pageUrl(i));
+            var tagBegin = Build(pagingInfo.CurrentPage, pageUrl(1), 1.ToString(), 1);
 
-                tag.InnerHtml = i.ToString();
+            result.Append(tagBegin);
 
-                tag.AddCssClass("btn");
-
-                if (i == pagingInfo.CurrentPage)
+            for (var i = 2; i <= pagingInfo.TotalPages-1; i++)
+            {
+                if (Math.Abs(i - pagingInfo.CurrentPage) < 2)
                 {
-                    tag.AddCssClass("selected");
+                    var tag = Build(pagingInfo.CurrentPage, pageUrl(i), i.ToString(), i);
 
-                    tag.AddCssClass("btn-primary");
+                    result.Append(tag);
                 }
-                else
-                {
-                    tag.AddCssClass("btn-dark");
-                }
+            }
+
+            var tagEnd = Build(pagingInfo.CurrentPage, pageUrl(pagingInfo.TotalPages), pagingInfo.TotalPages.ToString(), pagingInfo.TotalPages);
+
+            result.Append(tagEnd);
+
+            if (pagingInfo.CurrentPage != pagingInfo.TotalItems)
+            {
+                var tag = Build(pagingInfo.CurrentPage, pageUrl(pagingInfo.CurrentPage + 1), ">");
 
                 result.Append(tag);
             }
 
             return MvcHtmlString.Create(result.ToString());
+        }
+
+        public static TagBuilder Build(int currentPage, string href, string html, int page = 0)
+        {
+            var tag = new TagBuilder("a");
+
+            tag.MergeAttribute("href", href);
+
+            tag.InnerHtml = html;
+
+            tag.AddCssClass("btn");
+
+            if (page == currentPage)
+            {
+                tag.AddCssClass("selected");
+
+                tag.AddCssClass("btn-primary");
+            }
+            else
+            {
+                tag.AddCssClass("btn-dark");
+            }
+
+            return tag;
         }
     }
 }

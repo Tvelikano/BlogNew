@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Blog.Services;
 
 namespace Blog.Site.Models
 {
@@ -22,6 +24,6 @@ namespace Blog.Site.Models
         [DataType(DataType.Password)]
         public string PasswordConfirm { get; set; }
 
-        public string Role { get; set; } = "User";
+        public ICollection<RoleDTO> AppRoles { get; set; }
     }
 }

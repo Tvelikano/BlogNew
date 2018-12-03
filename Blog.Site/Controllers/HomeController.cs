@@ -19,7 +19,7 @@ namespace Blog.Site.Controllers
         [ValidateInput(false)]
         public ActionResult Index(string searchString = "", int page = 1)
         {
-            const int pageSize = 3;
+            const int pageSize = 1;
 
             var records = _service.GetAll(HttpContext.User.Identity.IsAuthenticated, searchString, page, pageSize, out var count);
 

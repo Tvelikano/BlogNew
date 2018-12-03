@@ -31,7 +31,7 @@ namespace Blog.Site.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(name);
+                return View();
             }
 
             var result = await UserService.CreateRole(name);
@@ -43,7 +43,7 @@ namespace Blog.Site.Controllers
                 
             AddErrorsFromResult(result);
 
-            return View(name);
+            return View();
         }
 
         [HttpPost]

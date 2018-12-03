@@ -17,7 +17,7 @@
             <th>@Html.DisplayNameFor(model => model.Id)</th>
             <th>@Html.DisplayNameFor(model => model.UserName)</th>
             <th>@Html.DisplayNameFor(model => model.Email)</th>
-            <th>@Html.DisplayNameFor(model => model.Role)</th>
+            <th>@Html.DisplayNameFor(model => model.AppRoles)</th>
             <th></th>
         </tr>
         @foreach (var user in Model)
@@ -26,7 +26,12 @@
                 <td>@user.Id</td>
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
-                <td>@user.Role</td>
+                <td>
+                    @foreach (var role in user.AppRoles)
+                    {
+                        <p>@role.Name</p>
+                    }
+                </td>
                 <td>
                     @Html.ActionLink("Change", "Edit", new {id = user.Id},
                         new {@class = "btn btn-primary"})

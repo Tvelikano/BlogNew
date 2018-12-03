@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Diagnostics;
+using AutoMapper;
 using Blog.Services;
 using Blog.Services.Interfaces;
 using Blog.Services.Models;
@@ -6,6 +7,7 @@ using Blog.Site.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Ninject;
 
 namespace Blog.Site.Controllers
 {
@@ -21,9 +23,9 @@ namespace Blog.Site.Controllers
             _mapper = mapper;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(_userService.GetAllUsers());
+            return View(await _userService.GetAllUsers());
         }
 
         public ActionResult Create()
@@ -49,7 +51,7 @@ namespace Blog.Site.Controllers
             {
                 return RedirectToAction("Index");
             }
-                
+
             return View(model);
         }
 
@@ -57,25 +59,29 @@ namespace Blog.Site.Controllers
         {
             var user = await _userService.GetUserById(id);
 
-            if (user != null)
+            if (user == null)
             {
-                return View(_mapper.Map<UserViewModel>(user));
+                return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index");
+            ViewBag.Roles = _userService.GetAllRoles();
+
+            return View(_mapper.Map<UserViewModel>(user));
+
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(UserViewModel model)
+        public async Task<ActionResult> Edit(UserViewModel model, string[] rolesToAdd)
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.Roles = _userService.GetAllRoles();
                 return View(model);
             }
 
             var userDto = _mapper.Map<UserDTO>(model);
 
-            var result = await _userService.EditUser(userDto);
+            var result = await _userService.EditUser(userDto, rolesToAdd);
 
             MessageFromResult(result);
 
@@ -102,7 +108,7 @@ namespace Blog.Site.Controllers
                     ModelState.AddModelError("", message);
                 }
             }
-                
+
         }
     }
 }

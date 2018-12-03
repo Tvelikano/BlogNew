@@ -108,9 +108,9 @@ namespace Blog.Site.Controllers
 
         private void AddErrorsFromResult(OperationDetails result)
         {
-            foreach (var mes in result.Message)
+            foreach (var message in result.Message)
             {
-                ModelState.AddModelError("", mes);
+                ModelState.AddModelError("", message);
             }
         }
     }

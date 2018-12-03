@@ -1,8 +1,9 @@
 ﻿using System.Data.Entity;
+using Blog.Data.Interfaces;
 
 namespace Blog.Data
 {
-    internal class RecordContext : DbContext
+    public class RecordContext : DbContext, IRecordContext
     {
         public DbSet<Record> Records { get; set; }
 

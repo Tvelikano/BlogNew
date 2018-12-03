@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Ninject;
 
 namespace Blog.Services
 {
@@ -17,7 +16,7 @@ namespace Blog.Services
         private readonly IRecordRepository _repository;
         private readonly IMapper _mapper;
 
-        public RecordService(IRecordRepository repo, [Named("Service")] IMapper mapper)
+        public RecordService(IRecordRepository repo, IMapper mapper)
         {
             _repository = repo;
             _mapper = mapper;

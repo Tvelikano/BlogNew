@@ -78,16 +78,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Identity\AppRoleStore.cs" />
+    <Compile Include="Identity\AppUserStore.cs" />
     <Compile Include="Enums\RecordState.cs" />
-    <Compile Include="AppIdentityDbContext.cs" />
-    <Compile Include="AppRoleManager.cs" />
-    <Compile Include="AppUserManager.cs" />
-    <Compile Include="Interfaces\IAppRoleManager.cs" />
-    <Compile Include="Interfaces\IAppUserManager.cs" />
-    <Compile Include="IdentityUnitOfWork.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Identity\AppIdentityDbContext.cs" />
+    <Compile Include="Identity\AppRoleManager.cs" />
+    <Compile Include="Identity\AppUserManager.cs" />
+    <Compile Include="Identity\Interfaces\IAppIdentityDbContext.cs" />
+    <Compile Include="Identity\Interfaces\IAppRoleManager.cs" />
+    <Compile Include="Identity\Interfaces\IAppUserManager.cs" />
+    <Compile Include="Identity\IdentityUnitOfWork.cs" />
+    <Compile Include="Interfaces\IRecordContext.cs" />
+    <Compile Include="Identity\Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Identity\Role.cs" />
+    <Compile Include="Identity\User.cs" />
     <Compile Include="Repository\Interfaces\IRecordRepository.cs" />
     <Compile Include="Migrations\201811281406067_first.cs" />
     <Compile Include="Migrations\201811281406067_first.Designer.cs">

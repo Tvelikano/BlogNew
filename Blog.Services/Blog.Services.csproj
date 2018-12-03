@@ -125,7 +125,6 @@
     <Compile Include="App_Start\DependencyResolver.cs" />
     <Compile Include="Enums\RecordStateDTO.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
-    <Compile Include="Mappers\RecordMapper.cs" />
     <Compile Include="Models\OperationDetails.cs" />
     <Compile Include="RoleDTO.cs" />
     <Compile Include="UserDTO.cs" />

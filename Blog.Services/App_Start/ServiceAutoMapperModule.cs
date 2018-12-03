@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Blog.Data;
+using Blog.Data.Identity;
 using Ninject;
 using Ninject.Modules;
 
@@ -9,21 +10,23 @@ namespace Blog.Services
     {
         public override void Load()
         {
-            Bind<IMapper>().ToMethod(AutoMapper).InSingletonScope().Named("Service");
+            Bind<IMapper>().ToMethod(AutoMapper).InSingletonScope();
         }
 
         private IMapper AutoMapper(Ninject.Activation.IContext context)
         {
-            Mapper.Initialize(config =>
+            var conf = new MapperConfiguration(cfg =>
             {
-                config.ConstructServicesUsing(type => context.Kernel.Get(type));
+                cfg.ConstructServicesUsing(type => context.Kernel.Get(type));
 
-                config.CreateMap<Record, RecordDTO>();
-                config.CreateMap<User, UserDTO>();
-                config.CreateMap<Role, RoleDTO>();          
+                cfg.CreateMap<Record, RecordDTO>();
 
+                cfg.CreateMap<User, UserDTO>();
+
+                cfg.CreateMap<Role, RoleDTO>();
             });
-            return Mapper.Instance;
+
+            return new Mapper(conf);
 
         }
     }

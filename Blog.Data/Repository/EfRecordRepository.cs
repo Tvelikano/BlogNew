@@ -4,22 +4,28 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Blog.Data.Interfaces;
 using Blog.Data.Repository.Interfaces;
 
 namespace Blog.Data.Repository
 {
     public class EfRecordRepository : IRecordRepository
     {
-        private readonly RecordContext _context = new RecordContext();
+        private readonly IRecordContext _context;
+        private readonly DbSet<Record> _records;
 
-        private DbSet<Record> Records => _context.Records;
+        public EfRecordRepository(IRecordContext context)
+        {
+            _context = context;
+            _records = _context.Records;
+        }
 
         public IEnumerable<Record> Get(
             Expression<Func<Record, bool>> filter = null,
             Func<IQueryable<Record>, IOrderedQueryable<Record>> orderBy = null,
             Func<IQueryable<Record>, IQueryable<Record>> param = null)
         {
-            IQueryable<Record> query = Records;
+            IQueryable<Record> query = _records;
 
             if (filter != null)
             {
@@ -41,12 +47,12 @@ namespace Blog.Data.Repository
 
         public async Task<Record> GetById(object id)
         {
-            return await Records.FindAsync(id);
+            return await _records.FindAsync(id);
         }
 
         public async Task Insert(Record entityToInsert)
         {
-            Records.Add(entityToInsert);
+            _records.Add(entityToInsert);
 
             await Save();
         }
@@ -55,17 +61,17 @@ namespace Blog.Data.Repository
         {
             if (_context.Entry(entityToDelete).State == EntityState.Detached)
             {
-                Records.Attach(entityToDelete);
+                _records.Attach(entityToDelete);
             }
 
-            Records.Remove(entityToDelete);
+            _records.Remove(entityToDelete);
 
             await Save();
         }
 
         public async Task Update(Record entityToUpdate)
         {
-            Records.Attach(entityToUpdate);
+            _records.Attach(entityToUpdate);
 
             _context.Entry(entityToUpdate).State = EntityState.Modified;
 

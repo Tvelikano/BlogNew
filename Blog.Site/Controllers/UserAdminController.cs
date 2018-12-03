@@ -6,7 +6,6 @@ using Blog.Site.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Ninject;
 
 namespace Blog.Site.Controllers
 {
@@ -14,17 +13,17 @@ namespace Blog.Site.Controllers
     public class UserAdminController : Controller
     {
         private readonly IMapper _mapper;
-        private IUserService UserService { get; }
+        private readonly IUserService _userService;
 
-        public UserAdminController(IUserService service, [Named("Site")] IMapper mapper)
+        public UserAdminController(IUserService service, IMapper mapper)
         {
-            UserService = service;
+            _userService = service;
             _mapper = mapper;
         }
 
         public ActionResult Index()
         {
-            return View(UserService.GetAllUsers());
+            return View(_userService.GetAllUsers());
         }
 
         public ActionResult Create()
@@ -42,7 +41,7 @@ namespace Blog.Site.Controllers
 
             var userDto = _mapper.Map<UserDTO>(model);
 
-            var result = await UserService.CreateUser(userDto);
+            var result = await _userService.CreateUser(userDto);
 
             MessageFromResult(result);
 
@@ -56,7 +55,7 @@ namespace Blog.Site.Controllers
 
         public async Task<ActionResult> Edit(string id)
         {
-            var user = await UserService.GetUserById(id);
+            var user = await _userService.GetUserById(id);
 
             if (user != null)
             {
@@ -76,7 +75,7 @@ namespace Blog.Site.Controllers
 
             var userDto = _mapper.Map<UserDTO>(model);
 
-            var result = await UserService.EditUser(userDto);
+            var result = await _userService.EditUser(userDto);
 
             MessageFromResult(result);
 
@@ -85,7 +84,7 @@ namespace Blog.Site.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {
-            MessageFromResult(await UserService.DeleteUserById(id));
+            MessageFromResult(await _userService.DeleteUserById(id));
 
             return RedirectToAction("Index");
         }

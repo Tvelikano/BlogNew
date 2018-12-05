@@ -7,7 +7,7 @@ namespace Blog.Services.Interfaces
     {
         IEnumerable<RecordDTO> GetAll();
 
-        IEnumerable<RecordDTO> GetAll(bool isAuthenticated, string searchString, int page, int pageSize, out int count);
+        (IEnumerable<RecordDTO>, int) GetAll(GetAllArgs args);
 
         Task<RecordDTO> FindById(int? id);
 

@@ -24,6 +24,6 @@ namespace Blog.Site.Models
         [DataType(DataType.Password)]
         public string PasswordConfirm { get; set; }
 
-        public ICollection<RoleDTO> AppRoles { get; set; }
+        public string[] Roles { get; set; }
     }
 }

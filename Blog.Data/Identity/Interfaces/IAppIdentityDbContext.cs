@@ -15,7 +15,6 @@ namespace Blog.Data.Identity.Interfaces
         IDbSet<IdentityRole> Roles { get; set; }
         bool RequireUniqueEmail { get; set; }
         Database Database { get; }
-        DbChangeTracker ChangeTracker { get; }
         DbContextConfiguration Configuration { get; }
         DbSet Set(Type entityType);
         int SaveChanges();
@@ -23,10 +22,5 @@ namespace Blog.Data.Identity.Interfaces
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         IEnumerable<DbEntityValidationResult> GetValidationErrors();
         DbEntityEntry Entry(object entity);
-        void Dispose();
-        string ToString();
-        bool Equals(object obj);
-        int GetHashCode();
-        Type GetType();
     }
 }

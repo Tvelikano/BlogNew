@@ -17,7 +17,7 @@
             <th>@Html.DisplayNameFor(model => model.Id)</th>
             <th>@Html.DisplayNameFor(model => model.UserName)</th>
             <th>@Html.DisplayNameFor(model => model.Email)</th>
-            <th>@Html.DisplayNameFor(model => model.AppRoles)</th>
+            <th>@Html.DisplayNameFor(model => model.Roles)</th>
             <th></th>
         </tr>
         @foreach (var user in Model)
@@ -27,9 +27,9 @@
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
                 <td>
-                    @foreach (var role in user.AppRoles)
+                    @foreach (var role in user.Roles)
                     {
-                        <p>@role.Name</p>
+                        <p>@role</p>
                     }
                 </td>
                 <td>

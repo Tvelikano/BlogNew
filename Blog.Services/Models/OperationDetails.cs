@@ -7,7 +7,6 @@ namespace Blog.Services.Models
         public OperationDetails(bool isSucceed, IEnumerable<string> message)
         {
             IsSucceed = isSucceed;
-
             Message = message;
         }
 

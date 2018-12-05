@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Blog.Data.Identity.Interfaces;
+using System;
 using System.Threading.Tasks;
-using Blog.Data.Identity.Interfaces;
 
 namespace Blog.Data.Identity
 {
@@ -16,9 +16,7 @@ namespace Blog.Data.Identity
         public IdentityUnitOfWork(IAppIdentityDbContext dbContext, IAppUserManager userManager, IAppRoleManager roleManager)
         {
             _db = dbContext;
-
             UserManager = userManager;
-
             RoleManager = roleManager;
         }
         
@@ -30,7 +28,6 @@ namespace Blog.Data.Identity
         public void Dispose()
         {
             Dispose(true);
-
             GC.SuppressFinalize(this);
         }
 
@@ -44,7 +41,6 @@ namespace Blog.Data.Identity
             if (disposing)
             {
                 UserManager.Dispose();
-
                 RoleManager.Dispose();
             }
 

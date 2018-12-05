@@ -8,7 +8,7 @@ namespace Blog.Services.Interfaces
 {
     public interface IUserService : IDisposable
     {
-        Task<IEnumerable<UserDTO>> GetAllUsers();
+        IList<UserDTO> GetAllUsers();
         Task<UserDTO> GetUserById(string id);
         Task<OperationDetails> EditUser(UserDTO userDto, string[] rolesToAdd);
         Task<OperationDetails> DeleteUserById(string id);

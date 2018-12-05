@@ -5,6 +5,7 @@ using Blog.Services.Interfaces;
 using Blog.Services.Models;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -24,39 +25,14 @@ namespace Blog.Services
             _roleMapper = roleMapper;
         }
 
-        public async Task<IEnumerable<UserDTO>> GetAllUsers()
+        public IList<UserDTO> GetAllUsers()
         {
-            var users = _database.UserManager.Users;
-
-            var usersDto = _userMapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
-
-            foreach (var user in users)
-            {
-                foreach (var role in user.Roles)
-                {
-                    var appRole = await _database.RoleManager.FindByIdAsync(role.RoleId);
-
-                    usersDto.FirstOrDefault(u => u.Id == user.Id).AppRoles.Add(_roleMapper.Map<RoleDTO>(appRole));
-                }
-            }
-
-            return usersDto;
+            return _userMapper.Map<IList<User>, IList<UserDTO>>(_database.UserManager.Users.Include(x => x.Roles).ToList());
         }
 
         public async Task<UserDTO> GetUserById(string id)
         {
-            var user = await _database.UserManager.FindByIdAsync(id);
-
-            var userDto = _userMapper.Map<UserDTO>(user);
-
-            foreach (var role in user.Roles)
-            {
-                var appRole = await _database.RoleManager.FindByIdAsync(role.RoleId);
-
-                userDto.AppRoles.Add(_roleMapper.Map<RoleDTO>(appRole));
-            }
-
-            return userDto;
+            return _userMapper.Map<UserDTO>(await _database.UserManager.FindByIdAsync(id));
         }
 
         public async Task<OperationDetails> EditUser(UserDTO userDto, string[] rolesToAdd)
@@ -68,41 +44,50 @@ namespace Blog.Services
                 return new OperationDetails(false, new[] { "User not found" });
             }
 
-            await _database.UserManager.RemoveFromRolesAsync(user.Id, GetAllRoles().Select(role => role.Name).ToArray());
+            user.UserName = userDto.UserName;
+            user.Email = userDto.Email;
+
+            var isEmailValid = await _database.UserManager.UserValidator.ValidateAsync(user);
+
+            if (!isEmailValid.Succeeded)
+            {
+                return new OperationDetails(false, isEmailValid.Errors);
+            }
+
+            var isPasswordValid = await _database.UserManager.PasswordValidator.ValidateAsync(userDto.Password);
+
+            if (!isPasswordValid.Succeeded)
+            {
+                return new OperationDetails(false, isPasswordValid.Errors);
+            }
+
+            user.PasswordHash = _database.UserManager.PasswordHasher.HashPassword(userDto.Password);
+            
+            var removeFromRolesResult = await _database.UserManager.RemoveFromRolesAsync(user.Id, GetAllRoles().Select(role => role.Name).ToArray());
+
+            if (!removeFromRolesResult.Succeeded)
+            {
+                return new OperationDetails(false, removeFromRolesResult.Errors);
+            }
 
             if (rolesToAdd != null)
             {
                 foreach (var role in rolesToAdd)
                 {
-                    await _database.UserManager.AddToRoleAsync(user.Id, role);
+                    var addToRoleResult = await _database.UserManager.AddToRoleAsync(user.Id, role);
+
+                    if (!addToRoleResult.Succeeded)
+                    {
+                        return new OperationDetails(false, addToRoleResult.Errors);
+                    }
                 }
             }
 
-            user.UserName = userDto.UserName;
+            var updateUserResult = await _database.UserManager.UpdateAsync(user);
 
-            user.Email = userDto.Email;
-
-            var validEmail = await _database.UserManager.UserValidator.ValidateAsync(user);
-
-            if (!validEmail.Succeeded)
-            {
-                return new OperationDetails(false, validEmail.Errors);
-            }
-
-            var validPass = await _database.UserManager.PasswordValidator.ValidateAsync(userDto.Password);
-
-            if (!validPass.Succeeded)
-            {
-                return new OperationDetails(false, validPass.Errors);
-            }
-
-            user.PasswordHash = _database.UserManager.PasswordHasher.HashPassword(userDto.Password);
-
-            var result = await _database.UserManager.UpdateAsync(user);
-
-            return result.Succeeded ?
-                new OperationDetails(true, new[] { "User information successfully changed" }) :
-                new OperationDetails(false, result.Errors);
+            return !updateUserResult.Succeeded ? 
+                new OperationDetails(false, updateUserResult.Errors) :
+                new OperationDetails(true, new[] {"User information successfully changed"});
         }
 
         public async Task<OperationDetails> CreateUser(UserDTO userDto)
@@ -116,14 +101,19 @@ namespace Blog.Services
 
             user = new User { Email = userDto.Email, UserName = userDto.UserName };
 
-            var result = await _database.UserManager.CreateAsync(user, userDto.Password);
+            var createUserResult = await _database.UserManager.CreateAsync(user, userDto.Password);
 
-            if (result.Errors.Any())
+            if (createUserResult.Errors.Any())
             {
-                return new OperationDetails(false, result.Errors);
+                return new OperationDetails(false, createUserResult.Errors);
             }
 
-            await _database.UserManager.AddToRolesAsync(user.Id, "User");
+            var addToRoleResult = await _database.UserManager.AddToRolesAsync(user.Id, "User");
+
+            if (!addToRoleResult.Succeeded)
+            {
+                return new OperationDetails(false, addToRoleResult.Errors);
+            }
 
             await _database.SaveAsync();
 
@@ -139,12 +129,13 @@ namespace Blog.Services
                 return new OperationDetails(false, new[] { "User not found" });
             }
 
-            var result = await _database.UserManager.DeleteAsync(user);
+            var deleteUserResult = await _database.UserManager.DeleteAsync(user);
 
-            if (result.Errors.Any())
+            if (deleteUserResult.Errors.Any())
             {
-                return new OperationDetails(false, result.Errors);
+                return new OperationDetails(false, deleteUserResult.Errors);
             }
+
             await _database.SaveAsync();
 
             return new OperationDetails(true, new[] { "User successfully deleted" });
@@ -158,11 +149,11 @@ namespace Blog.Services
 
         public async Task<OperationDetails> CreateRole(string name)
         {
-            var result = await _database.RoleManager.CreateAsync(new Role { Name = name });
+            var createRoleResult = await _database.RoleManager.CreateAsync(new Role { Name = name });
 
-            if (result.Errors.Any())
+            if (createRoleResult.Errors.Any())
             {
-                return new OperationDetails(false, result.Errors);
+                return new OperationDetails(false, createRoleResult.Errors);
             }
 
             await _database.SaveAsync();
@@ -179,10 +170,10 @@ namespace Blog.Services
                 return new OperationDetails(false, new[] { "Role not found" });
             }
 
-            var result = await _database.RoleManager.DeleteAsync(role);
-            if (result.Errors.Any())
+            var deleteRoleResult = await _database.RoleManager.DeleteAsync(role);
+            if (deleteRoleResult.Errors.Any())
             {
-                return new OperationDetails(false, result.Errors);
+                return new OperationDetails(false, deleteRoleResult.Errors);
             }
 
             await _database.SaveAsync();

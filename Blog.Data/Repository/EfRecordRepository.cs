@@ -22,8 +22,8 @@ namespace Blog.Data.Repository
 
         public IEnumerable<Record> Get(
             Expression<Func<Record, bool>> filter = null,
-            Func<IQueryable<Record>, IOrderedQueryable<Record>> orderBy = null,
-            Func<IQueryable<Record>, IQueryable<Record>> param = null)
+            Expression<Func<Record, dynamic>> orderBy = null,
+            params Expression<Func<IQueryable<Record>, object>>[] navigations)
         {
             IQueryable<Record> query = _records;
 
@@ -34,14 +34,11 @@ namespace Blog.Data.Repository
 
             if (orderBy != null)
             {
-                query = orderBy.Invoke(query);
+                query = query.OrderBy(orderBy);
             }
 
-            if (param != null)
-            {
-                query = param.Invoke(query);
-            }
-
+            query = navigations.Aggregate(query, (current, par) => (IQueryable<Record>)par.Compile().Invoke(current));
+            
             return query;
         }
 

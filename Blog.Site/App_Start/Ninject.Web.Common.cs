@@ -40,10 +40,7 @@ namespace Blog.Site
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel(new NinjectSettings
-            {
-                AllowNullInjection = true
-            }, new ServiceAutoMapperModule(), new SiteAutoMapperModule());
+            var kernel = new StandardKernel(new SiteAutoMapperModule(), new ServiceAutoMapperModule());
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);

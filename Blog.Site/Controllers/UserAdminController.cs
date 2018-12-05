@@ -1,31 +1,29 @@
-﻿using System.Diagnostics;
-using AutoMapper;
-using Blog.Services;
+﻿using Blog.Services;
 using Blog.Services.Interfaces;
 using Blog.Services.Models;
 using Blog.Site.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Ninject;
+using AutoMapper;
 
 namespace Blog.Site.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class UserAdminController : Controller
     {
-        private readonly IMapper _mapper;
+        private readonly IRuntimeMapper _mapper;
         private readonly IUserService _userService;
 
-        public UserAdminController(IUserService service, IMapper mapper)
+        public UserAdminController(IUserService service, IRuntimeMapper mapper)
         {
             _userService = service;
             _mapper = mapper;
         }
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _userService.GetAllUsers());
+            return View(_userService.GetAllUsers());
         }
 
         public ActionResult Create()
@@ -67,15 +65,15 @@ namespace Blog.Site.Controllers
             ViewBag.Roles = _userService.GetAllRoles();
 
             return View(_mapper.Map<UserViewModel>(user));
-
         }
 
         [HttpPost]
         public async Task<ActionResult> Edit(UserViewModel model, string[] rolesToAdd)
         {
+            ViewBag.Roles = _userService.GetAllRoles();
+
             if (!ModelState.IsValid)
             {
-                ViewBag.Roles = _userService.GetAllRoles();
                 return View(model);
             }
 
@@ -87,6 +85,7 @@ namespace Blog.Site.Controllers
 
             return RedirectToAction(result.IsSucceed ? "Index" : "Edit");
         }
+
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {

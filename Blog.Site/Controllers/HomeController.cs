@@ -9,11 +9,11 @@ namespace Blog.Site.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRecordService _service;
+        private readonly IRecordService _recordService;
 
-        public HomeController(IRecordService service)
+        public HomeController(IRecordService recordService)
         {
-            _service = service;
+            _recordService = recordService;
         }
 
         [ValidateInput(false)]
@@ -21,16 +21,23 @@ namespace Blog.Site.Controllers
         {
             const int pageSize = 1;
 
-            var records = _service.GetAll(HttpContext.User.Identity.IsAuthenticated, searchString, page, pageSize, out var count);
+            var records = _recordService.GetAll(
+                new GetAllArgs
+                {
+                    IsAuthenticated = HttpContext.User.Identity.IsAuthenticated,
+                    SearchString = searchString,
+                    Page = page,
+                    PageSize = pageSize
+                });
 
             var model = new RecordListViewModel()
             {
-                Records = records,
+                Records = records.Item1,
                 PageInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = count
+                    TotalItems = records.Item2
                 },
                 SearchString = searchString
             };
@@ -53,7 +60,7 @@ namespace Blog.Site.Controllers
                 return View(record);
             }
 
-            await _service.Insert(record);
+            await _recordService.Insert(record);
 
             TempData["message"] = "Your post has been sent for moderation.";
 
@@ -67,7 +74,7 @@ namespace Blog.Site.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var product = await _service.FindById(id);
+            var product = await _recordService.FindById(id);
 
             if (product == null)
             {

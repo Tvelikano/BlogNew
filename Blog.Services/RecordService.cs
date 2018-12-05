@@ -27,26 +27,22 @@ namespace Blog.Services
             return _mapper.Map<IEnumerable<RecordDTO>>(_repository.Get());
         }
 
-        public IEnumerable<RecordDTO> GetAll(bool isAuthenticated, string searchString, int page, int pageSize, out int count)
+        public (IEnumerable<RecordDTO>, int) GetAll(GetAllArgs args)
         {
             Expression<Func<Record, bool>> filter;
 
-            if (isAuthenticated)
+            if (args.IsAuthenticated)
             {
-                filter = rec => rec.State != RecordState.Private && rec.Name.Contains(searchString);
+                filter = rec => rec.State != RecordState.Private && rec.Name.Contains(args.SearchString);
             }
             else
             {
-                filter = rec => rec.State == RecordState.Public && rec.Name.Contains(searchString);
+                filter = rec => rec.State == RecordState.Public && rec.Name.Contains(args.SearchString);
             }
 
-            IOrderedQueryable<Record> OrderBy(IQueryable<Record> record) => record.OrderByDescending(rec => rec.CreateDate);
+            var count = _repository.Get(filter, x => x.Name).Count();
 
-            count = _repository.Get(filter, OrderBy).Count();
-
-            IQueryable<Record> Func(IQueryable<Record> rec) => rec.Skip((page - 1) * pageSize).Take(pageSize);
-
-            return _mapper.Map<IEnumerable<RecordDTO>>(_repository.Get(filter, OrderBy, Func));
+            return (_mapper.Map<IEnumerable<RecordDTO>>(_repository.Get(filter, x => x.Name, x => x.Skip((args.Page - 1) * args.PageSize).Take(args.PageSize))), count);
         }
 
         public async Task<RecordDTO> FindById(int? id)

@@ -9,16 +9,16 @@ namespace Blog.Site.Controllers
     [Authorize(Roles = "Admin")]
     public class RoleAdminController : Controller
     {
-        private IUserService UserService { get; }
+        private readonly IUserService _userService;
 
-        public RoleAdminController(IUserService service)
+        public RoleAdminController(IUserService userService)
         {
-            UserService = service;
+            _userService = userService;
         }
 
         public ActionResult Index()
         {
-            return View(UserService.GetAllRoles());
+            return View(_userService.GetAllRoles());
         }
 
         public ActionResult Create()
@@ -34,7 +34,7 @@ namespace Blog.Site.Controllers
                 return View();
             }
 
-            var result = await UserService.CreateRole(name);
+            var result = await _userService.CreateRole(name);
 
             if (result.IsSucceed)
             {
@@ -49,7 +49,7 @@ namespace Blog.Site.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {
-            var result = await UserService.DeleteRoleById(id);
+            var result = await _userService.DeleteRoleById(id);
 
             if (result.IsSucceed)
             {

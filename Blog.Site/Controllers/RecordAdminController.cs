@@ -9,16 +9,16 @@ namespace Blog.Site.Controllers
     [Authorize(Roles = "Admin")]
     public class RecordAdminController : Controller
     {
-        private readonly IRecordService _service;
+        private readonly IRecordService _recordService;
 
-        public RecordAdminController(IRecordService service)
+        public RecordAdminController(IRecordService recordService)
         {
-            _service = service;
+            _recordService = recordService;
         }
 
         public ActionResult Index()
         {
-            return View(_service.GetAll());
+            return View(_recordService.GetAll());
         }
 
         public ViewResult Create()
@@ -34,7 +34,7 @@ namespace Blog.Site.Controllers
                 return View(record);
             }
 
-            await _service.Insert(record);
+            await _recordService.Insert(record);
 
             TempData["message"] = $"\"{record.Name}\" was saved";
 
@@ -48,7 +48,7 @@ namespace Blog.Site.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var record = await _service.FindById(id);
+            var record = await _recordService.FindById(id);
 
             return View(record);
         }
@@ -61,7 +61,7 @@ namespace Blog.Site.Controllers
                 return View(record);
             }
 
-            await _service.Update(record);
+            await _recordService.Update(record);
 
             TempData["message"] = $"Changes in \"{record.Name}\" was saved";
 
@@ -71,7 +71,7 @@ namespace Blog.Site.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(int id)
         {
-            await _service.Delete(id);
+            await _recordService.Delete(id);
 
             TempData["message"] = "Record was deleted";
 

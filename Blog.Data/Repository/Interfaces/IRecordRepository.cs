@@ -10,8 +10,8 @@ namespace Blog.Data.Repository.Interfaces
     {
         IEnumerable<Record> Get(
             Expression<Func<Record, bool>> filter = null,
-            Func<IQueryable<Record>, IOrderedQueryable<Record>> orderBy = null,
-            Func<IQueryable<Record>, IQueryable<Record>> param = null);
+            Expression<Func<Record, dynamic>> orderBy = null,
+            params Expression<Func<IQueryable<Record>, object>>[] navigations);
 
         Task<Record> GetById(object id);
 

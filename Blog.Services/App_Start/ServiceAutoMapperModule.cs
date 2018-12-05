@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Blog.Data;
 using Blog.Data.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject;
 using Ninject.Modules;
 
@@ -21,13 +23,16 @@ namespace Blog.Services
 
                 cfg.CreateMap<Record, RecordDTO>();
 
-                cfg.CreateMap<User, UserDTO>();
+                cfg.CreateMap<User, UserDTO>().ForMember(dest => dest.Roles, src => src.MapFrom(o => o.Roles));
 
+                cfg.CreateMap<IdentityUserRole, string>().ConvertUsing(src => src.RoleId);
+                
                 cfg.CreateMap<Role, RoleDTO>();
+
+                cfg.CreateMap<RoleDTO, Role>().ForMember(dest => dest.Users, src => src.Ignore());
             });
 
             return new Mapper(conf);
-
         }
     }
 }

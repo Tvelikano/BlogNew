@@ -5,19 +5,21 @@ using Blog.Services.Models;
 using Blog.Site.Models;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Blog.Site.Controllers
 {
     public class AccountController : Controller
     {
-        private IAuthenticationManager AuthManager => HttpContext.GetOwinContext().Authentication;
-        private IUserService UserService { get; }
+        private readonly IUserService _userService;
+        private readonly IRuntimeMapper _mapper;
+        private readonly IAuthenticationManager _authManager;
 
-        public AccountController(IUserService service)
+        public AccountController(IUserService service, IRuntimeMapper mapper, IAuthenticationManager authenticationManager, IAuthenticationManager authManager)
         {
-            UserService = service;
+            _userService = service;
+            _mapper = mapper;
+            _authManager = authManager;
         }
 
         public ActionResult Register()
@@ -39,13 +41,10 @@ namespace Blog.Site.Controllers
             {
                 return View(model);
             }
-
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<RegisterViewModel, UserDTO>().
-                ForMember(destinationMember => destinationMember.Id, source => source.Ignore())).CreateMapper();
             
-            var userDto = mapper.Map<UserDTO>(model);
+            var userDto = _mapper.Map<UserDTO>(model);
 
-            var result = await UserService.CreateUser(userDto);
+            var result = await _userService.CreateUser(userDto);
 
             if (result.IsSucceed)
             {
@@ -73,17 +72,15 @@ namespace Blog.Site.Controllers
                 return View(model);
             }
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LoginViewModel, UserDTO>()).CreateMapper();
+            var userDto = _mapper.Map<UserDTO>(model);
 
-            var userDto = mapper.Map<UserDTO>(model);
-
-            var claim = await UserService.Authenticate(userDto);
+            var claim = await _userService.Authenticate(userDto);
 
             if (claim != null)
             {
-                AuthManager.SignOut();
+                _authManager.SignOut();
 
-                AuthManager.SignIn(new AuthenticationProperties
+                _authManager.SignIn(new AuthenticationProperties
                 {
                     IsPersistent = true
                 }, 
@@ -101,7 +98,7 @@ namespace Blog.Site.Controllers
         [Authorize]
         public ActionResult Logout()
         {
-            AuthManager.SignOut();
+            _authManager.SignOut();
 
             return RedirectToAction("Login");
         }

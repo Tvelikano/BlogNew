@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Blog.Services
+﻿namespace Blog.Services
 {
     public class UserDTO
     {
@@ -10,10 +8,8 @@ namespace Blog.Services
 
         public string Password { get; set; }
 
-        public string PasswordConfirm { get; set; }
-
         public string UserName { get; set; }
 
-        public ICollection<RoleDTO> AppRoles { get; set; } = new List<RoleDTO>();
+        public string[] Roles { get; set; }
     }
 }

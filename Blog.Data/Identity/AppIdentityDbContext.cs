@@ -5,7 +5,7 @@ namespace Blog.Data.Identity
 {
     public class AppIdentityDbContext : IdentityDbContext<User>, IAppIdentityDbContext
     {
-        public AppIdentityDbContext() : base("IdentityDataBase")
+        public AppIdentityDbContext() : base("RecordsDataBase")
         {
 
         }

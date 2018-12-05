@@ -68,7 +68,7 @@ namespace Blog.Site.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(UserViewModel model, string[] rolesToAdd)
+        public async Task<ActionResult> Edit(UserViewModel model)
         {
             ViewBag.Roles = _userService.GetAllRoles();
 
@@ -79,7 +79,7 @@ namespace Blog.Site.Controllers
 
             var userDto = _mapper.Map<UserDTO>(model);
 
-            var result = await _userService.EditUser(userDto, rolesToAdd);
+            var result = await _userService.EditUser(userDto);
 
             MessageFromResult(result);
 

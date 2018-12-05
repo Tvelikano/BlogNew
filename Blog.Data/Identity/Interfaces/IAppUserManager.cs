@@ -10,6 +10,9 @@ namespace Blog.Data.Identity.Interfaces
     public interface IAppUserManager
     {
         void Dispose();
+
+        Task<IdentityResult> EditUserAsync(EditUser user);
+
         Task<ClaimsIdentity> CreateIdentityAsync(User user, string authenticationType);
         Task<IdentityResult> CreateAsync(User user);
         Task<IdentityResult> UpdateAsync(User user);

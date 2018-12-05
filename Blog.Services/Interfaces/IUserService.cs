@@ -10,7 +10,7 @@ namespace Blog.Services.Interfaces
     {
         IList<UserDTO> GetAllUsers();
         Task<UserDTO> GetUserById(string id);
-        Task<OperationDetails> EditUser(UserDTO userDto, string[] rolesToAdd);
+        Task<OperationDetails> EditUser(UserDTO userDto);
         Task<OperationDetails> DeleteUserById(string id);
         IEnumerable<RoleDTO> GetAllRoles();
         Task<OperationDetails> CreateRole(string name);

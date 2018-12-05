@@ -78,12 +78,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetAllArgs.cs" />
     <Compile Include="Identity\AppRoleStore.cs" />
     <Compile Include="Identity\AppUserStore.cs" />
     <Compile Include="Enums\RecordState.cs" />
     <Compile Include="Identity\AppIdentityDbContext.cs" />
     <Compile Include="Identity\AppRoleManager.cs" />
     <Compile Include="Identity\AppUserManager.cs" />
+    <Compile Include="Identity\EditUser.cs" />
     <Compile Include="Identity\Interfaces\IAppIdentityDbContext.cs" />
     <Compile Include="Identity\Interfaces\IAppRoleManager.cs" />
     <Compile Include="Identity\Interfaces\IAppUserManager.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="RecordContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EfRecordRepository.cs" />
+    <Compile Include="ReturnRecords.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -66,17 +66,17 @@
                         {
                             if (Model.Roles.Any(r => r == role.Id))
                             {
-                                <input type="checkbox" class="form-check-input" id="@role.Name" name="rolesToAdd" value="@role.Name" checked="checked">
+                                <input type="checkbox" class="form-check-input" id="@role.Name" name="Roles" value="@role.Name" checked="checked">
                             }
                             else
                             {
-                                <input type="checkbox" class="form-check-input" id="@role.Name" name="rolesToAdd" value="@role.Name">
+                                <input type="checkbox" class="form-check-input" id="@role.Name" name="Roles" value="@role.Name">
                             }
                             <label class="form-check-label" for="@role.Name">@role.Name</label><br>
                         }
                         else
                         {
-                            <input type="checkbox" class="form-check-input" id="@role.Name" name="rolesToAdd" value="@role.Name">
+                            <input type="checkbox" class="form-check-input" id="@role.Name" name="Roles" value="@role.Name">
                             <label class="form-check-label" for="@role.Name">@role.Name</label><br>
                         }
                     }

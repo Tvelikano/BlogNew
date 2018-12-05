@@ -15,7 +15,7 @@ namespace Blog.Site.Controllers
         private readonly IRuntimeMapper _mapper;
         private readonly IAuthenticationManager _authManager;
 
-        public AccountController(IUserService service, IRuntimeMapper mapper, IAuthenticationManager authenticationManager, IAuthenticationManager authManager)
+        public AccountController(IUserService service, IRuntimeMapper mapper, IAuthenticationManager authManager)
         {
             _userService = service;
             _mapper = mapper;

@@ -21,23 +21,24 @@ namespace Blog.Site.Controllers
         {
             const int pageSize = 1;
 
-            var records = _recordService.GetAll(
-                new GetAllArgs
+            var returnRecords = _recordService.GetAll(
+                new GetAllArgsDTO
                 {
                     IsAuthenticated = HttpContext.User.Identity.IsAuthenticated,
                     SearchString = searchString,
+                    OrderBy = r => r.Name,
                     Page = page,
                     PageSize = pageSize
                 });
 
             var model = new RecordListViewModel()
             {
-                Records = records.Item1,
+                Records = returnRecords.Records,
                 PageInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = records.Item2
+                    TotalItems = returnRecords.Count
                 },
                 SearchString = searchString
             };

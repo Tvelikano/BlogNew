@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Blog.Services;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Blog.Site.Models
 {

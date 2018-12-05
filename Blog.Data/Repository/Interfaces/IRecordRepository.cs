@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Blog.Data.Repository.Interfaces
 {
     public interface IRecordRepository
     {
-        IEnumerable<Record> Get(
-            Expression<Func<Record, bool>> filter = null,
-            Expression<Func<Record, dynamic>> orderBy = null,
-            params Expression<Func<IQueryable<Record>, object>>[] navigations);
+        ReturnRecords Get(GetAllArgs args);
 
         Task<Record> GetById(object id);
 

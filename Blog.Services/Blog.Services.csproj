@@ -124,9 +124,10 @@
     <Compile Include="App_Start\ServiceAutoMapperModule.cs" />
     <Compile Include="App_Start\DependencyResolver.cs" />
     <Compile Include="Enums\RecordStateDTO.cs" />
-    <Compile Include="GetAllArgs.cs" />
+    <Compile Include="GetAllArgsDTO.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Models\OperationDetails.cs" />
+    <Compile Include="ReturnRecordsDTO.cs" />
     <Compile Include="RoleDTO.cs" />
     <Compile Include="UserDTO.cs" />
     <Compile Include="UserService.cs" />

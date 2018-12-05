@@ -18,7 +18,7 @@ namespace Blog.Site.Controllers
 
         public ActionResult Index()
         {
-            return View(_recordService.GetAll());
+            return View(_recordService.GetAll(new GetAllArgsDTO{IsAdmin = true}).Records);
         }
 
         public ViewResult Create()

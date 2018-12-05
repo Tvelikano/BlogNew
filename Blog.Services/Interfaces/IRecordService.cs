@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Blog.Services.Interfaces
 {
     public interface IRecordService
     {
-        IEnumerable<RecordDTO> GetAll();
-
-        (IEnumerable<RecordDTO>, int) GetAll(GetAllArgs args);
+        ReturnRecordsDTO GetAll(GetAllArgsDTO argsDto);
 
         Task<RecordDTO> FindById(int? id);
 

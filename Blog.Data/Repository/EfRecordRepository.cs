@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Blog.Data.Interfaces;
+using Blog.Data.Repository.Interfaces;
 using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Blog.Data.Interfaces;
-using Blog.Data.Repository.Interfaces;
+using Blog.Data.Enums;
 
 namespace Blog.Data.Repository
 {
@@ -20,26 +18,39 @@ namespace Blog.Data.Repository
             _records = _context.Records;
         }
 
-        public IEnumerable<Record> Get(
-            Expression<Func<Record, bool>> filter = null,
-            Expression<Func<Record, dynamic>> orderBy = null,
-            params Expression<Func<IQueryable<Record>, object>>[] navigations)
+        public ReturnRecords Get(GetAllArgs args)
         {
             IQueryable<Record> query = _records;
 
-            if (filter != null)
+            if (!args.IsAdmin)
             {
-                query = query.Where(filter);
+                query = args.IsAuthenticated ?
+                    query.Where(r => r.State != RecordState.Private) :
+                    query.Where(r => r.State == RecordState.Public);
             }
-
-            if (orderBy != null)
-            {
-                query = query.OrderBy(orderBy);
-            }
-
-            query = navigations.Aggregate(query, (current, par) => (IQueryable<Record>)par.Compile().Invoke(current));
             
-            return query;
+            if (!string.IsNullOrEmpty(args.SearchString))
+            {
+                query = query.Where(r => r.Name.Contains(args.SearchString));
+            }
+
+            if (args.OrderBy != null)
+            {
+                query = query.OrderBy(args.OrderBy);
+            }
+            
+            var count = query.Count();
+
+            if (args.Page > 0 && args.PageSize > 0)
+            {
+                query = query.Skip(args.PageSize * (args.Page - 1)).Take(args.PageSize);
+            }
+
+            return new ReturnRecords
+            {
+                Records = query,
+                Count = count
+            };
         }
 
         public async Task<Record> GetById(object id)

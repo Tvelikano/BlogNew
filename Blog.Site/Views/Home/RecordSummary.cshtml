@@ -1,0 +1,15 @@
+﻿@model Blog.Services.RecordDTO
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">
+            @Html.ActionLink(Model.Name, "Details", "Home", new { id = Model.RecordId }, null)
+        </h4>
+        <p class="card-text">@Model.Content</p>
+        <div class="float-right text-secondary small">@Model.CreateDate</div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Blog.Services;
-using Blog.Services.Interfaces;
+using Blog.Services.Identity;
+using Blog.Services.Identity.Interfaces;
 using Blog.Services.Models;
 using Blog.Site.Models;
 using Microsoft.Owin.Security;
@@ -92,7 +92,6 @@ namespace Blog.Site.Controllers
             ModelState.AddModelError("", "Incorrect Name or Password");
 
             return View(model);
-
         }
 
         [Authorize]

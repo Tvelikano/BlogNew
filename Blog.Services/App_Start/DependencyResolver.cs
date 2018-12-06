@@ -11,6 +11,8 @@ using System.Web;
 using System.Web.Mvc;
 using Blog.Data.Identity;
 using Blog.Data.Identity.Interfaces;
+using Blog.Services.Identity;
+using Blog.Services.Identity.Interfaces;
 using Microsoft.Owin.Security;
 
 namespace Blog.Services

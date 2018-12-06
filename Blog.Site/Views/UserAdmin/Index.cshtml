@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Blog.Services.UserDTO>
+﻿@using Blog.Site.Helpers
+@model Blog.Site.Models.UserListViewModel
 
 @{
     ViewBag.Title = "Users";
@@ -14,13 +15,13 @@
     @Html.ActionLink("CreateUser New", "Create", null, new { @class = "btn btn-primary" })
     <table class="table table-striped table-bordered table-hover">
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Id)</th>
-            <th>@Html.DisplayNameFor(model => model.UserName)</th>
-            <th>@Html.DisplayNameFor(model => model.Email)</th>
-            <th>@Html.DisplayNameFor(model => model.Roles)</th>
+            <th>@Html.DisplayNameFor(model => model.Users.FirstOrDefault().Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Users.FirstOrDefault().UserName)</th>
+            <th>@Html.DisplayNameFor(model => model.Users.FirstOrDefault().Email)</th>
+            <th>@Html.DisplayNameFor(model => model.Users.FirstOrDefault().Roles)</th>
             <th></th>
         </tr>
-        @foreach (var user in Model)
+        @foreach (var user in Model.Users)
         {
             <tr>
                 <td>@user.Id</td>
@@ -43,4 +44,9 @@
             </tr>
         }
     </table>
+</div>
+
+<br />
+<div class="btn-group float-right">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { searchString = Model.SearchString, page = x }))
 </div>

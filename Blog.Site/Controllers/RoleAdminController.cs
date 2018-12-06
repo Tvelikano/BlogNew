@@ -1,4 +1,4 @@
-﻿using Blog.Services.Interfaces;
+﻿using Blog.Services.Identity.Interfaces;
 using Blog.Services.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;

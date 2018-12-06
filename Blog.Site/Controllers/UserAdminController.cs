@@ -1,11 +1,12 @@
-﻿using Blog.Services;
-using Blog.Services.Interfaces;
+﻿using AutoMapper;
+using Blog.Services.Identity;
+using Blog.Services.Identity.Interfaces;
 using Blog.Services.Models;
 using Blog.Site.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using AutoMapper;
 
 namespace Blog.Site.Controllers
 {
@@ -21,9 +22,32 @@ namespace Blog.Site.Controllers
             _mapper = mapper;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string searchString = "", int page = 1)
         {
-            return View(_userService.GetAllUsers());
+            const int pageSize = 1;
+
+            var returnUsers = _userService.GetAllUsers(
+                new GetAllUsersArgsDTO
+                {
+                    SearchString = searchString,
+                    OrderBy = r => r.UserName,
+                    Page = page,
+                    PageSize = pageSize
+                });
+
+            var model = new UserListViewModel()
+            {
+                Users = _mapper.Map<IEnumerable<UserViewModel>>(returnUsers.Users),
+                PageInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = returnUsers.Count
+                },
+                SearchString = searchString
+            };
+
+            return View(model);
         }
 
         public ActionResult Create()
@@ -107,7 +131,6 @@ namespace Blog.Site.Controllers
                     ModelState.AddModelError("", message);
                 }
             }
-
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Blog.Data.Identity;
+using Blog.Services.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject;
 using Ninject.Modules;

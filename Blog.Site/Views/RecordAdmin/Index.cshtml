@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Blog.Services.RecordDTO>
+﻿@using Blog.Site.Models
+@model IEnumerable<Blog.Services.ReturnRecordDTO>
 
 @{
     ViewBag.Title = "Index";
@@ -16,19 +17,19 @@
 <table class="table table-striped table-bordered table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.RecordId)
+            @Html.DisplayNameFor(model => model.Record.RecordId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Record.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
+            @Html.DisplayNameFor(model => model.Record.Content)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.State)
+            @Html.DisplayNameFor(model => model.Record.State)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
+            @Html.DisplayNameFor(model => model.Record.CreateDate)
         </th>
         <th></th>
     </tr>
@@ -37,23 +38,23 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.RecordId)
+                @Html.DisplayFor(modelItem => item.Record.RecordId)
             </td>
             <td>
-                @Html.ActionLink(item.Name, "Details", "Home", new { id = item.RecordId }, null)
+                @Html.ActionLink(item.Record.Name, "Details", "Home", new RecordDetailsViewModel { RecordId = item.Record.RecordId }, null)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Content)
+                @Html.DisplayFor(modelItem => item.Record.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.State)
+                @Html.DisplayFor(modelItem => item.Record.State)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
+                @Html.DisplayFor(modelItem => item.Record.CreateDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.RecordId }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("Delete", "Delete", new { id = item.RecordId }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Record.RecordId }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Record.RecordId }, new { @class = "btn btn-primary" })
             </td>
         </tr>
     }

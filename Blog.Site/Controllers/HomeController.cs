@@ -1,4 +1,5 @@
-﻿using Blog.Services;
+﻿using AutoMapper;
+using Blog.Services;
 using Blog.Services.Interfaces;
 using Blog.Site.Models;
 using System.Net;
@@ -10,10 +11,12 @@ namespace Blog.Site.Controllers
     public class HomeController : Controller
     {
         private readonly IRecordService _recordService;
+        private readonly IRuntimeMapper _mapper;
 
-        public HomeController(IRecordService recordService)
+        public HomeController(IRecordService recordService, IRuntimeMapper mapper)
         {
             _recordService = recordService;
+            _mapper = mapper;
         }
 
         [ValidateInput(false)]
@@ -22,7 +25,7 @@ namespace Blog.Site.Controllers
             const int pageSize = 1;
 
             var returnRecords = _recordService.GetAll(
-                new GetAllArgsDTO
+                new GetAllRecordsArgsDTO
                 {
                     IsAuthenticated = HttpContext.User.Identity.IsAuthenticated,
                     SearchString = searchString,
@@ -67,22 +70,43 @@ namespace Blog.Site.Controllers
 
             return RedirectToAction("Index");
         }
-        
-        public async Task<ActionResult> Details(int? id)
+
+        public async Task<ActionResult> Details(RecordDetailsViewModel model)
         {
-            if (id == null)
+            if (model.RecordId == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var product = await _recordService.FindById(id);
+            var record = await _recordService.FindById(model.RecordId, model.IsWithComments);
 
-            if (product == null)
+            if (record == null)
             {
                 return HttpNotFound();
             }
+            
 
-            return View(product);
+            return View(_mapper.Map(record, model));
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult> Details(int recordId, string content)
+        {
+            if (!string.IsNullOrEmpty(content))
+            {
+                var record = await _recordService.FindById(recordId);
+
+                if (record == null)
+                {
+                    return HttpNotFound();
+                }
+
+                await _recordService.InsertComment(new CommentDTO
+                    {Content = content, UserName = HttpContext.User.Identity.Name, RecordId = record.RecordId});
+            }
+
+            return RedirectToAction("Details", new RecordDetailsViewModel { RecordId = recordId, IsWithComments = true });
         }
     }
 }

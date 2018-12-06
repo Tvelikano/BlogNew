@@ -7,6 +7,8 @@ namespace Blog.Data
     {
         public DbSet<Record> Records { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+
         public RecordContext() : base("RecordsDataBase")
         {
 

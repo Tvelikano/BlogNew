@@ -5,7 +5,7 @@ namespace Blog.Site.Models
 {
     public class RecordListViewModel
     {
-        public IEnumerable<RecordDTO> Records { get; set; }
+        public IEnumerable<ReturnRecordDTO> Records { get; set; }
 
         public PagingInfo PageInfo { get; set; }
 

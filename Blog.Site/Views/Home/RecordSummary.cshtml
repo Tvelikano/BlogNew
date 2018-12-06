@@ -1,15 +1,37 @@
-﻿@model Blog.Services.RecordDTO
+﻿@using Blog.Site.Models
+@model Blog.Services.ReturnRecordDTO
 
 @{
-    ViewBag.Title = Model.Name;
+    ViewBag.Title = Model.Record.Name;
 }
 
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">
-            @Html.ActionLink(Model.Name, "Details", "Home", new { id = Model.RecordId }, null)
+            @Html.ActionLink(Model.Record.Name, "Details", "Home", new RecordDetailsViewModel{ RecordId = Model.Record.RecordId }, null)
         </h4>
-        <p class="card-text">@Model.Content</p>
-        <div class="float-right text-secondary small">@Model.CreateDate</div>
+        <p class="card-text">@Model.Record.Content</p>
+        <div class="float-right text-secondary small">@Model.CommentsCount Comments - @Model.Record.CreateDate</div>
+        @if (Model.Record.Comments.Any())
+        {
+            if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                using (Html.BeginForm())
+                {
+                    <div class="form-group">
+                        <label>Leave your comment:</label>
+                        @Html.EditorFor(model => model.Record.Comments.FirstOrDefault().Content, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create</button>
+                }
+            }
+            <ul class="list-group list-group-flush">
+                @foreach (var comment in Model.Record.Comments)
+                {
+                    <li class="list-group-item">@comment.Content</li>
+                }
+            </ul>
+        }
     </div>
 </div>

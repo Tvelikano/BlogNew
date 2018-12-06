@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Blog.Data.Enums;
 
@@ -18,5 +19,7 @@ namespace Blog.Data
 
         [Required]
         public RecordState State { get; set; } = RecordState.Private;
+
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

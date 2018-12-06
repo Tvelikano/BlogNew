@@ -18,7 +18,7 @@ namespace Blog.Site.Controllers
 
         public ActionResult Index()
         {
-            return View(_recordService.GetAll(new GetAllArgsDTO{IsAdmin = true}).Records);
+            return View(_recordService.GetAll(new GetAllRecordsArgsDTO{IsAdmin = true}).Records);
         }
 
         public ViewResult Create()
@@ -41,9 +41,9 @@ namespace Blog.Site.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

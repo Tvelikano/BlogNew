@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Blog.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Blog.Services.Enums;
 
-namespace Blog.Services
+namespace Blog.Site.Models
 {
-    public class RecordDTO
+    public class RecordDetailsViewModel
     {
         public int RecordId { get; set; }
 
@@ -13,13 +13,13 @@ namespace Blog.Services
         public string Name { get; set; }
 
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Content { get; set; }
 
         public DateTime CreateDate { get; set; }
 
-        [Required]
-        public RecordStateDTO State { get; set; } = RecordStateDTO.Private;
-
-        public ICollection<CommentDTO> Comments { get; set; } = new List<CommentDTO>();
+        public ICollection<CommentDTO> Comments { get; set; }
+        
+        public bool IsWithComments { get; set; }
     }
 }

@@ -1,6 +1,61 @@
-﻿@model Blog.Services.RecordDTO
+﻿@using Blog.Site.Models
+@model RecordDetailsViewModel
 @{
     ViewBag.Title = Model.Name;
 }
 
-@Html.Partial("RecordSummary", Model)
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">
+            @Html.ActionLink(Model.Name, "Details", "Home", new RecordDetailsViewModel { RecordId = Model.RecordId }, null)
+        </h4>
+        <p class="card-text">@Model.Content</p>
+        <div class="float-right text-secondary small">@Model.CreateDate</div>
+        @if (Model.IsWithComments)
+        {
+            if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                using (Html.BeginForm())
+                {
+                    <input id="recordId" name="recordId" type="hidden" value="@Model.RecordId" />
+
+                    <div class="form-group">
+                        <label>Leave your comment:</label>
+                        <input id="Content" name="Content" type="text" class="form-control" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create</button>
+                }
+            }
+            else
+            {
+                <p>Log In to leave a comment</p>
+            }
+            if (Model.Comments.Any())
+            {
+                <ul class="list-group list-group-flush">
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <li class="list-group-item">
+                            <div>
+                                <span class="font-weight-bold">
+                                    @comment.UserName
+                                </span>
+                                <span class="small font-weight-light">
+                                    @comment.CreateDate
+                                </span>
+                            </div>
+                            <div class="font-weight-normal">
+                                @comment.Content
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+        }
+        else
+        {
+            @Html.ActionLink("Show Comments", "Details", "Home", new RecordDetailsViewModel { RecordId = Model.RecordId, IsWithComments = true }, new { @class = "btn btn-primary" })
+        }
+    </div>
+</div>

@@ -3,9 +3,9 @@ using Microsoft.AspNet.Identity;
 
 namespace Blog.Data.Identity
 {
-    public class AppRoleManager : RoleManager<Role>, IAppRoleManager
+    public class AppRoleManager : RoleManager<Role, int> , IAppRoleManager
     {
-        public AppRoleManager(IRoleStore<Role, string> store) : base(store)
+        public AppRoleManager(IRoleStore<Role, int> store) : base(store)
         {
 
         }

@@ -2,6 +2,7 @@
 using Blog.Services;
 using Blog.Services.Interfaces;
 using Blog.Site.Models;
+using Microsoft.AspNet.Identity;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -22,10 +23,10 @@ namespace Blog.Site.Controllers
         [ValidateInput(false)]
         public ActionResult Index(string searchString = "", int page = 1)
         {
-            const int pageSize = 1;
+            const int pageSize = 3;
 
             var returnRecords = _recordService.GetAll(
-                new GetAllRecordsArgsDTO
+                new GetArgsDTO<RecordDTO>()
                 {
                     IsAuthenticated = HttpContext.User.Identity.IsAuthenticated,
                     SearchString = searchString,
@@ -34,9 +35,9 @@ namespace Blog.Site.Controllers
                     PageSize = pageSize
                 });
 
-            var model = new RecordListViewModel()
+            var model = new ListViewModel<ReturnModelDTO<RecordDTO>>
             {
-                Records = returnRecords.Records,
+                List = returnRecords.List,
                 PageInfo = new PagingInfo
                 {
                     CurrentPage = page,
@@ -71,20 +72,20 @@ namespace Blog.Site.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Details(RecordDetailsViewModel model)
+        public async Task<ActionResult> Details(RecordDTO model)
         {
             if (model.RecordId == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var record = await _recordService.FindById(model.RecordId, model.IsWithComments);
+            var record = await _recordService.FindById(model.RecordId);
 
             if (record == null)
             {
                 return HttpNotFound();
             }
-            
+
 
             return View(_mapper.Map(record, model));
         }
@@ -103,10 +104,26 @@ namespace Blog.Site.Controllers
                 }
 
                 await _recordService.InsertComment(new CommentDTO
-                    {Content = content, UserName = HttpContext.User.Identity.Name, RecordId = record.RecordId});
+                { Content = content, UserId = User.Identity.GetUserId<int>(), RecordId = record.RecordId });
             }
 
-            return RedirectToAction("Details", new RecordDetailsViewModel { RecordId = recordId, IsWithComments = true });
+            return RedirectToAction("Details", new RecordDTO { RecordId = recordId });
+        }
+
+        public ActionResult CommentSummary(int recordId)
+        {
+            var comments = _recordService.FindCommentsById(recordId);
+
+            return PartialView(comments);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CommentSummary(int recordId, string content)
+        {
+            await _recordService.InsertComment(new CommentDTO
+            { Content = content, UserId = User.Identity.GetUserId<int>(), RecordId = recordId });
+            
+            return RedirectToAction("CommentSummary", new { recordId });
         }
     }
 }

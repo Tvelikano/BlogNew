@@ -1,12 +1,12 @@
-﻿using System.Data.Entity;
-using Blog.Data.Identity.Interfaces;
+﻿using Blog.Data.Interfaces;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace Blog.Data.Identity
 {
-    public class AppRoleStore : RoleStore<Role>
+    public class AppRoleStore : RoleStore<Role, int, UserRole>
     {
-        public AppRoleStore(IAppIdentityDbContext db) : base((DbContext)db)
+        public AppRoleStore(IRecordContext db) : base((DbContext)db)
         {
             
         }

@@ -2,7 +2,7 @@
 
 namespace Blog.Data.Identity
 {
-    public class Role : IdentityRole<int, UserRole>
+    public class UserClaim : IdentityUserClaim<int>
     {
 
     }

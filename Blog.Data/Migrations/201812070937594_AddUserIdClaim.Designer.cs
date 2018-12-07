@@ -7,13 +7,13 @@ namespace Blog.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddUserNameField : IMigrationMetadata
+    public sealed partial class AddUserIdClaim : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddUserNameField));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddUserIdClaim));
         
         string IMigrationMetadata.Id
         {
-            get { return "201812061124033_AddUserNameField"; }
+            get { return "201812070937594_AddUserIdClaim"; }
         }
         
         string IMigrationMetadata.Source

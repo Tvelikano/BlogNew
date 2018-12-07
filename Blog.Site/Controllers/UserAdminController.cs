@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Blog.Services;
 
 namespace Blog.Site.Controllers
 {
@@ -14,9 +15,9 @@ namespace Blog.Site.Controllers
     public class UserAdminController : Controller
     {
         private readonly IRuntimeMapper _mapper;
-        private readonly IUserService _userService;
+        private readonly IUserService<UserDTO, RoleDTO> _userService;
 
-        public UserAdminController(IUserService service, IRuntimeMapper mapper)
+        public UserAdminController(IUserService<UserDTO, RoleDTO> service, IRuntimeMapper mapper)
         {
             _userService = service;
             _mapper = mapper;
@@ -27,7 +28,7 @@ namespace Blog.Site.Controllers
             const int pageSize = 1;
 
             var returnUsers = _userService.GetAllUsers(
-                new GetAllUsersArgsDTO
+                new GetArgsDTO<UserDTO>
                 {
                     SearchString = searchString,
                     OrderBy = r => r.UserName,
@@ -35,9 +36,9 @@ namespace Blog.Site.Controllers
                     PageSize = pageSize
                 });
 
-            var model = new UserListViewModel()
+            var model = new ListViewModel<UserViewModel>
             {
-                Users = _mapper.Map<IEnumerable<UserViewModel>>(returnUsers.Users),
+                List = _mapper.Map<IList<UserViewModel>>(returnUsers.List),
                 PageInfo = new PagingInfo
                 {
                     CurrentPage = page,
@@ -77,7 +78,7 @@ namespace Blog.Site.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(int id)
         {
             var user = await _userService.GetUserById(id);
 
@@ -111,7 +112,7 @@ namespace Blog.Site.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int id)
         {
             MessageFromResult(await _userService.DeleteUserById(id));
 

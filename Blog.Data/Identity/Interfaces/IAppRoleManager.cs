@@ -9,7 +9,7 @@ namespace Blog.Data.Identity.Interfaces
         void Dispose();
         Task<IdentityResult> CreateAsync(Role role);
         Task<IdentityResult> DeleteAsync(Role role);
-        Task<Role> FindByIdAsync(string roleId);
+        Task<Role> FindByIdAsync(int roleId);
         Task<Role> FindByNameAsync(string roleName);
         IQueryable<Role> Roles { get; }
     }

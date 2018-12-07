@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Blog.Data.Identity;
 using Blog.Data.Identity.Interfaces;
 using Blog.Services.Identity.Interfaces;
 using Blog.Services.Models;
 using Microsoft.AspNet.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Blog.Services.Identity
 {
-    public class UserService : IUserService
+    public class UserService<TUser, TRole> : IUserService<TUser, TRole> where TUser : UserDTO where TRole : RoleDTO
     {
         private readonly IUnitOfWork _database;
         private readonly IMapper _userMapper;
@@ -26,7 +26,7 @@ namespace Blog.Services.Identity
             _roleMapper = roleMapper;
         }
         
-        public ListUsersDTO GetAllUsers(GetAllUsersArgsDTO usersArgs)
+        public ReturnListDTO<TUser> GetAllUsers(GetArgsDTO<TUser> usersArgs)
         {
             var query = _database.UserManager.Users;
             
@@ -47,19 +47,19 @@ namespace Blog.Services.Identity
                 query = query.Skip(usersArgs.PageSize * (usersArgs.Page - 1)).Take(usersArgs.PageSize);
             }
 
-            return new ListUsersDTO()
+            return new ReturnListDTO<TUser>
             {
-                Users = _userMapper.Map<IList<UserDTO>>(query.ToList()),
+                List = _userMapper.Map<IList<TUser>>(query.ToList()),
                 Count = count
             };
         }
 
-        public async Task<UserDTO> GetUserById(string id)
+        public async Task<TUser> GetUserById(int id)
         {
-            return _userMapper.Map<UserDTO>(await _database.UserManager.FindByIdAsync(id));
+            return _userMapper.Map<TUser>(await _database.UserManager.FindByIdAsync(id));
         }
 
-        public async Task<OperationDetails> EditUser(UserDTO userDto)
+        public async Task<OperationDetails> EditUser(TUser userDto)
         {
             var result = await _database.UserManager.EditUserAsync(_userMapper.Map<EditUser>(userDto));
 
@@ -68,7 +68,7 @@ namespace Blog.Services.Identity
                 new OperationDetails(true, new[] {"User information successfully changed"});
         }
 
-        public async Task<OperationDetails> CreateUser(UserDTO userDto)
+        public async Task<OperationDetails> CreateUser(TUser userDto)
         {
             var user = await _database.UserManager.FindByEmailAsync(userDto.Email);
 
@@ -98,7 +98,7 @@ namespace Blog.Services.Identity
             return new OperationDetails(true, new[] { "User successfully created" });
         }
 
-        public async Task<OperationDetails> DeleteUserById(string id)
+        public async Task<OperationDetails> DeleteUserById(int id)
         {
             var user = await _database.UserManager.FindByIdAsync(id);
 
@@ -119,9 +119,9 @@ namespace Blog.Services.Identity
             return new OperationDetails(true, new[] { "User successfully deleted" });
         }
 
-        public IEnumerable<RoleDTO> GetAllRoles()
+        public IEnumerable<TRole> GetAllRoles()
         {
-            return _roleMapper.Map<IEnumerable<Role>, IEnumerable<RoleDTO>>(
+            return _roleMapper.Map<IEnumerable<Role>, IEnumerable<TRole>>(
                 _database.RoleManager.Roles);
         }
 
@@ -139,7 +139,7 @@ namespace Blog.Services.Identity
             return new OperationDetails(true, new[] { "Role successfully created" });
         }
 
-        public async Task<OperationDetails> DeleteRoleById(string id)
+        public async Task<OperationDetails> DeleteRoleById(int id)
         {
             var role = await _database.RoleManager.FindByIdAsync(id);
 
@@ -159,7 +159,7 @@ namespace Blog.Services.Identity
             return new OperationDetails(true, new[] { "User successfully deleted" });
         }
 
-        public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
+        public async Task<ClaimsIdentity> Authenticate(TUser userDto)
         {
             ClaimsIdentity claim = null;
 

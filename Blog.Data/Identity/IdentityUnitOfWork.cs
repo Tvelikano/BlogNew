@@ -1,19 +1,20 @@
 ﻿using Blog.Data.Identity.Interfaces;
 using System;
 using System.Threading.Tasks;
+using Blog.Data.Interfaces;
 
 namespace Blog.Data.Identity
 {
     public class IdentityUnitOfWork : IUnitOfWork
     {
-        private readonly IAppIdentityDbContext _db;
+        private readonly IRecordContext _db;
         private bool _disposed;
 
         public IAppUserManager UserManager { get; }
 
         public IAppRoleManager RoleManager { get; }
 
-        public IdentityUnitOfWork(IAppIdentityDbContext dbContext, IAppUserManager userManager, IAppRoleManager roleManager)
+        public IdentityUnitOfWork(IRecordContext dbContext, IAppUserManager userManager, IAppRoleManager roleManager)
         {
             _db = dbContext;
             UserManager = userManager;

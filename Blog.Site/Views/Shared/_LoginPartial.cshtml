@@ -2,11 +2,11 @@
     @if (Request.IsAuthenticated)
     {
         @Html.ActionLink(@HttpContext.Current.User.Identity.Name, "Index", "Account" , null, new { @class = "mr-2 btn"})
-        @Html.ActionLink("Log Out", "Logout", "Account", new { returnUrl = Request.Url?.PathAndQuery }, new { @class = "btn btn-info" })
+        @Html.ActionLink("Log Out", "Logout", "Account", new { returnUrl = Request.Url?.PathAndQuery }, new { @class = "btn btn-Info" })
     }
     else
     {
-        @Html.ActionLink("Log In", "LogIn", "Account", null, new { @class = "mr-2 btn btn-info" })
-        @Html.ActionLink("Sign Up", "Register", "Account", null, new { @class = "btn btn-info" })
+        @Html.ActionLink("Log In", "LogIn", "Account", null, new { @class = "mr-2 btn btn-Info" })
+        @Html.ActionLink("Sign Up", "Register", "Account", null, new { @class = "btn btn-Info" })
     }
 </div>

@@ -1,37 +1,18 @@
-﻿@using Blog.Site.Models
-@model Blog.Services.ReturnRecordDTO
-
-@{
-    ViewBag.Title = Model.Record.Name;
-}
+﻿@using Blog.Services
+@model ReturnModelDTO<RecordDTO>
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">
-            @Html.ActionLink(Model.Record.Name, "Details", "Home", new RecordDetailsViewModel{ RecordId = Model.Record.RecordId }, null)
-        </h4>
-        <p class="card-text">@Model.Record.Content</p>
-        <div class="float-right text-secondary small">@Model.CommentsCount Comments - @Model.Record.CreateDate</div>
-        @if (Model.Record.Comments.Any())
-        {
-            if (HttpContext.Current.User.Identity.IsAuthenticated)
+        <h4 class="card-title">@Model.Model.Name</h4>
+        <p class="card-text">@Model.Model.Content</p>
+        <div class="float-right text-secondary small">@Model.Info Comments - @Model.Model.CreateDate</div>
+        
+        <div id="@Model.Model.RecordId">
+            @using (Ajax.BeginForm("CommentSummary", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = @Model.Model.RecordId.ToString() }))
             {
-                using (Html.BeginForm())
-                {
-                    <div class="form-group">
-                        <label>Leave your comment:</label>
-                        @Html.EditorFor(model => model.Record.Comments.FirstOrDefault().Content, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Create</button>
-                }
+                <input type="hidden" name="RecordId" value="@Model.Model.RecordId" />
+                <input type="submit" value="ShowComments" />
             }
-            <ul class="list-group list-group-flush">
-                @foreach (var comment in Model.Record.Comments)
-                {
-                    <li class="list-group-item">@comment.Content</li>
-                }
-            </ul>
-        }
+        </div>
     </div>
 </div>

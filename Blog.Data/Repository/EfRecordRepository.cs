@@ -20,41 +20,41 @@ namespace Blog.Data.Repository
             _comments = _context.Comments;
         }
 
-        public ListRecords Get(GetAllRecordsArgs recordsArgs)
+        public ReturnList<ReturnModel<Record>> Get(GetArgs<Record> args)
         {
             IQueryable<Record> query = _records;
 
-            if (!recordsArgs.IsAdmin)
+            if (!args.IsAdmin)
             {
-                query = recordsArgs.IsAuthenticated ?
+                query = args.IsAuthenticated ?
                     query.Where(r => r.State != RecordState.Private) :
                     query.Where(r => r.State == RecordState.Public);
             }
 
-            if (!string.IsNullOrEmpty(recordsArgs.SearchString))
+            if (!string.IsNullOrEmpty(args.SearchString))
             {
-                query = query.Where(r => r.Name.Contains(recordsArgs.SearchString));
+                query = query.Where(r => r.Name.Contains(args.SearchString));
             }
 
-            if (recordsArgs.OrderBy != null)
+            if (args.OrderBy != null)
             {
-                query = query.OrderBy(recordsArgs.OrderBy);
+                query = query.OrderBy(args.OrderBy);
             }
 
             var count = query.Count();
 
-            if (recordsArgs.Page > 0 && recordsArgs.PageSize > 0)
+            if (args.Page > 0 && args.PageSize > 0)
             {
-                query = query.Skip(recordsArgs.PageSize * (recordsArgs.Page - 1)).Take(recordsArgs.PageSize);
+                query = query.Skip(args.PageSize * (args.Page - 1)).Take(args.PageSize);
             }
 
-            return new ListRecords
+            return new ReturnList<ReturnModel<Record>>
             {
-                Records = query.Include(r => r.Comments).Select(r => new ReturnRecord
+                List = query.Include(r => r.Comments).Select(r => new ReturnModel<Record>
                 {
-                    Record = r,
-                    CommentsCount = r.Comments.Count
-                }),
+                    Model = r,
+                    Info = r.Comments.Count()
+                }).ToList(),
                 Count = count
             };
         }
@@ -62,11 +62,6 @@ namespace Blog.Data.Repository
         public async Task<Record> GetById(int id)
         {
             return await _records.FindAsync(id);
-        }
-
-        public Record GetByIdWithComment(int id)
-        {
-            return _records.Include(n => n.Comments).Single(r => r.RecordId == id);
         }
 
         public async Task Insert(Record entityToInsert)
@@ -102,6 +97,18 @@ namespace Blog.Data.Repository
             _comments.Add(entityToInsert);
 
             await Save();
+        }
+
+        public ReturnList<Comment> GetCommentsById(int recordId)
+        {
+            var query = _comments.Where(c => c.RecordId == recordId).Include(c => c.User).ToList();
+
+            return new ReturnList<Comment>
+            {
+                List = query,
+                Count = query.Count(),
+                Info = recordId
+            };
         }
 
         public async Task Save()

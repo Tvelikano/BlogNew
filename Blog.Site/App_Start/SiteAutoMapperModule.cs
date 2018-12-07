@@ -22,20 +22,9 @@ namespace Blog.Site
 
                 cfg.CreateMap<LoginViewModel, UserDTO>()
                     .ForMember(dest => dest.Id, source => source.Ignore());
-
-                //cfg.CreateMap<RecordDTO, RecordDetailsViewModel>().ForMember(dest => dest.Record, source =>
-                //    source.MapFrom(o => new RecordDTO
-                //    {
-                //        RecordId = o.RecordId,
-                //        Content = o.Content,
-                //        Name = o.Name,
-                //        CreateDate = o.CreateDate,
-                //        Comments = o.Comments,
-                //        State = o.State
-                //    })).ForMember(dest => dest.Comment, source => source.Ignore());
-
-                cfg.CreateMap<RecordDTO, RecordDetailsViewModel>()
-                    .ForMember(dest => dest.IsWithComments, source => source.Ignore());
+                
+                cfg.CreateMap<UserDTO, UserViewModel>()
+                    .ForMember(dest => dest.PasswordConfirm, source => source.Ignore());
             });
 
             return new Mapper(conf);

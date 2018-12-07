@@ -11,11 +11,11 @@ namespace Blog.Site.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly IUserService<UserDTO, RoleDTO> _userService;
         private readonly IRuntimeMapper _mapper;
         private readonly IAuthenticationManager _authManager;
 
-        public AccountController(IUserService service, IRuntimeMapper mapper, IAuthenticationManager authManager)
+        public AccountController(IUserService<UserDTO, RoleDTO> service, IRuntimeMapper mapper, IAuthenticationManager authManager)
         {
             _userService = service;
             _mapper = mapper;

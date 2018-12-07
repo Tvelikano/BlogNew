@@ -6,24 +6,24 @@ using Blog.Services.Models;
 
 namespace Blog.Services.Identity.Interfaces
 {
-    public interface IUserService : IDisposable
+    public interface IUserService<TUser, TRole> : IDisposable
     {
-        ListUsersDTO GetAllUsers(GetAllUsersArgsDTO usersArgs);
+        ReturnListDTO<TUser> GetAllUsers(GetArgsDTO<TUser> usersArgs);
 
-        Task<UserDTO> GetUserById(string id);
+        Task<TUser> GetUserById(int id);
 
-        Task<OperationDetails> EditUser(UserDTO userDto);
+        Task<OperationDetails> EditUser(TUser userDto);
 
-        Task<OperationDetails> DeleteUserById(string id);
+        Task<OperationDetails> DeleteUserById(int id);
 
-        IEnumerable<RoleDTO> GetAllRoles();
+        IEnumerable<TRole> GetAllRoles();
 
         Task<OperationDetails> CreateRole(string name);
 
-        Task<OperationDetails> DeleteRoleById(string id);
+        Task<OperationDetails> DeleteRoleById(int id);
 
-        Task<OperationDetails> CreateUser(UserDTO userDto);
+        Task<OperationDetails> CreateUser(TUser userDto);
 
-        Task<ClaimsIdentity> Authenticate(UserDTO userDto);
+        Task<ClaimsIdentity> Authenticate(TUser userDto);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Blog.Data.Identity;
 
 namespace Blog.Data
 {
@@ -12,7 +13,9 @@ namespace Blog.Data
 
         public DateTime CreateDate { get; set; }
 
-        public string UserName { get; set; }
+        public int UserId { get; set; }
+        
+        public User User { get; set; }
 
         public int RecordId { get; set; }
 

@@ -121,17 +121,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AppCookieAuthenticationOptions.cs" />
     <Compile Include="App_Start\ServiceAutoMapperModule.cs" />
     <Compile Include="App_Start\DependencyResolver.cs" />
     <Compile Include="CommentDTO.cs" />
     <Compile Include="Enums\RecordStateDTO.cs" />
-    <Compile Include="GetAllRecordsArgsDTO.cs" />
-    <Compile Include="Identity\GetAllUsersArgsDTO.cs" />
+    <Compile Include="GetArgsDTO.cs" />
     <Compile Include="Identity\Interfaces\IUserService.cs" />
-    <Compile Include="Identity\ListUsersDTO.cs" />
     <Compile Include="Models\OperationDetails.cs" />
-    <Compile Include="ReturnRecordDTO.cs" />
-    <Compile Include="ListRecordsDTO.cs" />
+    <Compile Include="ReturnModelDTO.cs" />
+    <Compile Include="ReturnListDTO.cs" />
     <Compile Include="Identity\RoleDTO.cs" />
     <Compile Include="Identity\UserDTO.cs" />
     <Compile Include="Identity\UserService.cs" />

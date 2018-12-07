@@ -9,78 +9,76 @@ namespace Blog.Data.Identity.Interfaces
 {
     public interface IAppUserManager
     {
+        Task<IdentityResult> EditUserAsync(EditUser editUser);
         void Dispose();
-
-        Task<IdentityResult> EditUserAsync(EditUser user);
-
         Task<ClaimsIdentity> CreateIdentityAsync(User user, string authenticationType);
         Task<IdentityResult> CreateAsync(User user);
         Task<IdentityResult> UpdateAsync(User user);
         Task<IdentityResult> DeleteAsync(User user);
-        Task<User> FindByIdAsync(string userId);
+        Task<User> FindByIdAsync(int userId);
         Task<User> FindByNameAsync(string userName);
         Task<IdentityResult> CreateAsync(User user, string password);
         Task<User> FindAsync(string userName, string password);
         Task<bool> CheckPasswordAsync(User user, string password);
-        Task<bool> HasPasswordAsync(string userId);
-        Task<IdentityResult> AddPasswordAsync(string userId, string password);
-        Task<IdentityResult> ChangePasswordAsync(string userId, string currentPassword, string newPassword);
-        Task<IdentityResult> RemovePasswordAsync(string userId);
-        Task<string> GetSecurityStampAsync(string userId);
-        Task<IdentityResult> UpdateSecurityStampAsync(string userId);
-        Task<string> GeneratePasswordResetTokenAsync(string userId);
-        Task<IdentityResult> ResetPasswordAsync(string userId, string token, string newPassword);
+        Task<bool> HasPasswordAsync(int userId);
+        Task<IdentityResult> AddPasswordAsync(int userId, string password);
+        Task<IdentityResult> ChangePasswordAsync(int userId, string currentPassword, string newPassword);
+        Task<IdentityResult> RemovePasswordAsync(int userId);
+        Task<string> GetSecurityStampAsync(int userId);
+        Task<IdentityResult> UpdateSecurityStampAsync(int userId);
+        Task<string> GeneratePasswordResetTokenAsync(int userId);
+        Task<IdentityResult> ResetPasswordAsync(int userId, string token, string newPassword);
         Task<User> FindAsync(UserLoginInfo login);
-        Task<IdentityResult> RemoveLoginAsync(string userId, UserLoginInfo login);
-        Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo login);
-        Task<IList<UserLoginInfo>> GetLoginsAsync(string userId);
-        Task<IdentityResult> AddClaimAsync(string userId, Claim claim);
-        Task<IdentityResult> RemoveClaimAsync(string userId, Claim claim);
-        Task<IList<Claim>> GetClaimsAsync(string userId);
-        Task<IdentityResult> AddToRoleAsync(string userId, string role);
-        Task<IdentityResult> AddToRolesAsync(string userId, params string[] roles);
-        Task<IdentityResult> RemoveFromRolesAsync(string userId, params string[] roles);
-        Task<IdentityResult> RemoveFromRoleAsync(string userId, string role);
-        Task<IList<string>> GetRolesAsync(string userId);
-        Task<bool> IsInRoleAsync(string userId, string role);
-        Task<string> GetEmailAsync(string userId);
-        Task<IdentityResult> SetEmailAsync(string userId, string email);
+        Task<IdentityResult> RemoveLoginAsync(int userId, UserLoginInfo login);
+        Task<IdentityResult> AddLoginAsync(int userId, UserLoginInfo login);
+        Task<IList<UserLoginInfo>> GetLoginsAsync(int userId);
+        Task<IdentityResult> AddClaimAsync(int userId, Claim claim);
+        Task<IdentityResult> RemoveClaimAsync(int userId, Claim claim);
+        Task<IList<Claim>> GetClaimsAsync(int userId);
+        Task<IdentityResult> AddToRoleAsync(int userId, string role);
+        Task<IdentityResult> AddToRolesAsync(int userId, params string[] roles);
+        Task<IdentityResult> RemoveFromRolesAsync(int userId, params string[] roles);
+        Task<IdentityResult> RemoveFromRoleAsync(int userId, string role);
+        Task<IList<string>> GetRolesAsync(int userId);
+        Task<bool> IsInRoleAsync(int userId, string role);
+        Task<string> GetEmailAsync(int userId);
+        Task<IdentityResult> SetEmailAsync(int userId, string email);
         Task<User> FindByEmailAsync(string email);
-        Task<string> GenerateEmailConfirmationTokenAsync(string userId);
-        Task<IdentityResult> ConfirmEmailAsync(string userId, string token);
-        Task<bool> IsEmailConfirmedAsync(string userId);
-        Task<string> GetPhoneNumberAsync(string userId);
-        Task<IdentityResult> SetPhoneNumberAsync(string userId, string phoneNumber);
-        Task<IdentityResult> ChangePhoneNumberAsync(string userId, string phoneNumber, string token);
-        Task<bool> IsPhoneNumberConfirmedAsync(string userId);
-        Task<string> GenerateChangePhoneNumberTokenAsync(string userId, string phoneNumber);
-        Task<bool> VerifyChangePhoneNumberTokenAsync(string userId, string token, string phoneNumber);
-        Task<bool> VerifyUserTokenAsync(string userId, string purpose, string token);
-        Task<string> GenerateUserTokenAsync(string purpose, string userId);
-        void RegisterTwoFactorProvider(string twoFactorProvider, IUserTokenProvider<User, string> provider);
-        Task<IList<string>> GetValidTwoFactorProvidersAsync(string userId);
-        Task<bool> VerifyTwoFactorTokenAsync(string userId, string twoFactorProvider, string token);
-        Task<string> GenerateTwoFactorTokenAsync(string userId, string twoFactorProvider);
-        Task<IdentityResult> NotifyTwoFactorTokenAsync(string userId, string twoFactorProvider, string token);
-        Task<bool> GetTwoFactorEnabledAsync(string userId);
-        Task<IdentityResult> SetTwoFactorEnabledAsync(string userId, bool enabled);
-        Task SendEmailAsync(string userId, string subject, string body);
-        Task SendSmsAsync(string userId, string message);
-        Task<bool> IsLockedOutAsync(string userId);
-        Task<IdentityResult> SetLockoutEnabledAsync(string userId, bool enabled);
-        Task<bool> GetLockoutEnabledAsync(string userId);
-        Task<DateTimeOffset> GetLockoutEndDateAsync(string userId);
-        Task<IdentityResult> SetLockoutEndDateAsync(string userId, DateTimeOffset lockoutEnd);
-        Task<IdentityResult> AccessFailedAsync(string userId);
-        Task<IdentityResult> ResetAccessFailedCountAsync(string userId);
-        Task<int> GetAccessFailedCountAsync(string userId);
+        Task<string> GenerateEmailConfirmationTokenAsync(int userId);
+        Task<IdentityResult> ConfirmEmailAsync(int userId, string token);
+        Task<bool> IsEmailConfirmedAsync(int userId);
+        Task<string> GetPhoneNumberAsync(int userId);
+        Task<IdentityResult> SetPhoneNumberAsync(int userId, string phoneNumber);
+        Task<IdentityResult> ChangePhoneNumberAsync(int userId, string phoneNumber, string token);
+        Task<bool> IsPhoneNumberConfirmedAsync(int userId);
+        Task<string> GenerateChangePhoneNumberTokenAsync(int userId, string phoneNumber);
+        Task<bool> VerifyChangePhoneNumberTokenAsync(int userId, string token, string phoneNumber);
+        Task<bool> VerifyUserTokenAsync(int userId, string purpose, string token);
+        Task<string> GenerateUserTokenAsync(string purpose, int userId);
+        void RegisterTwoFactorProvider(string twoFactorProvider, IUserTokenProvider<User, int> provider);
+        Task<IList<string>> GetValidTwoFactorProvidersAsync(int userId);
+        Task<bool> VerifyTwoFactorTokenAsync(int userId, string twoFactorProvider, string token);
+        Task<string> GenerateTwoFactorTokenAsync(int userId, string twoFactorProvider);
+        Task<IdentityResult> NotifyTwoFactorTokenAsync(int userId, string twoFactorProvider, string token);
+        Task<bool> GetTwoFactorEnabledAsync(int userId);
+        Task<IdentityResult> SetTwoFactorEnabledAsync(int userId, bool enabled);
+        Task SendEmailAsync(int userId, string subject, string body);
+        Task SendSmsAsync(int userId, string message);
+        Task<bool> IsLockedOutAsync(int userId);
+        Task<IdentityResult> SetLockoutEnabledAsync(int userId, bool enabled);
+        Task<bool> GetLockoutEnabledAsync(int userId);
+        Task<DateTimeOffset> GetLockoutEndDateAsync(int userId);
+        Task<IdentityResult> SetLockoutEndDateAsync(int userId, DateTimeOffset lockoutEnd);
+        Task<IdentityResult> AccessFailedAsync(int userId);
+        Task<IdentityResult> ResetAccessFailedCountAsync(int userId);
+        Task<int> GetAccessFailedCountAsync(int userId);
         IPasswordHasher PasswordHasher { get; set; }
         IIdentityValidator<User> UserValidator { get; set; }
         IIdentityValidator<string> PasswordValidator { get; set; }
-        IClaimsIdentityFactory<User, string> ClaimsIdentityFactory { get; set; }
+        IClaimsIdentityFactory<User, int> ClaimsIdentityFactory { get; set; }
         IIdentityMessageService EmailService { get; set; }
         IIdentityMessageService SmsService { get; set; }
-        IUserTokenProvider<User, string> UserTokenProvider { get; set; }
+        IUserTokenProvider<User, int> UserTokenProvider { get; set; }
         bool UserLockoutEnabledByDefault { get; set; }
         int MaxFailedAccessAttemptsBeforeLockout { get; set; }
         TimeSpan DefaultAccountLockoutTimeSpan { get; set; }
@@ -95,6 +93,6 @@ namespace Blog.Data.Identity.Interfaces
         bool SupportsUserLockout { get; }
         bool SupportsQueryableUsers { get; }
         IQueryable<User> Users { get; }
-        IDictionary<string, IUserTokenProvider<User, string>> TwoFactorProviders { get; }
+        IDictionary<string, IUserTokenProvider<User, int>> TwoFactorProviders { get; }
     }
 }

@@ -4,11 +4,9 @@ namespace Blog.Data.Repository.Interfaces
 {
     public interface IRecordRepository
     {
-        ListRecords Get(GetAllRecordsArgs recordsArgs);
+        ReturnList<ReturnModel<Record>> Get(GetArgs<Record> args);
 
         Task<Record> GetById(int id);
-
-        Record GetByIdWithComment(int id);
 
         Task Insert(Record entityToInsert);
 
@@ -17,6 +15,8 @@ namespace Blog.Data.Repository.Interfaces
         Task Update(Record entityToUpdate);
 
         Task InsertComment(Comment entityToInsert);
+
+        ReturnList<Comment> GetCommentsById(int recordId);
 
         Task Save();
     }

@@ -1,5 +1,5 @@
-﻿@using Blog.Site.Models
-@model IEnumerable<Blog.Services.ReturnRecordDTO>
+﻿@using Blog.Site.Helpers
+@model Blog.Site.Models.ListViewModel<Blog.Services.ReturnModelDTO<Blog.Services.RecordDTO>>
 
 @{
     ViewBag.Title = "Index";
@@ -14,49 +14,52 @@
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
+<form class="form-inline">
+    <div class="input-group">
+        <input type="search" class="form-control" placeholder="Search..." name="searchString" value="@Model.SearchString">
+        <div class="input-group-append">
+            <input type="submit" class="btn btn-outline-info" value="Search" />
+        </div>
+    </div>
+</form>
 <table class="table table-striped table-bordered table-hover">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Record.RecordId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Record.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Record.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Record.State)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Record.CreateDate)
-        </th>
+        <th>Record Id</th>
+        <th>Title</th>
+        <th>Content</th>
+        <th>State</th>
+        <th>Create Date</th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.List)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Record.RecordId)
+                @Html.DisplayFor(modelItem => item.Model.RecordId)
             </td>
             <td>
-                @Html.ActionLink(item.Record.Name, "Details", "Home", new RecordDetailsViewModel { RecordId = item.Record.RecordId }, null)
+                @Html.DisplayFor(modelItem => item.Model.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Record.Content)
+                @Html.DisplayFor(modelItem => item.Model.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Record.State)
+                @Html.DisplayFor(modelItem => item.Model.State)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Record.CreateDate)
+                @Html.DisplayFor(modelItem => item.Model.CreateDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Record.RecordId }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Record.RecordId }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Model.RecordId }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Model.RecordId }, new { @class = "btn btn-primary" })
             </td>
         </tr>
     }
 
 </table>
+
+<br />
+<div class="btn-group float-right">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { searchString = Model.SearchString, page = x }))
+</div>

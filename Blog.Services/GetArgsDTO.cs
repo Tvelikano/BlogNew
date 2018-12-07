@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Blog.Services
 {
-    public struct GetAllRecordsArgsDTO
+    public struct GetArgsDTO<T>
     {
         public bool IsAdmin { get; set; }
 
@@ -11,7 +11,7 @@ namespace Blog.Services
 
         public string SearchString { get; set; }
 
-        public Expression<Func<RecordDTO, object>> OrderBy { get; set; }
+        public Expression<Func<T, object>> OrderBy { get; set; }
 
         public int Page { get; set; }
 

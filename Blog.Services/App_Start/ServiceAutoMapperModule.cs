@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using Blog.Data.Identity;
 using Blog.Services.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -20,7 +21,7 @@ namespace Blog.Services
             {
                 cfg.ConstructServicesUsing(type => context.Kernel.Get(type));
                 
-                cfg.CreateMap<User, UserDTO>().ForMember(dest => dest.Roles, src => src.MapFrom(o => o.Roles));
+                cfg.CreateMap<User, UserDTO>().ForMember(dest => dest.Roles, src => src.MapFrom(o => o.Roles.Select(r => r.RoleId)));
 
                 cfg.CreateMap<IdentityUserRole, string>().ConvertUsing(src => src.RoleId);
 

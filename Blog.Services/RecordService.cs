@@ -18,16 +18,14 @@ namespace Blog.Services
             _mapper = mapper;
         }
         
-        public ListRecordsDTO GetAll(GetAllRecordsArgsDTO recordsArgsDto)
+        public ReturnListDTO<ReturnModelDTO<RecordDTO>> GetAll(GetArgsDTO<RecordDTO> recordsArgsDto)
         {
-            return _mapper.Map<ListRecordsDTO>(_repository.Get(_mapper.Map<GetAllRecordsArgs>(recordsArgsDto)));
+            return _mapper.Map<ReturnListDTO<ReturnModelDTO<RecordDTO>>>(_repository.Get(_mapper.Map<GetArgs<Record>>(recordsArgsDto)));
         }
 
-        public async Task<RecordDTO> FindById(int id, bool isWithComments = false)
+        public async Task<RecordDTO> FindById(int id)
         {
-            return !isWithComments ? 
-                _mapper.Map<RecordDTO>( await _repository.GetById(id)) : 
-                _mapper.Map<RecordDTO>(_repository.GetByIdWithComment(id));
+            return _mapper.Map<RecordDTO>(await _repository.GetById(id));
         }
 
         public async Task Insert(RecordDTO record)
@@ -57,6 +55,11 @@ namespace Blog.Services
             comment.CreateDate = DateTime.Now;
 
             await _repository.InsertComment(_mapper.Map<Comment>(comment));
+        }
+
+        public ReturnListDTO<CommentDTO> FindCommentsById(int recordId)
+        {
+            return _mapper.Map<ReturnListDTO<CommentDTO>>(_repository.GetCommentsById(recordId));
         }
     }
 }

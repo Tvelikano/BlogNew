@@ -2,9 +2,9 @@
 
 namespace Blog.Site.Models
 {
-    public class UserListViewModel
+    public class ListViewModel<T>
     {
-        public IEnumerable<UserViewModel> Users { get; set; }
+        public IList<T> List { get; set; }
 
         public PagingInfo PageInfo { get; set; }
 

@@ -38,7 +38,9 @@ namespace Blog.Data.Repository
 
             if (args.OrderBy != null)
             {
-                query = query.OrderBy(args.OrderBy);
+                query = args.Descending ? 
+                    query.OrderByDescending(args.OrderBy) : 
+                    query.OrderBy(args.OrderBy);
             }
 
             var count = query.Count();
@@ -101,7 +103,7 @@ namespace Blog.Data.Repository
 
         public ReturnList<Comment> GetCommentsById(int recordId)
         {
-            var query = _comments.Where(c => c.RecordId == recordId).Include(c => c.User).ToList();
+            var query = _comments.Where(c => c.RecordId == recordId).OrderByDescending(c => c.CreateDate).Include(c => c.User).ToList();
 
             return new ReturnList<Comment>
             {

@@ -39,9 +39,7 @@ namespace Blog.Services
         }
 
         private void AddBindings()
-        {
-            _kernel.Bind<AppCookieAuthenticationOptions>().To<AppCookieAuthenticationOptions>();
-
+        { 
             _kernel.Bind<IUserStore<User, int>>().To<AppUserStore>();
 
             _kernel.Bind<IRoleStore<Role, int>>().To<AppRoleStore>();

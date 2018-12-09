@@ -6,12 +6,12 @@
         <h4 class="card-title">@Model.Model.Name</h4>
         <p class="card-text">@Model.Model.Content</p>
         <div class="float-right text-secondary small">@Model.Info Comments - @Model.Model.CreateDate</div>
-        
+
         <div id="@Model.Model.RecordId">
             @using (Ajax.BeginForm("CommentSummary", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = @Model.Model.RecordId.ToString() }))
             {
                 <input type="hidden" name="RecordId" value="@Model.Model.RecordId" />
-                <input type="submit" value="ShowComments" />
+                <input type="submit" value="ShowComments" class="btn btn-primary" />
             }
         </div>
     </div>

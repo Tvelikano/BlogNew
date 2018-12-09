@@ -121,7 +121,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\AppCookieAuthenticationOptions.cs" />
     <Compile Include="App_Start\ServiceAutoMapperModule.cs" />
     <Compile Include="App_Start\DependencyResolver.cs" />
     <Compile Include="CommentDTO.cs" />

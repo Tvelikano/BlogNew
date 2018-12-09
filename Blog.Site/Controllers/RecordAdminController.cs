@@ -21,7 +21,7 @@ namespace Blog.Site.Controllers
         [ValidateInput(false)]
         public ActionResult Index(string searchString = "", int page = 1)
         {
-            const int pageSize = 1;
+            const int pageSize = 3;
 
             var returnRecords = _recordService.GetAll(
                 new GetArgsDTO<RecordDTO>()
@@ -29,7 +29,8 @@ namespace Blog.Site.Controllers
                     IsAdmin = true,
                     IsAuthenticated = HttpContext.User.Identity.IsAuthenticated,
                     SearchString = searchString,
-                    OrderBy = r => r.Name,
+                    OrderBy = r => r.CreateDate.ToString(),
+                    Descending = true,
                     Page = page,
                     PageSize = pageSize
                 });

@@ -12,22 +12,17 @@ namespace Blog.Data
 
         public DbSet<Comment> Comments { get; set; }
 
-        public RecordContext() : base("RecordsDataBase")
-        {
-            //Database.SetInitializer<RecordContext>(null);
-            //Configuration.ProxyCreationEnabled = false;
-            //Configuration.LazyLoadingEnabled = false;
-        }
-        public static RecordContext Create()
-        {
-            return new RecordContext();
-        }
-
         public DbSet<UserLogin> UserLogins { get; set; }
+
         public DbSet<UserClaim> UserClaims { get; set; }
+
         public DbSet<UserRole> UserRoles { get; set; }
 
+        public RecordContext() : base("RecordsDataBase")
+        {
 
+        }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

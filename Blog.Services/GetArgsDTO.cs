@@ -13,6 +13,8 @@ namespace Blog.Services
 
         public Expression<Func<T, object>> OrderBy { get; set; }
 
+        public bool Descending { get; set; }
+
         public int Page { get; set; }
 
         public int PageSize { get; set; }

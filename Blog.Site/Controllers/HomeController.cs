@@ -30,7 +30,8 @@ namespace Blog.Site.Controllers
                 {
                     IsAuthenticated = HttpContext.User.Identity.IsAuthenticated,
                     SearchString = searchString,
-                    OrderBy = r => r.Name,
+                    OrderBy = r => r.CreateDate.ToString(),
+                    Descending = true,
                     Page = page,
                     PageSize = pageSize
                 });
@@ -90,26 +91,6 @@ namespace Blog.Site.Controllers
             return View(_mapper.Map(record, model));
         }
 
-        [Authorize]
-        [HttpPost]
-        public async Task<ActionResult> Details(int recordId, string content)
-        {
-            if (!string.IsNullOrEmpty(content))
-            {
-                var record = await _recordService.FindById(recordId);
-
-                if (record == null)
-                {
-                    return HttpNotFound();
-                }
-
-                await _recordService.InsertComment(new CommentDTO
-                { Content = content, UserId = User.Identity.GetUserId<int>(), RecordId = record.RecordId });
-            }
-
-            return RedirectToAction("Details", new RecordDTO { RecordId = recordId });
-        }
-
         public ActionResult CommentSummary(int recordId)
         {
             var comments = _recordService.FindCommentsById(recordId);
@@ -117,12 +98,17 @@ namespace Blog.Site.Controllers
             return PartialView(comments);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> CommentSummary(int recordId, string content)
         {
             await _recordService.InsertComment(new CommentDTO
-            { Content = content, UserId = User.Identity.GetUserId<int>(), RecordId = recordId });
-            
+            {
+                Content = content,
+                UserId = User.Identity.GetUserId<int>(),
+                RecordId = recordId
+            });
+
             return RedirectToAction("CommentSummary", new { recordId });
         }
     }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Blog.Services;
+using Blog.Services.Identity;
 using Blog.Site.Models;
 using Ninject;
 using Ninject.Modules;
@@ -19,11 +20,11 @@ namespace Blog.Site
             {
                 cfg.ConstructServicesUsing(type => context.Kernel.Get(type));
 
-                cfg.CreateMap<UserDTO, UserViewModel>();
-
-                cfg.CreateMap<RegisterViewModel, UserDTO>();
-
-                cfg.CreateMap<LoginViewModel, UserDTO>().ForMember(destinationMember => destinationMember.Id, source => source.Ignore());
+                cfg.CreateMap<LoginViewModel, UserDTO>()
+                    .ForMember(dest => dest.Id, source => source.Ignore());
+                
+                cfg.CreateMap<UserDTO, UserViewModel>()
+                    .ForMember(dest => dest.PasswordConfirm, source => source.Ignore());
             });
 
             return new Mapper(conf);

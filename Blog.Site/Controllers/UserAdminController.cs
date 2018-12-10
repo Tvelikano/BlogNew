@@ -1,11 +1,13 @@
-﻿using Blog.Services;
-using Blog.Services.Interfaces;
+﻿using AutoMapper;
+using Blog.Services.Identity;
+using Blog.Services.Identity.Interfaces;
 using Blog.Services.Models;
 using Blog.Site.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using AutoMapper;
+using Blog.Services;
 
 namespace Blog.Site.Controllers
 {
@@ -13,17 +15,40 @@ namespace Blog.Site.Controllers
     public class UserAdminController : Controller
     {
         private readonly IRuntimeMapper _mapper;
-        private readonly IUserService _userService;
+        private readonly IUserService<UserDTO, RoleDTO> _userService;
 
-        public UserAdminController(IUserService service, IRuntimeMapper mapper)
+        public UserAdminController(IUserService<UserDTO, RoleDTO> service, IRuntimeMapper mapper)
         {
             _userService = service;
             _mapper = mapper;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string searchString = "", int page = 1)
         {
-            return View(_userService.GetAllUsers());
+            const int pageSize = 1;
+
+            var returnUsers = _userService.GetAllUsers(
+                new GetArgsDTO<UserDTO>
+                {
+                    SearchString = searchString,
+                    OrderBy = r => r.UserName,
+                    Page = page,
+                    PageSize = pageSize
+                });
+
+            var model = new ListViewModel<UserViewModel>
+            {
+                List = _mapper.Map<IList<UserViewModel>>(returnUsers.List),
+                PageInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = returnUsers.Count
+                },
+                SearchString = searchString
+            };
+
+            return View(model);
         }
 
         public ActionResult Create()
@@ -53,7 +78,7 @@ namespace Blog.Site.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(int id)
         {
             var user = await _userService.GetUserById(id);
 
@@ -87,7 +112,7 @@ namespace Blog.Site.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int id)
         {
             MessageFromResult(await _userService.DeleteUserById(id));
 
@@ -107,7 +132,6 @@ namespace Blog.Site.Controllers
                     ModelState.AddModelError("", message);
                 }
             }
-
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Blog.Site.Helpers
             var tagEnd = Build(pagingInfo.CurrentPage, pageUrl(pagingInfo.TotalPages), pagingInfo.TotalPages.ToString(), pagingInfo.TotalPages);
             result.Append(tagEnd);
 
-            if (pagingInfo.CurrentPage != pagingInfo.TotalItems)
+            if (pagingInfo.CurrentPage != pagingInfo.TotalPages)
             {
                 var tag = Build(pagingInfo.CurrentPage, pageUrl(pagingInfo.CurrentPage + 1), ">");
                 result.Append(tag);

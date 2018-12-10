@@ -3,6 +3,8 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Blog.Services.Interfaces;
+using Blog.Site.Models;
+using RecordDTO = Blog.Services.RecordDTO;
 
 namespace Blog.Site.Controllers
 {
@@ -16,9 +18,36 @@ namespace Blog.Site.Controllers
             _recordService = recordService;
         }
 
-        public ActionResult Index()
+        [ValidateInput(false)]
+        public ActionResult Index(string searchString = "", int page = 1)
         {
-            return View(_recordService.GetAll(new GetAllArgsDTO{IsAdmin = true}).Records);
+            const int pageSize = 3;
+
+            var returnRecords = _recordService.GetAll(
+                new GetArgsDTO<RecordDTO>()
+                {
+                    IsAdmin = true,
+                    IsAuthenticated = HttpContext.User.Identity.IsAuthenticated,
+                    SearchString = searchString,
+                    OrderBy = r => r.CreateDate.ToString(),
+                    Descending = true,
+                    Page = page,
+                    PageSize = pageSize
+                });
+
+            var model = new ListViewModel<ReturnModelDTO<RecordDTO>>()
+            {
+                List = returnRecords.List,
+                PageInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = returnRecords.Count
+                },
+                SearchString = searchString
+            };
+
+            return View(model);
         }
 
         public ViewResult Create()
@@ -41,9 +70,9 @@ namespace Blog.Site.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

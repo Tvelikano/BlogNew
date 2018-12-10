@@ -4,9 +4,9 @@ namespace Blog.Services.Interfaces
 {
     public interface IRecordService
     {
-        ReturnRecordsDTO GetAll(GetAllArgsDTO argsDto);
+        ReturnListDTO<ReturnModelDTO<RecordDTO>> GetAll(GetArgsDTO<RecordDTO> recordsArgsDto);
 
-        Task<RecordDTO> FindById(int? id);
+        Task<RecordDTO> FindById(int id);
 
         Task Insert(RecordDTO record);
 
@@ -15,5 +15,9 @@ namespace Blog.Services.Interfaces
         Task Delete(RecordDTO record);
 
         Task Delete(int id);
+
+        Task InsertComment(CommentDTO comment);
+
+        ReturnListDTO<CommentDTO> FindCommentsById(int recordId);
     }
 }

@@ -1,0 +1,40 @@
+﻿@model Blog.Services.ReturnListDTO<Blog.Services.CommentDTO>
+
+<div>
+    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        using (Ajax.BeginForm("CommentSummary", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = @Model.Info.ToString() }))
+        {
+            <input id="recordId" name="recordId" type="hidden" value="@Model.Info" />
+
+            <div class="form-group">
+                <label>Leave your comment:</label>
+                <input id="Content" name="Content" type="text" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+        }
+    }
+    else
+    {
+        <p>Log In to leave a comment</p>
+    }
+    <ul class="list-group list-group-flush">
+        @foreach (var comment in Model.List)
+        {
+            <li class="list-group-item">
+                <div>
+                    <span class="font-weight-bold">
+                        @comment.User.UserName
+                    </span>
+                    <span class="small font-weight-light">
+                        @comment.CreateDate
+                    </span>
+                </div>
+                <div class="font-weight-normal">
+                    @comment.Content
+                </div>
+            </li>
+        }
+    </ul>
+</div>

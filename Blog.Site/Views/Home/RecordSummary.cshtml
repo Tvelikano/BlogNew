@@ -1,15 +1,25 @@
-﻿@model Blog.Services.RecordDTO
-
-@{
-    ViewBag.Title = Model.Name;
-}
+﻿@using Blog.Services
+@model ReturnModelDTO<RecordDTO>
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">
-            @Html.ActionLink(Model.Name, "Details", "Home", new { id = Model.RecordId }, null)
-        </h4>
-        <p class="card-text">@Model.Content</p>
-        <div class="float-right text-secondary small">@Model.CreateDate</div>
+        <h4 class="card-title">@Model.Model.Name</h4>
+        <p class="card-text">@Model.Model.Content</p>
+        <div class="float-right text-secondary small">@Model.Model.CreateDate</div>
+
+        <div id="@Model.Model.RecordId">
+            @using (Ajax.BeginForm("CommentSummary", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = @Model.Model.RecordId.ToString() }))
+            {
+                <input type="hidden" name="RecordId" value="@Model.Model.RecordId" />
+                if (@Model.Info > 0)
+                {
+                    <input type="submit" value="Show @Model.Info Comments" class="btn btn-primary" />
+                }
+                else
+                {
+                    <input type="submit" value="Write first comment" class="btn btn-primary" />
+                }
+            }
+        </div>
     </div>
 </div>

@@ -1,6 +1,21 @@
-﻿@model Blog.Services.RecordDTO
+﻿@using Blog.Services
+@model ReturnModelDTO<RecordDTO>
 @{
-    ViewBag.Title = Model.Name;
+    ViewBag.Title = Model.Model.Name;
 }
 
-@Html.Partial("RecordSummary", Model)
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@Model.Model.Name</h4>
+        <p class="card-text">@Model.Model.Content</p>
+        <div class="float-right text-secondary small">@Model.Model.CreateDate</div>
+        <div>
+            @using (Ajax.BeginForm("CommentSummary", new AjaxOptions { UpdateTargetId = "results" }))
+            {
+                <input type="hidden" name="RecordId" value="@Model.Model.RecordId" />
+                <input type="submit" value="ShowComments" />
+            }
+            <div id="results"></div>
+        </div>
+    </div>
+</div>

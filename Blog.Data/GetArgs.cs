@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Blog.Data;
 
-namespace Blog.Services
+namespace Blog.Data
 {
-    public struct GetAllArgsDTO
+    public struct GetArgs<T>
     {
         public bool IsAdmin { get; set; }
 
@@ -12,8 +11,10 @@ namespace Blog.Services
 
         public string SearchString { get; set; }
 
-        public Expression<Func<RecordDTO, object>> OrderBy { get; set; }
+        public Expression<Func<T, object>> OrderBy { get; set; }
 
+        public bool Descending { get; set; }
+        
         public int Page { get; set; }
 
         public int PageSize { get; set; }

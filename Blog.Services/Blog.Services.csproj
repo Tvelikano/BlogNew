@@ -123,14 +123,16 @@
   <ItemGroup>
     <Compile Include="App_Start\ServiceAutoMapperModule.cs" />
     <Compile Include="App_Start\DependencyResolver.cs" />
+    <Compile Include="CommentDTO.cs" />
     <Compile Include="Enums\RecordStateDTO.cs" />
-    <Compile Include="GetAllArgsDTO.cs" />
-    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="GetArgsDTO.cs" />
+    <Compile Include="Identity\Interfaces\IUserService.cs" />
     <Compile Include="Models\OperationDetails.cs" />
-    <Compile Include="ReturnRecordsDTO.cs" />
-    <Compile Include="RoleDTO.cs" />
-    <Compile Include="UserDTO.cs" />
-    <Compile Include="UserService.cs" />
+    <Compile Include="ReturnModelDTO.cs" />
+    <Compile Include="ReturnListDTO.cs" />
+    <Compile Include="Identity\RoleDTO.cs" />
+    <Compile Include="Identity\UserDTO.cs" />
+    <Compile Include="Identity\UserService.cs" />
     <Compile Include="Interfaces\IRecordService.cs" />
     <Compile Include="RecordDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,6 +11,8 @@ using System.Web;
 using System.Web.Mvc;
 using Blog.Data.Identity;
 using Blog.Data.Identity.Interfaces;
+using Blog.Services.Identity;
+using Blog.Services.Identity.Interfaces;
 using Microsoft.Owin.Security;
 
 namespace Blog.Services
@@ -37,12 +39,10 @@ namespace Blog.Services
         }
 
         private void AddBindings()
-        {
-            _kernel.Bind<IAppIdentityDbContext>().To<AppIdentityDbContext>();
+        { 
+            _kernel.Bind<IUserStore<User, int>>().To<AppUserStore>();
 
-            _kernel.Bind<IUserStore<User>>().To<AppUserStore>();
-
-            _kernel.Bind<IRoleStore<Role, string>>().To<AppRoleStore>();
+            _kernel.Bind<IRoleStore<Role, int>>().To<AppRoleStore>();
 
             _kernel.Bind<IAppUserManager>().To<AppUserManager>();
 
@@ -54,7 +54,7 @@ namespace Blog.Services
 
             _kernel.Bind<IRecordService>().To<RecordService>();
 
-            _kernel.Bind<IUserService>().To<UserService>();
+            _kernel.Bind<IUserService<UserDTO, RoleDTO>>().To<UserService<UserDTO, RoleDTO>>();
 
             _kernel.Bind<IUnitOfWork>().To<IdentityUnitOfWork>();
 

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Blog.Data.Identity
 {
-    public class AppUserManager : UserManager<User>, IAppUserManager
+    public class AppUserManager : UserManager<User, int>, IAppUserManager
     {
-        public AppUserManager(IUserStore<User> store) : base(store)
+        public AppUserManager(IUserStore<User, int> store) : base(store)
         {
 
         }

@@ -9,6 +9,8 @@ namespace Blog.Data.Interfaces
     {
         DbSet<Record> Records { get; set; }
 
+        DbSet<Comment> Comments{ get; set; }
+
         DbSet Set(Type entityType);
 
         Task<int> SaveChangesAsync();

@@ -10,21 +10,23 @@
 <body class="bg-light">
     <nav class="navbar bg-dark">
         <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+            @Html.ActionLink("Blog", "Index", "Home", null, new { @class = "navbar-brand" })
             @Html.Partial("_LoginPartial")
         </div>
     </nav>
 
-<div class="container">
-    <br/>
-    @RenderBody()
-    <br/><br/>
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-    </footer>
-</div>
+    <main>
+        <div class="container">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+    </main>
 
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </body>
 </html>

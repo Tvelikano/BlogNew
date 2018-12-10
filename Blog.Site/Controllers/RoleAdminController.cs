@@ -1,17 +1,18 @@
-﻿using Blog.Services.Interfaces;
+﻿using Blog.Services.Identity.Interfaces;
 using Blog.Services.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Blog.Services.Identity;
 
 namespace Blog.Site.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class RoleAdminController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly IUserService<UserDTO, RoleDTO> _userService;
 
-        public RoleAdminController(IUserService userService)
+        public RoleAdminController(IUserService<UserDTO, RoleDTO> userService)
         {
             _userService = userService;
         }
@@ -47,7 +48,7 @@ namespace Blog.Site.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int id)
         {
             var result = await _userService.DeleteRoleById(id);
 

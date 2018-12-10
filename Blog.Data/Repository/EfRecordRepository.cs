@@ -1,9 +1,9 @@
-﻿using Blog.Data.Interfaces;
+﻿using Blog.Data.Enums;
+using Blog.Data.Interfaces;
 using Blog.Data.Repository.Interfaces;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Blog.Data.Enums;
 
 namespace Blog.Data.Repository
 {
@@ -11,14 +11,16 @@ namespace Blog.Data.Repository
     {
         private readonly IRecordContext _context;
         private readonly DbSet<Record> _records;
+        private readonly DbSet<Comment> _comments;
 
         public EfRecordRepository(IRecordContext context)
         {
             _context = context;
             _records = _context.Records;
+            _comments = _context.Comments;
         }
 
-        public ReturnRecords Get(GetAllArgs args)
+        public ReturnList<ReturnModel<Record>> Get(GetArgs<Record> args)
         {
             IQueryable<Record> query = _records;
 
@@ -28,7 +30,7 @@ namespace Blog.Data.Repository
                     query.Where(r => r.State != RecordState.Private) :
                     query.Where(r => r.State == RecordState.Public);
             }
-            
+
             if (!string.IsNullOrEmpty(args.SearchString))
             {
                 query = query.Where(r => r.Name.Contains(args.SearchString));
@@ -36,9 +38,11 @@ namespace Blog.Data.Repository
 
             if (args.OrderBy != null)
             {
-                query = query.OrderBy(args.OrderBy);
+                query = args.Descending ? 
+                    query.OrderByDescending(args.OrderBy) : 
+                    query.OrderBy(args.OrderBy);
             }
-            
+
             var count = query.Count();
 
             if (args.Page > 0 && args.PageSize > 0)
@@ -46,14 +50,18 @@ namespace Blog.Data.Repository
                 query = query.Skip(args.PageSize * (args.Page - 1)).Take(args.PageSize);
             }
 
-            return new ReturnRecords
+            return new ReturnList<ReturnModel<Record>>
             {
-                Records = query,
+                List = query.Include(r => r.Comments).Select(r => new ReturnModel<Record>
+                {
+                    Model = r,
+                    Info = r.Comments.Count()
+                }).ToList(),
                 Count = count
             };
         }
 
-        public async Task<Record> GetById(object id)
+        public async Task<Record> GetById(int id)
         {
             return await _records.FindAsync(id);
         }
@@ -84,6 +92,25 @@ namespace Blog.Data.Repository
             _context.Entry(entityToUpdate).State = EntityState.Modified;
 
             await Save();
+        }
+
+        public async Task InsertComment(Comment entityToInsert)
+        {
+            _comments.Add(entityToInsert);
+
+            await Save();
+        }
+
+        public ReturnList<Comment> GetCommentsById(int recordId)
+        {
+            var query = _comments.Where(c => c.RecordId == recordId).OrderByDescending(c => c.CreateDate).Include(c => c.User).ToList();
+
+            return new ReturnList<Comment>
+            {
+                List = query,
+                Count = query.Count(),
+                Info = recordId
+            };
         }
 
         public async Task Save()

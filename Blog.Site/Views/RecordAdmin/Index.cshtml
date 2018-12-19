@@ -5,6 +5,8 @@
     ViewBag.Title = "Index";
 }
 
+<div id="root"></div>
+
 <div>
     @if (@TempData["message"] != null)
     {
@@ -67,3 +69,5 @@
         @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { searchString = Model.SearchString, page = x }))
     </div>
 </div>
+
+<script src="~/Scripts/react/public/main.bundle.js"></script>

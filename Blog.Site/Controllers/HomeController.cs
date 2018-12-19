@@ -20,8 +20,13 @@ namespace Blog.Site.Controllers
             _mapper = mapper;
         }
 
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         [ValidateInput(false)]
-        public ActionResult Index(string searchString = "", int page = 1)
+        public ActionResult GetRecords(string searchString = "", int page = 1)
         {
             const int pageSize = 3;
 
@@ -48,7 +53,7 @@ namespace Blog.Site.Controllers
                 SearchString = searchString
             };
 
-            return View(model);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
@@ -91,11 +96,11 @@ namespace Blog.Site.Controllers
             return View(_mapper.Map(record, model));
         }
 
-        public ActionResult CommentSummary(int recordId)
+        public ActionResult GetComments(int recordId)
         {
             var comments = _recordService.FindCommentsById(recordId);
 
-            return PartialView(comments);
+            return Json(comments, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]

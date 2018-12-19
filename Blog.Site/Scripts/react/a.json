@@ -1,0 +1,55 @@
+{
+    "List":
+    [
+        {
+            "Model":
+            {
+                "RecordId":7,
+                "Name":"йкк",
+                "Content":"йкк",
+                "CreateDate":"\/Date(1544423393283)\/",
+                "State":2,
+                "Comments":[],
+                "UserId":null,
+                "User":null
+            },
+            "Info":0
+        },
+        {
+            "Model":
+            {
+                "RecordId":3,
+                "Name":"Second",
+                "Content":"This is second",
+                "CreateDate":"\/Date(1544188565283)\/",
+                "State":1,
+                "Comments":[],
+                "UserId":null,
+                "User":null
+            },
+            "Info":1
+        },
+        {
+            "Model":
+            {
+                "RecordId":4,
+                "Name":"Third",
+                "Content":"This is third",
+                "CreateDate":"\/Date(1544188574560)\/",
+                "State":2,
+                "Comments":[],
+                "UserId":null,
+                "User":null
+            },
+            "Info":1
+        }
+    ],
+    "PageInfo":
+        {
+            "TotalItems":6,
+            "ItemsPerPage":3,
+            "CurrentPage":1,
+            "TotalPages":2
+        },
+    "SearchString":null
+}

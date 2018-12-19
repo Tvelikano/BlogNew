@@ -1,0 +1,23 @@
+export const GET_RECORDS_REQUEST = "GET_RECORDS_REQUEST";
+export type GET_RECORDS_REQUEST = typeof GET_RECORDS_REQUEST;
+
+export const GET_RECORDS_SUCCESS = "GET_RECORDS_SUCCESS";
+export type GET_RECORDS_SUCCESS = typeof GET_RECORDS_SUCCESS;
+
+export const GET_RECORDS_FAIL = "GET_RECORDS_FAIL";
+export type GET_RECORDS_FAIL = typeof GET_RECORDS_FAIL;
+
+export const SHOW_COMMENTS = "SHOW_COMMENTS";
+export type SHOW_COMMENTS = typeof SHOW_COMMENTS;
+
+export const ADD_RECORD = "ADD_RECORD";
+export type ADD_RECORD = typeof ADD_RECORD;
+
+export const DELETE_RECORD = "DELETE_RECORD";
+export type DELETE_RECORD = typeof DELETE_RECORD;
+
+export const EDIT_RECORD = "EDIT_RECORD";
+export type EDIT_RECORD = typeof EDIT_RECORD;
+
+export const UPDATE_RECORD = "UPDATE_RECORD";
+export type UPDATE_RECORD = typeof UPDATE_RECORD;

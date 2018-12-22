@@ -1,4 +1,5 @@
 import React from "react";
+import CommentDTO from "types/CommentDTO";
 
 interface IProps {
   list: CommentDTO[];
@@ -20,18 +21,10 @@ export default class Comments extends React.Component<IProps, object> {
         <div className="form-group">
           <label>Leave your comment:</label>
 
-          <input
-            id="Content"
-            ref={this.content}
-            name="Content"
-            type="text"
-            className="form-control"
-          />
+          <input ref={this.content} className="form-control" />
         </div>
 
-        <button type="submit" className="btn btn-primary">
-          Create
-        </button>
+        <button className="btn btn-primary">Create</button>
       </form>
 
       <ul className="list-group list-group-flush">

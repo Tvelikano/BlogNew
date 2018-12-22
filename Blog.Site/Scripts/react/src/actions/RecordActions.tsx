@@ -1,6 +1,9 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import * as Constants from "./Constants/Record";
+import * as Constants from "actions/constants/Record";
 import querystring from "querystring";
+import ReturnModelDTO from "types/ReturnModelDTO";
+import RecordDTO from "types/RecordDTO";
+import ListViewModel from "types/ListViewModel";
 
 interface IAddRecordRequest {
   type: Constants.ADD_RECORDS_REQUEST;

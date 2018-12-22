@@ -1,5 +1,5 @@
 export default class ReturnListDTO<T> {
-  public List: T[];
+  public List: T[] = new Array<T>();
 
   public Count: number;
 

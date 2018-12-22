@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
-import * as actions from "../Actions/RecordActions";
-import Add from "../Components/Add";
+import * as actions from "actions/RecordActions";
+import Add from "components/records/Add";
 import { ThunkDispatch } from "redux-thunk";
-import RecordDTO from "../Types/RecordDTO";
+import RecordDTO from "types/RecordDTO";
 
 function mapDispatchToProps(
   dispatch: ThunkDispatch<{}, {}, actions.RecordActions>

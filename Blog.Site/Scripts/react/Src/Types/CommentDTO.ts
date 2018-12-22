@@ -1,7 +1,7 @@
-import RecordDTO from "./RecordDTO";
-import UserDTO from "./UserDTO";
+import RecordDTO from "types/RecordDTO";
+import UserDTO from "types/UserDTO";
 
-declare class CommentDTO {
+export default class CommentDTO {
   public CommentId: number;
 
   public Content: string;

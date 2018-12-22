@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import queryString from "querystring";
+import PagingInfo from "types/PagingInfo";
 
 interface IProps {
   pagingInfo: PagingInfo;
@@ -8,6 +9,25 @@ interface IProps {
 }
 
 export default class PagingHelper extends React.Component<IProps, any> {
+  private Build(html: string, page: number) {
+    const { query, pagingInfo } = this.props;
+
+    return (
+      <Link
+        to={`?${queryString.stringify({
+          ...queryString.parse(query.replace("?", "")),
+          page: page
+        })}`}
+        key={html}
+        className={`btn ${
+          page === pagingInfo.CurrentPage ? "selected btn-primary" : "btn-dark"
+        }`}
+      >
+        {html}
+      </Link>
+    );
+  }
+
   public render() {
     const pagingInfo = this.props.pagingInfo;
 
@@ -34,25 +54,6 @@ export default class PagingHelper extends React.Component<IProps, any> {
         {pagingInfo.CurrentPage != pagingInfo.TotalPages &&
           this.Build(">", pagingInfo.CurrentPage + 1)}
       </>
-    );
-  }
-
-  public Build(html: string, page: number) {
-    const { query, pagingInfo } = this.props;
-
-    return (
-      <Link
-        to={`?${queryString.stringify({
-          ...queryString.parse(query.replace("?", "")),
-          page: page
-        })}`}
-        key={html}
-        className={`btn ${
-          page === pagingInfo.CurrentPage ? "selected btn-primary" : "btn-dark"
-        }`}
-      >
-        {html}
-      </Link>
     );
   }
 }

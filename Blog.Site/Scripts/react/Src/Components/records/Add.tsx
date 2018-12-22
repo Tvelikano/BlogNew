@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import RecordDTO from "../Types/RecordDTO";
+import RecordDTO from "types/RecordDTO";
 
 interface IProps {
   addRecord: (data: RecordDTO) => void;
@@ -9,6 +9,16 @@ interface IProps {
 export default class Add extends React.Component<IProps, object> {
   private name = React.createRef<HTMLInputElement>();
   private content = React.createRef<HTMLTextAreaElement>();
+
+  private handleSubmit: React.ReactEventHandler<HTMLFormElement> = ev => {
+    ev.preventDefault();
+
+    const data = new RecordDTO();
+    data.Name = this.name.current!.value;
+    data.Content = this.content.current!.value;
+
+    this.props.addRecord(data);
+  };
 
   public render = () => (
     <>
@@ -41,14 +51,4 @@ export default class Add extends React.Component<IProps, object> {
       </Link>
     </>
   );
-
-  private handleSubmit: React.ReactEventHandler<HTMLFormElement> = ev => {
-    ev.preventDefault();
-
-    const data = new RecordDTO();
-    data.Name = this.name.current!.value;
-    data.Content = this.content.current!.value;
-
-    this.props.addRecord(data);
-  };
 }

@@ -1,6 +1,7 @@
 import * as React from "react";
-import Comments from "./Comments";
-import ReturnModelDTO from "../Types/ReturnModelDTO";
+import Comments from "components/comments/Comments";
+import ReturnModelDTO from "types/ReturnModelDTO";
+import RecordDTO from "types/RecordDTO";
 
 interface IProps {
   model: ReturnModelDTO<RecordDTO>;

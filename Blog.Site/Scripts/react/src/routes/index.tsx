@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Route, Switch } from "react-router";
-import RecordsContainer from "../containers/RecordsContainer";
-import AddContainer from "../Containers/AddContainer";
+import RecordsContainer from "containers/RecordsContainer";
+import AddContainer from "containers/AddContainer";
 
 const routes = (
   <Switch>

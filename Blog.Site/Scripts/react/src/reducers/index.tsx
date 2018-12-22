@@ -1,7 +1,7 @@
 import { connectRouter } from "connected-react-router";
 import { History } from "history";
 import { combineReducers } from "redux";
-import recordReducer from "./Records";
+import recordReducer from "reducers/Records";
 
 export default (history: History) =>
   combineReducers({

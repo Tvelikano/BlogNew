@@ -1,22 +1,14 @@
-import * as recordConstants from "../Actions/Constants/Record";
-import * as commentConstants from "../Actions/Constants/Comment";
-import { RecordActions } from "../Actions/RecordActions";
-import { IRecordState } from "../Types/Index";
-import { CommentActions } from "../Actions/CommentActions";
-import ReturnModelDTO from "../Types/ReturnModelDTO";
-import RecordDTO from "../Types/RecordDTO";
+import * as recordConstants from "actions/constants/Record";
+import * as commentConstants from "actions/constants/Comment";
+import { RecordActions } from "actions/RecordActions";
+import { IRecordState } from "types/Index";
+import { CommentActions } from "actions/CommentActions";
+import ReturnModelDTO from "types/ReturnModelDTO";
+import RecordDTO from "types/RecordDTO";
+import ListViewModel from "types/ListViewModel";
 
 const initialState: IRecordState = {
-  data: {
-    List: new Array<ReturnModelDTO<RecordDTO>>(),
-    PageInfo: {
-      TotalItems: 0,
-      ItemsPerPage: 1,
-      CurrentPage: 1,
-      TotalPages: 0
-    },
-    SearchString: ""
-  },
+  data: new ListViewModel<ReturnModelDTO<RecordDTO>>(),
   error: "",
   isLoading: false,
   isCommentsLoading: false

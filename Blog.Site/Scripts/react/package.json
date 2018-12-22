@@ -2,9 +2,10 @@
   "name": "blognew",
   "version": "1.0.0",
   "description": "",
-  "main": "index.tsx",
+  "main": "Index.tsx",
   "scripts": {
     "webpack": "webpack",
+    "build": "webpack --mode production --optimize-minimize",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -33,21 +34,17 @@
   },
   "devDependencies": {
     "@types/history": "^4.7.2",
-    "@types/jest": "^23.3.10",
     "@types/node": "^10.12.15",
     "@types/react": "^16.7.17",
     "@types/react-dom": "^16.0.11",
     "@types/react-router": "^4.4.3",
     "@types/react-router-dom": "^4.3.1",
     "@types/redux-logger": "^3.0.6",
-    "aspnet-webpack": "^2.0.3",
     "awesome-typescript-loader": "^5.2.1",
-    "css-loader": "^0.28.7",
-    "file-loader": "^1.1.6",
     "redux-logger": "^3.0.6",
     "source-map-loader": "^0.2.4",
-    "style-loader": "^0.19.1",
     "typescript": "^3.2.2",
+    "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2"
   }

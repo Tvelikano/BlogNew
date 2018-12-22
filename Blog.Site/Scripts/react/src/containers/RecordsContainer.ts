@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
-import * as recordActions from "../Actions/RecordActions";
-import * as commentActions from "../Actions/CommentActions";
-import { IStoreState } from "../Types/Index";
-import Blog from "../Components/Blog";
+import * as recordActions from "actions/RecordActions";
+import * as commentActions from "actions/CommentActions";
+import { IStoreState } from "types/Index";
+import Blog from "components/records/Blog";
 
 function mapStateToProps({ records }: IStoreState) {
   return {

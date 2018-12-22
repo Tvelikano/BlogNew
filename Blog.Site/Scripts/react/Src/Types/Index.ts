@@ -1,6 +1,7 @@
 import { RouterState } from "connected-react-router";
-import ReturnModelDTO from "./ReturnModelDTO";
-import RecordDTO from "./RecordDTO";
+import ReturnModelDTO from "types/ReturnModelDTO";
+import RecordDTO from "types/RecordDTO";
+import ListViewModel from "types/ListViewModel";
 
 export interface IStoreState {
   records: IRecordState;

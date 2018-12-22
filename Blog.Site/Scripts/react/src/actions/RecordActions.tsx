@@ -1,67 +1,60 @@
-import { AnyAction } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import * as Constants from "./constants/record";
+import * as Constants from "./Constants/Record";
+import querystring from "querystring";
 
-export interface IShowComments {
+interface IAddRecordRequest {
+  type: Constants.ADD_RECORDS_REQUEST;
+}
+
+interface IAddRecordSuccess {
+  type: Constants.ADD_RECORDS_SUCCESS;
+}
+
+interface IAddRecordFail {
+  type: Constants.ADD_RECORDS_FAIL;
+  data: Error;
+}
+
+interface IShowComments {
   type: Constants.SHOW_COMMENTS;
-  id: number;
+  data: number;
 }
 
-export interface IAddRecord {
-  type: Constants.ADD_RECORD;
-  data: RecordDTO;
-}
-
-export interface IDeleteRecord {
-  type: Constants.DELETE_RECORD;
-  id: number;
-}
-
-export interface IEditRecord {
-  type: Constants.EDIT_RECORD;
-  id: number;
-}
-
-export interface IUpdateRecord {
-  type: Constants.UPDATE_RECORD;
-  id: number;
-  data: RecordDTO;
-}
-
-export interface IGetRecordsRequest {
+interface IGetRecordsRequest {
   type: Constants.GET_RECORDS_REQUEST;
 }
 
-export interface IGetRecordsSuccess {
+interface IGetRecordsSuccess {
   data: ListViewModel<ReturnModelDTO<RecordDTO>>;
   type: Constants.GET_RECORDS_SUCCESS;
 }
 
-export interface IGetRecordsFail {
+interface IGetRecordsFail {
   data: Error;
   type: Constants.GET_RECORDS_FAIL;
 }
 
 export type RecordActions =
-  | IShowComments
-  | IAddRecord
-  | IDeleteRecord
-  | IEditRecord
-  | IUpdateRecord
+  | IAddRecordRequest
+  | IAddRecordSuccess
+  | IAddRecordFail
   | IGetRecordsRequest
   | IGetRecordsSuccess
-  | IGetRecordsFail;
+  | IGetRecordsFail
+  | IShowComments;
 
-export function getRecords(
+export function GetRecords(
   searchString: string = "",
   page: number = 1
-): ThunkAction<Promise<void>, {}, {}, AnyAction> {
-  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+): ThunkAction<Promise<void>, {}, {}, RecordActions> {
+  return async (
+    dispatch: ThunkDispatch<{}, {}, RecordActions>
+  ): Promise<void> => {
     dispatch({
       type: Constants.GET_RECORDS_REQUEST
     });
     fetch(
-      `http://localhost:62051/Home/GetRecords${
+      `Home/GetRecords${
         searchString !== ""
           ? `?searchString=${searchString}` +
             (page !== 1 ? `&page=${page}` : "")
@@ -88,39 +81,36 @@ export function getRecords(
   };
 }
 
-export function showComments(id: number): IShowComments {
+export function AddRecord(
+  data: RecordDTO
+): ThunkAction<Promise<void>, {}, {}, RecordActions> {
+  return async (
+    dispatch: ThunkDispatch<{}, {}, RecordActions>
+  ): Promise<void> => {
+    dispatch({
+      type: Constants.ADD_RECORDS_REQUEST
+    });
+    fetch(`Home/Create?${querystring.stringify(data)}`, {
+      method: "POST"
+    })
+      .then(() => {
+        dispatch({
+          type: Constants.ADD_RECORDS_SUCCESS
+        });
+      })
+      .catch(ex => {
+        dispatch({
+          data: new Error(ex),
+          type: Constants.ADD_RECORDS_FAIL
+        });
+      });
+  };
+}
+
+export function ShowComments(id: number): IShowComments {
   return {
-    id,
+    data: id,
     type: Constants.SHOW_COMMENTS
-  };
-}
-
-export function addRecord(data: RecordDTO): IAddRecord {
-  return {
-    data,
-    type: Constants.ADD_RECORD
-  };
-}
-
-export function deleteRecord(id: number): IDeleteRecord {
-  return {
-    id,
-    type: Constants.DELETE_RECORD
-  };
-}
-
-export function editRecord(id: number): IEditRecord {
-  return {
-    id,
-    type: Constants.EDIT_RECORD
-  };
-}
-
-export function updateRecord(id: number, data: RecordDTO): IUpdateRecord {
-  return {
-    data,
-    id,
-    type: Constants.UPDATE_RECORD
   };
 }
 

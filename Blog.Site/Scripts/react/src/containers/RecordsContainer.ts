@@ -1,26 +1,36 @@
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
-import * as actions from "../actions/RecordActions";
-import { IStoreState } from "../types";
-import Blog from "../components/Blog";
+import * as recordActions from "../Actions/RecordActions";
+import * as commentActions from "../Actions/CommentActions";
+import { IStoreState } from "../Types/Index";
+import Blog from "../Components/Blog";
 
 function mapStateToProps({ records }: IStoreState) {
   return {
     data: records.data,
     error: records.error,
-    isLoading: records.isLoading
+    isLoading: records.isLoading,
+    isCommentsLoading: records.isCommentsLoading
   };
 }
 
-function mapDispatchToProps(dispatch: ThunkDispatch<{}, {}, any>) {
+function mapDispatchToProps(
+  dispatch: ThunkDispatch<
+    {},
+    {},
+    recordActions.RecordActions | commentActions.CommentActions
+  >
+) {
   return {
-    deleteRecord: (id: number) => dispatch(actions.deleteRecord(id)),
-    editRecord: (id: number) => dispatch(actions.editRecord(id)),
     getRecords: async (searchString: string, page: number) =>
-      await dispatch(actions.getRecords(searchString, page)),
-    showComments: (id: number) => dispatch(actions.showComments(id)),
-    updateRecord: (id: number, data: RecordDTO) =>
-      dispatch(actions.updateRecord(id, data))
+      await dispatch(recordActions.GetRecords(searchString, page)),
+
+    getComments: (id: number) => dispatch(commentActions.getComments(id)),
+
+    createComment: (recordId: number, content: string) =>
+      dispatch(commentActions.createComment(recordId, content)),
+
+    showComments: (id: number) => dispatch(recordActions.ShowComments(id))
   };
 }
 

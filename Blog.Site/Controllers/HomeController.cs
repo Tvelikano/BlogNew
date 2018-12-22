@@ -1,10 +1,9 @@
-﻿using AutoMapper;
-using Blog.Services;
+﻿using Blog.Services;
 using Blog.Services.Interfaces;
 using Blog.Site.Models;
 using Microsoft.AspNet.Identity;
-using System.Net;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 
 namespace Blog.Site.Controllers
@@ -12,12 +11,10 @@ namespace Blog.Site.Controllers
     public class HomeController : Controller
     {
         private readonly IRecordService _recordService;
-        private readonly IRuntimeMapper _mapper;
 
-        public HomeController(IRecordService recordService, IRuntimeMapper mapper)
+        public HomeController(IRecordService recordService)
         {
             _recordService = recordService;
-            _mapper = mapper;
         }
 
         public ActionResult Index()
@@ -57,55 +54,21 @@ namespace Blog.Site.Controllers
         }
 
         [Authorize]
-        public ViewResult Create()
-        {
-            return View();
-        }
-
-        [Authorize]
         [HttpPost]
-        public async Task<ActionResult> Create(RecordDTO record)
+        public async Task Create(RecordDTO record)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(record);
-            }
-
             await _recordService.Insert(record);
-
-            TempData["message"] = "Your post has been sent for moderation.";
-
-            return RedirectToAction("Index");
-        }
-
-        public async Task<ActionResult> Details(RecordDTO model)
-        {
-            if (model.RecordId == 0)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var record = await _recordService.FindById(model.RecordId);
-
-            if (record == null)
-            {
-                return HttpNotFound();
-            }
-
-
-            return View(_mapper.Map(record, model));
         }
 
         public ActionResult GetComments(int recordId)
         {
             var comments = _recordService.FindCommentsById(recordId);
-
             return Json(comments, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult> CommentSummary(int recordId, string content)
+        public async Task CreateComment(int recordId, string content)
         {
             await _recordService.InsertComment(new CommentDTO
             {
@@ -113,8 +76,6 @@ namespace Blog.Site.Controllers
                 UserId = User.Identity.GetUserId<int>(),
                 RecordId = recordId
             });
-
-            return RedirectToAction("CommentSummary", new { recordId });
         }
     }
 }

@@ -1,85 +1,111 @@
 import * as React from "react";
 import Record from "./Record";
-import PagingHelper from "./PagingHelper";
+import PagingHelper from "./Helpers/PagingHelper";
+import queryString from "querystring";
+import SearchHelper from "./Helpers/SearchHelper";
+import { Link } from "react-router-dom";
 
 interface IProps {
   data: ListViewModel<ReturnModelDTO<RecordDTO>>;
   isLoading: boolean;
+  isCommentsLoading: boolean;
+  location: {
+    search: string;
+  };
   getRecords: (searchString: string, page: number) => void;
+  getComments: (id: number) => void;
+  createComment: (recordId: number, content: string) => void;
   showComments: (id: number) => void;
 }
 
 export default class Blog extends React.Component<IProps, object> {
-  private search = React.createRef<HTMLInputElement>();
+  public componentDidUpdate() {
+    let search = (queryString.parse(
+      this.props.location.search.replace("?", "")
+    ) as any) as {
+      searchString: string;
+      page: number;
+    };
 
-  public componentDidMount = () => {
-    this.props.getRecords(
-      this.props.data.SearchString,
-      this.props.data.PageInfo.CurrentPage
-    );
-  };
-
-  public render() {
-    return <div className="news">{this.renderTemplate()}</div>;
+    if (
+      !this.props.isLoading &&
+      ((search.page && search.page != this.props.data.PageInfo.CurrentPage) ||
+        (search.searchString &&
+          search.searchString != this.props.data.SearchString))
+    ) {
+      this.props.getRecords(search.searchString, search.page);
+    }
   }
 
-  private handleSubmit: React.ReactEventHandler<HTMLFormElement> = ev => {
-    ev.preventDefault();
+  public componentDidMount = () => {
+    let search = (queryString.parse(
+      this.props.location.search.replace("?", "")
+    ) as any) as {
+      searchString: string;
+      page: number;
+    };
 
-    this.props.getRecords(
-      this.search.current!.value,
-      this.props.data.PageInfo.CurrentPage
-    );
+    this.props.getRecords(search.searchString, search.page);
   };
 
+  public render = () => (
+    <>
+      <Link className="btn btn-primary" to="/Add">
+        Create New Record
+      </Link>
+      <SearchHelper
+        query={
+          (queryString.parse(
+            this.props.location.search.replace("?", "")
+          ) as any) as {
+            searchString: string;
+            page: number;
+          }
+        }
+      />
+      {this.renderTemplate()}
+    </>
+  );
+
   private renderTemplate() {
-    const { isLoading, data, showComments, getRecords } = this.props;
+    const {
+      isLoading,
+      data,
+      getComments,
+      createComment,
+      showComments
+    } = this.props;
     let template;
 
-    if (isLoading) {
-      template = <p>Загрузка...</p>;
+    // if (isLoading) {
+    //   template = <p>Загрузка...</p>;
+    // } else {
+    if (data.List.length) {
+      template = (
+        <>
+          {data.List.map(item => (
+            <div key={item.Model.RecordId}>
+              <Record
+                model={item}
+                showComments={() => {
+                  showComments(item.Model.RecordId),
+                    getComments(item.Model.RecordId);
+                }}
+                createComment={(recordId: number, content: string) =>
+                  createComment(recordId, content)
+                }
+              />
+            </div>
+          ))}
+          <PagingHelper
+            query={this.props.location.search}
+            pagingInfo={this.props.data.PageInfo}
+          />
+        </>
+      );
     } else {
-      if (data.List.length) {
-        template = (
-          <div>
-            <form className="form-inline" onSubmit={this.handleSubmit}>
-              <div className="input-group">
-                <input
-                  type="search"
-                  className="form-control"
-                  ref={this.search}
-                  placeholder="Search..."
-                  name="searchString"
-                  defaultValue={data.SearchString}
-                />
-                <div className="input-group-append">
-                  <input
-                    type="submit"
-                    className="btn btn-outline-info"
-                    value="Search"
-                  />
-                </div>
-              </div>
-            </form>
-            {data.List.map(item => (
-              <div key={item.Model.RecordId}>
-                <Record
-                  model={item}
-                  showComments={() => showComments(item.Model.RecordId)}
-                />
-              </div>
-            ))}
-            <PagingHelper
-              pagingInfo={this.props.data.PageInfo}
-              getRecords={(page: number) =>
-                getRecords(this.props.data.SearchString, page)
-              }
-            />
-          </div>
-        );
-      } else {
-        template = <p> No Records Yet </p>;
-      }
+      template = <p> No Records Yet </p>;
+      // }
     }
 
     return template;

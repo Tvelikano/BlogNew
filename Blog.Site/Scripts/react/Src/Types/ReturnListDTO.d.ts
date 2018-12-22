@@ -1,4 +1,4 @@
-declare class ReturnListDTO<T> {
+export default class ReturnListDTO<T> {
   public List: T[];
 
   public Count: number;

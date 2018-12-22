@@ -1,8 +1,12 @@
-import * as constants from "../actions/constants/record";
-import { RecordActions } from "../actions/RecordActions";
-import { IRecordState } from "../types";
+import * as recordConstants from "../Actions/Constants/Record";
+import * as commentConstants from "../Actions/Constants/Comment";
+import { RecordActions } from "../Actions/RecordActions";
+import { IRecordState } from "../Types/Index";
+import { CommentActions } from "../Actions/CommentActions";
+import ReturnModelDTO from "../Types/ReturnModelDTO";
+import RecordDTO from "../Types/RecordDTO";
 
-const initialState = {
+const initialState: IRecordState = {
   data: {
     List: new Array<ReturnModelDTO<RecordDTO>>(),
     PageInfo: {
@@ -14,18 +18,19 @@ const initialState = {
     SearchString: ""
   },
   error: "",
-  isLoading: false
+  isLoading: false,
+  isCommentsLoading: false
 };
 
-export function recordReducer(
+export default function recordReducer(
   state: IRecordState = initialState,
-  action: RecordActions
+  action: RecordActions | CommentActions
 ) {
   switch (action.type) {
-    case constants.GET_RECORDS_REQUEST:
+    case recordConstants.GET_RECORDS_REQUEST:
       return { ...state, isLoading: true, error: "" };
 
-    case constants.GET_RECORDS_SUCCESS: {
+    case recordConstants.GET_RECORDS_SUCCESS: {
       return {
         ...state,
         data: action.data,
@@ -34,56 +39,92 @@ export function recordReducer(
       };
     }
 
-    case constants.GET_RECORDS_FAIL:
+    case recordConstants.GET_RECORDS_FAIL:
       return {
         ...state,
         error: action.data.message,
         isLoading: false
       };
 
-    case constants.SHOW_COMMENTS:
+    case recordConstants.ADD_RECORDS_REQUEST:
       return {
         ...state,
-        data: state.data.List.map(item =>
-          item.Model.RecordId === action.id ? { ...item, visible: true } : item
-        )
+        isLoading: true,
+        error: ""
       };
 
-    case constants.ADD_RECORD:
+    case recordConstants.ADD_RECORDS_SUCCESS: {
       return {
         ...state,
-        data: [...state.data.List, action.data]
+        isLoading: false,
+        error: ""
       };
+    }
 
-    case constants.DELETE_RECORD:
+    case recordConstants.ADD_RECORDS_FAIL:
       return {
         ...state,
-        data: state.data.List.filter(item => item.Model.RecordId !== action.id)
+        error: action.data.message,
+        isLoading: false
       };
 
-    // case constants.EDIT_RECORD:
-    // 	return {
-    // 		...state,
-    // 		data: state.data.List.map(item =>
-    // 			item.Model.RecordId === action.id ? { ...item, isEditing: !item.isEditing } : item,
-    // 		),
-    // 	};
+    case recordConstants.SHOW_COMMENTS:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          List: state.data.List.map(item =>
+            item.Model.RecordId === action.data
+              ? {
+                  ...item,
+                  IsCommentVisible: true
+                }
+              : item
+          )
+        }
+      };
 
-    // case constants.UPDATE_RECORD:
-    // 	return {
-    // 		...state,
-    // 		data: state.data.map(item =>
-    // 			item.id === action.id
-    // 				? {
-    // 						...item,
-    // 						author: action.data.author,
-    // 						bigText: action.data.bigText,
-    // 						isEditing: !item.isEditing,
-    // 						text: action.data.text,
-    // 				  }
-    // 				: item,
-    // 		),
-    // 	};
+    case commentConstants.GET_COMMENTS_SUCCESS:
+      return {
+        data: {
+          ...state.data,
+          List: state.data.List.map(item =>
+            item.Model.RecordId === action.data.Info
+              ? {
+                  ...item,
+                  Model: { ...item.Model, Comments: action.data.List }
+                }
+              : item
+          )
+        },
+        error: "",
+        isCommentsLoading: false
+      };
+
+    case commentConstants.GET_COMMENTS_FAIL:
+      return {
+        ...state,
+        error: action.data.message,
+        isCommentsLoading: false
+      };
+
+    case commentConstants.CREATE_COMMENTS_REQUEST:
+      return { ...state, isCommentsLoading: true, error: "" };
+
+    case commentConstants.CREATE_COMMENTS_SUCCESS: {
+      return {
+        ...state,
+        error: "",
+        isCommentsLoading: false
+      };
+    }
+
+    case commentConstants.CREATE_COMMENTS_FAIL:
+      return {
+        ...state,
+        error: action.data.message,
+        isCommentsLoading: false
+      };
 
     default:
       return state;

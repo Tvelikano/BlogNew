@@ -1,11 +1,15 @@
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import * as actions from "../actions/RecordActions";
-import Add from "../components/Add";
+import * as actions from "../Actions/RecordActions";
+import Add from "../Components/Add";
+import { ThunkDispatch } from "redux-thunk";
+import RecordDTO from "../Types/RecordDTO";
 
-function mapDispatchToProps(dispatch: Dispatch<actions.RecordActions>) {
+function mapDispatchToProps(
+  dispatch: ThunkDispatch<{}, {}, actions.RecordActions>
+) {
   return {
-    addRecord: (data: RecordDTO) => dispatch(actions.addRecord(data))
+    addRecord: async (data: RecordDTO) =>
+      await dispatch(actions.AddRecord(data))
   };
 }
 

@@ -1,4 +1,4 @@
-declare class UserDTO {
+export default class UserDTO {
   public Id: string;
 
   public Email: string;

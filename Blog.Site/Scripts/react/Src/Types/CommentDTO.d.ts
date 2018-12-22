@@ -1,3 +1,6 @@
+import RecordDTO from "./RecordDTO";
+import UserDTO from "./UserDTO";
+
 declare class CommentDTO {
   public CommentId: number;
 

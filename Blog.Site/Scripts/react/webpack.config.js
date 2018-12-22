@@ -1,9 +1,9 @@
 module.exports = {
   mode: "development",
-  entry: "./src/index.tsx",
+  entry: "./Src/Index.tsx",
   output: {
     filename: "[name].bundle.js",
-    path: __dirname + "/public"
+    path: __dirname + "/Public"
   },
   watch: true,
   devtool: "source-map",

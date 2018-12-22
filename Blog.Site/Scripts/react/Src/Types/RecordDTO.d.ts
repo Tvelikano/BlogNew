@@ -1,4 +1,8 @@
-declare class RecordDTO {
+import RecordStateDTO from "./RecordStateDTO";
+import UserDTO from "./UserDTO";
+import { CommentDTO } from "./CommentDTO";
+
+export default class RecordDTO {
   public RecordId: number;
 
   public Name: string;

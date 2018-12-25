@@ -2,22 +2,18 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import queryString from "querystring";
 
-interface IProps {
-  query: { searchString: string; page: number };
-}
-
 interface IState {
-  search: string;
+  SearchString: string;
 }
 
-export default class SearchHelper extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
+export default class SearchHelper extends React.Component<any, IState> {
+  constructor(props: any) {
     super(props);
-    this.state = { search: "" };
+    this.state = { SearchString: "" };
   }
 
   private handleChange: React.ReactEventHandler<HTMLInputElement> = ev => {
-    this.setState({ search: ev.currentTarget.value });
+    this.setState({ SearchString: ev.currentTarget.value });
   };
 
   public render = () => (
@@ -32,10 +28,7 @@ export default class SearchHelper extends React.Component<IProps, IState> {
         <Link
           type="submit"
           className="btn btn-info"
-          to={`?${queryString.stringify({
-            searchString: this.state.search,
-            page: 1
-          })}`}
+          to={`?${queryString.stringify({SearchString: this.state.SearchString})}`}
         >
           Search
         </Link>

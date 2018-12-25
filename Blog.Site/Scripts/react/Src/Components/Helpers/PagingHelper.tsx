@@ -8,7 +8,7 @@ interface IProps {
   query: string;
 }
 
-export default class PagingHelper extends React.Component<IProps, any> {
+export default class PagingHelper extends React.Component<IProps> {
   private Build(html: string, page: number) {
     const { query, pagingInfo } = this.props;
 
@@ -16,7 +16,7 @@ export default class PagingHelper extends React.Component<IProps, any> {
       <Link
         to={`?${queryString.stringify({
           ...queryString.parse(query.replace("?", "")),
-          page: page
+          Page: page
         })}`}
         key={html}
         className={`btn ${

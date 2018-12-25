@@ -4,6 +4,7 @@ import querystring from "querystring";
 import ReturnModelDTO from "types/ReturnModelDTO";
 import RecordDTO from "types/RecordDTO";
 import ListViewModel from "types/ListViewModel";
+import SearchQuery from "types/SearchQuery";
 
 interface IAddRecordRequest {
   type: Constants.ADD_RECORDS_REQUEST;
@@ -46,9 +47,7 @@ export type RecordActions =
   | IGetRecordsFail
   | IShowComments;
 
-export function GetRecords(
-  searchString: string = "",
-  page: number = 1
+export function GetRecords(searchQuery: SearchQuery
 ): ThunkAction<Promise<void>, {}, {}, RecordActions> {
   return async (
     dispatch: ThunkDispatch<{}, {}, RecordActions>
@@ -57,14 +56,7 @@ export function GetRecords(
       type: Constants.GET_RECORDS_REQUEST
     });
     fetch(
-      `Home/GetRecords${
-        searchString !== ""
-          ? `?searchString=${searchString}` +
-            (page !== 1 ? `&page=${page}` : "")
-          : page !== 1
-          ? `?page=${page}`
-          : ""
-      }`
+      `api/record?${querystring.stringify(searchQuery)}`
     )
       .then(response => {
         return response.json();
@@ -93,7 +85,7 @@ export function AddRecord(
     dispatch({
       type: Constants.ADD_RECORDS_REQUEST
     });
-    fetch(`Home/Create?${querystring.stringify(data)}`, {
+    fetch(`api/record?${querystring.stringify(data)}`, {
       method: "POST"
     })
       .then(() => {

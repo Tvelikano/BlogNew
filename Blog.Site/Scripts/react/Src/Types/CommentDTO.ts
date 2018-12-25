@@ -6,7 +6,7 @@ export default class CommentDTO {
 
   public Content: string;
 
-  public CreateDate: string;
+  public CreateDate: Date;
 
   public RecordId: number;
 

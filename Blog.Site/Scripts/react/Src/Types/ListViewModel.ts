@@ -5,5 +5,5 @@ export default class ListViewModel<T> {
 
   public PageInfo: PagingInfo = new PagingInfo();
 
-  public SearchString: string;
+  public SearchString: string = "";
 }

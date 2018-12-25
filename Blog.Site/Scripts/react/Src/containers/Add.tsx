@@ -1,12 +1,15 @@
-import * as React from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "actions/RecordActions";
+import { ThunkDispatch } from "redux-thunk";
 import RecordDTO from "types/RecordDTO";
+import React from "react";
+import { Link } from "react-router-dom";
 
 interface IProps {
   addRecord: (data: RecordDTO) => void;
 }
 
-export default class Add extends React.Component<IProps, object> {
+class Add extends React.Component<IProps> {
   private name = React.createRef<HTMLInputElement>();
   private content = React.createRef<HTMLTextAreaElement>();
 
@@ -52,3 +55,17 @@ export default class Add extends React.Component<IProps, object> {
     </>
   );
 }
+
+function mapDispatchToProps(
+  dispatch: ThunkDispatch<{}, {}, actions.RecordActions>
+) {
+  return {
+    addRecord: async (data: RecordDTO) =>
+      await dispatch(actions.AddRecord(data))
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Add);

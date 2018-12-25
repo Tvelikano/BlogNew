@@ -2,6 +2,7 @@ import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import * as Constants from "actions/constants/Comment";
 import ReturnListDTO from "types/ReturnListDTO";
 import CommentDTO from "types/CommentDTO";
+import querystring from "querystring"
 
 interface IGetCommentsRequest {
   type: Constants.GET_COMMENTS_REQUEST;
@@ -47,7 +48,7 @@ export function getComments(
     dispatch({
       type: Constants.GET_COMMENTS_REQUEST
     });
-    fetch(`Home/GetComments?recordId=${recordId}`)
+    fetch(`api/comment/${recordId}`)
       .then(response => {
         return response.json();
       })
@@ -66,9 +67,7 @@ export function getComments(
   };
 }
 
-export function createComment(
-  recordId: number,
-  content: string
+export function createComment(data: CommentDTO
 ): ThunkAction<Promise<void>, {}, {}, CommentActions> {
   return async (
     dispatch: ThunkDispatch<{}, {}, CommentActions>
@@ -76,7 +75,7 @@ export function createComment(
     dispatch({
       type: Constants.CREATE_COMMENTS_REQUEST
     });
-    fetch(`Home/CreateComment?recordId=${recordId}&content=${content}`, {
+    fetch(`api/comment?${querystring.stringify(data)}`, {
       method: "POST"
     })
       .then(() => {

@@ -9,7 +9,7 @@ export default class RecordDTO {
 
   public Content: string;
 
-  public CreateDate: string;
+  public CreateDate: Date;
 
   public State: RecordStateDTO;
 

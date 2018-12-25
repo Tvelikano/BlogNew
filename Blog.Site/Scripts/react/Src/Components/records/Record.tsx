@@ -2,14 +2,16 @@ import * as React from "react";
 import Comments from "components/comments/Comments";
 import ReturnModelDTO from "types/ReturnModelDTO";
 import RecordDTO from "types/RecordDTO";
+import AddComment from "components/comments/AddComment";
+import CommentDTO from "types/CommentDTO";
 
 interface IProps {
   model: ReturnModelDTO<RecordDTO>;
   showComments: () => void;
-  createComment: (recordId: number, content: string) => void;
+  createComment: (data: CommentDTO) => void;
 }
 
-class Record extends React.Component<IProps, object> {
+class Record extends React.Component<IProps> {
   private showComments: React.ReactEventHandler<HTMLButtonElement> = ev => {
     ev.preventDefault();
     this.props.showComments();
@@ -25,18 +27,20 @@ class Record extends React.Component<IProps, object> {
           <h4 className="card-title">{Model.Name}</h4>
           <p className="card-text">{Model.Content}</p>
           <div className="float-right text-secondary small">
-            {new Date(
-              parseInt(/^\/Date\((.*?)\)\/$/.exec(Model.CreateDate)[1], 10)
-            ).toUTCString()}
+            {Model.CreateDate}
           </div>
           {IsCommentVisible ? (
-            <Comments
-              list={Model.Comments}
-              createComment={(content: string) => {
-                createComment(Model.RecordId, content);
+            <>
+              <AddComment
+              recordId = {Model.RecordId}
+              createComment={(data: CommentDTO) => {
+                createComment(data);
                 showComments();
-              }}
-            />
+              }}/>
+              <Comments
+                list={Model.Comments}
+              />
+            </>
           ) : (
             <button onClick={this.showComments} className="btn btn-primary">{`${
               Info > 0 ? `Show ${Info} Comments` : "Write first comment"

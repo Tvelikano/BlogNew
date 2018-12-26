@@ -32,14 +32,13 @@ class Record extends React.Component<IProps> {
           {IsCommentVisible ? (
             <>
               <AddComment
-              recordId = {Model.RecordId}
-              createComment={(data: CommentDTO) => {
-                createComment(data);
-                showComments();
-              }}/>
-              <Comments
-                list={Model.Comments}
+                recordId={Model.RecordId}
+                createComment={(data: CommentDTO) => {
+                  createComment(data);
+                  showComments();
+                }}
               />
+              <Comments list={Model.Comments} />
             </>
           ) : (
             <button onClick={this.showComments} className="btn btn-primary">{`${

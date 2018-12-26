@@ -13,9 +13,7 @@ export default class Comments extends React.Component<IProps> {
           <li key={item.CommentId} className="list-group-item">
             <span className="font-weight-bold">{item.User.UserName}</span>
 
-            <span className="small font-weight-light">
-              {item.CreateDate}
-            </span>
+            <span className="small font-weight-light">{item.CreateDate}</span>
 
             <div className="font-weight-normal">{item.Content}</div>
           </li>

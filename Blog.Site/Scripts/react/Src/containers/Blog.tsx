@@ -7,11 +7,11 @@ import ListViewModel from "types/ListViewModel";
 import ReturnModelDTO from "types/ReturnModelDTO";
 import RecordDTO from "types/RecordDTO";
 import React from "react";
-import queryString from "querystring"
+import queryString from "querystring";
 import { Link } from "react-router-dom";
 import SearchHelper from "components/helpers/SearchHelper";
 import PagingHelper from "components/helpers/PagingHelper";
-import Record from "components/records/Record"
+import Record from "components/records/Record";
 import CommentDTO from "types/CommentDTO";
 import SearchQuery from "types/SearchQuery";
 
@@ -34,7 +34,7 @@ class Blog extends React.Component<IProps> {
 
     let search = Object.assign(new SearchQuery(), (queryString.parse(
       location.search.replace("?", "")
-    ) as any) as SearchQuery) 
+    ) as any) as SearchQuery);
 
     getRecords(search);
   }
@@ -44,12 +44,12 @@ class Blog extends React.Component<IProps> {
 
     let search = Object.assign(new SearchQuery(), (queryString.parse(
       location.search.replace("?", "")
-    ) as any) as SearchQuery) 
+    ) as any) as SearchQuery);
 
     if (
       !isLoading &&
-      ((search.Page != data.PageInfo.CurrentPage) ||
-        (search.SearchString != data.SearchString))
+      (search.Page != data.PageInfo.CurrentPage ||
+        search.SearchString != data.SearchString)
     ) {
       getRecords(search);
     }
@@ -85,9 +85,7 @@ class Blog extends React.Component<IProps> {
               showComments(item.Model.RecordId),
                 getComments(item.Model.RecordId);
             }}
-            createComment={(data: CommentDTO) =>
-              createComment(data)
-            }
+            createComment={(data: CommentDTO) => createComment(data)}
           />
         ))}
         <PagingHelper query={location.search} pagingInfo={data.PageInfo} />

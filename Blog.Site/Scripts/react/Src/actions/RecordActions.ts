@@ -47,7 +47,8 @@ export type RecordActions =
   | IGetRecordsFail
   | IShowComments;
 
-export function GetRecords(searchQuery: SearchQuery
+export function GetRecords(
+  searchQuery: SearchQuery
 ): ThunkAction<Promise<void>, {}, {}, RecordActions> {
   return async (
     dispatch: ThunkDispatch<{}, {}, RecordActions>
@@ -55,9 +56,7 @@ export function GetRecords(searchQuery: SearchQuery
     dispatch({
       type: Constants.GET_RECORDS_REQUEST
     });
-    fetch(
-      `api/record?${querystring.stringify(searchQuery)}`
-    )
+    fetch(`api/record?${querystring.stringify(searchQuery)}`)
       .then(response => {
         return response.json();
       })

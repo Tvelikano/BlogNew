@@ -28,7 +28,9 @@ export default class SearchHelper extends React.Component<any, IState> {
         <Link
           type="submit"
           className="btn btn-info"
-          to={`?${queryString.stringify({SearchString: this.state.SearchString})}`}
+          to={`?${queryString.stringify({
+            SearchString: this.state.SearchString
+          })}`}
         >
           Search
         </Link>

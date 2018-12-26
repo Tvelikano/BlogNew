@@ -1,35 +1,6 @@
-﻿@using Blog.Site.Helpers
-@model Blog.Site.Models.ListViewModel<Blog.Services.ReturnModelDTO<Blog.Services.RecordDTO>>
-
-@{
+﻿@{
     ViewBag.Title = "Home";
 }
+<div id="root"></div>
 
-<div>
-    @if (@TempData["message"] != null)
-    {
-        <div class="alert alert-success" role="alert">
-            @TempData["message"]
-        </div>
-    }
-
-    @Html.ActionLink("New post", "Create", null, new { @class = "btn btn-primary" })
-
-    <form class="form-inline">
-        <div class="input-group">
-            <input type="search" class="form-control" placeholder="Search..." name="searchString" value="@Model.SearchString">
-            <div class="input-group-append">
-                <input type="submit" class="btn btn-outline-info" value="Search" />
-            </div>
-        </div>
-    </form>
-
-    @foreach (var record in @Model.List)
-    {
-        @Html.Partial("RecordSummary", record)
-    }
-
-    <div class="btn-group float-right">
-        @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { searchString = Model.SearchString, page = x }))
-    </div>
-</div>
+<script src="~/Scripts/react/public/main.bundle.js"></script>

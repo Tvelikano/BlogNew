@@ -7,11 +7,11 @@ using Blog.Services.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
 
 namespace Blog.Api.Controllers
 {
     [Authorize(Roles = "Admin")]
+    [Route("api/admin/users")]
     public class UserAdminController : ApiController
     {
         private readonly IRuntimeMapper _mapper;
@@ -23,7 +23,7 @@ namespace Blog.Api.Controllers
             _mapper = mapper;
         }
 
-        public JsonResult<ListViewModel<UserViewModel>> Index([FromUri]SearchQuery searchQuery)
+        public ListViewModel<UserViewModel> Get([FromUri]SearchQuery searchQuery)
         {
             if (searchQuery.SearchString == null)
             {
@@ -51,11 +51,11 @@ namespace Blog.Api.Controllers
                 SearchString = searchQuery.SearchString
             };
 
-            return Json(model);
+            return model;
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> Create(UserViewModel model)
+        public async Task<IHttpActionResult> Post([FromBody]UserViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -66,10 +66,10 @@ namespace Blog.Api.Controllers
 
             var result = await _userService.CreateUser(userDto);
 
-            return AddErrorsFromResult(result);
+            return ReturnResult(result);
         }
-        
-        public async Task<IHttpActionResult> Edit(UserViewModel model)
+
+        public async Task<IHttpActionResult> Put([FromBody]UserViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -80,21 +80,16 @@ namespace Blog.Api.Controllers
 
             var result = await _userService.EditUser(userDto);
 
-            return AddErrorsFromResult(result);
-        }
-        
-        public async Task<IHttpActionResult> Delete(int id)
-        {
-           return  AddErrorsFromResult(await _userService.DeleteUserById(id));
+            return ReturnResult(result);
         }
 
-        private IHttpActionResult AddErrorsFromResult(OperationDetails result)
+        public async Task<IHttpActionResult> Delete([FromBody]int id)
         {
-            if (result == null)
-            {
-                return InternalServerError();
-            }
+            return ReturnResult(await _userService.DeleteUserById(id));
+        }
 
+        private IHttpActionResult ReturnResult(OperationDetails result)
+        {
             if (result.IsSucceed) return Ok();
 
             if (result.Message != null)

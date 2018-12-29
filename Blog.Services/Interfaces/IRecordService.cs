@@ -11,9 +11,7 @@ namespace Blog.Services.Interfaces
         Task Insert(RecordDTO record);
 
         Task Update(RecordDTO record);
-
-        Task Delete(RecordDTO record);
-
+        
         Task Delete(int id);
 
         Task InsertComment(CommentDTO comment);

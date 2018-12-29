@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WebApplication1")]
+[assembly: AssemblyTitle("Blog.ReactUI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WebApplication1")]
+[assembly: AssemblyProduct("Blog.ReactUI")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("af49d325-2277-441f-9e8c-accb63c6da35")]
+[assembly: Guid("77acb58a-6413-4b22-8435-e60487bcd6de")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -26,7 +26,7 @@ namespace Blog.Api.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IHttpActionResult> Register(RegisterViewModel model)
+        public async Task<IHttpActionResult> Register([FromBody]RegisterViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -37,52 +37,7 @@ namespace Blog.Api.Controllers
 
             var result = await _userService.CreateUser(userDto);
 
-            if (!result.IsSucceed)
-            {
-                return AddErrorsFromResult(result);
-            }
-
-            // Auto login after register (successful user registration should return access_token)
-            var loginResult = Login(new LoginViewModel()
-            {
-                UserName = model.UserName,
-                Password = model.Password
-            });
-
-            return await loginResult;
-        }
-
-        [HttpPost]
-        [Route("login")]
-        public async Task<IHttpActionResult> Login(LoginViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var userDto = _mapper.Map<UserDTO>(model);
-
-            var claim = await _userService.Authenticate(userDto);
-
-            if (claim != null)
-            {
-                _authManager.SignOut();
-
-                _authManager.SignIn(new AuthenticationProperties
-                {
-                    IsPersistent = true
-                },
-                    claim);
-
-
-                return Ok();
-
-            }
-
-            ModelState.AddModelError("", "Incorrect Name or Password");
-
-            return BadRequest(ModelState);
+            return AddErrorsFromResult(result);
         }
 
         [Authorize]

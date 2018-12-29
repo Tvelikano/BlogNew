@@ -1,33 +1,34 @@
 using Blog.Services;
+using DependencyResolver = System.Web.Mvc.DependencyResolver;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Blog.Api.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Blog.Api.App_Start.NinjectWebCommon), "Stop")]
 
 namespace Blog.Api.App_Start
 {
+    using System;
+    using System.Web;
+
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
     using Ninject.Web.Common;
     using Ninject.Web.Common.WebHost;
 
-    using System;
-    using System.Web;
-
-    public static class NinjectWebCommon
+    public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start()
+        public static void Start() 
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-
+        
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -35,7 +36,7 @@ namespace Blog.Api.App_Start
         {
             bootstrapper.ShutDown();
         }
-
+        
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -63,7 +64,7 @@ namespace Blog.Api.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            System.Web.Mvc.DependencyResolver.SetResolver(new DependencyResolver(kernel));
-        }
+            DependencyResolver.SetResolver(new Services.DependencyResolver(kernel));
+        }        
     }
 }

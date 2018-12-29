@@ -1,8 +1,8 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using Blog.Data.Identity;
+﻿using Blog.Data.Identity;
 using Blog.Data.Interfaces;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Blog.Data
 {
@@ -22,14 +22,19 @@ namespace Blog.Data
         {
 
         }
-        
+
+        public static RecordContext Create()
+        {
+            return new RecordContext();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            
+
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<User>().Property(u => u.PasswordHash).HasMaxLength(500);
             modelBuilder.Entity<User>().Property(u => u.PhoneNumber).HasMaxLength(50);

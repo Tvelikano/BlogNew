@@ -38,8 +38,8 @@ namespace Blog.Data.Repository
 
             if (args.OrderBy != null)
             {
-                query = args.Descending ? 
-                    query.OrderByDescending(args.OrderBy) : 
+                query = args.Descending ?
+                    query.OrderByDescending(args.OrderBy) :
                     query.OrderBy(args.OrderBy);
             }
 
@@ -73,14 +73,9 @@ namespace Blog.Data.Repository
             await Save();
         }
 
-        public async Task Delete(Record entityToDelete)
+        public async Task Delete(int id)
         {
-            if (_context.Entry(entityToDelete).State == EntityState.Detached)
-            {
-                _records.Attach(entityToDelete);
-            }
-
-            _records.Remove(entityToDelete);
+            _context.Entry(await GetById(id)).State = EntityState.Deleted;
 
             await Save();
         }

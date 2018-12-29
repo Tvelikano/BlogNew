@@ -1,9 +1,9 @@
 ﻿using Blog.Api.Models;
 using Blog.Services;
 using Blog.Services.Interfaces;
+using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
 
 namespace Blog.Api.Controllers
 {
@@ -16,7 +16,7 @@ namespace Blog.Api.Controllers
             _recordService = recordService;
         }
 
-        public JsonResult<ListViewModel<ReturnModelDTO<RecordDTO>>> Get([FromUri]SearchQuery searchQuery)
+        public ListViewModel<ReturnModelDTO<RecordDTO>> Get([FromUri]SearchQuery searchQuery)
         {
             if (searchQuery.SearchString == null)
             {
@@ -47,17 +47,19 @@ namespace Blog.Api.Controllers
                 SearchString = searchQuery.SearchString
             };
 
-            return Json(model);
+            return model;
         }
 
         [Authorize]
-        public async Task Post([FromUri]RecordDTO record)
+        public async Task Post([FromBody]RecordDTO record)
         {
+            record.UserId = RequestContext.Principal.Identity.GetUserId<int>();
+
             await _recordService.Insert(record);
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IHttpActionResult> Put(RecordDTO record)
+        public async Task<IHttpActionResult> Put([FromBody]RecordDTO record)
         {
             if (!ModelState.IsValid)
             {
@@ -70,7 +72,7 @@ namespace Blog.Api.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IHttpActionResult> Delete(int id)
+        public async Task<IHttpActionResult> Delete([FromBody]int id)
         {
             await _recordService.Delete(id);
 

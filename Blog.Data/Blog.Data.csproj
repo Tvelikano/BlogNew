@@ -104,6 +104,10 @@
     <Compile Include="Migrations\201812070958259_ChangeUserIdType.Designer.cs">
       <DependentUpon>201812070958259_ChangeUserIdType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812281227341_ChangeIdType.cs" />
+    <Compile Include="Migrations\201812281227341_ChangeIdType.Designer.cs">
+      <DependentUpon>201812281227341_ChangeIdType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\Interfaces\IRecordRepository.cs" />
     <Compile Include="Record.cs" />
@@ -123,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812070958259_ChangeUserIdType.resx">
       <DependentUpon>201812070958259_ChangeUserIdType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812281227341_ChangeIdType.resx">
+      <DependentUpon>201812281227341_ChangeIdType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

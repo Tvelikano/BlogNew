@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using Blog.Services.Identity;
+﻿using Blog.Services.Identity;
 using Blog.Services.Identity.Interfaces;
 using Blog.Services.Models;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
 
 namespace Blog.Api.Controllers
 {
     [Authorize(Roles = "Admin")]
+    [Route("api/admin/roles")]
     public class RoleAdminController : ApiController
     {
         private readonly IUserService<UserDTO, RoleDTO> _userService;
@@ -19,37 +18,25 @@ namespace Blog.Api.Controllers
             _userService = userService;
         }
 
-        public JsonResult<IEnumerable<RoleDTO>> Get()
+        public IEnumerable<RoleDTO> Get()
         {
-            return Json(_userService.GetAllRoles());
+            return _userService.GetAllRoles();
         }
 
-        public async Task<IHttpActionResult> Post([Required]string name)
+        public async Task<IHttpActionResult> Post([FromBody]string name)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var result = await _userService.CreateRole(name);
-            
-            return AddErrorsFromResult(result);
+            return !ModelState.IsValid ? 
+                BadRequest(ModelState) : 
+                ReturnResult(await _userService.CreateRole(name));
         }
 
-        public async Task<IHttpActionResult> Delete(int id)
+        public async Task<IHttpActionResult> Delete([FromBody]int id)
         {
-            var result = await _userService.DeleteRoleById(id);
-
-            return AddErrorsFromResult(result);
+            return ReturnResult(await _userService.DeleteRoleById(id));
         }
 
-        private IHttpActionResult AddErrorsFromResult(OperationDetails result)
+        private IHttpActionResult ReturnResult(OperationDetails result)
         {
-            if (result == null)
-            {
-                return InternalServerError();
-            }
-
             if (result.IsSucceed) return Ok();
 
             if (result.Message != null)

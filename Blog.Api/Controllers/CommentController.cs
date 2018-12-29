@@ -1,9 +1,8 @@
-﻿using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Results;
-using Blog.Services;
+﻿using Blog.Services;
 using Blog.Services.Interfaces;
 using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace Blog.Api.Controllers
 {
@@ -16,13 +15,13 @@ namespace Blog.Api.Controllers
             _recordService = recordService;
         }
 
-        public JsonResult<ReturnListDTO<CommentDTO>> Get(int id)
+        public ReturnListDTO<CommentDTO> Get(int id)
         {
-            return Json(_recordService.FindCommentsById(id));
+            return _recordService.FindCommentsById(id);
         }
 
         [Authorize]
-        public async Task Post([FromUri]CommentDTO comment)
+        public async Task Post([FromBody]CommentDTO comment)
         {
             await _recordService.InsertComment(new CommentDTO
             {

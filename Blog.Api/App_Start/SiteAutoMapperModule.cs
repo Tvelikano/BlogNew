@@ -19,6 +19,10 @@ namespace Blog.Api
             {
                 cfg.ConstructServicesUsing(type => context.Kernel.Get(type));
 
+                cfg.CreateMap<RegisterViewModel, UserDTO>()
+                    .ForMember(dest => dest.Id, source => source.Ignore())
+                    .ForMember(dest => dest.Roles, source => source.Ignore());
+
                 cfg.CreateMap<LoginViewModel, UserDTO>()
                     .ForMember(dest => dest.Id, source => source.Ignore());
 

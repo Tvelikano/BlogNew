@@ -10,12 +10,10 @@ namespace Blog.Services
     {
         public int RecordId { get; set; }
 
-        [Required(ErrorMessage = "Please, set Name")]
-        [StringLength(50, MinimumLength = 5)]
+        [Required]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Please, set Content")]
-        [StringLength(1000, MinimumLength = 5)]
+        [Required]
         public string Content { get; set; }
 
         public DateTime CreateDate { get; set; }
@@ -24,7 +22,7 @@ namespace Blog.Services
 
         public ICollection<CommentDTO> Comments { get; set; } = new List<CommentDTO>();
 
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
         public UserDTO User { get; set; }
     }

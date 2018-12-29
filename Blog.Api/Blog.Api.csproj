@@ -135,6 +135,9 @@
     <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Http.Owin, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.7\lib\net45\System.Web.Http.Owin.dll</HintPath>
     </Reference>
@@ -174,8 +177,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\ApplicationOAuthProvider.cs" />
     <Compile Include="App_Start\Ninject.Web.Common.cs" />
     <Compile Include="App_Start\SiteAutoMapperModule.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
@@ -192,6 +197,7 @@
     <Compile Include="Models\SearchQuery.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -206,6 +212,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Blog.Data\Blog.Data.csproj">
+      <Project>{7b7420f0-33e0-43d6-93bb-4896e310b530}</Project>
+      <Name>Blog.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Blog.Services\Blog.Services.csproj">
       <Project>{7d4973dd-00eb-4d88-9d04-72f8d93e83e6}</Project>
       <Name>Blog.Services</Name>

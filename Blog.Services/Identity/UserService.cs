@@ -149,6 +149,7 @@ namespace Blog.Services.Identity
             }
 
             var deleteRoleResult = await _database.RoleManager.DeleteAsync(role);
+
             if (deleteRoleResult.Errors.Any())
             {
                 return new OperationDetails(false, deleteRoleResult.Errors);
@@ -167,7 +168,7 @@ namespace Blog.Services.Identity
 
             if (user != null)
             {
-                claim = await _database.UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+                claim = await _database.UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ExternalBearer);
             }
 
             return claim;

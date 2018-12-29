@@ -1,19 +1,19 @@
 ﻿using Blog.Data;
+using Blog.Data.Identity;
+using Blog.Data.Identity.Interfaces;
 using Blog.Data.Interfaces;
 using Blog.Data.Repository;
 using Blog.Data.Repository.Interfaces;
+using Blog.Services.Identity;
+using Blog.Services.Identity.Interfaces;
 using Blog.Services.Interfaces;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
-using Blog.Data.Identity;
-using Blog.Data.Identity.Interfaces;
-using Blog.Services.Identity;
-using Blog.Services.Identity.Interfaces;
-using Microsoft.Owin.Security;
 
 namespace Blog.Services
 {

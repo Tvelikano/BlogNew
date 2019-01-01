@@ -15,6 +15,7 @@ namespace Blog.Services.Identity
         {
             _provider = provider;
         }
+
         public OAuthAuthorizationServerOptions GetOptions()
         {
             return new OAuthAuthorizationServerOptions()

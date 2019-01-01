@@ -7,8 +7,6 @@ using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Blog.Data.Identity;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace Blog.Services.Identity
 {
@@ -16,16 +14,18 @@ namespace Blog.Services.Identity
     {
         private readonly string _publicClientId;
 
+        private readonly IAppUserManager _userManager;
 
-        public AppOAuthProvider(string publicClientId)
+
+        public AppOAuthProvider(IAppUserManager userManager)
         {
-            _publicClientId = publicClientId;
+            _publicClientId = "self";
+
+            _userManager = userManager;
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var _userManager = context.OwinContext.GetUserManager<AppUserManager>();
-
             var user = await _userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)

@@ -222,10 +222,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Blog.Data\Blog.Data.csproj">
-      <Project>{7b7420f0-33e0-43d6-93bb-4896e310b530}</Project>
-      <Name>Blog.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Blog.Services\Blog.Services.csproj">
       <Project>{7d4973dd-00eb-4d88-9d04-72f8d93e83e6}</Project>
       <Name>Blog.Services</Name>

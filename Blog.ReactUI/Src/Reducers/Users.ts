@@ -8,7 +8,7 @@ import UserViewModel from "Types/UserViewModel";
 const initialState: IUserState = {
   data: new ListViewModel<UserViewModel>(),
   error: "",
-  isLoading: false
+  isLoading: false,
 };
 
 export default function roleReducer(
@@ -24,7 +24,7 @@ export default function roleReducer(
         ...state,
         data: action.data,
         error: "",
-        isLoading: false
+        isLoading: false,
       };
     }
 
@@ -32,21 +32,21 @@ export default function roleReducer(
       return {
         ...state,
         error: action.data.message,
-        isLoading: false
+        isLoading: false,
       };
 
     case roleConstants.ADD_USERS_REQUEST:
       return {
         ...state,
         isLoading: true,
-        error: ""
+        error: "",
       };
 
     case roleConstants.ADD_USERS_SUCCESS: {
       return {
         ...state,
         isLoading: false,
-        error: ""
+        error: "",
       };
     }
 
@@ -54,7 +54,7 @@ export default function roleReducer(
       return {
         ...state,
         error: action.data.message,
-        isLoading: false
+        isLoading: false,
       };
 
     default:

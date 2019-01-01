@@ -7,7 +7,7 @@ import RoleDTO from "Types/RoleDTO";
 const initialState: IRoleState = {
   data: new Array<RoleDTO>(),
   error: "",
-  isLoading: false
+  isLoading: false,
 };
 
 export default function roleReducer(
@@ -23,7 +23,7 @@ export default function roleReducer(
         ...state,
         data: action.data,
         error: "",
-        isLoading: false
+        isLoading: false,
       };
     }
 
@@ -31,21 +31,21 @@ export default function roleReducer(
       return {
         ...state,
         error: action.data.message,
-        isLoading: false
+        isLoading: false,
       };
 
     case roleConstants.ADD_ROLES_REQUEST:
       return {
         ...state,
         isLoading: true,
-        error: ""
+        error: "",
       };
 
     case roleConstants.ADD_ROLES_SUCCESS: {
       return {
         ...state,
         isLoading: false,
-        error: ""
+        error: "",
       };
     }
 
@@ -53,7 +53,7 @@ export default function roleReducer(
       return {
         ...state,
         error: action.data.message,
-        isLoading: false
+        isLoading: false,
       };
 
     default:

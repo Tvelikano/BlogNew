@@ -11,7 +11,7 @@ const initialState: IRecordState = {
   data: new ListViewModel<ReturnModelDTO<RecordDTO>>(),
   error: "",
   isLoading: false,
-  isCommentsLoading: false
+  isCommentsLoading: false,
 };
 
 export default function recordReducer(
@@ -27,7 +27,7 @@ export default function recordReducer(
         ...state,
         data: action.data,
         error: "",
-        isLoading: false
+        isLoading: false,
       };
     }
 
@@ -35,21 +35,21 @@ export default function recordReducer(
       return {
         ...state,
         error: action.data.message,
-        isLoading: false
+        isLoading: false,
       };
 
     case recordConstants.ADD_RECORDS_REQUEST:
       return {
         ...state,
         isLoading: true,
-        error: ""
+        error: "",
       };
 
     case recordConstants.ADD_RECORDS_SUCCESS: {
       return {
         ...state,
         isLoading: false,
-        error: ""
+        error: "",
       };
     }
 
@@ -57,7 +57,7 @@ export default function recordReducer(
       return {
         ...state,
         error: action.data.message,
-        isLoading: false
+        isLoading: false,
       };
 
     case recordConstants.SHOW_COMMENTS:
@@ -69,11 +69,11 @@ export default function recordReducer(
             item.Model.RecordId === action.data
               ? {
                   ...item,
-                  IsCommentVisible: true
+                  IsCommentVisible: true,
                 }
               : item
-          )
-        }
+          ),
+        },
       };
 
     case commentConstants.GET_COMMENTS_SUCCESS:
@@ -84,20 +84,20 @@ export default function recordReducer(
             item.Model.RecordId === action.data.Info
               ? {
                   ...item,
-                  Model: { ...item.Model, Comments: action.data.List }
+                  Model: { ...item.Model, Comments: action.data.List },
                 }
               : item
-          )
+          ),
         },
         error: "",
-        isCommentsLoading: false
+        isCommentsLoading: false,
       };
 
     case commentConstants.GET_COMMENTS_FAIL:
       return {
         ...state,
         error: action.data.message,
-        isCommentsLoading: false
+        isCommentsLoading: false,
       };
 
     case commentConstants.CREATE_COMMENTS_REQUEST:
@@ -107,7 +107,7 @@ export default function recordReducer(
       return {
         ...state,
         error: "",
-        isCommentsLoading: false
+        isCommentsLoading: false,
       };
     }
 
@@ -115,7 +115,7 @@ export default function recordReducer(
       return {
         ...state,
         error: action.data.message,
-        isCommentsLoading: false
+        isCommentsLoading: false,
       };
 
     default:

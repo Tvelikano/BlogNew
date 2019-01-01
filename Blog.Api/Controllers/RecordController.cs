@@ -1,7 +1,9 @@
 ﻿using Blog.Api.Models;
 using Blog.Services;
 using Blog.Services.Interfaces;
+
 using Microsoft.AspNet.Identity;
+
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -26,8 +28,10 @@ namespace Blog.Api.Controllers
             var returnRecords = _recordService.GetAll(
                 new GetArgsDTO<RecordDTO>
                 {
-                    IsAdmin = User.IsInRole("Admin"),
-                    IsAuthenticated = User.Identity.IsAuthenticated,
+                    //                    IsAdmin = User.IsInRole("Admin"),
+                    //                    IsAuthenticated = User.Identity.IsAuthenticated,
+                    IsAdmin = true,
+                    IsAuthenticated = true,
                     SearchString = searchQuery.SearchString,
                     OrderBy = r => r.CreateDate.ToString(),
                     Descending = true,

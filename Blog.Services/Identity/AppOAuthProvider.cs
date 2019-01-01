@@ -1,28 +1,32 @@
-﻿using Blog.Data.Identity;
-using Microsoft.AspNet.Identity.Owin;
+﻿using Blog.Data.Identity.Interfaces;
+
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Blog.Data.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
-namespace Blog.Api
+namespace Blog.Services.Identity
 {
-    public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
+    public class AppOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
 
-        public ApplicationOAuthProvider(string publicClientId)
+
+        public AppOAuthProvider(string publicClientId)
         {
-            _publicClientId = publicClientId ?? throw new ArgumentNullException(nameof(publicClientId));
+            _publicClientId = publicClientId;
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var userManager = context.OwinContext.GetUserManager<AppUserManager>();
+            var _userManager = context.OwinContext.GetUserManager<AppUserManager>();
 
-            var user = await userManager.FindAsync(context.UserName, context.Password);
+            var user = await _userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
@@ -30,9 +34,9 @@ namespace Blog.Api
                 return;
             }
 
-            var oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
+            var oAuthIdentity = await user.GenerateUserIdentityAsync(_userManager,
                OAuthDefaults.AuthenticationType);
-            var cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
+            var cookiesIdentity = await user.GenerateUserIdentityAsync(_userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
             var properties = CreateProperties(user.UserName);
@@ -56,7 +60,6 @@ namespace Blog.Api
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            // Resource owner password credentials does not provide a client ID.
             if (context.ClientId == null)
             {
                 context.Validated();

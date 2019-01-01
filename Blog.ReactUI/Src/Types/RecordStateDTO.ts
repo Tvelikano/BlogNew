@@ -1,7 +1,7 @@
 enum RecordStateDTO {
   Private,
   Internal,
-  Public
+  Public,
 }
 
 export default RecordStateDTO;

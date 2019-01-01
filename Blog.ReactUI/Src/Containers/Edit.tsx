@@ -47,10 +47,10 @@ class Edit extends React.Component<IProps> {
     const record = this.props.data.List.find(
       item => item.Model.RecordId == this.props.match.params.id
     ).Model;
-    console.log(record.State);
+
     return (
       <>
-        <h4>New Record</h4>
+        <h4>Edit Record</h4>
 
         <form className="add" onSubmit={this.handleSubmit}>
           <div className="form-group">
@@ -79,18 +79,16 @@ class Edit extends React.Component<IProps> {
 
           <div className="form-group">
             State:
-            <select name="State" ref={this.recordState}>
+            <select
+              name="State"
+              ref={this.recordState}
+              defaultValue={RecordStateDTO[record.State]}
+            >
               {Object.keys(RecordStateDTO)
                 .filter(x => isNaN(Number(x)))
-                .map(item =>
-                  item === RecordStateDTO[record.State] ? (
-                    <option selected key={item}>
-                      {item}
-                    </option>
-                  ) : (
-                    <option key={item}>{item}</option>
-                  )
-                )}
+                .map(item => (
+                  <option key={item}>{item}</option>
+                ))}
             </select>
           </div>
 
@@ -113,7 +111,7 @@ function mapStateToProps({ records }: IStoreState) {
   return {
     data: records.data,
     error: records.error,
-    isLoading: records.isLoading
+    isLoading: records.isLoading,
   };
 }
 
@@ -127,7 +125,7 @@ function mapDispatchToProps(
     getRecord: async (id: number) =>
       await dispatch(
         actions.GetRecords(Object.assign(new SearchQuery(), { PageSize: 1 }))
-      )
+      ),
   };
 }
 

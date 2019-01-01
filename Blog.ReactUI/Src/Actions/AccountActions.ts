@@ -45,27 +45,27 @@ export function login(
     dispatch: ThunkDispatch<{}, {}, CommentActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.LOGIN_REQUEST
+      type: Constants.LOGIN_REQUEST,
     });
     fetch("http://localhost:59525/api/token", {
       method: "POST",
       body: querystring.stringify(
         Object.assign(data, { grant_type: "password" })
       ),
-      credentials: "include"
+      credentials: "include",
     })
       .then(response => {
         return response.json();
       })
       .then(() => {
         dispatch({
-          type: Constants.LOGIN_SUCCESS
+          type: Constants.LOGIN_SUCCESS,
         });
       })
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.LOGIN_FAIL
+          type: Constants.LOGIN_FAIL,
         });
       });
   };
@@ -78,25 +78,25 @@ export function register(
     dispatch: ThunkDispatch<{}, {}, CommentActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.REGISTER_REQUEST
+      type: Constants.REGISTER_REQUEST,
     });
     fetch(`http://localhost:59525/api/user/register`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
       .then(() => {
         console.log(data);
         dispatch({
-          type: Constants.REGISTER_SUCCESS
+          type: Constants.REGISTER_SUCCESS,
         });
       })
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.REGISTER_FAIL
+          type: Constants.REGISTER_FAIL,
         });
       });
   };

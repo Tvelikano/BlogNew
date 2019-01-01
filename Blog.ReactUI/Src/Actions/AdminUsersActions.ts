@@ -1,7 +1,6 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import * as Constants from "Actions/Constants/AdminUsers";
 import querystring from "querystring";
-import UserDTO from "Types/UserDTO";
 import ListViewModel from "Types/ListViewModel";
 import SearchQuery from "Types/SearchQuery";
 import UserViewModel from "Types/UserViewModel";
@@ -80,7 +79,7 @@ export function GetUsers(
     dispatch: ThunkDispatch<{}, {}, UserActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.GET_USERS_REQUEST
+      type: Constants.GET_USERS_REQUEST,
     });
     fetch(
       `http://localhost:59525/api/admin/users?${querystring.stringify(
@@ -94,13 +93,13 @@ export function GetUsers(
       .then(data => {
         dispatch({
           data,
-          type: Constants.GET_USERS_SUCCESS
+          type: Constants.GET_USERS_SUCCESS,
         });
       })
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.GET_USERS_FAIL
+          type: Constants.GET_USERS_FAIL,
         });
       });
   };
@@ -113,20 +112,20 @@ export function AddUser(
     dispatch: ThunkDispatch<{}, {}, UserActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.ADD_USERS_REQUEST
+      type: Constants.ADD_USERS_REQUEST,
     });
     fetch(`http://localhost:59525/api/admin/users`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
       .then(response => {
         if (response.ok) {
           dispatch({
-            type: Constants.ADD_USERS_SUCCESS
+            type: Constants.ADD_USERS_SUCCESS,
           });
           dispatch(GetUsers(new SearchQuery()));
         } else {
@@ -136,7 +135,7 @@ export function AddUser(
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.ADD_USERS_FAIL
+          type: Constants.ADD_USERS_FAIL,
         });
       });
   };
@@ -149,20 +148,20 @@ export function UpdateUser(
     dispatch: ThunkDispatch<{}, {}, UserActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.UPDATE_USERS_REQUEST
+      type: Constants.UPDATE_USERS_REQUEST,
     });
     fetch(`http://localhost:59525/api/admin/users`, {
       method: "PUT",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
       .then(response => {
         if (response.ok) {
           dispatch({
-            type: Constants.UPDATE_USERS_SUCCESS
+            type: Constants.UPDATE_USERS_SUCCESS,
           });
           dispatch(GetUsers(new SearchQuery()));
         } else {
@@ -172,7 +171,7 @@ export function UpdateUser(
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.UPDATE_USERS_FAIL
+          type: Constants.UPDATE_USERS_FAIL,
         });
       });
   };
@@ -185,20 +184,20 @@ export function DeleteUser(
     dispatch: ThunkDispatch<{}, {}, UserActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.DELETE_USERS_REQUEST
+      type: Constants.DELETE_USERS_REQUEST,
     });
     fetch(`http://localhost:59525/api/admin/users`, {
       method: "DELETE",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(id)
+      body: JSON.stringify(id),
     })
       .then(response => {
         if (response.ok) {
           dispatch({
-            type: Constants.DELETE_USERS_SUCCESS
+            type: Constants.DELETE_USERS_SUCCESS,
           });
           dispatch(GetUsers(new SearchQuery()));
         } else {
@@ -208,7 +207,7 @@ export function DeleteUser(
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.DELETE_USERS_FAIL
+          type: Constants.DELETE_USERS_FAIL,
         });
       });
   };

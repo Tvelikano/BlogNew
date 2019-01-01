@@ -16,7 +16,7 @@ export default class PagingHelper extends React.Component<IProps> {
       <Link
         to={`?${queryString.stringify({
           ...queryString.parse(query.replace("?", "")),
-          Page: page
+          Page: page,
         })}`}
         key={html}
         className={`btn ${

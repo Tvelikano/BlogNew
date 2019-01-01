@@ -61,39 +61,40 @@ class AdminRecords extends React.Component<IProps> {
 
         <SearchHelper />
         <table className="table table-striped table-bordered table-hover">
-          <tr>
-            <th>Record Id</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>State</th>
-            <th>Create Date</th>
-            <th />
-          </tr>
-
-          {data.List.map(item => (
+          <tbody>
             <tr>
-              <td>{item.Model.RecordId}</td>
-              <td>{item.Model.Name}</td>
-              <td>{item.Model.Content}</td>
-              <td>{item.Model.State}</td>
-              <td>{item.Model.CreateDate}</td>
-              <td>
-                <Link
-                  to={`Records/Edit/${item.Model.RecordId}`}
-                  className="btn btn-primary"
-                >
-                  Edit
-                </Link>
-
-                <button
-                  onClick={() => deleteRecord(item.Model.RecordId)}
-                  className="btn btn-danger"
-                >
-                  Delete
-                </button>
-              </td>
+              <th>Record Id</th>
+              <th>Title</th>
+              <th>Content</th>
+              <th>State</th>
+              <th>Create Date</th>
+              <th />
             </tr>
-          ))}
+
+            {data.List.map(item => (
+              <tr>
+                <td>{item.Model.RecordId}</td>
+                <td>{item.Model.Name}</td>
+                <td>{item.Model.Content}</td>
+                <td>{item.Model.State}</td>
+                <td>{item.Model.CreateDate}</td>
+                <td>
+                  <Link
+                    to={`Records/Edit/${item.Model.RecordId}`}
+                    className="btn btn-primary"
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    onClick={() => deleteRecord(item.Model.RecordId)}
+                    className="btn btn-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
 
         <PagingHelper query={location.search} pagingInfo={data.PageInfo} />
@@ -106,7 +107,7 @@ function mapStateToProps({ records }: IStoreState) {
   return {
     data: records.data,
     error: records.error,
-    isLoading: records.isLoading
+    isLoading: records.isLoading,
   };
 }
 
@@ -121,7 +122,7 @@ function mapDispatchToProps(
       await dispatch(recordActions.AddRecord(data)),
 
     deleteRecord: async (id: number) =>
-      await dispatch(recordActions.DeleteRecord(id))
+      await dispatch(recordActions.DeleteRecord(id)),
   };
 }
 

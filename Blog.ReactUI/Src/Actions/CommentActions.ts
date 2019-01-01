@@ -45,10 +45,10 @@ export function getComments(
     dispatch: ThunkDispatch<{}, {}, CommentActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.GET_COMMENTS_REQUEST
+      type: Constants.GET_COMMENTS_REQUEST,
     });
     fetch(`http://localhost:59525/api/comment/${recordId}`, {
-      credentials: "include"
+      credentials: "include",
     })
       .then(response => {
         return response.json();
@@ -56,13 +56,13 @@ export function getComments(
       .then(data => {
         dispatch({
           data,
-          type: Constants.GET_COMMENTS_SUCCESS
+          type: Constants.GET_COMMENTS_SUCCESS,
         });
       })
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.GET_COMMENTS_FAIL
+          type: Constants.GET_COMMENTS_FAIL,
         });
       });
   };
@@ -75,20 +75,20 @@ export function createComment(
     dispatch: ThunkDispatch<{}, {}, CommentActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.CREATE_COMMENTS_REQUEST
+      type: Constants.CREATE_COMMENTS_REQUEST,
     });
     fetch(`http://localhost:59525/api/comment`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-      credentials: "include"
+      credentials: "include",
     })
       .then(response => {
         if (response.ok) {
           dispatch({
-            type: Constants.CREATE_COMMENTS_SUCCESS
+            type: Constants.CREATE_COMMENTS_SUCCESS,
           });
           dispatch(getComments(data.RecordId));
         } else {
@@ -98,7 +98,7 @@ export function createComment(
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.CREATE_COMMENTS_FAIL
+          type: Constants.CREATE_COMMENTS_FAIL,
         });
       });
   };
@@ -106,7 +106,7 @@ export function createComment(
 
 export function GetNewsRequest(): IGetCommentsRequest {
   return {
-    type: Constants.GET_COMMENTS_REQUEST
+    type: Constants.GET_COMMENTS_REQUEST,
   };
 }
 
@@ -115,32 +115,32 @@ export function GetNewsSuccess(
 ): IGetCommentsSuccess {
   return {
     data,
-    type: Constants.GET_COMMENTS_SUCCESS
+    type: Constants.GET_COMMENTS_SUCCESS,
   };
 }
 
 export function GetNewsFail(data: Error): IGetCommentsFail {
   return {
     data,
-    type: Constants.GET_COMMENTS_FAIL
+    type: Constants.GET_COMMENTS_FAIL,
   };
 }
 
 export function CreateCommentRequest(): ICreateCommentsRequest {
   return {
-    type: Constants.CREATE_COMMENTS_REQUEST
+    type: Constants.CREATE_COMMENTS_REQUEST,
   };
 }
 
 export function CreateCommentSuccess(): ICreateCommentsSuccess {
   return {
-    type: Constants.CREATE_COMMENTS_SUCCESS
+    type: Constants.CREATE_COMMENTS_SUCCESS,
   };
 }
 
 export function CreateCommentFail(data: Error): ICreateCommentsFail {
   return {
     data,
-    type: Constants.CREATE_COMMENTS_FAIL
+    type: Constants.CREATE_COMMENTS_FAIL,
   };
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin;
+
 using Owin;
 
 [assembly: OwinStartup(typeof(Blog.Api.Startup))]
@@ -9,7 +10,9 @@ namespace Blog.Api
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            var kernel = ConfigureNinject(app);
+
+            ConfigureAuth(app, kernel);
         }
     }
 }

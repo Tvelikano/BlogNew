@@ -50,7 +50,7 @@ function mapDispatchToProps(
   dispatch: ThunkDispatch<{}, {}, Actions.CommentActions>
 ) {
   return {
-    login: async (data: LoginViewModel) => await dispatch(Actions.login(data))
+    login: async (data: LoginViewModel) => await dispatch(Actions.login(data)),
   };
 }
 

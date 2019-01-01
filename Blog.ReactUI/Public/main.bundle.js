@@ -142,25 +142,25 @@ function login(data) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["LOGIN_REQUEST"]
+                type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["LOGIN_REQUEST"],
             });
             fetch("http://localhost:59525/api/token", {
                 method: "POST",
                 body: querystring__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(Object.assign(data, { grant_type: "password" })),
-                credentials: "include"
+                credentials: "include",
             })
                 .then(function (response) {
                 return response.json();
             })
                 .then(function () {
                 dispatch({
-                    type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["LOGIN_SUCCESS"]
+                    type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["LOGIN_SUCCESS"],
                 });
             })
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["LOGIN_FAIL"]
+                    type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["LOGIN_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -172,25 +172,25 @@ function register(data) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["REGISTER_REQUEST"]
+                type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["REGISTER_REQUEST"],
             });
             fetch("http://localhost:59525/api/user/register", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
             })
                 .then(function () {
                 console.log(data);
                 dispatch({
-                    type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["REGISTER_SUCCESS"]
+                    type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["REGISTER_SUCCESS"],
                 });
             })
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["REGISTER_FAIL"]
+                    type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["REGISTER_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -255,22 +255,24 @@ function GetRoles() {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["GET_ROLES_REQUEST"]
+                type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["GET_ROLES_REQUEST"],
             });
-            fetch("http://localhost:59525/api/admin/roles", { credentials: "include" })
+            fetch("http://localhost:59525/api/admin/roles", {
+                credentials: "include",
+            })
                 .then(function (response) {
                 return response.json();
             })
                 .then(function (data) {
                 dispatch({
                     data: data,
-                    type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["GET_ROLES_SUCCESS"]
+                    type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["GET_ROLES_SUCCESS"],
                 });
             })
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["GET_ROLES_FAIL"]
+                    type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["GET_ROLES_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -282,20 +284,20 @@ function AddRole(name) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["ADD_ROLES_REQUEST"]
+                type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["ADD_ROLES_REQUEST"],
             });
             fetch("http://localhost:59525/api/admin/roles", {
                 credentials: "include",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 method: "POST",
-                body: JSON.stringify(name)
+                body: JSON.stringify(name),
             })
                 .then(function (response) {
                 if (response.ok) {
                     dispatch({
-                        type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["ADD_ROLES_SUCCESS"]
+                        type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["ADD_ROLES_SUCCESS"],
                     });
                     dispatch(GetRoles());
                 }
@@ -306,7 +308,7 @@ function AddRole(name) {
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["ADD_ROLES_FAIL"]
+                    type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["ADD_ROLES_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -318,20 +320,20 @@ function DeleteRole(id) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["DELETE_ROLES_REQUEST"]
+                type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["DELETE_ROLES_REQUEST"],
             });
             fetch("http://localhost:59525/api/admin/roles", {
                 method: "DELETE",
                 credentials: "include",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(id)
+                body: JSON.stringify(id),
             })
                 .then(function (response) {
                 if (response.ok) {
                     dispatch({
-                        type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["DELETE_ROLES_SUCCESS"]
+                        type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["DELETE_ROLES_SUCCESS"],
                     });
                     dispatch(GetRoles());
                 }
@@ -342,7 +344,7 @@ function DeleteRole(id) {
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["DELETE_ROLES_FAIL"]
+                    type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["DELETE_ROLES_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -413,7 +415,7 @@ function GetUsers(searchQuery) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USERS_REQUEST"]
+                type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USERS_REQUEST"],
             });
             fetch("http://localhost:59525/api/admin/users?" + querystring__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(searchQuery), { credentials: "include" })
                 .then(function (response) {
@@ -422,13 +424,13 @@ function GetUsers(searchQuery) {
                 .then(function (data) {
                 dispatch({
                     data: data,
-                    type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USERS_SUCCESS"]
+                    type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USERS_SUCCESS"],
                 });
             })
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USERS_FAIL"]
+                    type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USERS_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -440,20 +442,20 @@ function AddUser(data) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["ADD_USERS_REQUEST"]
+                type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["ADD_USERS_REQUEST"],
             });
             fetch("http://localhost:59525/api/admin/users", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 credentials: "include",
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
             })
                 .then(function (response) {
                 if (response.ok) {
                     dispatch({
-                        type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["ADD_USERS_SUCCESS"]
+                        type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["ADD_USERS_SUCCESS"],
                     });
                     dispatch(GetUsers(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_2__["default"]()));
                 }
@@ -464,7 +466,7 @@ function AddUser(data) {
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["ADD_USERS_FAIL"]
+                    type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["ADD_USERS_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -476,20 +478,20 @@ function UpdateUser(data) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["UPDATE_USERS_REQUEST"]
+                type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["UPDATE_USERS_REQUEST"],
             });
             fetch("http://localhost:59525/api/admin/users", {
                 method: "PUT",
                 credentials: "include",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
             })
                 .then(function (response) {
                 if (response.ok) {
                     dispatch({
-                        type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["UPDATE_USERS_SUCCESS"]
+                        type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["UPDATE_USERS_SUCCESS"],
                     });
                     dispatch(GetUsers(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_2__["default"]()));
                 }
@@ -500,7 +502,7 @@ function UpdateUser(data) {
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["UPDATE_USERS_FAIL"]
+                    type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["UPDATE_USERS_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -512,20 +514,20 @@ function DeleteUser(id) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["DELETE_USERS_REQUEST"]
+                type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["DELETE_USERS_REQUEST"],
             });
             fetch("http://localhost:59525/api/admin/users", {
                 method: "DELETE",
                 credentials: "include",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(id)
+                body: JSON.stringify(id),
             })
                 .then(function (response) {
                 if (response.ok) {
                     dispatch({
-                        type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["DELETE_USERS_SUCCESS"]
+                        type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["DELETE_USERS_SUCCESS"],
                     });
                     dispatch(GetUsers(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_2__["default"]()));
                 }
@@ -536,7 +538,7 @@ function DeleteUser(id) {
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["DELETE_USERS_FAIL"]
+                    type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["DELETE_USERS_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -606,10 +608,10 @@ function getComments(recordId) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["GET_COMMENTS_REQUEST"]
+                type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["GET_COMMENTS_REQUEST"],
             });
             fetch("http://localhost:59525/api/comment/" + recordId, {
-                credentials: "include"
+                credentials: "include",
             })
                 .then(function (response) {
                 return response.json();
@@ -617,13 +619,13 @@ function getComments(recordId) {
                 .then(function (data) {
                 dispatch({
                     data: data,
-                    type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["GET_COMMENTS_SUCCESS"]
+                    type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["GET_COMMENTS_SUCCESS"],
                 });
             })
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["GET_COMMENTS_FAIL"]
+                    type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["GET_COMMENTS_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -635,20 +637,20 @@ function createComment(data) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["CREATE_COMMENTS_REQUEST"]
+                type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["CREATE_COMMENTS_REQUEST"],
             });
             fetch("http://localhost:59525/api/comment", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data),
-                credentials: "include"
+                credentials: "include",
             })
                 .then(function (response) {
                 if (response.ok) {
                     dispatch({
-                        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["CREATE_COMMENTS_SUCCESS"]
+                        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["CREATE_COMMENTS_SUCCESS"],
                     });
                     dispatch(getComments(data.RecordId));
                 }
@@ -659,7 +661,7 @@ function createComment(data) {
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["CREATE_COMMENTS_FAIL"]
+                    type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["CREATE_COMMENTS_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -668,35 +670,35 @@ function createComment(data) {
 }
 function GetNewsRequest() {
     return {
-        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["GET_COMMENTS_REQUEST"]
+        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["GET_COMMENTS_REQUEST"],
     };
 }
 function GetNewsSuccess(data) {
     return {
         data: data,
-        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["GET_COMMENTS_SUCCESS"]
+        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["GET_COMMENTS_SUCCESS"],
     };
 }
 function GetNewsFail(data) {
     return {
         data: data,
-        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["GET_COMMENTS_FAIL"]
+        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["GET_COMMENTS_FAIL"],
     };
 }
 function CreateCommentRequest() {
     return {
-        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["CREATE_COMMENTS_REQUEST"]
+        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["CREATE_COMMENTS_REQUEST"],
     };
 }
 function CreateCommentSuccess() {
     return {
-        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["CREATE_COMMENTS_SUCCESS"]
+        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["CREATE_COMMENTS_SUCCESS"],
     };
 }
 function CreateCommentFail(data) {
     return {
         data: data,
-        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["CREATE_COMMENTS_FAIL"]
+        type: Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_0__["CREATE_COMMENTS_FAIL"],
     };
 }
 
@@ -925,10 +927,10 @@ function GetRecords(searchQuery) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORDS_REQUEST"]
+                type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORDS_REQUEST"],
             });
             fetch("http://localhost:59525/api/record?" + querystring__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(searchQuery), {
-                credentials: "include"
+                credentials: "include",
             })
                 .then(function (response) {
                 return response.json();
@@ -936,13 +938,13 @@ function GetRecords(searchQuery) {
                 .then(function (data) {
                 dispatch({
                     data: data,
-                    type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORDS_SUCCESS"]
+                    type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORDS_SUCCESS"],
                 });
             })
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORDS_FAIL"]
+                    type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORDS_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -954,22 +956,24 @@ function AddRecord(data) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["ADD_RECORDS_REQUEST"]
+                type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["ADD_RECORDS_REQUEST"],
             });
             fetch("http://localhost:59525/api/record", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data),
-                credentials: "include"
+                credentials: "include",
             })
                 .then(function (response) {
                 if (response.ok) {
                     dispatch({
-                        type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["ADD_RECORDS_SUCCESS"]
+                        type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["ADD_RECORDS_SUCCESS"],
                     });
-                    dispatch(GetRecords(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_2__["default"]()));
+                    //history.pushState({ state: 2 }, "null", "http://localhost:53695/");
+                    //window.location.href = "http://localhost:53695/";
+                    //dispatch(GetRecords(new SearchQuery()));
                 }
                 else {
                     throw new Error(response.statusText);
@@ -978,7 +982,7 @@ function AddRecord(data) {
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["ADD_RECORDS_FAIL"]
+                    type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["ADD_RECORDS_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -990,20 +994,20 @@ function UpdateRecord(data) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["UPDATE_RECORDS_REQUEST"]
+                type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["UPDATE_RECORDS_REQUEST"],
             });
             fetch("http://localhost:59525/api/record", {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data),
-                credentials: "include"
+                credentials: "include",
             })
                 .then(function (response) {
                 if (response.ok) {
                     dispatch({
-                        type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["UPDATE_RECORDS_SUCCESS"]
+                        type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["UPDATE_RECORDS_SUCCESS"],
                     });
                     dispatch(GetRecords(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_2__["default"]()));
                 }
@@ -1014,7 +1018,7 @@ function UpdateRecord(data) {
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["UPDATE_RECORDS_FAIL"]
+                    type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["UPDATE_RECORDS_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -1026,20 +1030,20 @@ function DeleteRecord(id) {
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             dispatch({
-                type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["DELETE_RECORDS_REQUEST"]
+                type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["DELETE_RECORDS_REQUEST"],
             });
             fetch("http://localhost:59525/api/record", {
                 method: "DELETE",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(id),
-                credentials: "include"
+                credentials: "include",
             })
                 .then(function (response) {
                 if (response.ok) {
                     dispatch({
-                        type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["DELETE_RECORDS_SUCCESS"]
+                        type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["DELETE_RECORDS_SUCCESS"],
                     });
                     dispatch(GetRecords(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_2__["default"]()));
                 }
@@ -1050,7 +1054,7 @@ function DeleteRecord(id) {
                 .catch(function (ex) {
                 dispatch({
                     data: new Error(ex),
-                    type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["DELETE_RECORDS_FAIL"]
+                    type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["DELETE_RECORDS_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -1060,7 +1064,7 @@ function DeleteRecord(id) {
 function ShowComments(id) {
     return {
         data: id,
-        type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["SHOW_COMMENTS"]
+        type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["SHOW_COMMENTS"],
     };
 }
 
@@ -1310,7 +1314,9 @@ var SearchHelper = /** @class */ (function (_super) {
         _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "input-group" },
             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { onChange: _this.handleChange, className: "form-control", placeholder: "Search..." }),
             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "input-group-append" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { type: "submit", className: "btn btn-info", to: "?" + querystring__WEBPACK_IMPORTED_MODULE_2___default.a.stringify({ SearchString: _this.state.SearchString }) }, "Search")))); };
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { type: "submit", className: "btn btn-info", to: "?" + querystring__WEBPACK_IMPORTED_MODULE_2___default.a.stringify({
+                        SearchString: _this.state.SearchString,
+                    }) }, "Search")))); };
         _this.state = { SearchString: "" };
         return _this;
     }
@@ -1512,7 +1518,7 @@ function mapDispatchToProps(dispatch) {
                 case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["AddRecord"](data))];
                 case 1: return [2 /*return*/, _a.sent()];
             }
-        }); }); }
+        }); }); },
     };
 }
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(Add));
@@ -1620,22 +1626,23 @@ var AdminRecords = /** @class */ (function (_super) {
             react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["Link"], { className: "btn btn-primary", to: "/Add" }, "Create New Record"),
             react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_4__["default"], null),
             react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Record Id"),
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Title"),
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Content"),
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "State"),
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Create Date"),
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null)),
-                data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.RecordId),
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.Name),
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.Content),
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.State),
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.CreateDate),
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null,
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["Link"], { to: "Records/Edit/" + item.Model.RecordId, className: "btn btn-primary" }, "Edit"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return deleteRecord(item.Model.RecordId); }, className: "btn btn-danger" }, "Delete")))); })),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tbody", null,
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Record Id"),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Title"),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Content"),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "State"),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Create Date"),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null)),
+                    data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.RecordId),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.Name),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.Content),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.State),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.CreateDate),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["Link"], { to: "Records/Edit/" + item.Model.RecordId, className: "btn btn-primary" }, "Edit"),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return deleteRecord(item.Model.RecordId); }, className: "btn btn-danger" }, "Delete")))); }))),
             react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_5__["default"], { query: location.search, pagingInfo: data.PageInfo })));
     };
     return AdminRecords;
@@ -1645,7 +1652,7 @@ function mapStateToProps(_a) {
     return {
         data: records.data,
         error: records.error,
-        isLoading: records.isLoading
+        isLoading: records.isLoading,
     };
 }
 function mapDispatchToProps(dispatch) {
@@ -1668,7 +1675,7 @@ function mapDispatchToProps(dispatch) {
                 case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["DeleteRecord"](id))];
                 case 1: return [2 /*return*/, _a.sent()];
             }
-        }); }); }
+        }); }); },
     };
 }
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(AdminRecords));
@@ -1785,7 +1792,7 @@ function mapStateToProps(_a) {
     return {
         data: roles.data,
         error: roles.error,
-        isLoading: roles.isLoading
+        isLoading: roles.isLoading,
     };
 }
 function mapDispatchToProps(dispatch) {
@@ -1808,7 +1815,7 @@ function mapDispatchToProps(dispatch) {
                 case 0: return [4 /*yield*/, dispatch(Actions_AdminRolesActions__WEBPACK_IMPORTED_MODULE_1__["DeleteRole"](id))];
                 case 1: return [2 /*return*/, _a.sent()];
             }
-        }); }); }
+        }); }); },
     };
 }
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(AdminRoles));
@@ -1961,7 +1968,7 @@ var AdminUsers = /** @class */ (function (_super) {
                         react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Id),
                         react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.UserName),
                         react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Email),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Roles.map(function (role) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, role)); })),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Roles.map(function (role) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", { key: role }, role)); })),
                         react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null,
                             react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return updateUser(item); }, className: "btn btn-primary", value: "Edit" }, "Edit"),
                             react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return deleteUser(item.Id); }, className: "btn btn-danger" }, "Delete")))); }))),
@@ -1974,7 +1981,7 @@ function mapStateToProps(_a) {
     return {
         data: users.data,
         error: users.error,
-        isLoading: users.isLoading
+        isLoading: users.isLoading,
     };
 }
 function mapDispatchToProps(dispatch) {
@@ -2003,7 +2010,7 @@ function mapDispatchToProps(dispatch) {
                 case 0: return [4 /*yield*/, dispatch(Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__["DeleteUser"](id))];
                 case 1: return [2 /*return*/, _a.sent()];
             }
-        }); }); }
+        }); }); },
     };
 }
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(AdminUsers));
@@ -2128,7 +2135,7 @@ function mapStateToProps(_a) {
         data: records.data,
         error: records.error,
         isLoading: records.isLoading,
-        isCommentsLoading: records.isCommentsLoading
+        isCommentsLoading: records.isCommentsLoading,
     };
 }
 function mapDispatchToProps(dispatch) {
@@ -2144,7 +2151,7 @@ function mapDispatchToProps(dispatch) {
         createComment: function (data) {
             return dispatch(Actions_CommentActions__WEBPACK_IMPORTED_MODULE_2__["createComment"](data));
         },
-        showComments: function (id) { return dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["ShowComments"](id)); }
+        showComments: function (id) { return dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["ShowComments"](id)); },
     };
 }
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Blog));
@@ -2243,9 +2250,8 @@ var Edit = /** @class */ (function (_super) {
     Edit.prototype.render = function () {
         var _this = this;
         var record = this.props.data.List.find(function (item) { return item.Model.RecordId == _this.props.match.params.id; }).Model;
-        console.log(record.State);
         return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, "New Record"),
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, "Edit Record"),
             react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", { className: "add", onSubmit: this.handleSubmit },
                 react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
                     "Name:",
@@ -2257,11 +2263,9 @@ var Edit = /** @class */ (function (_super) {
                         react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("textarea", { required: true, className: "form-control", ref: this.content, defaultValue: record.Content }))),
                 react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
                     "State:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("select", { name: "State", ref: this.recordState }, Object.keys(Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_4__["default"])
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("select", { name: "State", ref: this.recordState, defaultValue: Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_4__["default"][record.State] }, Object.keys(Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_4__["default"])
                         .filter(function (x) { return isNaN(Number(x)); })
-                        .map(function (item) {
-                        return item === Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_4__["default"][record.State] ? (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("option", { selected: true, key: item }, item)) : (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("option", { key: item }, item));
-                    }))),
+                        .map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("option", { key: item }, item)); }))),
                 react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
                     react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
@@ -2274,7 +2278,7 @@ function mapStateToProps(_a) {
     return {
         data: records.data,
         error: records.error,
-        isLoading: records.isLoading
+        isLoading: records.isLoading,
     };
 }
 function mapDispatchToProps(dispatch) {
@@ -2293,7 +2297,7 @@ function mapDispatchToProps(dispatch) {
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
-        }); }
+        }); },
     };
 }
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Edit));
@@ -2404,7 +2408,7 @@ function mapDispatchToProps(dispatch) {
                 case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__["login"](data))];
                 case 1: return [2 /*return*/, _a.sent()];
             }
-        }); }); }
+        }); }); },
     };
 }
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(null, mapDispatchToProps)(Login));
@@ -2525,7 +2529,7 @@ function mapDispatchToProps(dispatch) {
                 case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__["register"](data))];
                 case 1: return [2 /*return*/, _a.sent()];
             }
-        }); }); }
+        }); }); },
     };
 }
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(null, mapDispatchToProps)(Register));
@@ -2558,7 +2562,7 @@ __webpack_require__.r(__webpack_exports__);
         records: Reducers_Records__WEBPACK_IMPORTED_MODULE_2__["default"],
         users: Reducers_Users__WEBPACK_IMPORTED_MODULE_3__["default"],
         roles: Reducers_Roles__WEBPACK_IMPORTED_MODULE_4__["default"],
-        router: Object(connected_react_router__WEBPACK_IMPORTED_MODULE_0__["connectRouter"])(history)
+        router: Object(connected_react_router__WEBPACK_IMPORTED_MODULE_0__["connectRouter"])(history),
     });
 });
 
@@ -2596,7 +2600,7 @@ var initialState = {
     data: new Types_ListViewModel__WEBPACK_IMPORTED_MODULE_2__["default"](),
     error: "",
     isLoading: false,
-    isCommentsLoading: false
+    isCommentsLoading: false,
 };
 function recordReducer(state, action) {
     if (state === void 0) { state = initialState; }
@@ -2627,7 +2631,7 @@ function recordReducer(state, action) {
                             ? __assign({}, item, { Model: __assign({}, item.Model, { Comments: action.data.List }) }) : item;
                     }) }),
                 error: "",
-                isCommentsLoading: false
+                isCommentsLoading: false,
             };
         case Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_1__["GET_COMMENTS_FAIL"]:
             return __assign({}, state, { error: action.data.message, isCommentsLoading: false });
@@ -2672,7 +2676,7 @@ var __assign = (undefined && undefined.__assign) || function () {
 var initialState = {
     data: new Array(),
     error: "",
-    isLoading: false
+    isLoading: false,
 };
 function roleReducer(state, action) {
     if (state === void 0) { state = initialState; }
@@ -2727,7 +2731,7 @@ var __assign = (undefined && undefined.__assign) || function () {
 var initialState = {
     data: new Types_ListViewModel__WEBPACK_IMPORTED_MODULE_1__["default"](),
     error: "",
-    isLoading: false
+    isLoading: false,
 };
 function roleReducer(state, action) {
     if (state === void 0) { state = initialState; }

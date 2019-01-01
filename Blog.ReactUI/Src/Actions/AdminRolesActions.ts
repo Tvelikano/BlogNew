@@ -3,7 +3,6 @@ import * as Constants from "Actions/Constants/AdminRoles";
 import ReturnModelDTO from "Types/ReturnModelDTO";
 import RoleDTO from "Types/RoleDTO";
 import ListViewModel from "Types/ListViewModel";
-import ResponseResult from "Types/ResponseResult";
 
 interface IGetRolesRequest {
   type: Constants.GET_ROLES_REQUEST;
@@ -61,22 +60,24 @@ export function GetRoles(): ThunkAction<Promise<void>, {}, {}, RoleActions> {
     dispatch: ThunkDispatch<{}, {}, RoleActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.GET_ROLES_REQUEST
+      type: Constants.GET_ROLES_REQUEST,
     });
-    fetch("http://localhost:59525/api/admin/roles", { credentials: "include" })
+    fetch("http://localhost:59525/api/admin/roles", {
+      credentials: "include",
+    })
       .then(response => {
         return response.json();
       })
       .then(data => {
         dispatch({
           data,
-          type: Constants.GET_ROLES_SUCCESS
+          type: Constants.GET_ROLES_SUCCESS,
         });
       })
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.GET_ROLES_FAIL
+          type: Constants.GET_ROLES_FAIL,
         });
       });
   };
@@ -89,20 +90,20 @@ export function AddRole(
     dispatch: ThunkDispatch<{}, {}, RoleActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.ADD_ROLES_REQUEST
+      type: Constants.ADD_ROLES_REQUEST,
     });
     fetch(`http://localhost:59525/api/admin/roles`, {
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify(name)
+      body: JSON.stringify(name),
     })
       .then(response => {
         if (response.ok) {
           dispatch({
-            type: Constants.ADD_ROLES_SUCCESS
+            type: Constants.ADD_ROLES_SUCCESS,
           });
           dispatch(GetRoles());
         } else {
@@ -112,7 +113,7 @@ export function AddRole(
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.ADD_ROLES_FAIL
+          type: Constants.ADD_ROLES_FAIL,
         });
       });
   };
@@ -125,20 +126,20 @@ export function DeleteRole(
     dispatch: ThunkDispatch<{}, {}, RoleActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.DELETE_ROLES_REQUEST
+      type: Constants.DELETE_ROLES_REQUEST,
     });
     fetch(`http://localhost:59525/api/admin/roles`, {
       method: "DELETE",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(id)
+      body: JSON.stringify(id),
     })
       .then(response => {
         if (response.ok) {
           dispatch({
-            type: Constants.DELETE_ROLES_SUCCESS
+            type: Constants.DELETE_ROLES_SUCCESS,
           });
           dispatch(GetRoles());
         } else {
@@ -148,7 +149,7 @@ export function DeleteRole(
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.DELETE_ROLES_FAIL
+          type: Constants.DELETE_ROLES_FAIL,
         });
       });
   };

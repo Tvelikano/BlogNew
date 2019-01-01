@@ -1,8 +1,7 @@
 export default class SearchQuery {
-    public SearchString: string = "";
+  public SearchString: string = "";
 
-    public Page: number = 1;
+  public Page: number = 1;
 
-    public PageSize: number = 3;
-  }
-  
+  public PageSize: number = 3;
+}

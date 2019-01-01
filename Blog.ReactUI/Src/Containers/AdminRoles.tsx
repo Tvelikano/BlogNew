@@ -84,7 +84,7 @@ function mapStateToProps({ roles }: IStoreState) {
   return {
     data: roles.data,
     error: roles.error,
-    isLoading: roles.isLoading
+    isLoading: roles.isLoading,
   };
 }
 
@@ -96,7 +96,8 @@ function mapDispatchToProps(
 
     addRole: async (name: string) => await dispatch(roleActions.AddRole(name)),
 
-    deleteRole: async (id: number) => await dispatch(roleActions.DeleteRole(id))
+    deleteRole: async (id: number) =>
+      await dispatch(roleActions.DeleteRole(id)),
   };
 }
 

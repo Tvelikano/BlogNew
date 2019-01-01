@@ -137,7 +137,7 @@ class AdminUsers extends React.Component<IProps> {
                 <td>{item.Email}</td>
                 <td>
                   {item.Roles.map(role => (
-                    <p>{role}</p>
+                    <p key={role}>{role}</p>
                   ))}
                 </td>
                 <td>
@@ -170,7 +170,7 @@ function mapStateToProps({ users }: IStoreState) {
   return {
     data: users.data,
     error: users.error,
-    isLoading: users.isLoading
+    isLoading: users.isLoading,
   };
 }
 
@@ -187,7 +187,8 @@ function mapDispatchToProps(
     updateUser: async (data: UserViewModel) =>
       await dispatch(userActions.UpdateUser(data)),
 
-    deleteUser: async (id: number) => await dispatch(userActions.DeleteUser(id))
+    deleteUser: async (id: number) =>
+      await dispatch(userActions.DeleteUser(id)),
   };
 }
 

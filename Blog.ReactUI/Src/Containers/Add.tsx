@@ -61,7 +61,7 @@ function mapDispatchToProps(
 ) {
   return {
     addRecord: async (data: RecordDTO) =>
-      await dispatch(actions.AddRecord(data))
+      await dispatch(actions.AddRecord(data)),
   };
 }
 

@@ -75,7 +75,7 @@ function mapDispatchToProps(
 ) {
   return {
     register: async (data: RegisterViewModel) =>
-      await dispatch(Actions.register(data))
+      await dispatch(Actions.register(data)),
   };
 }
 

@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin.Security.OAuth;
 
 namespace Blog.Services
 {
@@ -59,6 +60,10 @@ namespace Blog.Services
             _kernel.Bind<IUnitOfWork>().To<IdentityUnitOfWork>();
 
             _kernel.Bind<IAuthenticationManager>().ToMethod(c => HttpContext.Current.GetOwinContext().Authentication);
+            
+            _kernel.Bind<IOAuthAuthorizationServerProvider>().To<AppOAuthProvider>();
+            
+            _kernel.Bind<IOAuthAuthorizationServerOptions>().To<AppOAuthAuthorizationServerOptions>();
         }
     }
 }

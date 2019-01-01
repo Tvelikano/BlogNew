@@ -61,7 +61,7 @@ class Blog extends React.Component<IProps> {
       data,
       getComments,
       createComment,
-      showComments
+      showComments,
     } = this.props;
 
     return (
@@ -95,7 +95,7 @@ function mapStateToProps({ records }: IStoreState) {
     data: records.data,
     error: records.error,
     isLoading: records.isLoading,
-    isCommentsLoading: records.isCommentsLoading
+    isCommentsLoading: records.isCommentsLoading,
   };
 }
 
@@ -115,7 +115,7 @@ function mapDispatchToProps(
     createComment: (data: CommentDTO) =>
       dispatch(commentActions.createComment(data)),
 
-    showComments: (id: number) => dispatch(recordActions.ShowComments(id))
+    showComments: (id: number) => dispatch(recordActions.ShowComments(id)),
   };
 }
 

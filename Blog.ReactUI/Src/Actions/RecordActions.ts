@@ -86,12 +86,12 @@ export function GetRecords(
     dispatch: ThunkDispatch<{}, {}, RecordActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.GET_RECORDS_REQUEST
+      type: Constants.GET_RECORDS_REQUEST,
     });
     fetch(
       `http://localhost:59525/api/record?${querystring.stringify(searchQuery)}`,
       {
-        credentials: "include"
+        credentials: "include",
       }
     )
       .then(response => {
@@ -100,13 +100,13 @@ export function GetRecords(
       .then(data => {
         dispatch({
           data,
-          type: Constants.GET_RECORDS_SUCCESS
+          type: Constants.GET_RECORDS_SUCCESS,
         });
       })
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.GET_RECORDS_FAIL
+          type: Constants.GET_RECORDS_FAIL,
         });
       });
   };
@@ -119,22 +119,24 @@ export function AddRecord(
     dispatch: ThunkDispatch<{}, {}, RecordActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.ADD_RECORDS_REQUEST
+      type: Constants.ADD_RECORDS_REQUEST,
     });
     fetch(`http://localhost:59525/api/record`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-      credentials: "include"
+      credentials: "include",
     })
       .then(response => {
         if (response.ok) {
           dispatch({
-            type: Constants.ADD_RECORDS_SUCCESS
+            type: Constants.ADD_RECORDS_SUCCESS,
           });
-          dispatch(GetRecords(new SearchQuery()));
+          //history.pushState({ state: 2 }, "null", "http://localhost:53695/");
+          //window.location.href = "http://localhost:53695/";
+          //dispatch(GetRecords(new SearchQuery()));
         } else {
           throw new Error(response.statusText);
         }
@@ -142,7 +144,7 @@ export function AddRecord(
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.ADD_RECORDS_FAIL
+          type: Constants.ADD_RECORDS_FAIL,
         });
       });
   };
@@ -155,20 +157,20 @@ export function UpdateRecord(
     dispatch: ThunkDispatch<{}, {}, RecordActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.UPDATE_RECORDS_REQUEST
+      type: Constants.UPDATE_RECORDS_REQUEST,
     });
     fetch(`http://localhost:59525/api/record`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-      credentials: "include"
+      credentials: "include",
     })
       .then(response => {
         if (response.ok) {
           dispatch({
-            type: Constants.UPDATE_RECORDS_SUCCESS
+            type: Constants.UPDATE_RECORDS_SUCCESS,
           });
           dispatch(GetRecords(new SearchQuery()));
         } else {
@@ -178,7 +180,7 @@ export function UpdateRecord(
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.UPDATE_RECORDS_FAIL
+          type: Constants.UPDATE_RECORDS_FAIL,
         });
       });
   };
@@ -191,20 +193,20 @@ export function DeleteRecord(
     dispatch: ThunkDispatch<{}, {}, RecordActions>
   ): Promise<void> => {
     dispatch({
-      type: Constants.DELETE_RECORDS_REQUEST
+      type: Constants.DELETE_RECORDS_REQUEST,
     });
     fetch(`http://localhost:59525/api/record`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(id),
-      credentials: "include"
+      credentials: "include",
     })
       .then(response => {
         if (response.ok) {
           dispatch({
-            type: Constants.DELETE_RECORDS_SUCCESS
+            type: Constants.DELETE_RECORDS_SUCCESS,
           });
           dispatch(GetRecords(new SearchQuery()));
         } else {
@@ -214,7 +216,7 @@ export function DeleteRecord(
       .catch(ex => {
         dispatch({
           data: new Error(ex),
-          type: Constants.DELETE_RECORDS_FAIL
+          type: Constants.DELETE_RECORDS_FAIL,
         });
       });
   };
@@ -223,6 +225,6 @@ export function DeleteRecord(
 export function ShowComments(id: number): IShowComments {
   return {
     data: id,
-    type: Constants.SHOW_COMMENTS
+    type: Constants.SHOW_COMMENTS,
   };
 }

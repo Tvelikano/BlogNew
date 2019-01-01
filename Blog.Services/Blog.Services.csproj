@@ -141,6 +141,9 @@
     <Compile Include="CommentDTO.cs" />
     <Compile Include="Enums\RecordStateDTO.cs" />
     <Compile Include="GetArgsDTO.cs" />
+    <Compile Include="Identity\AppOAuthProvider.cs" />
+    <Compile Include="Identity\AppOAuthAuthorizationServerOptions.cs" />
+    <Compile Include="Identity\Interfaces\IOAuthAuthorizationServerOptions.cs" />
     <Compile Include="Identity\Interfaces\IUserService.cs" />
     <Compile Include="Models\OperationDetails.cs" />
     <Compile Include="ReturnModelDTO.cs" />

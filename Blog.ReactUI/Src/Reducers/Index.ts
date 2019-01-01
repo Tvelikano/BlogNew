@@ -10,5 +10,5 @@ export default (history: History) =>
     records: recordReducer,
     users: userReducer,
     roles: rolesReducer,
-    router: connectRouter(history)
+    router: connectRouter(history),
   });

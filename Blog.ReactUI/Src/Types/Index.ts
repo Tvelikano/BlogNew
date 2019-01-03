@@ -4,12 +4,19 @@ import RecordDTO from "Types/RecordDTO";
 import ListViewModel from "Types/ListViewModel";
 import RoleDTO from "./RoleDTO";
 import UserViewModel from "./UserViewModel";
+import UserDTO from "./UserDTO";
 
 export interface IStoreState {
+  account: IAccountState;
   records: IRecordState;
   users: IUserState;
   roles: IRoleState;
   router: RouterState;
+}
+
+export interface IAccountState {
+  isAuthenticated: boolean;
+  user: UserDTO;
 }
 
 export interface IRecordState {

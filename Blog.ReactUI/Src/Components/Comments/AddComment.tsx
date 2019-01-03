@@ -3,10 +3,10 @@ import CommentDTO from "Types/CommentDTO";
 
 interface IProps {
   recordId: number;
-  createComment: (data: CommentDTO) => void;
+  СreateComment: (data: CommentDTO) => void;
 }
 
-export default class AddComment extends React.Component<IProps> {
+export default class AddComment extends React.PureComponent<IProps> {
   private content = React.createRef<HTMLInputElement>();
 
   private handleSubmit: React.ReactEventHandler<HTMLFormElement> = ev => {
@@ -16,7 +16,7 @@ export default class AddComment extends React.Component<IProps> {
     comment.RecordId = this.props.recordId;
     comment.Content = this.content.current!.value;
 
-    this.props.createComment(comment);
+    this.props.СreateComment(comment);
   };
 
   public render = () => (

@@ -7,11 +7,13 @@ using Blog.Services.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Blog.Api.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Route("api/admin/users")]
+    [EnableCors("http://localhost:53695", "*", "*", SupportsCredentials = true)]
     public class UserAdminController : ApiController
     {
         private readonly IRuntimeMapper _mapper;
@@ -21,6 +23,12 @@ namespace Blog.Api.Controllers
         {
             _userService = service;
             _mapper = mapper;
+        }
+
+        [Route("api/admin/users/{id}")]
+        public async Task<UserViewModel> Get(int id)
+        {
+            return _mapper.Map<UserViewModel>(await _userService.GetUserById(id));
         }
 
         public ListViewModel<UserViewModel> Get([FromUri]SearchQuery searchQuery)

@@ -8,7 +8,7 @@ interface IProps {
   query: string;
 }
 
-export default class PagingHelper extends React.Component<IProps> {
+export default class PagingHelper extends React.PureComponent<IProps> {
   private Build(html: string, page: number) {
     const { query, pagingInfo } = this.props;
 

@@ -66,7 +66,11 @@ export function GetRoles(): ThunkAction<Promise<void>, {}, {}, RoleActions> {
       credentials: "include",
     })
       .then(response => {
-        return response.json();
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(response.statusText);
+        }
       })
       .then(data => {
         dispatch({
@@ -93,11 +97,11 @@ export function AddRole(
       type: Constants.ADD_ROLES_REQUEST,
     });
     fetch(`http://localhost:59525/api/admin/roles`, {
-      credentials: "include",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      method: "POST",
+      credentials: "include",
       body: JSON.stringify(name),
     })
       .then(response => {
@@ -130,10 +134,10 @@ export function DeleteRole(
     });
     fetch(`http://localhost:59525/api/admin/roles`, {
       method: "DELETE",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(id),
     })
       .then(response => {

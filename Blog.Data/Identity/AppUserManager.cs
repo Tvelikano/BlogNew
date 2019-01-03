@@ -12,22 +12,18 @@ namespace Blog.Data.Identity
     {
         public AppUserManager(IUserStore<User, int> store) : base(store)
         {
-            // Configure validation logic for usernames
             UserValidator = new UserValidator<User, int>(this)
             {
-                AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
-            // Configure validation logic for passwords
+
             PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
             };
+
             var dataProtectionProvider = new IdentityFactoryOptions<AppUserManager>().DataProtectionProvider;
+
             if (dataProtectionProvider != null)
             {
                 UserTokenProvider = new DataProtectorTokenProvider<User, int>(dataProtectionProvider.Create("ASP.NET Identity"));

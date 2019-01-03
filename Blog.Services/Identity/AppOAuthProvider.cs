@@ -26,6 +26,9 @@ namespace Blog.Services.Identity
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "http://localhost:53695" });
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Credentials", new[] { "true" });
+
             var user = await _userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)

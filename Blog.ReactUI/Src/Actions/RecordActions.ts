@@ -11,13 +11,27 @@ interface IGetRecordsRequest {
 }
 
 interface IGetRecordsSuccess {
-  data: ListViewModel<ReturnModelDTO<RecordDTO>>;
   type: Constants.GET_RECORDS_SUCCESS;
+  data: ListViewModel<ReturnModelDTO<RecordDTO>>;
 }
 
 interface IGetRecordsFail {
-  data: Error;
   type: Constants.GET_RECORDS_FAIL;
+  data: Error;
+}
+
+interface IGetRecordRequest {
+  type: Constants.GET_RECORD_REQUEST;
+}
+
+interface IGetRecordSuccess {
+  type: Constants.GET_RECORD_SUCCESS;
+  data: RecordDTO;
+}
+
+interface IGetRecordFail {
+  data: Error;
+  type: Constants.GET_RECORD_FAIL;
 }
 
 interface IAddRecordRequest {
@@ -68,6 +82,9 @@ export type RecordActions =
   | IGetRecordsRequest
   | IGetRecordsSuccess
   | IGetRecordsFail
+  | IGetRecordRequest
+  | IGetRecordSuccess
+  | IGetRecordFail
   | IAddRecordRequest
   | IAddRecordSuccess
   | IAddRecordFail
@@ -95,7 +112,11 @@ export function GetRecords(
       }
     )
       .then(response => {
-        return response.json();
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(response.statusText);
+        }
       })
       .then(data => {
         dispatch({
@@ -107,6 +128,40 @@ export function GetRecords(
         dispatch({
           data: new Error(ex),
           type: Constants.GET_RECORDS_FAIL,
+        });
+      });
+  };
+}
+
+export function GetRecord(
+  id: number
+): ThunkAction<Promise<void>, {}, {}, RecordActions> {
+  return async (
+    dispatch: ThunkDispatch<{}, {}, RecordActions>
+  ): Promise<void> => {
+    dispatch({
+      type: Constants.GET_RECORD_REQUEST,
+    });
+    fetch(`http://localhost:59525/api/record/${id}`, {
+      credentials: "include",
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(response.statusText);
+        }
+      })
+      .then(data => {
+        dispatch({
+          data,
+          type: Constants.GET_RECORD_SUCCESS,
+        });
+      })
+      .catch(ex => {
+        dispatch({
+          data: new Error(ex),
+          type: Constants.GET_RECORD_FAIL,
         });
       });
   };
@@ -134,9 +189,6 @@ export function AddRecord(
           dispatch({
             type: Constants.ADD_RECORDS_SUCCESS,
           });
-          //history.pushState({ state: 2 }, "null", "http://localhost:53695/");
-          //window.location.href = "http://localhost:53695/";
-          //dispatch(GetRecords(new SearchQuery()));
         } else {
           throw new Error(response.statusText);
         }

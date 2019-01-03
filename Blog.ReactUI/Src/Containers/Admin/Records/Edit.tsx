@@ -5,23 +5,21 @@ import RecordDTO from "Types/RecordDTO";
 import React from "react";
 import { Link } from "react-router-dom";
 import RecordStateDTO from "Types/RecordStateDTO";
-import SearchQuery from "Types/SearchQuery";
 import { IStoreState } from "Types/Index";
-import ListViewModel from "Types/ListViewModel";
-import ReturnModelDTO from "Types/ReturnModelDTO";
+import { allowOnlyAdmin } from "Hocs/AllowOnlyAdmin";
 
 interface IProps {
-  data: ListViewModel<ReturnModelDTO<RecordDTO>>;
-  isLoading: boolean;
-  updateRecord: (data: RecordDTO) => void;
+  record: RecordDTO;
   match: {
     params: {
       id: number;
     };
   };
+  GetRecord: (id: number) => void;
+  UpdateRecord: (data: RecordDTO) => void;
 }
 
-class Edit extends React.Component<IProps> {
+class Edit extends React.PureComponent<IProps> {
   private name = React.createRef<HTMLInputElement>();
   private content = React.createRef<HTMLTextAreaElement>();
   private recordState = React.createRef<HTMLSelectElement>();
@@ -29,25 +27,25 @@ class Edit extends React.Component<IProps> {
   private handleSubmit: React.ReactEventHandler<HTMLFormElement> = ev => {
     ev.preventDefault();
 
-    const data = this.props.data.List.find(
-      item => item.Model.RecordId == this.props.match.params.id
-    ).Model;
+    const { record, UpdateRecord } = this.props;
 
-    data.Name = this.name.current!.value;
-    data.Content = this.content.current!.value;
-    data.State =
+    record.RecordId = this.props.match.params.id;
+    record.Name = this.name.current!.value;
+    record.Content = this.content.current!.value;
+    record.State =
       RecordStateDTO[
         this.recordState.current!.value as keyof typeof RecordStateDTO
       ];
 
-    this.props.updateRecord(data);
+    UpdateRecord(record);
   };
 
-  public render() {
-    const record = this.props.data.List.find(
-      item => item.Model.RecordId == this.props.match.params.id
-    ).Model;
+  public componentDidMount() {
+    this.props.GetRecord(this.props.match.params.id);
+  }
 
+  public render() {
+    const { record } = this.props;
     return (
       <>
         <h4>Edit Record</h4>
@@ -99,7 +97,7 @@ class Edit extends React.Component<IProps> {
           </div>
         </form>
 
-        <Link to={window.location.href} className="btn btn-danger">
+        <Link to="/Admin/Records" className="btn btn-danger">
           Cancel
         </Link>
       </>
@@ -109,7 +107,10 @@ class Edit extends React.Component<IProps> {
 
 function mapStateToProps({ records }: IStoreState) {
   return {
-    data: records.data,
+    record:
+      !records.isLoading && records.data.List
+        ? records.data.List[0].Model
+        : new RecordDTO(),
     error: records.error,
     isLoading: records.isLoading,
   };
@@ -119,17 +120,16 @@ function mapDispatchToProps(
   dispatch: ThunkDispatch<{}, {}, actions.RecordActions>
 ) {
   return {
-    updateRecord: async (data: RecordDTO) =>
-      await dispatch(actions.UpdateRecord(data)),
+    GetRecord: async (id: number) => await dispatch(actions.GetRecord(id)),
 
-    getRecord: async (id: number) =>
-      await dispatch(
-        actions.GetRecords(Object.assign(new SearchQuery(), { PageSize: 1 }))
-      ),
+    UpdateRecord: async (data: RecordDTO) =>
+      await dispatch(actions.UpdateRecord(data)),
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Edit);
+export default allowOnlyAdmin(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Edit)
+);

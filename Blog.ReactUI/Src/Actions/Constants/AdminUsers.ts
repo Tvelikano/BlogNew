@@ -7,6 +7,15 @@ export type GET_USERS_SUCCESS = typeof GET_USERS_SUCCESS;
 export const GET_USERS_FAIL = "GET_USERS_FAIL";
 export type GET_USERS_FAIL = typeof GET_USERS_FAIL;
 
+export const GET_USER_REQUEST = "GET_USER_REQUEST";
+export type GET_USER_REQUEST = typeof GET_USER_REQUEST;
+
+export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+export type GET_USER_SUCCESS = typeof GET_USER_SUCCESS;
+
+export const GET_USER_FAIL = "GET_USER_FAIL";
+export type GET_USER_FAIL = typeof GET_USER_FAIL;
+
 export const ADD_USERS_REQUEST = "ADD_USERS_REQUEST";
 export type ADD_USERS_REQUEST = typeof ADD_USERS_REQUEST;
 

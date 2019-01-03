@@ -4,14 +4,17 @@ import { ThunkDispatch } from "redux-thunk";
 import RecordDTO from "Types/RecordDTO";
 import React from "react";
 import { Link } from "react-router-dom";
+import { allowOnlyAdmin } from "Hocs/AllowOnlyAdmin";
+import RecordStateDTO from "Types/RecordStateDTO";
 
 interface IProps {
-  addRecord: (data: RecordDTO) => void;
+  AddRecord: (data: RecordDTO) => void;
 }
 
-class Add extends React.Component<IProps> {
+class Add extends React.PureComponent<IProps> {
   private name = React.createRef<HTMLInputElement>();
   private content = React.createRef<HTMLTextAreaElement>();
+  private recordState = React.createRef<HTMLSelectElement>();
 
   private handleSubmit: React.ReactEventHandler<HTMLFormElement> = ev => {
     ev.preventDefault();
@@ -20,12 +23,12 @@ class Add extends React.Component<IProps> {
     data.Name = this.name.current!.value;
     data.Content = this.content.current!.value;
 
-    this.props.addRecord(data);
+    this.props.AddRecord(data);
   };
 
   public render = () => (
     <>
-      <h4>New Record</h4>
+      <h4>Add Record</h4>
 
       <form className="add" onSubmit={this.handleSubmit}>
         <div className="form-group">
@@ -43,29 +46,45 @@ class Add extends React.Component<IProps> {
         </div>
 
         <div className="form-group">
+          State:
+          <select
+            name="State"
+            ref={this.recordState}
+            defaultValue={RecordStateDTO[0]}
+          >
+            {Object.keys(RecordStateDTO)
+              .filter(x => isNaN(Number(x)))
+              .map(item => (
+                <option key={item}>{item}</option>
+              ))}
+          </select>
+        </div>
+
+        <div className="form-group">
           <div className="col-md-10">
             <input type="submit" value="Post" className="btn btn-primary" />
           </div>
         </div>
       </form>
 
-      <Link to="/" className="btn btn-danger">
+      <Link to="/Admin/Records" className="btn btn-danger">
         Cancel
       </Link>
     </>
   );
 }
-
 function mapDispatchToProps(
   dispatch: ThunkDispatch<{}, {}, actions.RecordActions>
 ) {
   return {
-    addRecord: async (data: RecordDTO) =>
+    AddRecord: async (data: RecordDTO) =>
       await dispatch(actions.AddRecord(data)),
   };
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(Add);
+export default allowOnlyAdmin(
+  connect(
+    null,
+    mapDispatchToProps
+  )(Add)
+);

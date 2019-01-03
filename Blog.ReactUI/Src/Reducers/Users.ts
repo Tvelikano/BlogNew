@@ -35,6 +35,28 @@ export default function roleReducer(
         isLoading: false,
       };
 
+    case roleConstants.GET_USER_REQUEST:
+      return { ...state, isLoading: true, error: "" };
+
+    case roleConstants.GET_USER_SUCCESS: {
+      let user = initialState;
+      user.data.List.push(Object.assign(action.data));
+
+      return {
+        ...state,
+        data: user,
+        error: "",
+        isLoading: false,
+      };
+    }
+
+    case roleConstants.GET_USER_FAIL:
+      return {
+        ...state,
+        error: action.data.message,
+        isLoading: false,
+      };
+
     case roleConstants.ADD_USERS_REQUEST:
       return {
         ...state,

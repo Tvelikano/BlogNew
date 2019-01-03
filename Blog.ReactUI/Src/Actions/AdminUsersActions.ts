@@ -19,6 +19,20 @@ interface IGetUsersFail {
   type: Constants.GET_USERS_FAIL;
 }
 
+interface IGetUserRequest {
+  type: Constants.GET_USER_REQUEST;
+}
+
+interface IGetUserSuccess {
+  data: UserViewModel;
+  type: Constants.GET_USER_SUCCESS;
+}
+
+interface IGetUserFail {
+  data: Error;
+  type: Constants.GET_USER_FAIL;
+}
+
 interface IAddUserRequest {
   type: Constants.ADD_USERS_REQUEST;
 }
@@ -62,6 +76,9 @@ export type UserActions =
   | IGetUsersRequest
   | IGetUsersSuccess
   | IGetUsersFail
+  | IGetUserRequest
+  | IGetUserSuccess
+  | IGetUserFail
   | IAddUserRequest
   | IAddUserSuccess
   | IAddUserFail
@@ -100,6 +117,40 @@ export function GetUsers(
         dispatch({
           data: new Error(ex),
           type: Constants.GET_USERS_FAIL,
+        });
+      });
+  };
+}
+
+export function GetUser(
+  id: number
+): ThunkAction<Promise<void>, {}, {}, UserActions> {
+  return async (
+    dispatch: ThunkDispatch<{}, {}, UserActions>
+  ): Promise<void> => {
+    dispatch({
+      type: Constants.GET_USER_REQUEST,
+    });
+    fetch(`http://localhost:59525/api/admin/users/${id}`, {
+      credentials: "include",
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(response.statusText);
+        }
+      })
+      .then(data => {
+        dispatch({
+          data,
+          type: Constants.GET_USER_SUCCESS,
+        });
+      })
+      .catch(ex => {
+        dispatch({
+          data: new Error(ex),
+          type: Constants.GET_USER_FAIL,
         });
       });
   };

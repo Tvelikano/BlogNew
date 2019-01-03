@@ -4,17 +4,19 @@ import ReturnModelDTO from "Types/ReturnModelDTO";
 import RecordDTO from "Types/RecordDTO";
 import AddComment from "Components/Comments/AddComment";
 import CommentDTO from "Types/CommentDTO";
+import { Link } from "react-router-dom";
 
 interface IProps {
+  isAuthenticated: boolean;
   model: ReturnModelDTO<RecordDTO>;
-  showComments: () => void;
-  createComment: (data: CommentDTO) => void;
+  ShowComments: () => void;
+  CreateComment: (data: CommentDTO) => void;
 }
 
-class Record extends React.Component<IProps> {
+export default class Record extends React.PureComponent<IProps> {
   public render() {
     const { Model, IsCommentVisible, Info } = this.props.model;
-    const { createComment, showComments } = this.props;
+    const { CreateComment, ShowComments, isAuthenticated } = this.props;
 
     return (
       <div className="card">
@@ -26,15 +28,21 @@ class Record extends React.Component<IProps> {
           </div>
           {IsCommentVisible ? (
             <>
-              <AddComment
-                recordId={Model.RecordId}
-                createComment={(data: CommentDTO) => createComment(data)}
-              />
+              {isAuthenticated ? (
+                <AddComment
+                  recordId={Model.RecordId}
+                  СreateComment={(data: CommentDTO) => CreateComment(data)}
+                />
+              ) : (
+                <Link className="btn btn-info" to="/Login">
+                  Log In to write comment
+                </Link>
+              )}
               <Comments list={Model.Comments} />
             </>
           ) : (
             <button
-              onClick={() => showComments()}
+              onClick={() => ShowComments()}
               className="btn btn-primary"
             >{`${
               Info > 0 ? `Show ${Info} Comments` : "Write first comment"
@@ -45,5 +53,3 @@ class Record extends React.Component<IProps> {
     );
   }
 }
-
-export default Record;

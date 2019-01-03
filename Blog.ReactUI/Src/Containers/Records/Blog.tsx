@@ -16,52 +16,61 @@ import CommentDTO from "Types/CommentDTO";
 import SearchQuery from "Types/SearchQuery";
 
 interface IProps {
+  isAuthenticated: boolean;
   data: ListViewModel<ReturnModelDTO<RecordDTO>>;
   isLoading: boolean;
   isCommentsLoading: boolean;
   location: {
     search: string;
   };
-  getRecords: (searchQuery: SearchQuery) => void;
-  getComments: (id: number) => void;
-  createComment: (data: CommentDTO) => void;
-  showComments: (id: number) => void;
+  GetRecords: (searchQuery: SearchQuery) => void;
+  GetComments: (id: number) => void;
+  CreateComment: (data: CommentDTO) => void;
+  ShowComments: (id: number) => void;
 }
 
 class Blog extends React.Component<IProps> {
   public componentDidMount() {
-    const { location, getRecords } = this.props;
+    const { location, GetRecords } = this.props;
 
     let search = Object.assign(new SearchQuery(), (queryString.parse(
       location.search.replace("?", "")
     ) as any) as SearchQuery);
 
-    getRecords(search);
+    GetRecords(search);
   }
 
-  public componentDidUpdate() {
-    const { data, location, isLoading, getRecords } = this.props;
+  public componentDidUpdate(prevProps: IProps) {
+    const {
+      data,
+      location,
+      isLoading,
+      GetRecords,
+      isAuthenticated,
+    } = this.props;
 
     let search = Object.assign(new SearchQuery(), (queryString.parse(
       location.search.replace("?", "")
     ) as any) as SearchQuery);
 
     if (
-      !isLoading &&
-      (search.Page != data.PageInfo.CurrentPage ||
-        search.SearchString != data.SearchString)
+      isAuthenticated !== prevProps.isAuthenticated ||
+      (!isLoading &&
+        (search.Page != data.PageInfo.CurrentPage ||
+          search.SearchString != data.SearchString))
     ) {
-      getRecords(search);
+      GetRecords(search);
     }
   }
 
   public render() {
     const {
+      isAuthenticated,
       location,
       data,
-      getComments,
-      createComment,
-      showComments,
+      GetComments,
+      CreateComment,
+      ShowComments,
     } = this.props;
 
     return (
@@ -74,13 +83,14 @@ class Blog extends React.Component<IProps> {
 
         {data.List.map(item => (
           <Record
+            isAuthenticated={isAuthenticated}
             key={item.Model.RecordId}
             model={item}
-            showComments={() => {
-              showComments(item.Model.RecordId),
-                getComments(item.Model.RecordId);
+            ShowComments={() => {
+              ShowComments(item.Model.RecordId),
+                GetComments(item.Model.RecordId);
             }}
-            createComment={(data: CommentDTO) => createComment(data)}
+            CreateComment={(data: CommentDTO) => CreateComment(data)}
           />
         ))}
 
@@ -90,8 +100,9 @@ class Blog extends React.Component<IProps> {
   }
 }
 
-function mapStateToProps({ records }: IStoreState) {
+function mapStateToProps({ records, account }: IStoreState) {
   return {
+    isAuthenticated: account.isAuthenticated,
     data: records.data,
     error: records.error,
     isLoading: records.isLoading,
@@ -107,15 +118,15 @@ function mapDispatchToProps(
   >
 ) {
   return {
-    getRecords: async (searchQuery: SearchQuery) =>
+    GetRecords: async (searchQuery: SearchQuery) =>
       await dispatch(recordActions.GetRecords(searchQuery)),
 
-    getComments: (id: number) => dispatch(commentActions.getComments(id)),
+    GetComments: (id: number) => dispatch(commentActions.getComments(id)),
 
-    createComment: (data: CommentDTO) =>
+    CreateComment: (data: CommentDTO) =>
       dispatch(commentActions.createComment(data)),
 
-    showComments: (id: number) => dispatch(recordActions.ShowComments(id)),
+    ShowComments: (id: number) => dispatch(recordActions.ShowComments(id)),
   };
 }
 

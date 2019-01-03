@@ -38,6 +38,30 @@ export default function recordReducer(
         isLoading: false,
       };
 
+    case recordConstants.GET_RECORD_REQUEST:
+      return { ...state, isLoading: true, error: "" };
+
+    case recordConstants.GET_RECORD_SUCCESS: {
+      let record = initialState;
+      record.data.List.push(
+        Object.assign(new ReturnModelDTO(), { Model: action.data })
+      );
+
+      return {
+        ...state,
+        data: record,
+        error: "",
+        isLoading: false,
+      };
+    }
+
+    case recordConstants.GET_RECORD_FAIL:
+      return {
+        ...state,
+        error: action.data.message,
+        isLoading: false,
+      };
+
     case recordConstants.ADD_RECORDS_REQUEST:
       return {
         ...state,

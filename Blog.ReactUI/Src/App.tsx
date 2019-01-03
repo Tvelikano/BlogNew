@@ -2,7 +2,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { History } from "history";
 import * as React from "react";
 import routes from "Routes/Index";
-import Nav from "Components/Nav";
+import Nav from "Containers/Nav";
 
 interface IProps {
   history: History;
@@ -11,7 +11,7 @@ interface IProps {
 const App = ({ history }: IProps) => (
   <ConnectedRouter history={history}>
     <>
-      <Nav isAuthenticated={false} />
+      <Nav />
       <div className="container">{routes}</div>
     </>
   </ConnectedRouter>

@@ -7,9 +7,11 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Blog.Api.Controllers
 {
+    [EnableCors("http://localhost:53695", "*", "*", SupportsCredentials = true)]
     [RoutePrefix("api/user")]
     public class AccountController : ApiController
     {
@@ -22,6 +24,18 @@ namespace Blog.Api.Controllers
             _userService = service;
             _mapper = mapper;
             _authManager = authManager;
+        }
+
+        [Authorize]
+        [Route("getuserinfo")]
+        public UserDTO GetUserInfo()
+        {
+            var user =
+            User.IsInRole("Admin")
+                ? new UserDTO { UserName = User.Identity.Name, Roles = new[] { "Admin" } }
+                : new UserDTO { UserName = User.Identity.Name };
+
+            return user;
         }
 
         [HttpPost]
@@ -37,7 +51,7 @@ namespace Blog.Api.Controllers
 
             var result = await _userService.CreateUser(userDto);
 
-            return AddErrorsFromResult(result);
+            return GetResult(result);
         }
 
         [Authorize]
@@ -50,7 +64,7 @@ namespace Blog.Api.Controllers
             return Ok(new { message = "Logout successful." });
         }
 
-        private IHttpActionResult AddErrorsFromResult(OperationDetails result)
+        private IHttpActionResult GetResult(OperationDetails result)
         {
             if (result == null)
             {

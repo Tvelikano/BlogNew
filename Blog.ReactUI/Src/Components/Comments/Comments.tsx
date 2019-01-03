@@ -5,7 +5,7 @@ interface IProps {
   list: CommentDTO[];
 }
 
-export default class Comments extends React.Component<IProps> {
+export default class Comments extends React.PureComponent<IProps> {
   public render = () => (
     <>
       <ul className="list-group list-group-flush">

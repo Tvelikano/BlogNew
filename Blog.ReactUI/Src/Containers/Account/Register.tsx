@@ -5,7 +5,7 @@ import * as Actions from "Actions/AccountActions";
 import { connect } from "react-redux";
 
 interface IProps {
-  register: (data: RegisterViewModel) => void;
+  Register: (data: RegisterViewModel) => void;
 }
 
 class Register extends React.Component<IProps> {
@@ -24,7 +24,7 @@ class Register extends React.Component<IProps> {
     data.Password = this.password.current!.value;
     data.PasswordConfirm = this.passwordConfirm.current!.value;
 
-    this.props.register(data);
+    this.props.Register(data);
   };
 
   public render = () => (
@@ -71,11 +71,11 @@ class Register extends React.Component<IProps> {
 }
 
 function mapDispatchToProps(
-  dispatch: ThunkDispatch<{}, {}, Actions.CommentActions>
+  dispatch: ThunkDispatch<{}, {}, Actions.AccountActions>
 ) {
   return {
-    register: async (data: RegisterViewModel) =>
-      await dispatch(Actions.register(data)),
+    Register: async (data: RegisterViewModel) =>
+      await dispatch(Actions.Register(data)),
   };
 }
 

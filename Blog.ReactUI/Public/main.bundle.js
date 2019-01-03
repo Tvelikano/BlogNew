@@ -90,13 +90,15 @@
 /*!***************************************!*\
   !*** ./Src/Actions/AccountActions.ts ***!
   \***************************************/
-/*! exports provided: login, register */
+/*! exports provided: Login, GetUserInfo, Logout, Register */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "register", function() { return register; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Login", function() { return Login; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetUserInfo", function() { return GetUserInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Logout", function() { return Logout; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Register", function() { return Register; });
 /* harmony import */ var Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Actions/Constants/Account */ "./Src/Actions/Constants/Account.ts");
 /* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
 /* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(querystring__WEBPACK_IMPORTED_MODULE_1__);
@@ -137,7 +139,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 };
 
 
-function login(data) {
+function Login(data) {
     var _this = this;
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -150,12 +152,12 @@ function login(data) {
                 credentials: "include",
             })
                 .then(function (response) {
-                return response.json();
-            })
-                .then(function () {
-                dispatch({
-                    type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["LOGIN_SUCCESS"],
-                });
+                if (response.ok) {
+                    dispatch(GetUserInfo());
+                }
+                else {
+                    throw new Error(response.statusText);
+                }
             })
                 .catch(function (ex) {
                 dispatch({
@@ -167,7 +169,57 @@ function login(data) {
         });
     }); };
 }
-function register(data) {
+function GetUserInfo() {
+    var _this = this;
+    return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
+        var _this = this;
+        return __generator(this, function (_a) {
+            fetch("http://localhost:59525/api/user/getuserinfo", {
+                credentials: "include",
+            })
+                .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                }
+                else {
+                    throw new Error(response.statusText);
+                }
+            })
+                .then(function (user) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    dispatch({
+                        type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["LOGIN_SUCCESS"],
+                        data: user,
+                    });
+                    return [2 /*return*/];
+                });
+            }); })
+                .catch(function (ex) {
+                if (ex.message !== "Unauthorized") {
+                    console.log(ex);
+                }
+            });
+            return [2 /*return*/];
+        });
+    }); };
+}
+function Logout() {
+    var _this = this;
+    return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            fetch("http://localhost:59525/api/user/logout", {
+                method: "POST",
+                credentials: "include",
+            }).then(function () {
+                dispatch({
+                    type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["LOGOUT"],
+                });
+            });
+            return [2 /*return*/];
+        });
+    }); };
+}
+function Register(data) {
     var _this = this;
     return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -181,11 +233,15 @@ function register(data) {
                 },
                 body: JSON.stringify(data),
             })
-                .then(function () {
-                console.log(data);
-                dispatch({
-                    type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["REGISTER_SUCCESS"],
-                });
+                .then(function (response) {
+                if (response.ok) {
+                    dispatch({
+                        type: Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["REGISTER_SUCCESS"],
+                    });
+                }
+                else {
+                    throw new Error(response.statusText);
+                }
             })
                 .catch(function (ex) {
                 dispatch({
@@ -261,7 +317,12 @@ function GetRoles() {
                 credentials: "include",
             })
                 .then(function (response) {
-                return response.json();
+                if (response.ok) {
+                    return response.json();
+                }
+                else {
+                    throw new Error(response.statusText);
+                }
             })
                 .then(function (data) {
                 dispatch({
@@ -287,11 +348,11 @@ function AddRole(name) {
                 type: Actions_Constants_AdminRoles__WEBPACK_IMPORTED_MODULE_0__["ADD_ROLES_REQUEST"],
             });
             fetch("http://localhost:59525/api/admin/roles", {
-                credentials: "include",
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                method: "POST",
+                credentials: "include",
                 body: JSON.stringify(name),
             })
                 .then(function (response) {
@@ -324,10 +385,10 @@ function DeleteRole(id) {
             });
             fetch("http://localhost:59525/api/admin/roles", {
                 method: "DELETE",
-                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
+                credentials: "include",
                 body: JSON.stringify(id),
             })
                 .then(function (response) {
@@ -359,12 +420,13 @@ function DeleteRole(id) {
 /*!******************************************!*\
   !*** ./Src/Actions/AdminUsersActions.ts ***!
   \******************************************/
-/*! exports provided: GetUsers, AddUser, UpdateUser, DeleteUser */
+/*! exports provided: GetUsers, GetUser, AddUser, UpdateUser, DeleteUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetUsers", function() { return GetUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetUser", function() { return GetUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddUser", function() { return AddUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateUser", function() { return UpdateUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeleteUser", function() { return DeleteUser; });
@@ -431,6 +493,40 @@ function GetUsers(searchQuery) {
                 dispatch({
                     data: new Error(ex),
                     type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USERS_FAIL"],
+                });
+            });
+            return [2 /*return*/];
+        });
+    }); };
+}
+function GetUser(id) {
+    var _this = this;
+    return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            dispatch({
+                type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USER_REQUEST"],
+            });
+            fetch("http://localhost:59525/api/admin/users/" + id, {
+                credentials: "include",
+            })
+                .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                }
+                else {
+                    throw new Error(response.statusText);
+                }
+            })
+                .then(function (data) {
+                dispatch({
+                    data: data,
+                    type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USER_SUCCESS"],
+                });
+            })
+                .catch(function (ex) {
+                dispatch({
+                    data: new Error(ex),
+                    type: Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USER_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -709,7 +805,7 @@ function CreateCommentFail(data) {
 /*!******************************************!*\
   !*** ./Src/Actions/Constants/Account.ts ***!
   \******************************************/
-/*! exports provided: LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAIL */
+/*! exports provided: LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAIL */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -717,12 +813,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGIN_REQUEST", function() { return LOGIN_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGIN_SUCCESS", function() { return LOGIN_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGIN_FAIL", function() { return LOGIN_FAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGOUT", function() { return LOGOUT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REGISTER_REQUEST", function() { return REGISTER_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REGISTER_SUCCESS", function() { return REGISTER_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REGISTER_FAIL", function() { return REGISTER_FAIL; });
 var LOGIN_REQUEST = "LOGIN_REQUEST";
 var LOGIN_SUCCESS = "LOGIN_SUCCESS";
 var LOGIN_FAIL = "LOGIN_FAIL";
+var LOGOUT = "LOGOUT";
 var REGISTER_REQUEST = "REGISTER_REQUEST";
 var REGISTER_SUCCESS = "REGISTER_SUCCESS";
 var REGISTER_FAIL = "REGISTER_FAIL";
@@ -767,7 +865,7 @@ var SHOW_COMMENTS = "SHOW_COMMENTS";
 /*!*********************************************!*\
   !*** ./Src/Actions/Constants/AdminUsers.ts ***!
   \*********************************************/
-/*! exports provided: GET_USERS_REQUEST, GET_USERS_SUCCESS, GET_USERS_FAIL, ADD_USERS_REQUEST, ADD_USERS_SUCCESS, ADD_USERS_FAIL, UPDATE_USERS_REQUEST, UPDATE_USERS_SUCCESS, UPDATE_USERS_FAIL, DELETE_USERS_REQUEST, DELETE_USERS_SUCCESS, DELETE_USERS_FAIL, SHOW_COMMENTS */
+/*! exports provided: GET_USERS_REQUEST, GET_USERS_SUCCESS, GET_USERS_FAIL, GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_FAIL, ADD_USERS_REQUEST, ADD_USERS_SUCCESS, ADD_USERS_FAIL, UPDATE_USERS_REQUEST, UPDATE_USERS_SUCCESS, UPDATE_USERS_FAIL, DELETE_USERS_REQUEST, DELETE_USERS_SUCCESS, DELETE_USERS_FAIL, SHOW_COMMENTS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -775,6 +873,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_USERS_REQUEST", function() { return GET_USERS_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_USERS_SUCCESS", function() { return GET_USERS_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_USERS_FAIL", function() { return GET_USERS_FAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_USER_REQUEST", function() { return GET_USER_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_USER_SUCCESS", function() { return GET_USER_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_USER_FAIL", function() { return GET_USER_FAIL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_USERS_REQUEST", function() { return ADD_USERS_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_USERS_SUCCESS", function() { return ADD_USERS_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_USERS_FAIL", function() { return ADD_USERS_FAIL; });
@@ -788,6 +889,9 @@ __webpack_require__.r(__webpack_exports__);
 var GET_USERS_REQUEST = "GET_USERS_REQUEST";
 var GET_USERS_SUCCESS = "GET_USERS_SUCCESS";
 var GET_USERS_FAIL = "GET_USERS_FAIL";
+var GET_USER_REQUEST = "GET_USER_REQUEST";
+var GET_USER_SUCCESS = "GET_USER_SUCCESS";
+var GET_USER_FAIL = "GET_USER_FAIL";
 var ADD_USERS_REQUEST = "ADD_USERS_REQUEST";
 var ADD_USERS_SUCCESS = "ADD_USERS_SUCCESS";
 var ADD_USERS_FAIL = "ADD_USERS_FAIL";
@@ -831,7 +935,7 @@ var CREATE_COMMENTS_FAIL = "CREATE_COMMENTS_FAIL";
 /*!*****************************************!*\
   !*** ./Src/Actions/Constants/Record.ts ***!
   \*****************************************/
-/*! exports provided: GET_RECORDS_REQUEST, GET_RECORDS_SUCCESS, GET_RECORDS_FAIL, ADD_RECORDS_REQUEST, ADD_RECORDS_SUCCESS, ADD_RECORDS_FAIL, UPDATE_RECORDS_REQUEST, UPDATE_RECORDS_SUCCESS, UPDATE_RECORDS_FAIL, DELETE_RECORDS_REQUEST, DELETE_RECORDS_SUCCESS, DELETE_RECORDS_FAIL, SHOW_COMMENTS */
+/*! exports provided: GET_RECORDS_REQUEST, GET_RECORDS_SUCCESS, GET_RECORDS_FAIL, GET_RECORD_REQUEST, GET_RECORD_SUCCESS, GET_RECORD_FAIL, ADD_RECORDS_REQUEST, ADD_RECORDS_SUCCESS, ADD_RECORDS_FAIL, UPDATE_RECORDS_REQUEST, UPDATE_RECORDS_SUCCESS, UPDATE_RECORDS_FAIL, DELETE_RECORDS_REQUEST, DELETE_RECORDS_SUCCESS, DELETE_RECORDS_FAIL, SHOW_COMMENTS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -839,6 +943,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_RECORDS_REQUEST", function() { return GET_RECORDS_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_RECORDS_SUCCESS", function() { return GET_RECORDS_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_RECORDS_FAIL", function() { return GET_RECORDS_FAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_RECORD_REQUEST", function() { return GET_RECORD_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_RECORD_SUCCESS", function() { return GET_RECORD_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_RECORD_FAIL", function() { return GET_RECORD_FAIL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_RECORDS_REQUEST", function() { return ADD_RECORDS_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_RECORDS_SUCCESS", function() { return ADD_RECORDS_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_RECORDS_FAIL", function() { return ADD_RECORDS_FAIL; });
@@ -852,6 +959,9 @@ __webpack_require__.r(__webpack_exports__);
 var GET_RECORDS_REQUEST = "GET_RECORDS_REQUEST";
 var GET_RECORDS_SUCCESS = "GET_RECORDS_SUCCESS";
 var GET_RECORDS_FAIL = "GET_RECORDS_FAIL";
+var GET_RECORD_REQUEST = "GET_RECORD_REQUEST";
+var GET_RECORD_SUCCESS = "GET_RECORD_SUCCESS";
+var GET_RECORD_FAIL = "GET_RECORD_FAIL";
 var ADD_RECORDS_REQUEST = "ADD_RECORDS_REQUEST";
 var ADD_RECORDS_SUCCESS = "ADD_RECORDS_SUCCESS";
 var ADD_RECORDS_FAIL = "ADD_RECORDS_FAIL";
@@ -870,12 +980,13 @@ var SHOW_COMMENTS = "SHOW_COMMENTS";
 /*!**************************************!*\
   !*** ./Src/Actions/RecordActions.ts ***!
   \**************************************/
-/*! exports provided: GetRecords, AddRecord, UpdateRecord, DeleteRecord, ShowComments */
+/*! exports provided: GetRecords, GetRecord, AddRecord, UpdateRecord, DeleteRecord, ShowComments */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetRecords", function() { return GetRecords; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetRecord", function() { return GetRecord; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddRecord", function() { return AddRecord; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateRecord", function() { return UpdateRecord; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeleteRecord", function() { return DeleteRecord; });
@@ -933,7 +1044,12 @@ function GetRecords(searchQuery) {
                 credentials: "include",
             })
                 .then(function (response) {
-                return response.json();
+                if (response.ok) {
+                    return response.json();
+                }
+                else {
+                    throw new Error(response.statusText);
+                }
             })
                 .then(function (data) {
                 dispatch({
@@ -945,6 +1061,40 @@ function GetRecords(searchQuery) {
                 dispatch({
                     data: new Error(ex),
                     type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORDS_FAIL"],
+                });
+            });
+            return [2 /*return*/];
+        });
+    }); };
+}
+function GetRecord(id) {
+    var _this = this;
+    return function (dispatch) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            dispatch({
+                type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORD_REQUEST"],
+            });
+            fetch("http://localhost:59525/api/record/" + id, {
+                credentials: "include",
+            })
+                .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                }
+                else {
+                    throw new Error(response.statusText);
+                }
+            })
+                .then(function (data) {
+                dispatch({
+                    data: data,
+                    type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORD_SUCCESS"],
+                });
+            })
+                .catch(function (ex) {
+                dispatch({
+                    data: new Error(ex),
+                    type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORD_FAIL"],
                 });
             });
             return [2 /*return*/];
@@ -971,9 +1121,6 @@ function AddRecord(data) {
                     dispatch({
                         type: Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["ADD_RECORDS_SUCCESS"],
                     });
-                    //history.pushState({ state: 2 }, "null", "http://localhost:53695/");
-                    //window.location.href = "http://localhost:53695/";
-                    //dispatch(GetRecords(new SearchQuery()));
                 }
                 else {
                     throw new Error(response.statusText);
@@ -1085,7 +1232,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var Routes_Index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Routes/Index */ "./Src/Routes/Index.tsx");
-/* harmony import */ var Components_Nav__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/Nav */ "./Src/Components/Nav.tsx");
+/* harmony import */ var Containers_Nav__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Containers/Nav */ "./Src/Containers/Nav.tsx");
 
 
 
@@ -1094,7 +1241,7 @@ var App = function (_a) {
     var history = _a.history;
     return (react__WEBPACK_IMPORTED_MODULE_1__["createElement"](connected_react_router__WEBPACK_IMPORTED_MODULE_0__["ConnectedRouter"], { history: history },
         react__WEBPACK_IMPORTED_MODULE_1__["createElement"](react__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null,
-            react__WEBPACK_IMPORTED_MODULE_1__["createElement"](Components_Nav__WEBPACK_IMPORTED_MODULE_3__["default"], { isAuthenticated: false }),
+            react__WEBPACK_IMPORTED_MODULE_1__["createElement"](Containers_Nav__WEBPACK_IMPORTED_MODULE_3__["default"], null),
             react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: "container" }, Routes_Index__WEBPACK_IMPORTED_MODULE_2__["default"]))));
 };
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -1139,7 +1286,7 @@ var AddComment = /** @class */ (function (_super) {
             var comment = new Types_CommentDTO__WEBPACK_IMPORTED_MODULE_1__["default"]();
             comment.RecordId = _this.props.recordId;
             comment.Content = _this.content.current.value;
-            _this.props.createComment(comment);
+            _this.props.СreateComment(comment);
         };
         _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: _this.handleSubmit },
@@ -1150,7 +1297,7 @@ var AddComment = /** @class */ (function (_super) {
         return _this;
     }
     return AddComment;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.PureComponent));
 /* harmony default export */ __webpack_exports__["default"] = (AddComment);
 
 
@@ -1193,7 +1340,7 @@ var Comments = /** @class */ (function (_super) {
         return _this;
     }
     return Comments;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.PureComponent));
 /* harmony default export */ __webpack_exports__["default"] = (Comments);
 
 
@@ -1268,7 +1415,7 @@ var PagingHelper = /** @class */ (function (_super) {
                 this.Build(">", pagingInfo.CurrentPage + 1)));
     };
     return PagingHelper;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
+}(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]));
 /* harmony default export */ __webpack_exports__["default"] = (PagingHelper);
 
 
@@ -1321,38 +1468,8 @@ var SearchHelper = /** @class */ (function (_super) {
         return _this;
     }
     return SearchHelper;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
+}(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]));
 /* harmony default export */ __webpack_exports__["default"] = (SearchHelper);
-
-
-/***/ }),
-
-/***/ "./Src/Components/Nav.tsx":
-/*!********************************!*\
-  !*** ./Src/Components/Nav.tsx ***!
-  \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-
-
-var Nav = function (props) { return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("nav", { className: "navbar bg-dark" },
-    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "container" },
-        react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/", className: "navbar-brand" }, "Blog"),
-        props.isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-            "Hello",
-            react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Logout" }, "Log Out"))) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-            react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Login" }, "Log In"),
-            react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Register" }, "Sign Up"))),
-        react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Records" }, "Records"),
-        react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Users" }, "Users"),
-        react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Roles" }, "Roles")))); };
-/* harmony default export */ __webpack_exports__["default"] = (Nav);
 
 
 /***/ }),
@@ -1370,6 +1487,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var Components_Comments_Comments__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Components/Comments/Comments */ "./Src/Components/Comments/Comments.tsx");
 /* harmony import */ var Components_Comments_AddComment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/Comments/AddComment */ "./Src/Components/Comments/AddComment.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -1386,6 +1504,7 @@ var __extends = (undefined && undefined.__extends) || (function () {
 
 
 
+
 var Record = /** @class */ (function (_super) {
     __extends(Record, _super);
     function Record() {
@@ -1393,27 +1512,1482 @@ var Record = /** @class */ (function (_super) {
     }
     Record.prototype.render = function () {
         var _a = this.props.model, Model = _a.Model, IsCommentVisible = _a.IsCommentVisible, Info = _a.Info;
-        var _b = this.props, createComment = _b.createComment, showComments = _b.showComments;
+        var _b = this.props, CreateComment = _b.CreateComment, ShowComments = _b.ShowComments, isAuthenticated = _b.isAuthenticated;
         return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "card" },
             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "card-body" },
                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h4", { className: "card-title" }, Model.Name),
                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("p", { className: "card-text" }, Model.Content),
                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "float-right text-secondary small" }, Model.CreateDate),
                 IsCommentVisible ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](Components_Comments_AddComment__WEBPACK_IMPORTED_MODULE_2__["default"], { recordId: Model.RecordId, createComment: function (data) { return createComment(data); } }),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](Components_Comments_Comments__WEBPACK_IMPORTED_MODULE_1__["default"], { list: Model.Comments }))) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { onClick: function () { return showComments(); }, className: "btn btn-primary" }, "" + (Info > 0 ? "Show " + Info + " Comments" : "Write first comment"))))));
+                    isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](Components_Comments_AddComment__WEBPACK_IMPORTED_MODULE_2__["default"], { recordId: Model.RecordId, "\u0421reateComment": function (data) { return CreateComment(data); } })) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], { className: "btn btn-info", to: "/Login" }, "Log In to write comment")),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](Components_Comments_Comments__WEBPACK_IMPORTED_MODULE_1__["default"], { list: Model.Comments }))) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { onClick: function () { return ShowComments(); }, className: "btn btn-primary" }, "" + (Info > 0 ? "Show " + Info + " Comments" : "Write first comment"))))));
     };
     return Record;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
+}(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]));
 /* harmony default export */ __webpack_exports__["default"] = (Record);
 
 
 /***/ }),
 
-/***/ "./Src/Containers/Add.tsx":
+/***/ "./Src/Containers/Account/Login.tsx":
+/*!******************************************!*\
+  !*** ./Src/Containers/Account/Login.tsx ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var Types_LoginViewModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Types/LoginViewModel */ "./Src/Types/LoginViewModel.ts");
+/* harmony import */ var Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Actions/AccountActions */ "./Src/Actions/AccountActions.ts");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+var Login = /** @class */ (function (_super) {
+    __extends(Login, _super);
+    function Login() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.password = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            var data = new Types_LoginViewModel__WEBPACK_IMPORTED_MODULE_1__["default"]();
+            data.UserName = _this.name.current.value;
+            data.Password = _this.password.current.value;
+            _this.props.Login(data);
+        };
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, !_this.props.isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Log In"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: _this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "User Name"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { className: "form-control", ref: _this.name })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "password", className: "form-control", ref: _this.password })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "Log In"))))) : (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Redirect"], { to: "/" })))); };
+        return _this;
+    }
+    return Login;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+function mapStateToProps(_a) {
+    var account = _a.account;
+    return {
+        isAuthenticated: account.isAuthenticated,
+    };
+}
+function mapDispatchToProps(dispatch) {
+    var _this = this;
+    return {
+        Login: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__["Login"](data))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(Login));
+
+
+/***/ }),
+
+/***/ "./Src/Containers/Account/Register.tsx":
+/*!*********************************************!*\
+  !*** ./Src/Containers/Account/Register.tsx ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var Types_RegisterViewModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Types/RegisterViewModel */ "./Src/Types/RegisterViewModel.ts");
+/* harmony import */ var Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Actions/AccountActions */ "./Src/Actions/AccountActions.ts");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+var Register = /** @class */ (function (_super) {
+    __extends(Register, _super);
+    function Register() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.email = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.password = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.passwordConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            var data = new Types_RegisterViewModel__WEBPACK_IMPORTED_MODULE_1__["default"]();
+            data.UserName = _this.name.current.value;
+            data.Email = _this.email.current.value;
+            data.Password = _this.password.current.value;
+            data.PasswordConfirm = _this.passwordConfirm.current.value;
+            _this.props.Register(data);
+        };
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Register"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: _this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "User Name"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Email"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.email })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, type: "password", className: "form-control", ref: _this.password })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password Confirm"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, type: "password", className: "form-control", ref: _this.passwordConfirm })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "Sign Up"))))); };
+        return _this;
+    }
+    return Register;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+function mapDispatchToProps(dispatch) {
+    var _this = this;
+    return {
+        Register: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__["Register"](data))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(null, mapDispatchToProps)(Register));
+
+
+/***/ }),
+
+/***/ "./Src/Containers/Admin/Records/Add.tsx":
+/*!**********************************************!*\
+  !*** ./Src/Containers/Admin/Records/Add.tsx ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/RecordActions */ "./Src/Actions/RecordActions.ts");
+/* harmony import */ var Types_RecordDTO__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Types/RecordDTO */ "./Src/Types/RecordDTO.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Types/RecordStateDTO */ "./Src/Types/RecordStateDTO.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+
+var Add = /** @class */ (function (_super) {
+    __extends(Add, _super);
+    function Add() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
+        _this.content = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
+        _this.recordState = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            var data = new Types_RecordDTO__WEBPACK_IMPORTED_MODULE_2__["default"]();
+            data.Name = _this.name.current.value;
+            data.Content = _this.content.current.value;
+            _this.props.AddRecord(data);
+        };
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("h4", null, "Add Record"),
+            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
+                    "Name:",
+                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
+                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
+                    "Content:",
+                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.content }))),
+                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
+                    "State:",
+                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("select", { name: "State", ref: _this.recordState, defaultValue: Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_6__["default"][0] }, Object.keys(Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_6__["default"])
+                        .filter(function (x) { return isNaN(Number(x)); })
+                        .map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("option", { key: item }, item)); }))),
+                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
+            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "Cancel"))); };
+        return _this;
+    }
+    return Add;
+}(react__WEBPACK_IMPORTED_MODULE_3___default.a.PureComponent));
+function mapDispatchToProps(dispatch) {
+    var _this = this;
+    return {
+        AddRecord: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["AddRecord"](data))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_5__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(Add)));
+
+
+/***/ }),
+
+/***/ "./Src/Containers/Admin/Records/Edit.tsx":
+/*!***********************************************!*\
+  !*** ./Src/Containers/Admin/Records/Edit.tsx ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/RecordActions */ "./Src/Actions/RecordActions.ts");
+/* harmony import */ var Types_RecordDTO__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Types/RecordDTO */ "./Src/Types/RecordDTO.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Types/RecordStateDTO */ "./Src/Types/RecordStateDTO.ts");
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+
+var Edit = /** @class */ (function (_super) {
+    __extends(Edit, _super);
+    function Edit() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
+        _this.content = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
+        _this.recordState = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            var _a = _this.props, record = _a.record, UpdateRecord = _a.UpdateRecord;
+            record.RecordId = _this.props.match.params.id;
+            record.Name = _this.name.current.value;
+            record.Content = _this.content.current.value;
+            record.State =
+                Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_5__["default"][_this.recordState.current.value];
+            UpdateRecord(record);
+        };
+        return _this;
+    }
+    Edit.prototype.componentDidMount = function () {
+        this.props.GetRecord(this.props.match.params.id);
+    };
+    Edit.prototype.render = function () {
+        var record = this.props.record;
+        return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("h4", null, "Edit Record"),
+            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", { className: "add", onSubmit: this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
+                    "Name:",
+                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", { required: true, className: "form-control", ref: this.name, defaultValue: record.Name }))),
+                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
+                    "Content:",
+                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("textarea", { required: true, className: "form-control", ref: this.content, defaultValue: record.Content }))),
+                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
+                    "State:",
+                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("select", { name: "State", ref: this.recordState, defaultValue: Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_5__["default"][record.State] }, Object.keys(Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_5__["default"])
+                        .filter(function (x) { return isNaN(Number(x)); })
+                        .map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("option", { key: item }, item)); }))),
+                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
+            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "Cancel")));
+    };
+    return Edit;
+}(react__WEBPACK_IMPORTED_MODULE_3___default.a.PureComponent));
+function mapStateToProps(_a) {
+    var records = _a.records;
+    return {
+        record: !records.isLoading && records.data.List
+            ? records.data.List[0].Model
+            : new Types_RecordDTO__WEBPACK_IMPORTED_MODULE_2__["default"](),
+        error: records.error,
+        isLoading: records.isLoading,
+    };
+}
+function mapDispatchToProps(dispatch) {
+    var _this = this;
+    return {
+        GetRecord: function (id) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["GetRecord"](id))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+        UpdateRecord: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["UpdateRecord"](data))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_6__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Edit)));
+
+
+/***/ }),
+
+/***/ "./Src/Containers/Admin/Records/Records.tsx":
+/*!**************************************************!*\
+  !*** ./Src/Containers/Admin/Records/Records.tsx ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/RecordActions */ "./Src/Actions/RecordActions.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
+/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(querystring__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var Types_SearchQuery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Types/SearchQuery */ "./Src/Types/SearchQuery.ts");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Types/RecordStateDTO */ "./Src/Types/RecordStateDTO.ts");
+/* harmony import */ var Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Components/Helpers/PagingHelper */ "./Src/Components/Helpers/PagingHelper.tsx");
+/* harmony import */ var Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Components/Helpers/SearchHelper */ "./Src/Components/Helpers/SearchHelper.tsx");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+
+
+
+
+var AdminRecords = /** @class */ (function (_super) {
+    __extends(AdminRecords, _super);
+    function AdminRecords() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    AdminRecords.prototype.componentDidMount = function () {
+        var _a = this.props, location = _a.location, GetRecords = _a.GetRecords;
+        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_4__["default"](), querystring__WEBPACK_IMPORTED_MODULE_3___default.a.parse(location.search.replace("?", "")));
+        GetRecords(search);
+    };
+    AdminRecords.prototype.componentDidUpdate = function () {
+        var _a = this.props, data = _a.data, location = _a.location, isLoading = _a.isLoading, GetRecords = _a.GetRecords;
+        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_4__["default"](), querystring__WEBPACK_IMPORTED_MODULE_3___default.a.parse(location.search.replace("?", "")));
+        if (!isLoading &&
+            (search.Page != data.PageInfo.CurrentPage ||
+                search.SearchString != data.SearchString)) {
+            GetRecords(search);
+        }
+    };
+    AdminRecords.prototype.render = function () {
+        var _a = this.props, data = _a.data, DeleteRecord = _a.DeleteRecord;
+        return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { className: "btn btn-primary", to: "/Admin/Records/Add" }, "Create New Record"),
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_9__["default"], null),
+            data.List ? (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tbody", null,
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Record Id"),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Title"),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Content"),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "State"),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Create Date"),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null)),
+                        data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", { key: item.Model.RecordId },
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.RecordId),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.Name),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.Content),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_7__["default"][item.Model.State]),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.CreateDate),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null,
+                                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { to: "Records/Edit/" + item.Model.RecordId, className: "btn btn-primary" }, "Edit"),
+                                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return DeleteRecord(item.Model.RecordId); }, className: "btn btn-danger" }, "Delete")))); }))),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_8__["default"], { query: location.search, pagingInfo: data.PageInfo }))) : null));
+    };
+    return AdminRecords;
+}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
+function mapStateToProps(_a) {
+    var records = _a.records;
+    return {
+        data: records.data,
+        error: records.error,
+        isLoading: records.isLoading,
+    };
+}
+function mapDispatchToProps(dispatch) {
+    var _this = this;
+    return {
+        GetRecords: function (searchQuery) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["GetRecords"](searchQuery))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+        AddRecord: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["AddRecord"](data))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+        DeleteRecord: function (id) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["DeleteRecord"](id))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_6__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(AdminRecords)));
+
+
+/***/ }),
+
+/***/ "./Src/Containers/Admin/Roles/Add.tsx":
+/*!********************************************!*\
+  !*** ./Src/Containers/Admin/Roles/Add.tsx ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Actions_AdminRolesActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/AdminRolesActions */ "./Src/Actions/AdminRolesActions.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+var Add = /** @class */ (function (_super) {
+    __extends(Add, _super);
+    function Add() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            _this.props.AddRole(_this.name.current.value);
+        };
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, "New Role"),
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
+                    "Name:",
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "submit", value: "Add Role", className: "btn btn-primary" })))),
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "Cancel"))); };
+        return _this;
+    }
+    return Add;
+}(react__WEBPACK_IMPORTED_MODULE_2___default.a.PureComponent));
+function mapDispatchToProps(dispatch) {
+    var _this = this;
+    return {
+        AddRole: function (name) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_AdminRolesActions__WEBPACK_IMPORTED_MODULE_1__["AddRole"](name))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(Add));
+
+
+/***/ }),
+
+/***/ "./Src/Containers/Admin/Roles/Roles.tsx":
+/*!**********************************************!*\
+  !*** ./Src/Containers/Admin/Roles/Roles.tsx ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Actions_AdminRolesActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/AdminRolesActions */ "./Src/Actions/AdminRolesActions.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+var AdminRoles = /** @class */ (function (_super) {
+    __extends(AdminRoles, _super);
+    function AdminRoles() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    AdminRoles.prototype.componentDidMount = function () {
+        this.props.GetRoles();
+    };
+    AdminRoles.prototype.render = function () {
+        var _a = this.props, data = _a.data, DeleteRole = _a.DeleteRole;
+        return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], { to: "/Admin/Roles/Add", className: "btn btn-primary" }, "Create New Role"),
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tbody", null,
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Role Id"),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Name"),
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null)),
+                    data
+                        ? data.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", { key: item.Id },
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Id),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Name),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null,
+                                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return DeleteRole(item.Id); }, className: "btn btn-danger" }, "Delete")))); })
+                        : null))));
+    };
+    return AdminRoles;
+}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
+function mapStateToProps(_a) {
+    var roles = _a.roles;
+    return {
+        data: roles.data,
+        error: roles.error,
+    };
+}
+function mapDispatchToProps(dispatch) {
+    var _this = this;
+    return {
+        GetRoles: function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_AdminRolesActions__WEBPACK_IMPORTED_MODULE_1__["GetRoles"]())];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+        DeleteRole: function (id) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_AdminRolesActions__WEBPACK_IMPORTED_MODULE_1__["DeleteRole"](id))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_3__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(AdminRoles)));
+
+
+/***/ }),
+
+/***/ "./Src/Containers/Admin/Users/Add.tsx":
+/*!********************************************!*\
+  !*** ./Src/Containers/Admin/Users/Add.tsx ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/AdminUsersActions */ "./Src/Actions/AdminUsersActions.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var Types_UserViewModel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Types/UserViewModel */ "./Src/Types/UserViewModel.ts");
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+var Add = /** @class */ (function (_super) {
+    __extends(Add, _super);
+    function Add() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
+        _this.email = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
+        _this.password = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
+        _this.passwordConfirm = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            var data = new Types_UserViewModel__WEBPACK_IMPORTED_MODULE_3__["default"]();
+            data.UserName = _this.name.current.value;
+            data.Email = _this.email.current.value;
+            data.Password = _this.password.current.value;
+            data.PasswordConfirm = _this.passwordConfirm.current.value;
+            _this.props.AddUser(data);
+        };
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, "New User"),
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
+                    "UserName:",
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
+                    "Email:",
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.email }))),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
+                    "Password:",
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "password", required: true, className: "form-control", ref: _this.password }))),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
+                    "Confirm Password:",
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "password", required: true, className: "form-control", ref: _this.passwordConfirm }))),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "submit", value: "Create User", className: "btn btn-primary" })))),
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { to: "/Admin/Users", className: "btn btn-danger" }, "Cancel"))); };
+        return _this;
+    }
+    return Add;
+}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
+function mapDispatchToProps(dispatch) {
+    var _this = this;
+    return {
+        AddUser: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__["AddUser"](data))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_4__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(Add)));
+
+
+/***/ }),
+
+/***/ "./Src/Containers/Admin/Users/Edit.tsx":
+/*!*********************************************!*\
+  !*** ./Src/Containers/Admin/Users/Edit.tsx ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/AdminUsersActions */ "./Src/Actions/AdminUsersActions.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var Types_UserDTO__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Types/UserDTO */ "./Src/Types/UserDTO.ts");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+var Add = /** @class */ (function (_super) {
+    __extends(Add, _super);
+    function Add() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
+        _this.email = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
+        _this.password = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            var _a = _this.props, user = _a.user, UpdateUser = _a.UpdateUser;
+            user.UserName = _this.name.current.value;
+            user.Email = _this.email.current.value;
+            user.Password = _this.password.current.value;
+            UpdateUser(user);
+        };
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, "New User"),
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
+                    "UserName:",
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name, defaultValue: _this.props.user.UserName }))),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
+                    "Email:",
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.email, defaultValue: _this.props.user.Email }))),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
+                    "Password:",
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "password", required: true, className: "form-control", ref: _this.password }))),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "submit", value: "Create User", className: "btn btn-primary" })))),
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { to: "/Admin/Users", className: "btn btn-danger" }, "Cancel"))); };
+        return _this;
+    }
+    Add.prototype.componentDidMount = function () {
+        this.props.GetUser(this.props.match.params.id);
+    };
+    return Add;
+}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
+function mapStateToProps(_a) {
+    var users = _a.users;
+    return {
+        user: !users.isLoading && users.data.List ? users.data.List[0] : new Types_UserDTO__WEBPACK_IMPORTED_MODULE_4__["default"](),
+        error: users.error,
+        isLoading: users.isLoading,
+    };
+}
+function mapDispatchToProps(dispatch) {
+    var _this = this;
+    return {
+        GetUser: function (id) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__["GetUser"](id))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+        UpdateUser: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__["UpdateUser"](data))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_3__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Add)));
+
+
+/***/ }),
+
+/***/ "./Src/Containers/Admin/Users/Users.tsx":
+/*!**********************************************!*\
+  !*** ./Src/Containers/Admin/Users/Users.tsx ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/AdminUsersActions */ "./Src/Actions/AdminUsersActions.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
+/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(querystring__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Components/Helpers/SearchHelper */ "./Src/Components/Helpers/SearchHelper.tsx");
+/* harmony import */ var Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Components/Helpers/PagingHelper */ "./Src/Components/Helpers/PagingHelper.tsx");
+/* harmony import */ var Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Types/SearchQuery */ "./Src/Types/SearchQuery.ts");
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+
+
+
+var AdminUsers = /** @class */ (function (_super) {
+    __extends(AdminUsers, _super);
+    function AdminUsers() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    AdminUsers.prototype.componentDidMount = function () {
+        var _a = this.props, location = _a.location, GetUsers = _a.GetUsers;
+        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__["default"](), querystring__WEBPACK_IMPORTED_MODULE_3___default.a.parse(location.search.replace("?", "")));
+        GetUsers(search);
+    };
+    AdminUsers.prototype.componentDidUpdate = function () {
+        var _a = this.props, data = _a.data, location = _a.location, isLoading = _a.isLoading, GetUsers = _a.GetUsers;
+        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__["default"](), querystring__WEBPACK_IMPORTED_MODULE_3___default.a.parse(location.search.replace("?", "")));
+        if (!isLoading &&
+            (search.Page != data.PageInfo.CurrentPage ||
+                search.SearchString != data.SearchString)) {
+            GetUsers(search);
+        }
+    };
+    AdminUsers.prototype.render = function () {
+        var _a = this.props, location = _a.location, data = _a.data, DeleteUser = _a.DeleteUser;
+        return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__["Link"], { className: "btn btn-primary", to: "/Admin/Users/Add" }, "Create New User"),
+            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_4__["default"], null),
+            data.List ? (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
+                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tbody", null,
+                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "User Id"),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "User Name"),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Email"),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Roles"),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null)),
+                        data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", { key: item.Id },
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Id),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.UserName),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Email),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Roles.map(function (role) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", { key: role }, role)); })),
+                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null,
+                                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__["Link"], { to: "Users/Edit/" + item.Id, className: "btn btn-primary" }, "Edit"),
+                                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return DeleteUser(item.Id); }, className: "btn btn-danger" }, "Delete")))); }))),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_5__["default"], { query: location.search, pagingInfo: data.PageInfo }))) : null));
+    };
+    return AdminUsers;
+}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
+function mapStateToProps(_a) {
+    var users = _a.users;
+    return {
+        data: users.data,
+        error: users.error,
+        isLoading: users.isLoading,
+    };
+}
+function mapDispatchToProps(dispatch) {
+    var _this = this;
+    return {
+        GetUsers: function (searchQuery) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__["GetUsers"](searchQuery))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+        DeleteUser: function (id) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__["DeleteUser"](id))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_7__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(AdminUsers)));
+
+
+/***/ }),
+
+/***/ "./Src/Containers/Nav.tsx":
 /*!********************************!*\
-  !*** ./Src/Containers/Add.tsx ***!
+  !*** ./Src/Containers/Nav.tsx ***!
   \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Actions/AccountActions */ "./Src/Actions/AccountActions.ts");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+var Nav = /** @class */ (function (_super) {
+    __extends(Nav, _super);
+    function Nav() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Nav.prototype.componentDidMount = function () {
+        this.props.GetUserInfo();
+    };
+    Nav.prototype.render = function () {
+        var _a = this.props, user = _a.user, isAuthenticated = _a.isAuthenticated, Logout = _a.Logout;
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("nav", { className: "navbar bg-dark" },
+            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "container" },
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/", className: "navbar-brand" }, "Blog"),
+                isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "text-light" },
+                        "Hello, ",
+                        user.UserName),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { className: "btn btn-danger", onClick: function () { return Logout(); } }, "Log Out"))) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Login" }, "Log In"),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Register" }, "Sign Up"))),
+                user && user.Roles && user.Roles.indexOf("Admin") !== -1 ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Records" }, "Records"),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Users" }, "Users"),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Roles" }, "Roles"))) : null)));
+    };
+    return Nav;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
+function mapStateToProps(_a) {
+    var account = _a.account;
+    return {
+        isAuthenticated: account.isAuthenticated,
+        user: account.user,
+    };
+}
+function mapDispatchToProps(dispatch) {
+    var _this = this;
+    return {
+        Logout: function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__["Logout"]())];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+        GetUserInfo: function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__["GetUserInfo"]())];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(Nav));
+
+
+/***/ }),
+
+/***/ "./Src/Containers/Records/Add.tsx":
+/*!****************************************!*\
+  !*** ./Src/Containers/Records/Add.tsx ***!
+  \****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1489,9 +3063,9 @@ var Add = /** @class */ (function (_super) {
             var data = new Types_RecordDTO__WEBPACK_IMPORTED_MODULE_2__["default"]();
             data.Name = _this.name.current.value;
             data.Content = _this.content.current.value;
-            _this.props.addRecord(data);
+            _this.props.AddRecord(data);
         };
-        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null,
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, _this.props.isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("h4", null, "New Record"),
             react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
                 react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
@@ -1505,15 +3079,21 @@ var Add = /** @class */ (function (_super) {
                 react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
                     react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], { to: "/", className: "btn btn-danger" }, "Cancel"))); };
+            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], { to: "/", className: "btn btn-danger" }, "Cancel"))) : (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Redirect"], { to: "Login" })))); };
         return _this;
     }
     return Add;
 }(react__WEBPACK_IMPORTED_MODULE_3___default.a.Component));
+function mapStateToProps(_a) {
+    var account = _a.account;
+    return {
+        isAuthenticated: account.isAuthenticated,
+    };
+}
 function mapDispatchToProps(dispatch) {
     var _this = this;
     return {
-        addRecord: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+        AddRecord: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["AddRecord"](data))];
                 case 1: return [2 /*return*/, _a.sent()];
@@ -1521,507 +3101,15 @@ function mapDispatchToProps(dispatch) {
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(Add));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Add));
 
 
 /***/ }),
 
-/***/ "./Src/Containers/AdminRecords.tsx":
+/***/ "./Src/Containers/Records/Blog.tsx":
 /*!*****************************************!*\
-  !*** ./Src/Containers/AdminRecords.tsx ***!
+  !*** ./Src/Containers/Records/Blog.tsx ***!
   \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/RecordActions */ "./Src/Actions/RecordActions.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
-/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(querystring__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Components/Helpers/SearchHelper */ "./Src/Components/Helpers/SearchHelper.tsx");
-/* harmony import */ var Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Components/Helpers/PagingHelper */ "./Src/Components/Helpers/PagingHelper.tsx");
-/* harmony import */ var Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Types/SearchQuery */ "./Src/Types/SearchQuery.ts");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-
-
-
-
-
-
-
-
-var AdminRecords = /** @class */ (function (_super) {
-    __extends(AdminRecords, _super);
-    function AdminRecords() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    AdminRecords.prototype.componentDidMount = function () {
-        var _a = this.props, location = _a.location, getRecords = _a.getRecords;
-        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__["default"](), querystring__WEBPACK_IMPORTED_MODULE_3___default.a.parse(location.search.replace("?", "")));
-        getRecords(search);
-    };
-    AdminRecords.prototype.componentDidUpdate = function () {
-        var _a = this.props, data = _a.data, location = _a.location, isLoading = _a.isLoading, getRecords = _a.getRecords;
-        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__["default"](), querystring__WEBPACK_IMPORTED_MODULE_3___default.a.parse(location.search.replace("?", "")));
-        if (!isLoading &&
-            (search.Page != data.PageInfo.CurrentPage ||
-                search.SearchString != data.SearchString)) {
-            getRecords(search);
-        }
-    };
-    AdminRecords.prototype.render = function () {
-        var _a = this.props, location = _a.location, data = _a.data, deleteRecord = _a.deleteRecord;
-        return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["Link"], { className: "btn btn-primary", to: "/Add" }, "Create New Record"),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_4__["default"], null),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tbody", null,
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Record Id"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Title"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Content"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "State"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Create Date"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null)),
-                    data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.RecordId),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.Name),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.Content),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.State),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.CreateDate),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null,
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["Link"], { to: "Records/Edit/" + item.Model.RecordId, className: "btn btn-primary" }, "Edit"),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return deleteRecord(item.Model.RecordId); }, className: "btn btn-danger" }, "Delete")))); }))),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_5__["default"], { query: location.search, pagingInfo: data.PageInfo })));
-    };
-    return AdminRecords;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
-function mapStateToProps(_a) {
-    var records = _a.records;
-    return {
-        data: records.data,
-        error: records.error,
-        isLoading: records.isLoading,
-    };
-}
-function mapDispatchToProps(dispatch) {
-    var _this = this;
-    return {
-        getRecords: function (searchQuery) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["GetRecords"](searchQuery))];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-        addRecord: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["AddRecord"](data))];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-        deleteRecord: function (id) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["DeleteRecord"](id))];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-    };
-}
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(AdminRecords));
-
-
-/***/ }),
-
-/***/ "./Src/Containers/AdminRoles.tsx":
-/*!***************************************!*\
-  !*** ./Src/Containers/AdminRoles.tsx ***!
-  \***************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var Actions_AdminRolesActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/AdminRolesActions */ "./Src/Actions/AdminRolesActions.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-
-
-
-var AdminRoles = /** @class */ (function (_super) {
-    __extends(AdminRoles, _super);
-    function AdminRoles() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            _this.props.addRole(_this.name.current.value);
-        };
-        return _this;
-    }
-    AdminRoles.prototype.componentDidMount = function () {
-        this.props.getRoles();
-    };
-    AdminRoles.prototype.render = function () {
-        var _a = this.props, data = _a.data, deleteRole = _a.deleteRole;
-        return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, "New Role"),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", { className: "add", onSubmit: this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "Name:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { required: true, className: "form-control", ref: this.name }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "submit", value: "Add New", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tbody", null,
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Role Id"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Name"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null)),
-                    data.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", { key: item.Id },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Id),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Name),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null,
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return deleteRole(item.Id); }, className: "btn btn-danger" }, "Delete")))); })))));
-    };
-    return AdminRoles;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
-function mapStateToProps(_a) {
-    var roles = _a.roles;
-    return {
-        data: roles.data,
-        error: roles.error,
-        isLoading: roles.isLoading,
-    };
-}
-function mapDispatchToProps(dispatch) {
-    var _this = this;
-    return {
-        getRoles: function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AdminRolesActions__WEBPACK_IMPORTED_MODULE_1__["GetRoles"]())];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-        addRole: function (name) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AdminRolesActions__WEBPACK_IMPORTED_MODULE_1__["AddRole"](name))];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-        deleteRole: function (id) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AdminRolesActions__WEBPACK_IMPORTED_MODULE_1__["DeleteRole"](id))];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-    };
-}
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(AdminRoles));
-
-
-/***/ }),
-
-/***/ "./Src/Containers/AdminUsers.tsx":
-/*!***************************************!*\
-  !*** ./Src/Containers/AdminUsers.tsx ***!
-  \***************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/AdminUsersActions */ "./Src/Actions/AdminUsersActions.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
-/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(querystring__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Components/Helpers/SearchHelper */ "./Src/Components/Helpers/SearchHelper.tsx");
-/* harmony import */ var Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Components/Helpers/PagingHelper */ "./Src/Components/Helpers/PagingHelper.tsx");
-/* harmony import */ var Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Types/SearchQuery */ "./Src/Types/SearchQuery.ts");
-/* harmony import */ var Types_UserViewModel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Types/UserViewModel */ "./Src/Types/UserViewModel.ts");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-
-
-
-
-
-
-
-
-var AdminUsers = /** @class */ (function (_super) {
-    __extends(AdminUsers, _super);
-    function AdminUsers() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.email = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.password = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.passwordConfirm = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            var data = new Types_UserViewModel__WEBPACK_IMPORTED_MODULE_7__["default"]();
-            data.UserName = _this.name.current.value;
-            data.Email = _this.email.current.value;
-            data.Password = _this.password.current.value;
-            data.PasswordConfirm = _this.passwordConfirm.current.value;
-            _this.props.addUser(data);
-        };
-        return _this;
-    }
-    AdminUsers.prototype.componentDidMount = function () {
-        var _a = this.props, location = _a.location, getUsers = _a.getUsers;
-        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__["default"](), querystring__WEBPACK_IMPORTED_MODULE_3___default.a.parse(location.search.replace("?", "")));
-        getUsers(search);
-    };
-    AdminUsers.prototype.componentDidUpdate = function () {
-        var _a = this.props, data = _a.data, location = _a.location, isLoading = _a.isLoading, getUsers = _a.getUsers;
-        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__["default"](), querystring__WEBPACK_IMPORTED_MODULE_3___default.a.parse(location.search.replace("?", "")));
-        if (!isLoading &&
-            (search.Page != data.PageInfo.CurrentPage ||
-                search.SearchString != data.SearchString)) {
-            getUsers(search);
-        }
-    };
-    AdminUsers.prototype.render = function () {
-        var _a = this.props, location = _a.location, data = _a.data, updateUser = _a.updateUser, deleteUser = _a.deleteUser;
-        return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, "New User"),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", { className: "add", onSubmit: this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "UserName:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { required: true, className: "form-control", ref: this.name }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "Email:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("textarea", { required: true, className: "form-control", ref: this.email }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "Password:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "password", required: true, className: "form-control", ref: this.password }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "Confirm Password:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "password", required: true, className: "form-control", ref: this.passwordConfirm }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_4__["default"], null),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tbody", null,
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "User Id"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "User Name"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Email"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Roles"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null)),
-                    data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", { key: item.Id },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Id),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.UserName),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Email),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Roles.map(function (role) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", { key: role }, role)); })),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null,
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return updateUser(item); }, className: "btn btn-primary", value: "Edit" }, "Edit"),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return deleteUser(item.Id); }, className: "btn btn-danger" }, "Delete")))); }))),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_5__["default"], { query: location.search, pagingInfo: data.PageInfo })));
-    };
-    return AdminUsers;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
-function mapStateToProps(_a) {
-    var users = _a.users;
-    return {
-        data: users.data,
-        error: users.error,
-        isLoading: users.isLoading,
-    };
-}
-function mapDispatchToProps(dispatch) {
-    var _this = this;
-    return {
-        getUsers: function (searchQuery) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__["GetUsers"](searchQuery))];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-        addUser: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__["AddUser"](data))];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-        updateUser: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__["UpdateUser"](data))];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-        deleteUser: function (id) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__["DeleteUser"](id))];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-    };
-}
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(AdminUsers));
-
-
-/***/ }),
-
-/***/ "./Src/Containers/Blog.tsx":
-/*!*********************************!*\
-  !*** ./Src/Containers/Blog.tsx ***!
-  \*********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2103,35 +3191,37 @@ var Blog = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Blog.prototype.componentDidMount = function () {
-        var _a = this.props, location = _a.location, getRecords = _a.getRecords;
+        var _a = this.props, location = _a.location, GetRecords = _a.GetRecords;
         var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_9__["default"](), querystring__WEBPACK_IMPORTED_MODULE_4___default.a.parse(location.search.replace("?", "")));
-        getRecords(search);
+        GetRecords(search);
     };
-    Blog.prototype.componentDidUpdate = function () {
-        var _a = this.props, data = _a.data, location = _a.location, isLoading = _a.isLoading, getRecords = _a.getRecords;
+    Blog.prototype.componentDidUpdate = function (prevProps) {
+        var _a = this.props, data = _a.data, location = _a.location, isLoading = _a.isLoading, GetRecords = _a.GetRecords, isAuthenticated = _a.isAuthenticated;
         var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_9__["default"](), querystring__WEBPACK_IMPORTED_MODULE_4___default.a.parse(location.search.replace("?", "")));
-        if (!isLoading &&
-            (search.Page != data.PageInfo.CurrentPage ||
-                search.SearchString != data.SearchString)) {
-            getRecords(search);
+        if (isAuthenticated !== prevProps.isAuthenticated ||
+            (!isLoading &&
+                (search.Page != data.PageInfo.CurrentPage ||
+                    search.SearchString != data.SearchString))) {
+            GetRecords(search);
         }
     };
     Blog.prototype.render = function () {
-        var _a = this.props, location = _a.location, data = _a.data, getComments = _a.getComments, createComment = _a.createComment, showComments = _a.showComments;
+        var _a = this.props, isAuthenticated = _a.isAuthenticated, location = _a.location, data = _a.data, GetComments = _a.GetComments, CreateComment = _a.CreateComment, ShowComments = _a.ShowComments;
         return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { className: "btn btn-primary", to: "/Add" }, "Create New Record"),
             react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_6__["default"], null),
-            data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Components_records_Record__WEBPACK_IMPORTED_MODULE_8__["default"], { key: item.Model.RecordId, model: item, showComments: function () {
-                    showComments(item.Model.RecordId),
-                        getComments(item.Model.RecordId);
-                }, createComment: function (data) { return createComment(data); } })); }),
+            data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Components_records_Record__WEBPACK_IMPORTED_MODULE_8__["default"], { isAuthenticated: isAuthenticated, key: item.Model.RecordId, model: item, ShowComments: function () {
+                    ShowComments(item.Model.RecordId),
+                        GetComments(item.Model.RecordId);
+                }, CreateComment: function (data) { return CreateComment(data); } })); }),
             react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_7__["default"], { query: location.search, pagingInfo: data.PageInfo })));
     };
     return Blog;
 }(react__WEBPACK_IMPORTED_MODULE_3___default.a.Component));
 function mapStateToProps(_a) {
-    var records = _a.records;
+    var records = _a.records, account = _a.account;
     return {
+        isAuthenticated: account.isAuthenticated,
         data: records.data,
         error: records.error,
         isLoading: records.isLoading,
@@ -2141,17 +3231,17 @@ function mapStateToProps(_a) {
 function mapDispatchToProps(dispatch) {
     var _this = this;
     return {
-        getRecords: function (searchQuery) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+        GetRecords: function (searchQuery) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["GetRecords"](searchQuery))];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         }); }); },
-        getComments: function (id) { return dispatch(Actions_CommentActions__WEBPACK_IMPORTED_MODULE_2__["getComments"](id)); },
-        createComment: function (data) {
+        GetComments: function (id) { return dispatch(Actions_CommentActions__WEBPACK_IMPORTED_MODULE_2__["getComments"](id)); },
+        CreateComment: function (data) {
             return dispatch(Actions_CommentActions__WEBPACK_IMPORTED_MODULE_2__["createComment"](data));
         },
-        showComments: function (id) { return dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["ShowComments"](id)); },
+        ShowComments: function (id) { return dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["ShowComments"](id)); },
     };
 }
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Blog));
@@ -2159,380 +3249,104 @@ function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
-/***/ "./Src/Containers/Edit.tsx":
+/***/ "./Src/Hocs/AllowOnlyAdmin.tsx":
+/*!*************************************!*\
+  !*** ./Src/Hocs/AllowOnlyAdmin.tsx ***!
+  \*************************************/
+/*! exports provided: allowOnlyAdmin */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "allowOnlyAdmin", function() { return allowOnlyAdmin; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+
+
+var allowOnlyAdmin = function (WrappedComponent) {
+    var AllowOnlyAdmin = /** @class */ (function (_super) {
+        __extends(AllowOnlyAdmin, _super);
+        function AllowOnlyAdmin() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        AllowOnlyAdmin.prototype.render = function () {
+            var _a = this.props, isAuthenticated = _a.isAuthenticated, user = _a.user;
+            return isAuthenticated &&
+                user &&
+                user.Roles &&
+                user.Roles.indexOf("Admin") !== -1 ? (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrappedComponent, __assign({}, this.props))) : (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Redirect"], { to: "/Login" }));
+        };
+        return AllowOnlyAdmin;
+    }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+    return Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, null)(AllowOnlyAdmin);
+};
+function mapStateToProps(_a) {
+    var account = _a.account;
+    return {
+        isAuthenticated: account.isAuthenticated,
+        user: account.user,
+    };
+}
+
+
+/***/ }),
+
+/***/ "./Src/Reducers/Account.ts":
 /*!*********************************!*\
-  !*** ./Src/Containers/Edit.tsx ***!
+  !*** ./Src/Reducers/Account.ts ***!
   \*********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/RecordActions */ "./Src/Actions/RecordActions.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Types/RecordStateDTO */ "./Src/Types/RecordStateDTO.ts");
-/* harmony import */ var Types_SearchQuery__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Types/SearchQuery */ "./Src/Types/SearchQuery.ts");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return recordReducer; });
+/* harmony import */ var Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Actions/Constants/Account */ "./Src/Actions/Constants/Account.ts");
+/* harmony import */ var Types_UserDTO__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Types/UserDTO */ "./Src/Types/UserDTO.ts");
+
+
+var initialState = {
+    isAuthenticated: false,
+    user: new Types_UserDTO__WEBPACK_IMPORTED_MODULE_1__["default"](),
 };
-var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+function recordReducer(state, action) {
+    if (state === void 0) { state = initialState; }
+    switch (action.type) {
+        case Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["LOGIN_SUCCESS"]:
+            return { isAuthenticated: true, user: action.data };
+        case Actions_Constants_Account__WEBPACK_IMPORTED_MODULE_0__["LOGOUT"]:
+            return { initialState: initialState };
+        default:
+            return state;
     }
-};
-
-
-
-
-
-
-var Edit = /** @class */ (function (_super) {
-    __extends(Edit, _super);
-    function Edit() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.content = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.recordState = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            var data = _this.props.data.List.find(function (item) { return item.Model.RecordId == _this.props.match.params.id; }).Model;
-            data.Name = _this.name.current.value;
-            data.Content = _this.content.current.value;
-            data.State =
-                Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_4__["default"][_this.recordState.current.value];
-            _this.props.updateRecord(data);
-        };
-        return _this;
-    }
-    Edit.prototype.render = function () {
-        var _this = this;
-        var record = this.props.data.List.find(function (item) { return item.Model.RecordId == _this.props.match.params.id; }).Model;
-        return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, "Edit Record"),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", { className: "add", onSubmit: this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "Name:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { required: true, className: "form-control", ref: this.name, defaultValue: record.Name }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "Content:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("textarea", { required: true, className: "form-control", ref: this.content, defaultValue: record.Content }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "State:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("select", { name: "State", ref: this.recordState, defaultValue: Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_4__["default"][record.State] }, Object.keys(Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_4__["default"])
-                        .filter(function (x) { return isNaN(Number(x)); })
-                        .map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("option", { key: item }, item)); }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], { to: window.location.href, className: "btn btn-danger" }, "Cancel")));
-    };
-    return Edit;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
-function mapStateToProps(_a) {
-    var records = _a.records;
-    return {
-        data: records.data,
-        error: records.error,
-        isLoading: records.isLoading,
-    };
 }
-function mapDispatchToProps(dispatch) {
-    var _this = this;
-    return {
-        updateRecord: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["UpdateRecord"](data))];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-        getRecord: function (id) { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["GetRecords"](Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_5__["default"](), { PageSize: 1 })))];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        }); },
-    };
-}
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Edit));
-
-
-/***/ }),
-
-/***/ "./Src/Containers/Login.tsx":
-/*!**********************************!*\
-  !*** ./Src/Containers/Login.tsx ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var Types_LoginViewModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Types/LoginViewModel */ "./Src/Types/LoginViewModel.ts");
-/* harmony import */ var Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Actions/AccountActions */ "./Src/Actions/AccountActions.ts");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-
-
-
-
-var Login = /** @class */ (function (_super) {
-    __extends(Login, _super);
-    function Login() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-        _this.password = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            var data = new Types_LoginViewModel__WEBPACK_IMPORTED_MODULE_1__["default"]();
-            data.UserName = _this.name.current.value;
-            data.Password = _this.password.current.value;
-            _this.props.login(data);
-        };
-        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Log In"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: _this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "User Name"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { className: "form-control", ref: _this.name })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "password", className: "form-control", ref: _this.password })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "Log In"))))); };
-        return _this;
-    }
-    return Login;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
-function mapDispatchToProps(dispatch) {
-    var _this = this;
-    return {
-        login: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__["login"](data))];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-    };
-}
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(null, mapDispatchToProps)(Login));
-
-
-/***/ }),
-
-/***/ "./Src/Containers/Register.tsx":
-/*!*************************************!*\
-  !*** ./Src/Containers/Register.tsx ***!
-  \*************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var Types_RegisterViewModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Types/RegisterViewModel */ "./Src/Types/RegisterViewModel.ts");
-/* harmony import */ var Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Actions/AccountActions */ "./Src/Actions/AccountActions.ts");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-
-
-
-
-var Register = /** @class */ (function (_super) {
-    __extends(Register, _super);
-    function Register() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-        _this.email = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-        _this.password = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-        _this.passwordConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            var data = new Types_RegisterViewModel__WEBPACK_IMPORTED_MODULE_1__["default"]();
-            data.UserName = _this.name.current.value;
-            data.Email = _this.email.current.value;
-            data.Password = _this.password.current.value;
-            data.PasswordConfirm = _this.passwordConfirm.current.value;
-            _this.props.register(data);
-        };
-        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Register"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: _this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "User Name"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Email"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.email })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, type: "password", className: "form-control", ref: _this.password })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password Confirm"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, type: "password", className: "form-control", ref: _this.passwordConfirm })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "Sign Up"))))); };
-        return _this;
-    }
-    return Register;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
-function mapDispatchToProps(dispatch) {
-    var _this = this;
-    return {
-        register: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__["register"](data))];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); },
-    };
-}
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(null, mapDispatchToProps)(Register));
 
 
 /***/ }),
@@ -2552,6 +3366,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Reducers_Records__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Reducers/Records */ "./Src/Reducers/Records.ts");
 /* harmony import */ var Reducers_Users__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Reducers/Users */ "./Src/Reducers/Users.ts");
 /* harmony import */ var Reducers_Roles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Reducers/Roles */ "./Src/Reducers/Roles.ts");
+/* harmony import */ var Reducers_Account__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Reducers/Account */ "./Src/Reducers/Account.ts");
+
 
 
 
@@ -2559,6 +3375,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (function (history) {
     return Object(redux__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])({
+        account: Reducers_Account__WEBPACK_IMPORTED_MODULE_5__["default"],
         records: Reducers_Records__WEBPACK_IMPORTED_MODULE_2__["default"],
         users: Reducers_Users__WEBPACK_IMPORTED_MODULE_3__["default"],
         roles: Reducers_Roles__WEBPACK_IMPORTED_MODULE_4__["default"],
@@ -2581,7 +3398,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return recordReducer; });
 /* harmony import */ var Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Actions/Constants/Record */ "./Src/Actions/Constants/Record.ts");
 /* harmony import */ var Actions_Constants_Comment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/Constants/Comment */ "./Src/Actions/Constants/Comment.ts");
-/* harmony import */ var Types_ListViewModel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Types/ListViewModel */ "./Src/Types/ListViewModel.ts");
+/* harmony import */ var Types_ReturnModelDTO__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Types/ReturnModelDTO */ "./Src/Types/ReturnModelDTO.ts");
+/* harmony import */ var Types_ListViewModel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Types/ListViewModel */ "./Src/Types/ListViewModel.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -2596,8 +3414,9 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 
+
 var initialState = {
-    data: new Types_ListViewModel__WEBPACK_IMPORTED_MODULE_2__["default"](),
+    data: new Types_ListViewModel__WEBPACK_IMPORTED_MODULE_3__["default"](),
     error: "",
     isLoading: false,
     isCommentsLoading: false,
@@ -2611,6 +3430,15 @@ function recordReducer(state, action) {
             return __assign({}, state, { data: action.data, error: "", isLoading: false });
         }
         case Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORDS_FAIL"]:
+            return __assign({}, state, { error: action.data.message, isLoading: false });
+        case Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORD_REQUEST"]:
+            return __assign({}, state, { isLoading: true, error: "" });
+        case Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORD_SUCCESS"]: {
+            var record = initialState;
+            record.data.List.push(Object.assign(new Types_ReturnModelDTO__WEBPACK_IMPORTED_MODULE_2__["default"](), { Model: action.data }));
+            return __assign({}, state, { data: record, error: "", isLoading: false });
+        }
+        case Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["GET_RECORD_FAIL"]:
             return __assign({}, state, { error: action.data.message, isLoading: false });
         case Actions_Constants_Record__WEBPACK_IMPORTED_MODULE_0__["ADD_RECORDS_REQUEST"]:
             return __assign({}, state, { isLoading: true, error: "" });
@@ -2743,6 +3571,15 @@ function roleReducer(state, action) {
         }
         case Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USERS_FAIL"]:
             return __assign({}, state, { error: action.data.message, isLoading: false });
+        case Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USER_REQUEST"]:
+            return __assign({}, state, { isLoading: true, error: "" });
+        case Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USER_SUCCESS"]: {
+            var user = initialState;
+            user.data.List.push(Object.assign(action.data));
+            return __assign({}, state, { data: user, error: "", isLoading: false });
+        }
+        case Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["GET_USER_FAIL"]:
+            return __assign({}, state, { error: action.data.message, isLoading: false });
         case Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["ADD_USERS_REQUEST"]:
             return __assign({}, state, { isLoading: true, error: "" });
         case Actions_Constants_AdminUsers__WEBPACK_IMPORTED_MODULE_0__["ADD_USERS_SUCCESS"]: {
@@ -2770,14 +3607,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-/* harmony import */ var Containers_Blog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Containers/Blog */ "./Src/Containers/Blog.tsx");
-/* harmony import */ var Containers_Add__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Containers/Add */ "./Src/Containers/Add.tsx");
-/* harmony import */ var Containers_Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Containers/Login */ "./Src/Containers/Login.tsx");
-/* harmony import */ var Containers_Register__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Containers/Register */ "./Src/Containers/Register.tsx");
-/* harmony import */ var Containers_AdminRecords__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Containers/AdminRecords */ "./Src/Containers/AdminRecords.tsx");
-/* harmony import */ var Containers_AdminUsers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Containers/AdminUsers */ "./Src/Containers/AdminUsers.tsx");
-/* harmony import */ var Containers_AdminRoles__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Containers/AdminRoles */ "./Src/Containers/AdminRoles.tsx");
-/* harmony import */ var Containers_Edit__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Containers/Edit */ "./Src/Containers/Edit.tsx");
+/* harmony import */ var Containers_Records_Blog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Containers/Records/Blog */ "./Src/Containers/Records/Blog.tsx");
+/* harmony import */ var Containers_Records_Add__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Containers/Records/Add */ "./Src/Containers/Records/Add.tsx");
+/* harmony import */ var Containers_Account_Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Containers/Account/Login */ "./Src/Containers/Account/Login.tsx");
+/* harmony import */ var Containers_Account_Register__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Containers/Account/Register */ "./Src/Containers/Account/Register.tsx");
+/* harmony import */ var Containers_Admin_Records_Records__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Containers/Admin/Records/Records */ "./Src/Containers/Admin/Records/Records.tsx");
+/* harmony import */ var Containers_Admin_Records_Add__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Containers/Admin/Records/Add */ "./Src/Containers/Admin/Records/Add.tsx");
+/* harmony import */ var Containers_Admin_Records_Edit__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Containers/Admin/Records/Edit */ "./Src/Containers/Admin/Records/Edit.tsx");
+/* harmony import */ var Containers_Admin_Users_Users__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Containers/Admin/Users/Users */ "./Src/Containers/Admin/Users/Users.tsx");
+/* harmony import */ var Containers_Admin_Users_Add__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Containers/Admin/Users/Add */ "./Src/Containers/Admin/Users/Add.tsx");
+/* harmony import */ var Containers_Admin_Users_Edit__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Containers/Admin/Users/Edit */ "./Src/Containers/Admin/Users/Edit.tsx");
+/* harmony import */ var Containers_Admin_Roles_Roles__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Containers/Admin/Roles/Roles */ "./Src/Containers/Admin/Roles/Roles.tsx");
+/* harmony import */ var Containers_Admin_Roles_Add__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! Containers/Admin/Roles/Add */ "./Src/Containers/Admin/Roles/Add.tsx");
+
+
+
+
 
 
 
@@ -2789,14 +3634,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Switch"], null,
-    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Add", component: Containers_Add__WEBPACK_IMPORTED_MODULE_3__["default"] }),
-    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Login", component: Containers_Login__WEBPACK_IMPORTED_MODULE_4__["default"] }),
-    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Register", component: Containers_Register__WEBPACK_IMPORTED_MODULE_5__["default"] }),
-    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Records", component: Containers_AdminRecords__WEBPACK_IMPORTED_MODULE_6__["default"] }),
-    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Records/Edit/:id", component: Containers_Edit__WEBPACK_IMPORTED_MODULE_9__["default"] }),
-    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Users", component: Containers_AdminUsers__WEBPACK_IMPORTED_MODULE_7__["default"] }),
-    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Roles", component: Containers_AdminRoles__WEBPACK_IMPORTED_MODULE_8__["default"] }),
-    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { path: "/", component: Containers_Blog__WEBPACK_IMPORTED_MODULE_2__["default"] })));
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Add", component: Containers_Records_Add__WEBPACK_IMPORTED_MODULE_3__["default"] }),
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Login", component: Containers_Account_Login__WEBPACK_IMPORTED_MODULE_4__["default"] }),
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Register", component: Containers_Account_Register__WEBPACK_IMPORTED_MODULE_5__["default"] }),
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Records", component: Containers_Admin_Records_Records__WEBPACK_IMPORTED_MODULE_6__["default"] }),
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Records/Add", component: Containers_Admin_Records_Add__WEBPACK_IMPORTED_MODULE_7__["default"] }),
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Records/Edit/:id", component: Containers_Admin_Records_Edit__WEBPACK_IMPORTED_MODULE_8__["default"] }),
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Users", component: Containers_Admin_Users_Users__WEBPACK_IMPORTED_MODULE_9__["default"] }),
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Users/Add", component: Containers_Admin_Users_Add__WEBPACK_IMPORTED_MODULE_10__["default"] }),
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Users/Edit/:id", component: Containers_Admin_Users_Edit__WEBPACK_IMPORTED_MODULE_11__["default"] }),
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Roles", component: Containers_Admin_Roles_Roles__WEBPACK_IMPORTED_MODULE_12__["default"] }),
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Roles/Add", component: Containers_Admin_Roles_Add__WEBPACK_IMPORTED_MODULE_13__["default"] }),
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { path: "/", component: Containers_Records_Blog__WEBPACK_IMPORTED_MODULE_2__["default"] })));
 /* harmony default export */ __webpack_exports__["default"] = (routes);
 
 
@@ -2977,6 +3826,25 @@ var RegisterViewModel = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./Src/Types/ReturnModelDTO.ts":
+/*!*************************************!*\
+  !*** ./Src/Types/ReturnModelDTO.ts ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var ReturnModelDTO = /** @class */ (function () {
+    function ReturnModelDTO() {
+    }
+    return ReturnModelDTO;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (ReturnModelDTO);
+
+
+/***/ }),
+
 /***/ "./Src/Types/SearchQuery.ts":
 /*!**********************************!*\
   !*** ./Src/Types/SearchQuery.ts ***!
@@ -2995,6 +3863,25 @@ var SearchQuery = /** @class */ (function () {
     return SearchQuery;
 }());
 /* harmony default export */ __webpack_exports__["default"] = (SearchQuery);
+
+
+/***/ }),
+
+/***/ "./Src/Types/UserDTO.ts":
+/*!******************************!*\
+  !*** ./Src/Types/UserDTO.ts ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var UserDTO = /** @class */ (function () {
+    function UserDTO() {
+    }
+    return UserDTO;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (UserDTO);
 
 
 /***/ }),

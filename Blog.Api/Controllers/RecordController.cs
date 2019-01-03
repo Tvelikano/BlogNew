@@ -6,9 +6,11 @@ using Microsoft.AspNet.Identity;
 
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Blog.Api.Controllers
 {
+    [EnableCors("http://localhost:53695", "*", "*", SupportsCredentials = true)]
     public class RecordController : ApiController
     {
         private readonly IRecordService _recordService;
@@ -16,6 +18,12 @@ namespace Blog.Api.Controllers
         public RecordController(IRecordService recordService)
         {
             _recordService = recordService;
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<RecordDTO> Get(int id)
+        {
+            return await _recordService.FindById(id);
         }
 
         public ListViewModel<ReturnModelDTO<RecordDTO>> Get([FromUri]SearchQuery searchQuery)
@@ -28,10 +36,8 @@ namespace Blog.Api.Controllers
             var returnRecords = _recordService.GetAll(
                 new GetArgsDTO<RecordDTO>
                 {
-                    //                    IsAdmin = User.IsInRole("Admin"),
-                    //                    IsAuthenticated = User.Identity.IsAuthenticated,
-                    IsAdmin = true,
-                    IsAuthenticated = true,
+                    IsAdmin = User.IsInRole("Admin"),
+                    IsAuthenticated = User.Identity.IsAuthenticated,
                     SearchString = searchQuery.SearchString,
                     OrderBy = r => r.CreateDate.ToString(),
                     Descending = true,

@@ -6,7 +6,7 @@ interface IState {
   SearchString: string;
 }
 
-export default class SearchHelper extends React.Component<any, IState> {
+export default class SearchHelper extends React.PureComponent<any, IState> {
   constructor(props: any) {
     super(props);
     this.state = { SearchString: "" };

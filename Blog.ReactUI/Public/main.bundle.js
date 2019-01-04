@@ -1249,6 +1249,665 @@ var App = function (_a) {
 
 /***/ }),
 
+/***/ "./Src/Components/Account/Login.tsx":
+/*!******************************************!*\
+  !*** ./Src/Components/Account/Login.tsx ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var Types_LoginViewModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Types/LoginViewModel */ "./Src/Types/LoginViewModel.ts");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+var Login = /** @class */ (function (_super) {
+    __extends(Login, _super);
+    function Login() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.password = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            var data = new Types_LoginViewModel__WEBPACK_IMPORTED_MODULE_1__["default"]();
+            data.UserName = _this.name.current.value;
+            data.Password = _this.password.current.value;
+            _this.props.Login(data);
+        };
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, !_this.props.isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Log In"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: _this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "User Name"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { className: "form-control", ref: _this.name })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "password", className: "form-control", ref: _this.password })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "Log In"))))) : (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], { to: "/" })))); };
+        return _this;
+    }
+    return Login;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+/* harmony default export */ __webpack_exports__["default"] = (Login);
+
+
+/***/ }),
+
+/***/ "./Src/Components/Account/Register.tsx":
+/*!*********************************************!*\
+  !*** ./Src/Components/Account/Register.tsx ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var Types_RegisterViewModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Types/RegisterViewModel */ "./Src/Types/RegisterViewModel.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+var Register = /** @class */ (function (_super) {
+    __extends(Register, _super);
+    function Register() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.email = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.password = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.passwordConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            var data = new Types_RegisterViewModel__WEBPACK_IMPORTED_MODULE_1__["default"]();
+            data.UserName = _this.name.current.value;
+            data.Email = _this.email.current.value;
+            data.Password = _this.password.current.value;
+            data.PasswordConfirm = _this.passwordConfirm.current.value;
+            _this.props.Register(data);
+        };
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Register"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: _this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "User Name"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Email"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.email })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, type: "password", className: "form-control", ref: _this.password })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password Confirm"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, type: "password", className: "form-control", ref: _this.passwordConfirm })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "Sign Up"))))); };
+        return _this;
+    }
+    return Register;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+/* harmony default export */ __webpack_exports__["default"] = (Register);
+
+
+/***/ }),
+
+/***/ "./Src/Components/Admin/Records/Add.tsx":
+/*!**********************************************!*\
+  !*** ./Src/Components/Admin/Records/Add.tsx ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var Types_RecordDTO__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Types/RecordDTO */ "./Src/Types/RecordDTO.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Types/RecordStateDTO */ "./Src/Types/RecordStateDTO.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+
+var Add = /** @class */ (function (_super) {
+    __extends(Add, _super);
+    function Add() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_1___default.a.createRef();
+        _this.content = react__WEBPACK_IMPORTED_MODULE_1___default.a.createRef();
+        _this.recordState = react__WEBPACK_IMPORTED_MODULE_1___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            var data = new Types_RecordDTO__WEBPACK_IMPORTED_MODULE_0__["default"]();
+            data.Name = _this.name.current.value;
+            data.Content = _this.content.current.value;
+            _this.props.AddRecord(data);
+        };
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "Add Record"),
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
+                    "Name:",
+                    react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
+                react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
+                    "Content:",
+                    react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.content }))),
+                react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
+                    "State:",
+                    react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", { name: "State", ref: _this.recordState, defaultValue: Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_3__["default"][0] }, Object.keys(Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_3__["default"])
+                        .filter(function (x) { return isNaN(Number(x)); })
+                        .map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", { key: item }, item)); }))),
+                react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "Cancel"))); };
+        return _this;
+    }
+    return Add;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.PureComponent));
+/* harmony default export */ __webpack_exports__["default"] = (Add);
+
+
+/***/ }),
+
+/***/ "./Src/Components/Admin/Records/Edit.tsx":
+/*!***********************************************!*\
+  !*** ./Src/Components/Admin/Records/Edit.tsx ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Types/RecordStateDTO */ "./Src/Types/RecordStateDTO.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+var Edit = /** @class */ (function (_super) {
+    __extends(Edit, _super);
+    function Edit() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.recordState = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            var _a = _this.props, record = _a.record, UpdateRecord = _a.UpdateRecord;
+            record.RecordId = _this.props.match.params.id;
+            record.Name = _this.name.current.value;
+            record.Content = _this.content.current.value;
+            record.State =
+                Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_2__["default"][_this.recordState.current.value];
+            UpdateRecord(record);
+        };
+        return _this;
+    }
+    Edit.prototype.componentDidMount = function () {
+        this.props.GetRecord(this.props.match.params.id);
+    };
+    Edit.prototype.render = function () {
+        var record = this.props.record;
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Edit Record"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { className: "add", onSubmit: this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    "Name:",
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: this.name, defaultValue: record.Name }))),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    "Content:",
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { required: true, className: "form-control", ref: this.content, defaultValue: record.Content }))),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    "State:",
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", { name: "State", ref: this.recordState, defaultValue: Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_2__["default"][record.State] }, Object.keys(Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_2__["default"])
+                        .filter(function (x) { return isNaN(Number(x)); })
+                        .map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", { key: item }, item)); }))),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "Cancel")));
+    };
+    return Edit;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.PureComponent));
+/* harmony default export */ __webpack_exports__["default"] = (Edit);
+
+
+/***/ }),
+
+/***/ "./Src/Components/Admin/Records/Records.tsx":
+/*!**************************************************!*\
+  !*** ./Src/Components/Admin/Records/Records.tsx ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
+/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(querystring__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var Types_SearchQuery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Types/SearchQuery */ "./Src/Types/SearchQuery.ts");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Types/RecordStateDTO */ "./Src/Types/RecordStateDTO.ts");
+/* harmony import */ var Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Components/Helpers/PagingHelper */ "./Src/Components/Helpers/PagingHelper.tsx");
+/* harmony import */ var Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Components/Helpers/SearchHelper */ "./Src/Components/Helpers/SearchHelper.tsx");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+
+
+
+
+var AdminRecords = /** @class */ (function (_super) {
+    __extends(AdminRecords, _super);
+    function AdminRecords() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    AdminRecords.prototype.componentDidMount = function () {
+        var _a = this.props, location = _a.location, GetRecords = _a.GetRecords;
+        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_2__["default"](), querystring__WEBPACK_IMPORTED_MODULE_1___default.a.parse(location.search.replace("?", "")));
+        GetRecords(search);
+    };
+    AdminRecords.prototype.componentDidUpdate = function () {
+        var _a = this.props, data = _a.data, location = _a.location, isLoading = _a.isLoading, GetRecords = _a.GetRecords;
+        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_2__["default"](), querystring__WEBPACK_IMPORTED_MODULE_1___default.a.parse(location.search.replace("?", "")));
+        if (!isLoading &&
+            (search.Page != data.PageInfo.CurrentPage ||
+                search.SearchString != data.SearchString)) {
+            GetRecords(search);
+        }
+    };
+    AdminRecords.prototype.render = function () {
+        var _a = this.props, data = _a.data, DeleteRecord = _a.DeleteRecord;
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], { className: "btn btn-primary", to: "/Admin/Records/Add" }, "Create New Record"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_6__["default"], null),
+            data.List ? (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Record Id"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Title"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Content"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "State"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Create Date"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null)),
+                        data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", { key: item.Model.RecordId },
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Model.RecordId),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Model.Name),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Model.Content),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_4__["default"][item.Model.State]),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Model.CreateDate),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], { to: "Records/Edit/" + item.Model.RecordId, className: "btn btn-primary" }, "Edit"),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: function () { return DeleteRecord(item.Model.RecordId); }, className: "btn btn-danger" }, "Delete")))); }))),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_5__["default"], { query: location.search, pagingInfo: data.PageInfo }))) : null));
+    };
+    return AdminRecords;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+/* harmony default export */ __webpack_exports__["default"] = (AdminRecords);
+
+
+/***/ }),
+
+/***/ "./Src/Components/Admin/Roles/Add.tsx":
+/*!********************************************!*\
+  !*** ./Src/Components/Admin/Roles/Add.tsx ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+var Add = /** @class */ (function (_super) {
+    __extends(Add, _super);
+    function Add() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            _this.props.AddRole(_this.name.current.value);
+        };
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "New Role"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    "Name:",
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "Add Role", className: "btn btn-primary" })))),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "Cancel"))); };
+        return _this;
+    }
+    return Add;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.PureComponent));
+/* harmony default export */ __webpack_exports__["default"] = (Add);
+
+
+/***/ }),
+
+/***/ "./Src/Components/Admin/Roles/Roles.tsx":
+/*!**********************************************!*\
+  !*** ./Src/Components/Admin/Roles/Roles.tsx ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+var AdminRoles = /** @class */ (function (_super) {
+    __extends(AdminRoles, _super);
+    function AdminRoles() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    AdminRoles.prototype.componentDidMount = function () {
+        this.props.GetRoles();
+    };
+    AdminRoles.prototype.render = function () {
+        var _a = this.props, data = _a.data, DeleteRole = _a.DeleteRole;
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Roles/Add", className: "btn btn-primary" }, "Create New Role"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Role Id"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Name"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null)),
+                    data
+                        ? data.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", { key: item.Id },
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Id),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Name),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: function () { return DeleteRole(item.Id); }, className: "btn btn-danger" }, "Delete")))); })
+                        : null))));
+    };
+    return AdminRoles;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+/* harmony default export */ __webpack_exports__["default"] = (AdminRoles);
+
+
+/***/ }),
+
+/***/ "./Src/Components/Admin/Users/Add.tsx":
+/*!********************************************!*\
+  !*** ./Src/Components/Admin/Users/Add.tsx ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var Types_UserViewModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Types/UserViewModel */ "./Src/Types/UserViewModel.ts");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+var Add = /** @class */ (function (_super) {
+    __extends(Add, _super);
+    function Add() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.email = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.password = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.passwordConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            var data = new Types_UserViewModel__WEBPACK_IMPORTED_MODULE_1__["default"]();
+            data.UserName = _this.name.current.value;
+            data.Email = _this.email.current.value;
+            data.Password = _this.password.current.value;
+            data.PasswordConfirm = _this.passwordConfirm.current.value;
+            _this.props.AddUser(data);
+        };
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "New User"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    "UserName:",
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    "Email:",
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.email }))),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    "Password:",
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "password", required: true, className: "form-control", ref: _this.password }))),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    "Confirm Password:",
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "password", required: true, className: "form-control", ref: _this.passwordConfirm }))),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "Create User", className: "btn btn-primary" })))),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], { to: "/Admin/Users", className: "btn btn-danger" }, "Cancel"))); };
+        return _this;
+    }
+    return Add;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+/* harmony default export */ __webpack_exports__["default"] = (Add);
+
+
+/***/ }),
+
+/***/ "./Src/Components/Admin/Users/Users.tsx":
+/*!**********************************************!*\
+  !*** ./Src/Components/Admin/Users/Users.tsx ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
+/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(querystring__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/Helpers/SearchHelper */ "./Src/Components/Helpers/SearchHelper.tsx");
+/* harmony import */ var Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/Helpers/PagingHelper */ "./Src/Components/Helpers/PagingHelper.tsx");
+/* harmony import */ var Types_SearchQuery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Types/SearchQuery */ "./Src/Types/SearchQuery.ts");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+
+
+
+var AdminUsers = /** @class */ (function (_super) {
+    __extends(AdminUsers, _super);
+    function AdminUsers() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    AdminUsers.prototype.componentDidMount = function () {
+        var _a = this.props, location = _a.location, GetUsers = _a.GetUsers;
+        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_4__["default"](), querystring__WEBPACK_IMPORTED_MODULE_1___default.a.parse(location.search.replace("?", "")));
+        GetUsers(search);
+    };
+    AdminUsers.prototype.componentDidUpdate = function () {
+        var _a = this.props, data = _a.data, location = _a.location, isLoading = _a.isLoading, GetUsers = _a.GetUsers;
+        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_4__["default"](), querystring__WEBPACK_IMPORTED_MODULE_1___default.a.parse(location.search.replace("?", "")));
+        if (!isLoading &&
+            (search.Page != data.PageInfo.CurrentPage ||
+                search.SearchString != data.SearchString)) {
+            GetUsers(search);
+        }
+    };
+    AdminUsers.prototype.render = function () {
+        var _a = this.props, location = _a.location, data = _a.data, DeleteUser = _a.DeleteUser;
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { className: "btn btn-primary", to: "/Admin/Users/Add" }, "Create New User"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_2__["default"], null),
+            data.List ? (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "User Id"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "User Name"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Email"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Roles"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null)),
+                        data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", { key: item.Id },
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Id),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.UserName),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Email),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Roles.map(function (role) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", { key: role }, role)); })),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { to: "Users/Edit/" + item.Id, className: "btn btn-primary" }, "Edit"),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: function () { return DeleteUser(item.Id); }, className: "btn btn-danger" }, "Delete")))); }))),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_3__["default"], { query: location.search, pagingInfo: data.PageInfo }))) : null));
+    };
+    return AdminUsers;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+/* harmony default export */ __webpack_exports__["default"] = (AdminUsers);
+
+
+/***/ }),
+
 /***/ "./Src/Components/Comments/AddComment.tsx":
 /*!************************************************!*\
   !*** ./Src/Components/Comments/AddComment.tsx ***!
@@ -1474,6 +2133,207 @@ var SearchHelper = /** @class */ (function (_super) {
 
 /***/ }),
 
+/***/ "./Src/Components/Nav.tsx":
+/*!********************************!*\
+  !*** ./Src/Components/Nav.tsx ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+var Nav = /** @class */ (function (_super) {
+    __extends(Nav, _super);
+    function Nav() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Nav.prototype.componentDidMount = function () {
+        this.props.GetUserInfo();
+    };
+    Nav.prototype.render = function () {
+        var _a = this.props, user = _a.user, isAuthenticated = _a.isAuthenticated, Logout = _a.Logout;
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("nav", { className: "navbar bg-dark" },
+            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "container" },
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/", className: "navbar-brand" }, "Blog"),
+                isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "text-light" },
+                        "Hello, ",
+                        user.UserName),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { className: "btn btn-danger", onClick: function () { return Logout(); } }, "Log Out"))) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Login" }, "Log In"),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Register" }, "Sign Up"))),
+                user && user.Roles && user.Roles.indexOf("Admin") !== -1 ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Records" }, "Records"),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Users" }, "Users"),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Roles" }, "Roles"))) : null)));
+    };
+    return Nav;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
+/* harmony default export */ __webpack_exports__["default"] = (Nav);
+
+
+/***/ }),
+
+/***/ "./Src/Components/Records/Add.tsx":
+/*!****************************************!*\
+  !*** ./Src/Components/Records/Add.tsx ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var Types_RecordDTO__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Types/RecordDTO */ "./Src/Types/RecordDTO.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+var Add = /** @class */ (function (_super) {
+    __extends(Add, _super);
+    function Add() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = react__WEBPACK_IMPORTED_MODULE_1___default.a.createRef();
+        _this.content = react__WEBPACK_IMPORTED_MODULE_1___default.a.createRef();
+        _this.handleSubmit = function (ev) {
+            ev.preventDefault();
+            var data = new Types_RecordDTO__WEBPACK_IMPORTED_MODULE_0__["default"]();
+            data.Name = _this.name.current.value;
+            data.Content = _this.content.current.value;
+            _this.props.AddRecord(data);
+        };
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, _this.props.isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "New Record"),
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
+                react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
+                    "Name:",
+                    react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
+                react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
+                    "Content:",
+                    react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.content }))),
+                react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
+                    react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "col-md-10" },
+                        react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], { to: "/", className: "btn btn-danger" }, "Cancel"))) : (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], { to: "Login" })))); };
+        return _this;
+    }
+    return Add;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component));
+/* harmony default export */ __webpack_exports__["default"] = (Add);
+
+
+/***/ }),
+
+/***/ "./Src/Components/Records/Blog.tsx":
+/*!*****************************************!*\
+  !*** ./Src/Components/Records/Blog.tsx ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
+/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(querystring__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/Helpers/SearchHelper */ "./Src/Components/Helpers/SearchHelper.tsx");
+/* harmony import */ var Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Components/Helpers/PagingHelper */ "./Src/Components/Helpers/PagingHelper.tsx");
+/* harmony import */ var Components_records_Record__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Components/records/Record */ "./Src/Components/records/Record.tsx");
+/* harmony import */ var Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Types/SearchQuery */ "./Src/Types/SearchQuery.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+
+
+
+
+var Blog = /** @class */ (function (_super) {
+    __extends(Blog, _super);
+    function Blog() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Blog.prototype.componentDidMount = function () {
+        var _a = this.props, location = _a.location, GetRecords = _a.GetRecords;
+        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__["default"](), querystring__WEBPACK_IMPORTED_MODULE_1___default.a.parse(location.search.replace("?", "")));
+        GetRecords(search);
+    };
+    Blog.prototype.componentDidUpdate = function (prevProps) {
+        var _a = this.props, data = _a.data, location = _a.location, isLoading = _a.isLoading, GetRecords = _a.GetRecords, isAuthenticated = _a.isAuthenticated;
+        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__["default"](), querystring__WEBPACK_IMPORTED_MODULE_1___default.a.parse(location.search.replace("?", "")));
+        if (isAuthenticated !== prevProps.isAuthenticated ||
+            (!isLoading &&
+                (search.Page != data.PageInfo.CurrentPage ||
+                    search.SearchString != data.SearchString))) {
+            GetRecords(search);
+        }
+    };
+    Blog.prototype.render = function () {
+        var _a = this.props, isAuthenticated = _a.isAuthenticated, location = _a.location, data = _a.data, GetComments = _a.GetComments, CreateComment = _a.CreateComment, ShowComments = _a.ShowComments;
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], { className: "btn btn-primary", to: "/Add" }, "Create New Record"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_3__["default"], null),
+            data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_records_Record__WEBPACK_IMPORTED_MODULE_5__["default"], { isAuthenticated: isAuthenticated, key: item.Model.RecordId, model: item, ShowComments: function () {
+                    ShowComments(item.Model.RecordId),
+                        GetComments(item.Model.RecordId);
+                }, CreateComment: function (data) { return CreateComment(data); } })); }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_4__["default"], { query: location.search, pagingInfo: data.PageInfo })));
+    };
+    return Blog;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+/* harmony default export */ __webpack_exports__["default"] = (Blog);
+
+
+/***/ }),
+
 /***/ "./Src/Components/records/Record.tsx":
 /*!*******************************************!*\
   !*** ./Src/Components/records/Record.tsx ***!
@@ -1538,25 +2398,9 @@ var Record = /** @class */ (function (_super) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var Types_LoginViewModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Types/LoginViewModel */ "./Src/Types/LoginViewModel.ts");
-/* harmony import */ var Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Actions/AccountActions */ "./Src/Actions/AccountActions.ts");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Actions_AccountActions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Actions/AccountActions */ "./Src/Actions/AccountActions.ts");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Components_Account_Login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/Account/Login */ "./Src/Components/Account/Login.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -1595,37 +2439,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-
-var Login = /** @class */ (function (_super) {
-    __extends(Login, _super);
-    function Login() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-        _this.password = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            var data = new Types_LoginViewModel__WEBPACK_IMPORTED_MODULE_1__["default"]();
-            data.UserName = _this.name.current.value;
-            data.Password = _this.password.current.value;
-            _this.props.Login(data);
-        };
-        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, !_this.props.isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Log In"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: _this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "User Name"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { className: "form-control", ref: _this.name })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "password", className: "form-control", ref: _this.password })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "Log In"))))) : (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Redirect"], { to: "/" })))); };
-        return _this;
-    }
-    return Login;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
 function mapStateToProps(_a) {
     var account = _a.account;
     return {
@@ -1637,13 +2450,13 @@ function mapDispatchToProps(dispatch) {
     return {
         Login: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__["Login"](data))];
+                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_0__["Login"](data))];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(Login));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(Components_Account_Login__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 
 /***/ }),
@@ -1657,24 +2470,9 @@ function mapDispatchToProps(dispatch) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var Types_RegisterViewModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Types/RegisterViewModel */ "./Src/Types/RegisterViewModel.ts");
-/* harmony import */ var Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Actions/AccountActions */ "./Src/Actions/AccountActions.ts");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Actions_AccountActions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Actions/AccountActions */ "./Src/Actions/AccountActions.ts");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Components_Account_Register__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/Account/Register */ "./Src/Components/Account/Register.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -1713,58 +2511,18 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-var Register = /** @class */ (function (_super) {
-    __extends(Register, _super);
-    function Register() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-        _this.email = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-        _this.password = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-        _this.passwordConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            var data = new Types_RegisterViewModel__WEBPACK_IMPORTED_MODULE_1__["default"]();
-            data.UserName = _this.name.current.value;
-            data.Email = _this.email.current.value;
-            data.Password = _this.password.current.value;
-            data.PasswordConfirm = _this.passwordConfirm.current.value;
-            _this.props.Register(data);
-        };
-        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Register"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: _this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "User Name"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Email"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.email })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, type: "password", className: "form-control", ref: _this.password })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password Confirm"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, type: "password", className: "form-control", ref: _this.passwordConfirm })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "Sign Up"))))); };
-        return _this;
-    }
-    return Register;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
 function mapDispatchToProps(dispatch) {
     var _this = this;
     return {
         Register: function (data) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__["Register"](data))];
+                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_0__["Register"](data))];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(null, mapDispatchToProps)(Register));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mapDispatchToProps)(Components_Account_Register__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 
 /***/ }),
@@ -1780,25 +2538,8 @@ function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/RecordActions */ "./Src/Actions/RecordActions.ts");
-/* harmony import */ var Types_RecordDTO__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Types/RecordDTO */ "./Src/Types/RecordDTO.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
-/* harmony import */ var Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Types/RecordStateDTO */ "./Src/Types/RecordStateDTO.ts");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var Components_Admin_Records_Add__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/Admin/Records/Add */ "./Src/Components/Admin/Records/Add.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -1838,47 +2579,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-
-
-var Add = /** @class */ (function (_super) {
-    __extends(Add, _super);
-    function Add() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
-        _this.content = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
-        _this.recordState = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            var data = new Types_RecordDTO__WEBPACK_IMPORTED_MODULE_2__["default"]();
-            data.Name = _this.name.current.value;
-            data.Content = _this.content.current.value;
-            _this.props.AddRecord(data);
-        };
-        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("h4", null, "Add Record"),
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
-                    "Name:",
-                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
-                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
-                    "Content:",
-                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.content }))),
-                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
-                    "State:",
-                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("select", { name: "State", ref: _this.recordState, defaultValue: Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_6__["default"][0] }, Object.keys(Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_6__["default"])
-                        .filter(function (x) { return isNaN(Number(x)); })
-                        .map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("option", { key: item }, item)); }))),
-                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "Cancel"))); };
-        return _this;
-    }
-    return Add;
-}(react__WEBPACK_IMPORTED_MODULE_3___default.a.PureComponent));
 function mapDispatchToProps(dispatch) {
     var _this = this;
     return {
@@ -1890,7 +2590,7 @@ function mapDispatchToProps(dispatch) {
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_5__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(Add)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_2__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(Components_Admin_Records_Add__WEBPACK_IMPORTED_MODULE_3__["default"])));
 
 
 /***/ }),
@@ -1907,24 +2607,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/RecordActions */ "./Src/Actions/RecordActions.ts");
 /* harmony import */ var Types_RecordDTO__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Types/RecordDTO */ "./Src/Types/RecordDTO.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Types/RecordStateDTO */ "./Src/Types/RecordStateDTO.ts");
-/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var Components_Admin_Records_Edit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Components/Admin/Records/Edit */ "./Src/Components/Admin/Records/Edit.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -1965,55 +2649,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-
-var Edit = /** @class */ (function (_super) {
-    __extends(Edit, _super);
-    function Edit() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
-        _this.content = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
-        _this.recordState = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            var _a = _this.props, record = _a.record, UpdateRecord = _a.UpdateRecord;
-            record.RecordId = _this.props.match.params.id;
-            record.Name = _this.name.current.value;
-            record.Content = _this.content.current.value;
-            record.State =
-                Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_5__["default"][_this.recordState.current.value];
-            UpdateRecord(record);
-        };
-        return _this;
-    }
-    Edit.prototype.componentDidMount = function () {
-        this.props.GetRecord(this.props.match.params.id);
-    };
-    Edit.prototype.render = function () {
-        var record = this.props.record;
-        return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("h4", null, "Edit Record"),
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", { className: "add", onSubmit: this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
-                    "Name:",
-                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", { required: true, className: "form-control", ref: this.name, defaultValue: record.Name }))),
-                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
-                    "Content:",
-                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("textarea", { required: true, className: "form-control", ref: this.content, defaultValue: record.Content }))),
-                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
-                    "State:",
-                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("select", { name: "State", ref: this.recordState, defaultValue: Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_5__["default"][record.State] }, Object.keys(Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_5__["default"])
-                        .filter(function (x) { return isNaN(Number(x)); })
-                        .map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("option", { key: item }, item)); }))),
-                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "Cancel")));
-    };
-    return Edit;
-}(react__WEBPACK_IMPORTED_MODULE_3___default.a.PureComponent));
 function mapStateToProps(_a) {
     var records = _a.records;
     return {
@@ -2041,7 +2676,7 @@ function mapDispatchToProps(dispatch) {
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_6__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Edit)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_3__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Components_Admin_Records_Edit__WEBPACK_IMPORTED_MODULE_4__["default"])));
 
 
 /***/ }),
@@ -2057,29 +2692,8 @@ function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/RecordActions */ "./Src/Actions/RecordActions.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
-/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(querystring__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var Types_SearchQuery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Types/SearchQuery */ "./Src/Types/SearchQuery.ts");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
-/* harmony import */ var Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Types/RecordStateDTO */ "./Src/Types/RecordStateDTO.ts");
-/* harmony import */ var Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Components/Helpers/PagingHelper */ "./Src/Components/Helpers/PagingHelper.tsx");
-/* harmony import */ var Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Components/Helpers/SearchHelper */ "./Src/Components/Helpers/SearchHelper.tsx");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var Components_Admin_Records_Records__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/Admin/Records/Records */ "./Src/Components/Admin/Records/Records.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -2119,59 +2733,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-
-
-
-
-
-var AdminRecords = /** @class */ (function (_super) {
-    __extends(AdminRecords, _super);
-    function AdminRecords() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    AdminRecords.prototype.componentDidMount = function () {
-        var _a = this.props, location = _a.location, GetRecords = _a.GetRecords;
-        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_4__["default"](), querystring__WEBPACK_IMPORTED_MODULE_3___default.a.parse(location.search.replace("?", "")));
-        GetRecords(search);
-    };
-    AdminRecords.prototype.componentDidUpdate = function () {
-        var _a = this.props, data = _a.data, location = _a.location, isLoading = _a.isLoading, GetRecords = _a.GetRecords;
-        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_4__["default"](), querystring__WEBPACK_IMPORTED_MODULE_3___default.a.parse(location.search.replace("?", "")));
-        if (!isLoading &&
-            (search.Page != data.PageInfo.CurrentPage ||
-                search.SearchString != data.SearchString)) {
-            GetRecords(search);
-        }
-    };
-    AdminRecords.prototype.render = function () {
-        var _a = this.props, data = _a.data, DeleteRecord = _a.DeleteRecord;
-        return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { className: "btn btn-primary", to: "/Admin/Records/Add" }, "Create New Record"),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_9__["default"], null),
-            data.List ? (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tbody", null,
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Record Id"),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Title"),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Content"),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "State"),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Create Date"),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null)),
-                        data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", { key: item.Model.RecordId },
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.RecordId),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.Name),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.Content),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_7__["default"][item.Model.State]),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Model.CreateDate),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null,
-                                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { to: "Records/Edit/" + item.Model.RecordId, className: "btn btn-primary" }, "Edit"),
-                                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return DeleteRecord(item.Model.RecordId); }, className: "btn btn-danger" }, "Delete")))); }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_8__["default"], { query: location.search, pagingInfo: data.PageInfo }))) : null));
-    };
-    return AdminRecords;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
 function mapStateToProps(_a) {
     var records = _a.records;
     return {
@@ -2203,7 +2764,7 @@ function mapDispatchToProps(dispatch) {
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_6__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(AdminRecords)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_2__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Components_Admin_Records_Records__WEBPACK_IMPORTED_MODULE_3__["default"])));
 
 
 /***/ }),
@@ -2219,22 +2780,7 @@ function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Actions_AdminRolesActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/AdminRolesActions */ "./Src/Actions/AdminRolesActions.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Components_Admin_Roles_Add__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/Admin/Roles/Add */ "./Src/Components/Admin/Roles/Add.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -2273,31 +2819,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-var Add = /** @class */ (function (_super) {
-    __extends(Add, _super);
-    function Add() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            _this.props.AddRole(_this.name.current.value);
-        };
-        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, "New Role"),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "Name:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "submit", value: "Add Role", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "Cancel"))); };
-        return _this;
-    }
-    return Add;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.PureComponent));
 function mapDispatchToProps(dispatch) {
     var _this = this;
     return {
@@ -2309,7 +2830,7 @@ function mapDispatchToProps(dispatch) {
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(Add));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(Components_Admin_Roles_Add__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 
 /***/ }),
@@ -2325,23 +2846,8 @@ function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Actions_AdminRolesActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/AdminRolesActions */ "./Src/Actions/AdminRolesActions.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var Components_Admin_Roles_Roles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/Admin/Roles/Roles */ "./Src/Components/Admin/Roles/Roles.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -2381,35 +2887,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-var AdminRoles = /** @class */ (function (_super) {
-    __extends(AdminRoles, _super);
-    function AdminRoles() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    AdminRoles.prototype.componentDidMount = function () {
-        this.props.GetRoles();
-    };
-    AdminRoles.prototype.render = function () {
-        var _a = this.props, data = _a.data, DeleteRole = _a.DeleteRole;
-        return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], { to: "/Admin/Roles/Add", className: "btn btn-primary" }, "Create New Role"),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tbody", null,
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Role Id"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Name"),
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null)),
-                    data
-                        ? data.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", { key: item.Id },
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Id),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Name),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null,
-                                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return DeleteRole(item.Id); }, className: "btn btn-danger" }, "Delete")))); })
-                        : null))));
-    };
-    return AdminRoles;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
 function mapStateToProps(_a) {
     var roles = _a.roles;
     return {
@@ -2434,7 +2911,7 @@ function mapDispatchToProps(dispatch) {
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_3__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(AdminRoles)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_2__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Components_Admin_Roles_Roles__WEBPACK_IMPORTED_MODULE_3__["default"])));
 
 
 /***/ }),
@@ -2450,24 +2927,8 @@ function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/AdminUsersActions */ "./Src/Actions/AdminUsersActions.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var Types_UserViewModel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Types/UserViewModel */ "./Src/Types/UserViewModel.ts");
-/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var Components_Admin_Users_Add__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/Admin/Users/Add */ "./Src/Components/Admin/Users/Add.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -2507,52 +2968,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-
-var Add = /** @class */ (function (_super) {
-    __extends(Add, _super);
-    function Add() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.email = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.password = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.passwordConfirm = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            var data = new Types_UserViewModel__WEBPACK_IMPORTED_MODULE_3__["default"]();
-            data.UserName = _this.name.current.value;
-            data.Email = _this.email.current.value;
-            data.Password = _this.password.current.value;
-            data.PasswordConfirm = _this.passwordConfirm.current.value;
-            _this.props.AddUser(data);
-        };
-        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, "New User"),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "UserName:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "Email:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.email }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "Password:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "password", required: true, className: "form-control", ref: _this.password }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "Confirm Password:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "password", required: true, className: "form-control", ref: _this.passwordConfirm }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "submit", value: "Create User", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { to: "/Admin/Users", className: "btn btn-danger" }, "Cancel"))); };
-        return _this;
-    }
-    return Add;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
 function mapDispatchToProps(dispatch) {
     var _this = this;
     return {
@@ -2564,7 +2979,7 @@ function mapDispatchToProps(dispatch) {
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_4__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(Add)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_2__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(Components_Admin_Users_Add__WEBPACK_IMPORTED_MODULE_3__["default"])));
 
 
 /***/ }),
@@ -2580,24 +2995,9 @@ function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/AdminUsersActions */ "./Src/Actions/AdminUsersActions.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
-/* harmony import */ var Types_UserDTO__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Types/UserDTO */ "./Src/Types/UserDTO.ts");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var Types_UserDTO__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Types/UserDTO */ "./Src/Types/UserDTO.ts");
+/* harmony import */ var Components_Admin_Users_Add__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Components/Admin/Users/Add */ "./Src/Components/Admin/Users/Add.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -2638,52 +3038,10 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-var Add = /** @class */ (function (_super) {
-    __extends(Add, _super);
-    function Add() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.email = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.password = react__WEBPACK_IMPORTED_MODULE_2___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            var _a = _this.props, user = _a.user, UpdateUser = _a.UpdateUser;
-            user.UserName = _this.name.current.value;
-            user.Email = _this.email.current.value;
-            user.Password = _this.password.current.value;
-            UpdateUser(user);
-        };
-        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, "New User"),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "UserName:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name, defaultValue: _this.props.user.UserName }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "Email:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.email, defaultValue: _this.props.user.Email }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    "Password:",
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "password", required: true, className: "form-control", ref: _this.password }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", { type: "submit", value: "Create User", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { to: "/Admin/Users", className: "btn btn-danger" }, "Cancel"))); };
-        return _this;
-    }
-    Add.prototype.componentDidMount = function () {
-        this.props.GetUser(this.props.match.params.id);
-    };
-    return Add;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
 function mapStateToProps(_a) {
     var users = _a.users;
     return {
-        user: !users.isLoading && users.data.List ? users.data.List[0] : new Types_UserDTO__WEBPACK_IMPORTED_MODULE_4__["default"](),
+        user: !users.isLoading && users.data.List ? users.data.List[0] : new Types_UserDTO__WEBPACK_IMPORTED_MODULE_3__["default"](),
         error: users.error,
         isLoading: users.isLoading,
     };
@@ -2705,7 +3063,7 @@ function mapDispatchToProps(dispatch) {
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_3__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Add)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_2__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Components_Admin_Users_Add__WEBPACK_IMPORTED_MODULE_4__["default"])));
 
 
 /***/ }),
@@ -2721,28 +3079,8 @@ function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Actions_AdminUsersActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/AdminUsersActions */ "./Src/Actions/AdminUsersActions.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
-/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(querystring__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Components/Helpers/SearchHelper */ "./Src/Components/Helpers/SearchHelper.tsx");
-/* harmony import */ var Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Components/Helpers/PagingHelper */ "./Src/Components/Helpers/PagingHelper.tsx");
-/* harmony import */ var Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Types/SearchQuery */ "./Src/Types/SearchQuery.ts");
-/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Hocs/AllowOnlyAdmin */ "./Src/Hocs/AllowOnlyAdmin.tsx");
+/* harmony import */ var Components_Admin_Users_Users__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/Admin/Users/Users */ "./Src/Components/Admin/Users/Users.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -2782,56 +3120,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-
-
-
-
-var AdminUsers = /** @class */ (function (_super) {
-    __extends(AdminUsers, _super);
-    function AdminUsers() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    AdminUsers.prototype.componentDidMount = function () {
-        var _a = this.props, location = _a.location, GetUsers = _a.GetUsers;
-        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__["default"](), querystring__WEBPACK_IMPORTED_MODULE_3___default.a.parse(location.search.replace("?", "")));
-        GetUsers(search);
-    };
-    AdminUsers.prototype.componentDidUpdate = function () {
-        var _a = this.props, data = _a.data, location = _a.location, isLoading = _a.isLoading, GetUsers = _a.GetUsers;
-        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_6__["default"](), querystring__WEBPACK_IMPORTED_MODULE_3___default.a.parse(location.search.replace("?", "")));
-        if (!isLoading &&
-            (search.Page != data.PageInfo.CurrentPage ||
-                search.SearchString != data.SearchString)) {
-            GetUsers(search);
-        }
-    };
-    AdminUsers.prototype.render = function () {
-        var _a = this.props, location = _a.location, data = _a.data, DeleteUser = _a.DeleteUser;
-        return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__["Link"], { className: "btn btn-primary", to: "/Admin/Users/Add" }, "Create New User"),
-            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_4__["default"], null),
-            data.List ? (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null,
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
-                    react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tbody", null,
-                        react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null,
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "User Id"),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "User Name"),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Email"),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null, "Roles"),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", null)),
-                        data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", { key: item.Id },
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Id),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.UserName),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Email),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, item.Roles.map(function (role) { return (react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", { key: role }, role)); })),
-                            react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null,
-                                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__["Link"], { to: "Users/Edit/" + item.Id, className: "btn btn-primary" }, "Edit"),
-                                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", { onClick: function () { return DeleteUser(item.Id); }, className: "btn btn-danger" }, "Delete")))); }))),
-                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_5__["default"], { query: location.search, pagingInfo: data.PageInfo }))) : null));
-    };
-    return AdminUsers;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component));
 function mapStateToProps(_a) {
     var users = _a.users;
     return {
@@ -2857,7 +3145,7 @@ function mapDispatchToProps(dispatch) {
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_7__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(AdminUsers)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAdmin__WEBPACK_IMPORTED_MODULE_2__["allowOnlyAdmin"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Components_Admin_Users_Users__WEBPACK_IMPORTED_MODULE_3__["default"])));
 
 
 /***/ }),
@@ -2871,24 +3159,9 @@ function mapDispatchToProps(dispatch) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Actions/AccountActions */ "./Src/Actions/AccountActions.ts");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Actions_AccountActions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Actions/AccountActions */ "./Src/Actions/AccountActions.ts");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Components_Nav__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/Nav */ "./Src/Components/Nav.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -2927,34 +3200,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-var Nav = /** @class */ (function (_super) {
-    __extends(Nav, _super);
-    function Nav() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Nav.prototype.componentDidMount = function () {
-        this.props.GetUserInfo();
-    };
-    Nav.prototype.render = function () {
-        var _a = this.props, user = _a.user, isAuthenticated = _a.isAuthenticated, Logout = _a.Logout;
-        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("nav", { className: "navbar bg-dark" },
-            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "container" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/", className: "navbar-brand" }, "Blog"),
-                isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "text-light" },
-                        "Hello, ",
-                        user.UserName),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { className: "btn btn-danger", onClick: function () { return Logout(); } }, "Log Out"))) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Login" }, "Log In"),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Register" }, "Sign Up"))),
-                user && user.Roles && user.Roles.indexOf("Admin") !== -1 ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Records" }, "Records"),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Users" }, "Users"),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Roles" }, "Roles"))) : null)));
-    };
-    return Nav;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
 function mapStateToProps(_a) {
     var account = _a.account;
     return {
@@ -2967,19 +3212,19 @@ function mapDispatchToProps(dispatch) {
     return {
         Logout: function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__["Logout"]())];
+                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_0__["Logout"]())];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         }); }); },
         GetUserInfo: function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_2__["GetUserInfo"]())];
+                case 0: return [4 /*yield*/, dispatch(Actions_AccountActions__WEBPACK_IMPORTED_MODULE_0__["GetUserInfo"]())];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(Nav));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(Components_Nav__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 
 /***/ }),
@@ -2995,23 +3240,7 @@ function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/RecordActions */ "./Src/Actions/RecordActions.ts");
-/* harmony import */ var Types_RecordDTO__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Types/RecordDTO */ "./Src/Types/RecordDTO.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Components_Records_Add__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/Records/Add */ "./Src/Components/Records/Add.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -3050,40 +3279,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-
-var Add = /** @class */ (function (_super) {
-    __extends(Add, _super);
-    function Add() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
-        _this.content = react__WEBPACK_IMPORTED_MODULE_3___default.a.createRef();
-        _this.handleSubmit = function (ev) {
-            ev.preventDefault();
-            var data = new Types_RecordDTO__WEBPACK_IMPORTED_MODULE_2__["default"]();
-            data.Name = _this.name.current.value;
-            data.Content = _this.content.current.value;
-            _this.props.AddRecord(data);
-        };
-        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, _this.props.isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("h4", null, "New Record"),
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
-                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
-                    "Name:",
-                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
-                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
-                    "Content:",
-                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.content }))),
-                react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", { className: "col-md-10" },
-                        react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], { to: "/", className: "btn btn-danger" }, "Cancel"))) : (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Redirect"], { to: "Login" })))); };
-        return _this;
-    }
-    return Add;
-}(react__WEBPACK_IMPORTED_MODULE_3___default.a.Component));
 function mapStateToProps(_a) {
     var account = _a.account;
     return {
@@ -3101,7 +3296,7 @@ function mapDispatchToProps(dispatch) {
         }); }); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Add));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Components_Records_Add__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 
 /***/ }),
@@ -3118,28 +3313,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Actions/RecordActions */ "./Src/Actions/RecordActions.ts");
 /* harmony import */ var Actions_CommentActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Actions/CommentActions */ "./Src/Actions/CommentActions.ts");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
-/* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(querystring__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Components/Helpers/SearchHelper */ "./Src/Components/Helpers/SearchHelper.tsx");
-/* harmony import */ var Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Components/Helpers/PagingHelper */ "./Src/Components/Helpers/PagingHelper.tsx");
-/* harmony import */ var Components_records_Record__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Components/records/Record */ "./Src/Components/records/Record.tsx");
-/* harmony import */ var Types_SearchQuery__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Types/SearchQuery */ "./Src/Types/SearchQuery.ts");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var Components_Records_Blog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/Records/Blog */ "./Src/Components/Records/Blog.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -3179,45 +3353,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-
-
-
-
-
-
-var Blog = /** @class */ (function (_super) {
-    __extends(Blog, _super);
-    function Blog() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Blog.prototype.componentDidMount = function () {
-        var _a = this.props, location = _a.location, GetRecords = _a.GetRecords;
-        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_9__["default"](), querystring__WEBPACK_IMPORTED_MODULE_4___default.a.parse(location.search.replace("?", "")));
-        GetRecords(search);
-    };
-    Blog.prototype.componentDidUpdate = function (prevProps) {
-        var _a = this.props, data = _a.data, location = _a.location, isLoading = _a.isLoading, GetRecords = _a.GetRecords, isAuthenticated = _a.isAuthenticated;
-        var search = Object.assign(new Types_SearchQuery__WEBPACK_IMPORTED_MODULE_9__["default"](), querystring__WEBPACK_IMPORTED_MODULE_4___default.a.parse(location.search.replace("?", "")));
-        if (isAuthenticated !== prevProps.isAuthenticated ||
-            (!isLoading &&
-                (search.Page != data.PageInfo.CurrentPage ||
-                    search.SearchString != data.SearchString))) {
-            GetRecords(search);
-        }
-    };
-    Blog.prototype.render = function () {
-        var _a = this.props, isAuthenticated = _a.isAuthenticated, location = _a.location, data = _a.data, GetComments = _a.GetComments, CreateComment = _a.CreateComment, ShowComments = _a.ShowComments;
-        return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { className: "btn btn-primary", to: "/Add" }, "Create New Record"),
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_6__["default"], null),
-            data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Components_records_Record__WEBPACK_IMPORTED_MODULE_8__["default"], { isAuthenticated: isAuthenticated, key: item.Model.RecordId, model: item, ShowComments: function () {
-                    ShowComments(item.Model.RecordId),
-                        GetComments(item.Model.RecordId);
-                }, CreateComment: function (data) { return CreateComment(data); } })); }),
-            react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_7__["default"], { query: location.search, pagingInfo: data.PageInfo })));
-    };
-    return Blog;
-}(react__WEBPACK_IMPORTED_MODULE_3___default.a.Component));
 function mapStateToProps(_a) {
     var records = _a.records, account = _a.account;
     return {
@@ -3244,7 +3379,7 @@ function mapDispatchToProps(dispatch) {
         ShowComments: function (id) { return dispatch(Actions_RecordActions__WEBPACK_IMPORTED_MODULE_1__["ShowComments"](id)); },
     };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Blog));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(Components_Records_Blog__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 
 /***/ }),

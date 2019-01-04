@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "lib": ["es6", "dom"],
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "target": "es5",
+    "baseUrl": "./Src"
+  },
+  "include": ["./Src/**/*"],
+  "exclude": ["node_modules"]
+}

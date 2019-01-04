@@ -1,6 +1,9 @@
-﻿using System.Linq;
-using Blog.Data.Identity.Interfaces;
+﻿using Blog.Data.Identity.Interfaces;
+
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Blog.Data.Identity
@@ -9,7 +12,22 @@ namespace Blog.Data.Identity
     {
         public AppUserManager(IUserStore<User, int> store) : base(store)
         {
+            UserValidator = new UserValidator<User, int>(this)
+            {
+                RequireUniqueEmail = true
+            };
 
+            PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 6,
+            };
+
+            var dataProtectionProvider = new IdentityFactoryOptions<AppUserManager>().DataProtectionProvider;
+
+            if (dataProtectionProvider != null)
+            {
+                UserTokenProvider = new DataProtectorTokenProvider<User, int>(dataProtectionProvider.Create("ASP.NET Identity"));
+            }
         }
 
         public async Task<IdentityResult> EditUserAsync(EditUser editUser)
@@ -36,10 +54,10 @@ namespace Blog.Data.Identity
             }
 
             user.PasswordHash = PasswordHasher.HashPassword(editUser.Password);
-            
+
             var updateUserResult = await UpdateAsync(user);
 
-            var removeFromRolesResult = await RemoveFromRolesAsync(user.Id,(await GetRolesAsync(user.Id)).ToArray());
+            var removeFromRolesResult = await RemoveFromRolesAsync(user.Id, (await GetRolesAsync(user.Id)).ToArray());
 
             if (!removeFromRolesResult.Succeeded)
             {

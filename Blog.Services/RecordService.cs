@@ -40,14 +40,9 @@ namespace Blog.Services
             await _repository.Update(_mapper.Map<Record>(record));
         }
 
-        public async Task Delete(RecordDTO record)
-        {
-            await _repository.Delete(_mapper.Map<Record>(record));
-        }
-
         public async Task Delete(int id)
         {
-            await Delete(await FindById(id));
+            await _repository.Delete(id);
         }
 
         public async Task InsertComment(CommentDTO comment)

@@ -10,7 +10,7 @@ namespace Blog.Data.Repository.Interfaces
 
         Task Insert(Record entityToInsert);
 
-        Task Delete(Record entityToDelete);
+        Task Delete(int id);
 
         Task Update(Record entityToUpdate);
 

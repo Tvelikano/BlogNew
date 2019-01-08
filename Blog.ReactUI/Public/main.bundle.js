@@ -1233,6 +1233,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var Routes_Index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Routes/Index */ "./Src/Routes/Index.tsx");
 /* harmony import */ var Containers_Nav__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Containers/Nav */ "./Src/Containers/Nav.tsx");
+/* harmony import */ var Components_Footer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Components/Footer */ "./Src/Components/Footer.tsx");
+
 
 
 
@@ -1242,7 +1244,8 @@ var App = function (_a) {
     return (react__WEBPACK_IMPORTED_MODULE_1__["createElement"](connected_react_router__WEBPACK_IMPORTED_MODULE_0__["ConnectedRouter"], { history: history },
         react__WEBPACK_IMPORTED_MODULE_1__["createElement"](react__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null,
             react__WEBPACK_IMPORTED_MODULE_1__["createElement"](Containers_Nav__WEBPACK_IMPORTED_MODULE_3__["default"], null),
-            react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: "container" }, Routes_Index__WEBPACK_IMPORTED_MODULE_2__["default"]))));
+            react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: "container" }, Routes_Index__WEBPACK_IMPORTED_MODULE_2__["default"]),
+            react__WEBPACK_IMPORTED_MODULE_1__["createElement"](Components_Footer__WEBPACK_IMPORTED_MODULE_4__["default"], null))));
 };
 /* harmony default export */ __webpack_exports__["default"] = (App);
 
@@ -2001,6 +2004,75 @@ var Comments = /** @class */ (function (_super) {
     return Comments;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.PureComponent));
 /* harmony default export */ __webpack_exports__["default"] = (Comments);
+
+
+/***/ }),
+
+/***/ "./Src/Components/Footer.tsx":
+/*!***********************************!*\
+  !*** ./Src/Components/Footer.tsx ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+var Footer = /** @class */ (function (_super) {
+    __extends(Footer, _super);
+    function Footer() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Footer.prototype.render = function () {
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("footer", { className: "page-footer font-small bg-dark pt-4" },
+            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "container text-center text-md-left" },
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "col-md-6 mt-md-0 mt-3" },
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h5", { className: "text-uppercase" }, "Footer Content"),
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("p", null, "Here you can use rows and columns here to organize your footer content.")),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("hr", { className: "clearfix w-100 d-md-none pb-3" }),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "col-md-3 mb-md-0 mb-3" },
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h5", { className: "text-uppercase" }, "Links"),
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("ul", { className: "list-unstyled" },
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 1")),
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 2")),
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 3")),
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 4")))),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "col-md-3 mb-md-0 mb-3" },
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h5", { className: "text-uppercase" }, "Links"),
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("ul", { className: "list-unstyled" },
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 1")),
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 2")),
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 3")),
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 4")))))),
+            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "footer-copyright text-center py-3" }, "\u00A9 2018 Copyright:")));
+    };
+    return Footer;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
+/* harmony default export */ __webpack_exports__["default"] = (Footer);
 
 
 /***/ }),

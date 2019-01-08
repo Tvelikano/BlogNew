@@ -1,6 +1,7 @@
 ﻿using Blog.Data.Enums;
 using Blog.Data.Interfaces;
 using Blog.Data.Repository.Interfaces;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -61,6 +62,13 @@ namespace Blog.Data.Repository
             };
         }
 
+        public IEnumerable<Record> GetAll()
+        {
+            IQueryable<Record> query = _records;
+
+            return query.ToList();
+        }
+
         public async Task<Record> GetById(int id)
         {
             return await _records.FindAsync(id);
@@ -88,14 +96,6 @@ namespace Blog.Data.Repository
 
             await Save();
         }
-
-        public async Task InsertComment(Comment entityToInsert)
-        {
-            _comments.Add(entityToInsert);
-
-            await Save();
-        }
-
         public ReturnList<Comment> GetCommentsById(int recordId)
         {
             var query = _comments.Where(c => c.RecordId == recordId).OrderByDescending(c => c.CreateDate).Include(c => c.User).ToList();
@@ -106,6 +106,13 @@ namespace Blog.Data.Repository
                 Count = query.Count(),
                 Info = recordId
             };
+        }
+
+        public async Task InsertComment(Comment entityToInsert)
+        {
+            _comments.Add(entityToInsert);
+
+            await Save();
         }
 
         public async Task Save()

@@ -1,6 +1,7 @@
 ﻿using Blog.Data.Identity;
 using Blog.Data.Interfaces;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -8,19 +9,31 @@ namespace Blog.Data
 {
     public class RecordContext : IdentityDbContext<User, Role, int, UserLogin, UserRole, UserClaim>, IRecordContext
     {
-        public DbSet<Record> Records { get; set; }
+        public virtual DbSet<Record> Records { get; set; }
 
-        public DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
 
-        public DbSet<UserLogin> UserLogins { get; set; }
+        public virtual DbSet<UserLogin> UserLogins { get; set; }
 
-        public DbSet<UserClaim> UserClaims { get; set; }
+        public virtual DbSet<UserClaim> UserClaims { get; set; }
 
-        public DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
 
         public RecordContext() : base("RecordsDataBase")
         {
 
+        }
+
+        public RecordContext(string nameOrConnectionString)
+            : base(nameOrConnectionString)
+        {
+            Configuration.LazyLoadingEnabled = false;
+        }
+
+        public RecordContext(DbConnection connection)
+            : base(connection, true)
+        {
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public static RecordContext Create()

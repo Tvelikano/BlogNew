@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Api", "Blog.Api\Blog.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.ReactUI", "Blog.ReactUI\Blog.ReactUI.csproj", "{77ACB58A-6413-4B22-8435-E60487BCD6DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Data.Tests", "Blog.Data.Tests\Blog.Data.Tests.csproj", "{67373EDF-4DFE-4887-B415-8678E5E9990A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{77ACB58A-6413-4B22-8435-E60487BCD6DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77ACB58A-6413-4B22-8435-E60487BCD6DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77ACB58A-6413-4B22-8435-E60487BCD6DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67373EDF-4DFE-4887-B415-8678E5E9990A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67373EDF-4DFE-4887-B415-8678E5E9990A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67373EDF-4DFE-4887-B415-8678E5E9990A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67373EDF-4DFE-4887-B415-8678E5E9990A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

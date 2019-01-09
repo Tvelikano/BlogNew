@@ -91,11 +91,20 @@ namespace Blog.Data.Repository
 
         public async Task Update(Record entityToUpdate)
         {
-            _records.Attach(entityToUpdate);
+            var record = await GetById(entityToUpdate.RecordId);
 
-            _context.Entry(entityToUpdate).State = EntityState.Modified;
+            if (record != null)
+            {
+                record.Name = entityToUpdate.Name;
+                record.Content = entityToUpdate.Content;
+                record.State = entityToUpdate.State;
 
-            await Save();
+                _context.Records.Attach(record);
+
+                _context.Entry(record).State = EntityState.Modified;
+
+                await Save();
+            }
         }
         public ReturnList<Comment> GetCommentsById(int recordId)
         {

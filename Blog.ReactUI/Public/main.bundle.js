@@ -1244,7 +1244,8 @@ var App = function (_a) {
     return (react__WEBPACK_IMPORTED_MODULE_1__["createElement"](connected_react_router__WEBPACK_IMPORTED_MODULE_0__["ConnectedRouter"], { history: history },
         react__WEBPACK_IMPORTED_MODULE_1__["createElement"](react__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null,
             react__WEBPACK_IMPORTED_MODULE_1__["createElement"](Containers_Nav__WEBPACK_IMPORTED_MODULE_3__["default"], null),
-            react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: "container flex-fill py-3" }, Routes_Index__WEBPACK_IMPORTED_MODULE_2__["default"]),
+            react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: "bg-light" },
+                react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: "container flex-fill py-3" }, Routes_Index__WEBPACK_IMPORTED_MODULE_2__["default"])),
             react__WEBPACK_IMPORTED_MODULE_1__["createElement"](Components_Footer__WEBPACK_IMPORTED_MODULE_4__["default"], null))));
 };
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -2233,7 +2234,7 @@ var PagingHelper = /** @class */ (function (_super) {
         if (pagingInfo.TotalPages < 2) {
             return null;
         }
-        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "btn-group float-right" },
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "btn-group mb-3 float-right" },
             pagingInfo.CurrentPage !== 1 &&
                 this.Build("<", pagingInfo.CurrentPage - 1),
             this.Build("1", 1),

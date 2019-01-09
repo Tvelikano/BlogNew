@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using Blog.Data;
+using Blog.Data.Models;
 using Blog.Data.Repository.Interfaces;
 using Blog.Services.Interfaces;
+using Blog.Services.Models;
 using System;
 using System.Threading.Tasks;
-using Blog.Data.Models;
-using Blog.Services.Models;
 
 namespace Blog.Services
 {
@@ -19,13 +18,13 @@ namespace Blog.Services
             _repository = repo;
             _mapper = mapper;
         }
-        
+
         public ReturnListDTO<ReturnModelDTO<RecordDTO>> GetAll(GetArgsDTO<RecordDTO> recordsArgsDto)
         {
             return _mapper.Map<ReturnListDTO<ReturnModelDTO<RecordDTO>>>(_repository.Get(_mapper.Map<GetArgs<Record>>(recordsArgsDto)));
         }
 
-        public async Task<RecordDTO> FindById(int id)
+        public async Task<RecordDTO> GetById(int id)
         {
             return _mapper.Map<RecordDTO>(await _repository.GetById(id));
         }
@@ -54,7 +53,7 @@ namespace Blog.Services
             await _repository.InsertComment(_mapper.Map<Comment>(comment));
         }
 
-        public ReturnListDTO<CommentDTO> FindCommentsById(int recordId)
+        public ReturnListDTO<CommentDTO> GetCommentsById(int recordId)
         {
             return _mapper.Map<ReturnListDTO<CommentDTO>>(_repository.GetCommentsById(recordId));
         }

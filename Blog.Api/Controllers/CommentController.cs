@@ -20,7 +20,7 @@ namespace Blog.Api.Controllers
 
         public ReturnListDTO<CommentDTO> Get(int id)
         {
-            return _recordService.FindCommentsById(id);
+            return _recordService.GetCommentsById(id);
         }
 
         [Authorize]

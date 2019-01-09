@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Blog.Services.Models;
+﻿using Blog.Services.Models;
+using System.Threading.Tasks;
 
 namespace Blog.Services.Interfaces
 {
@@ -7,16 +7,16 @@ namespace Blog.Services.Interfaces
     {
         ReturnListDTO<ReturnModelDTO<RecordDTO>> GetAll(GetArgsDTO<RecordDTO> recordsArgsDto);
 
-        Task<RecordDTO> FindById(int id);
+        Task<RecordDTO> GetById(int id);
 
         Task Insert(RecordDTO record);
 
         Task Update(RecordDTO record);
-        
+
         Task Delete(int id);
 
         Task InsertComment(CommentDTO comment);
 
-        ReturnListDTO<CommentDTO> FindCommentsById(int recordId);
+        ReturnListDTO<CommentDTO> GetCommentsById(int recordId);
     }
 }

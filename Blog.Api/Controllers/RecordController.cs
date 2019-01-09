@@ -1,13 +1,10 @@
 ﻿using Blog.Api.Models;
-using Blog.Services;
 using Blog.Services.Interfaces;
-
+using Blog.Services.Models;
 using Microsoft.AspNet.Identity;
-
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using Blog.Services.Models;
 
 namespace Blog.Api.Controllers
 {
@@ -24,7 +21,7 @@ namespace Blog.Api.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<RecordDTO> Get(int id)
         {
-            return await _recordService.FindById(id);
+            return await _recordService.GetById(id);
         }
 
         public ListViewModel<ReturnModelDTO<RecordDTO>> Get([FromUri]SearchQuery searchQuery)
@@ -64,6 +61,7 @@ namespace Blog.Api.Controllers
         [Authorize]
         public async Task Post([FromBody]RecordDTO record)
         {
+
             record.UserId = RequestContext.Principal.Identity.GetUserId<int>();
 
             await _recordService.Insert(record);

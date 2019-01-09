@@ -1,11 +1,11 @@
-﻿using Blog.Data.Identity;
+﻿using Blog.Data.Models;
 using Blog.Data.Repository;
+using Blog.Tests.Initialize.EffortSetting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Blog.Data.Models;
 
 namespace Blog.Data.Tests
 {
@@ -23,39 +23,7 @@ namespace Blog.Data.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            EffortProviderFactory.ResetDb();
-            var model = new RecordContext();
-
-            model.Users.Add(
-                new User
-                {
-                    Id = 1,
-                    UserName = "Admin",
-                    EmailConfirmed = false,
-                    PhoneNumberConfirmed = false,
-                    TwoFactorEnabled = false,
-                    LockoutEnabled = false,
-                    AccessFailedCount = 0
-                });
-
-            model.Records.AddRange(new[]{
-                    new Record {RecordId = 1, Name = "1", Content = "1", UserId = 1},
-                    new Record {RecordId = 2, Name = "2", Content = "2", UserId = 1},
-                    new Record {RecordId = 3, Name = "3", Content = "3", UserId = 1}
-                });
-
-            model.Comments.Add(new Comment
-            {
-                CommentId = 1,
-                Content = "1",
-                CreateDate = DateTime.Now,
-                RecordId = 1,
-                UserId = 1
-            });
-
-            model.SaveChanges();
-
-            _repository = new EfRecordRepository(model);
+            _repository = new EfRecordRepository(EffortProviderFactory.GetFakeContext());
         }
 
         [TestMethod]
@@ -107,6 +75,17 @@ namespace Blog.Data.Tests
             var records = _repository.GetAll().ToList();
 
             Assert.AreEqual(4, records.Count);
+        }
+
+        [TestMethod]
+        public async Task Update_Record_2()
+        {
+            var record = new Record { RecordId = 2, Name = "222", Content = "2", UserId = 1 };
+
+            await _repository.Update(record);
+            var actualRecord = await _repository.GetById(record.RecordId);
+
+            Assert.AreEqual(record.Name, actualRecord.Name);
         }
 
         [TestMethod]

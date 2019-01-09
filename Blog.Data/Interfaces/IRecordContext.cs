@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
+using Blog.Data.Models;
 
 namespace Blog.Data.Interfaces
 {

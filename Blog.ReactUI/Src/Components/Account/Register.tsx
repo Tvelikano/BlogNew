@@ -26,11 +26,11 @@ export default class Register extends React.Component<IProps> {
 
   public render = () => (
     <>
-      <h2>Register</h2>
+      <h2>Регистрация</h2>
       <hr />
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <label>User Name</label>
+          <label>Имя пользователя</label>
           <input required className="form-control" ref={this.name} />
         </div>
 
@@ -40,7 +40,7 @@ export default class Register extends React.Component<IProps> {
         </div>
 
         <div className="form-group">
-          <label>Password</label>
+          <label>Пароль</label>
           <input
             required
             type="password"
@@ -50,7 +50,7 @@ export default class Register extends React.Component<IProps> {
         </div>
 
         <div className="form-group">
-          <label>Password Confirm</label>
+          <label>Подтвердитье пароль</label>
           <input
             required
             type="password"
@@ -60,7 +60,7 @@ export default class Register extends React.Component<IProps> {
         </div>
 
         <div className="col-md-10">
-          <button className="btn btn-primary">Sign Up</button>
+          <button className="btn btn-primary">Зарегистрироваться</button>
         </div>
       </form>
     </>

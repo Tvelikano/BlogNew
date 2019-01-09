@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Blog.Services
+namespace Blog.Services.Models
 {
     public struct GetArgsDTO<T>
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Blog.Data
+namespace Blog.Data.Models
 {
     public class ReturnList<T>
     {

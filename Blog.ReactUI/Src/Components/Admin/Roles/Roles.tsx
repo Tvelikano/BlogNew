@@ -19,14 +19,14 @@ export default class AdminRoles extends React.Component<IProps> {
     return (
       <>
         <Link to="/Admin/Roles/Add" className="btn btn-primary">
-          Create New Role
+          Создать новую роль
         </Link>
 
         <table className="table table-striped table-bordered table-hover">
           <tbody>
             <tr>
-              <th>Role Id</th>
-              <th>Name</th>
+              <th>ID роли</th>
+              <th>Имя</th>
               <th />
             </tr>
             {data
@@ -39,7 +39,7 @@ export default class AdminRoles extends React.Component<IProps> {
                         onClick={() => DeleteRole(item.Id)}
                         className="btn btn-danger"
                       >
-                        Delete
+                        Удалить
                       </button>
                     </td>
                   </tr>

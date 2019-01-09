@@ -78,8 +78,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comment.cs" />
-    <Compile Include="GetArgs.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\GetArgs.cs" />
     <Compile Include="Identity\AppRoleStore.cs" />
     <Compile Include="Identity\AppUserStore.cs" />
     <Compile Include="Enums\RecordState.cs" />
@@ -110,12 +110,12 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\Interfaces\IRecordRepository.cs" />
-    <Compile Include="Record.cs" />
+    <Compile Include="Models\Record.cs" />
     <Compile Include="RecordContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EfRecordRepository.cs" />
-    <Compile Include="ReturnModel.cs" />
-    <Compile Include="ReturnList.cs" />
+    <Compile Include="Models\ReturnModel.cs" />
+    <Compile Include="Models\ReturnList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

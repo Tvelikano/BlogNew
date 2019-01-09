@@ -26,16 +26,16 @@ export default class Login extends React.Component<IProps> {
     <>
       {!this.props.isAuthenticated ? (
         <>
-          <h2>Log In</h2>
+          <h2>Вход</h2>
           <hr />
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <label>User Name</label>
+              <label>Имя пользователя</label>
               <input className="form-control" ref={this.name} />
             </div>
 
             <div className="form-group">
-              <label>Password</label>
+              <label>Пароль</label>
               <input
                 type="password"
                 className="form-control"
@@ -44,7 +44,7 @@ export default class Login extends React.Component<IProps> {
             </div>
 
             <div className="col-md-10">
-              <button className="btn btn-primary">Log In</button>
+              <button className="btn btn-primary">Войти</button>
             </div>
           </form>
         </>

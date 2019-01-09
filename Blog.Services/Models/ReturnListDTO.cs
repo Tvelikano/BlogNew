@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Blog.Services
+namespace Blog.Services.Models
 {
     public class ReturnListDTO<T>
     {

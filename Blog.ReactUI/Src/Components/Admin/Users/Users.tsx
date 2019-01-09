@@ -50,7 +50,7 @@ export default class AdminUsers extends React.Component<IProps> {
     return (
       <>
         <Link className="btn btn-primary" to="/Admin/Users/Add">
-          Create New User
+          Создать нового пользователя
         </Link>
 
         <SearchHelper />
@@ -59,10 +59,10 @@ export default class AdminUsers extends React.Component<IProps> {
             <table className="table table-striped table-bordered table-hover">
               <tbody>
                 <tr>
-                  <th>User Id</th>
-                  <th>User Name</th>
+                  <th>ID пользователя</th>
+                  <th>Имя пользователя</th>
                   <th>Email</th>
-                  <th>Roles</th>
+                  <th>Роли</th>
                   <th />
                 </tr>
 
@@ -81,13 +81,13 @@ export default class AdminUsers extends React.Component<IProps> {
                         to={`Users/Edit/${item.Id}`}
                         className="btn btn-primary"
                       >
-                        Edit
+                        Редактировать
                       </Link>
                       <button
                         onClick={() => DeleteUser(item.Id)}
                         className="btn btn-danger"
                       >
-                        Delete
+                        Удалить
                       </button>
                     </td>
                   </tr>

@@ -23,12 +23,12 @@ export default class AddComment extends React.PureComponent<IProps> {
     <>
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <label>Leave your comment:</label>
+          <label>Оставьте свой комментарий:</label>
 
           <input ref={this.content} className="form-control" />
         </div>
 
-        <button className="btn btn-primary">Create</button>
+        <button className="btn btn-primary">Отправить</button>
       </form>
     </>
   );

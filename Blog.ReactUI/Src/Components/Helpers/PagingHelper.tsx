@@ -36,7 +36,7 @@ export default class PagingHelper extends React.PureComponent<IProps> {
     }
 
     return (
-      <>
+      <div className="btn-group float-right">
         {pagingInfo.CurrentPage !== 1 &&
           this.Build("<", pagingInfo.CurrentPage - 1)}
 
@@ -53,7 +53,7 @@ export default class PagingHelper extends React.PureComponent<IProps> {
 
         {pagingInfo.CurrentPage != pagingInfo.TotalPages &&
           this.Build(">", pagingInfo.CurrentPage + 1)}
-      </>
+      </div>
     );
   }
 }

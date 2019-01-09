@@ -4,6 +4,8 @@ using Blog.Data.Repository.Interfaces;
 using Blog.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
+using Blog.Data.Models;
+using Blog.Services.Models;
 
 namespace Blog.Services
 {

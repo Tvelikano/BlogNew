@@ -1,4 +1,4 @@
-﻿namespace Blog.Data
+﻿namespace Blog.Data.Models
 {
     public class ReturnModel<T>
     {

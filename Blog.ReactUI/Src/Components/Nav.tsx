@@ -17,31 +17,32 @@ export default class Nav extends React.Component<IProps> {
   public render() {
     const { user, isAuthenticated, Logout } = this.props;
     return (
-      <nav className="navbar bg-dark">
+      <nav className="navbar bg-dark col_white">
         <div className="container">
           <Link to="/" className="navbar-brand">
-            Blog
+            Статьи
           </Link>
-          {isAuthenticated ? (
-            <>
-              <div className="text-light">Hello, {user.UserName}</div>
-              <button className="btn btn-danger" onClick={() => Logout()}>
-                Log Out
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/Login">Log In</Link>
-              <Link to="/Register">Sign Up</Link>
-            </>
-          )}
-          {user && user.Roles && user.Roles.indexOf("Admin") !== -1 ? (
-            <>
-              <Link to="/Admin/Records">Records</Link>
-              <Link to="/Admin/Users">Users</Link>
-              <Link to="/Admin/Roles">Roles</Link>
-            </>
-          ) : null}
+          <div>
+            {isAuthenticated ? (
+              <>
+                <Link className="btn btn-primary mr-1" to="/Profile">
+                  {user.UserName}
+                </Link>
+                <a className="btn btn-danger" onClick={() => Logout()}>
+                  Выйти
+                </a>
+              </>
+            ) : (
+              <>
+                <Link className="btn btn-primary mr-1" to="/Login">
+                  Войти
+                </Link>
+                <Link className="btn btn-info" to="/Register">
+                  Зарегистрироваться
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </nav>
     );

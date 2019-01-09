@@ -24,25 +24,25 @@ export default class Add extends React.PureComponent<IProps> {
 
   public render = () => (
     <>
-      <h4>Add Record</h4>
+      <h4>Новая запись</h4>
 
       <form className="add" onSubmit={this.handleSubmit}>
         <div className="form-group">
-          Name:
+          Заголовок:
           <div className="col-md-10">
             <input required className="form-control" ref={this.name} />
           </div>
         </div>
 
         <div className="form-group">
-          Content:
+          Оснавная часть:
           <div className="col-md-10">
             <textarea required className="form-control" ref={this.content} />
           </div>
         </div>
 
         <div className="form-group">
-          State:
+          Кому видна:
           <select
             name="State"
             ref={this.recordState}
@@ -64,7 +64,7 @@ export default class Add extends React.PureComponent<IProps> {
       </form>
 
       <Link to="/Admin/Records" className="btn btn-danger">
-        Cancel
+        Отмена
       </Link>
     </>
   );

@@ -1244,7 +1244,7 @@ var App = function (_a) {
     return (react__WEBPACK_IMPORTED_MODULE_1__["createElement"](connected_react_router__WEBPACK_IMPORTED_MODULE_0__["ConnectedRouter"], { history: history },
         react__WEBPACK_IMPORTED_MODULE_1__["createElement"](react__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null,
             react__WEBPACK_IMPORTED_MODULE_1__["createElement"](Containers_Nav__WEBPACK_IMPORTED_MODULE_3__["default"], null),
-            react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: "container" }, Routes_Index__WEBPACK_IMPORTED_MODULE_2__["default"]),
+            react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: "container flex-fill py-3" }, Routes_Index__WEBPACK_IMPORTED_MODULE_2__["default"]),
             react__WEBPACK_IMPORTED_MODULE_1__["createElement"](Components_Footer__WEBPACK_IMPORTED_MODULE_4__["default"], null))));
 };
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -1295,22 +1295,68 @@ var Login = /** @class */ (function (_super) {
             _this.props.Login(data);
         };
         _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, !_this.props.isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Log In"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "\u0412\u0445\u043E\u0434"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: _this.handleSubmit },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "User Name"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0418\u043C\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F"),
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { className: "form-control", ref: _this.name })),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u041F\u0430\u0440\u043E\u043B\u044C"),
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "password", className: "form-control", ref: _this.password })),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "Log In"))))) : (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], { to: "/" })))); };
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "\u0412\u043E\u0439\u0442\u0438"))))) : (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], { to: "/" })))); };
         return _this;
     }
     return Login;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
 /* harmony default export */ __webpack_exports__["default"] = (Login);
+
+
+/***/ }),
+
+/***/ "./Src/Components/Account/Profile.tsx":
+/*!********************************************!*\
+  !*** ./Src/Components/Account/Profile.tsx ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+var Profile = /** @class */ (function (_super) {
+    __extends(Profile, _super);
+    function Profile() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Profile.prototype.render = function () {
+        var user = this.props.user;
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, user && user.Roles && user.Roles.indexOf("Admin") !== -1 ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
+            react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { className: "btn btn-primary m-1", to: "/Admin/Records" }, "\u0417\u0430\u043F\u0438\u0441\u0438"),
+            react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { className: "btn btn-primary m-1", to: "/Admin/Users" }, "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0438"),
+            react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { className: "btn btn-primary m-1", to: "/Admin/Roles" }, "\u0420\u043E\u043B\u0438"))) : null));
+    };
+    return Profile;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
+/* harmony default export */ __webpack_exports__["default"] = (Profile);
 
 
 /***/ }),
@@ -1360,23 +1406,23 @@ var Register = /** @class */ (function (_super) {
             _this.props.Register(data);
         };
         _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Register"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: _this.handleSubmit },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "User Name"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0418\u043C\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F"),
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name })),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Email"),
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.email })),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u041F\u0430\u0440\u043E\u043B\u044C"),
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, type: "password", className: "form-control", ref: _this.password })),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password Confirm"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C\u0435 \u043F\u0430\u0440\u043E\u043B\u044C"),
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, type: "password", className: "form-control", ref: _this.passwordConfirm })),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "Sign Up"))))); };
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F"))))); };
         return _this;
     }
     return Register;
@@ -1432,25 +1478,25 @@ var Add = /** @class */ (function (_super) {
             _this.props.AddRecord(data);
         };
         _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "Add Record"),
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "\u041D\u043E\u0432\u0430\u044F \u0437\u0430\u043F\u0438\u0441\u044C"),
             react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
                 react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
-                    "Name:",
+                    "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A:",
                     react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
                 react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
-                    "Content:",
+                    "\u041E\u0441\u043D\u0430\u0432\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C:",
                     react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.content }))),
                 react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
-                    "State:",
+                    "\u041A\u043E\u043C\u0443 \u0432\u0438\u0434\u043D\u0430:",
                     react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", { name: "State", ref: _this.recordState, defaultValue: Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_3__["default"][0] }, Object.keys(Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_3__["default"])
                         .filter(function (x) { return isNaN(Number(x)); })
                         .map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", { key: item }, item)); }))),
                 react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
                     react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "Cancel"))); };
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "\u041E\u0442\u043C\u0435\u043D\u0430"))); };
         return _this;
     }
     return Add;
@@ -1514,25 +1560,25 @@ var Edit = /** @class */ (function (_super) {
     Edit.prototype.render = function () {
         var record = this.props.record;
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Edit Record"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0437\u0430\u043F\u0438\u0441\u044C"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { className: "add", onSubmit: this.handleSubmit },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    "Name:",
+                    "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A:",
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: this.name, defaultValue: record.Name }))),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    "Content:",
+                    "\u041E\u0441\u043D\u043E\u0432\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C:",
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { required: true, className: "form-control", ref: this.content, defaultValue: record.Content }))),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    "State:",
+                    "\u041A\u043E\u043C\u0443 \u0432\u0438\u0434\u043D\u0430:",
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", { name: "State", ref: this.recordState, defaultValue: Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_2__["default"][record.State] }, Object.keys(Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_2__["default"])
                         .filter(function (x) { return isNaN(Number(x)); })
                         .map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", { key: item }, item)); }))),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "Cancel")));
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "\u041E\u0442\u043C\u0435\u043D\u0430")));
     };
     return Edit;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.PureComponent));
@@ -1601,17 +1647,17 @@ var AdminRecords = /** @class */ (function (_super) {
     AdminRecords.prototype.render = function () {
         var _a = this.props, data = _a.data, DeleteRecord = _a.DeleteRecord;
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], { className: "btn btn-primary", to: "/Admin/Records/Add" }, "Create New Record"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], { className: "btn btn-primary", to: "/Admin/Records/Add" }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043D\u043E\u0432\u0443\u044E \u0437\u0430\u043F\u0438\u0441\u044C"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_6__["default"], null),
             data.List ? (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null,
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
-                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Record Id"),
-                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Title"),
-                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Content"),
-                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "State"),
-                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Create Date"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "ID \u0437\u0430\u043F\u0438\u0441\u0438"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "\u041E\u0441\u043D\u043E\u0432\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "\u041A\u043E\u043C\u0443 \u0432\u0438\u0434\u043D\u0430"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "\u0414\u0430\u0442\u0430 \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F"),
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null)),
                         data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", { key: item.Model.RecordId },
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Model.RecordId),
@@ -1620,8 +1666,8 @@ var AdminRecords = /** @class */ (function (_super) {
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, Types_RecordStateDTO__WEBPACK_IMPORTED_MODULE_4__["default"][item.Model.State]),
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Model.CreateDate),
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
-                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], { to: "Records/Edit/" + item.Model.RecordId, className: "btn btn-primary" }, "Edit"),
-                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: function () { return DeleteRecord(item.Model.RecordId); }, className: "btn btn-danger" }, "Delete")))); }))),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], { to: "Records/Edit/" + item.Model.RecordId, className: "btn btn-primary" }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C"),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: function () { return DeleteRecord(item.Model.RecordId); }, className: "btn btn-danger" }, "\u0423\u0434\u0430\u043B\u0438\u0442\u044C")))); }))),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_5__["default"], { query: location.search, pagingInfo: data.PageInfo }))) : null));
     };
     return AdminRecords;
@@ -1668,16 +1714,16 @@ var Add = /** @class */ (function (_super) {
             _this.props.AddRole(_this.name.current.value);
         };
         _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "New Role"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "\u041D\u043E\u0432\u0430\u044F \u0440\u043E\u043B\u044C"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    "Name:",
+                    "\u0418\u043C\u044F \u0440\u043E\u043B\u0438:",
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "Add Role", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "Cancel"))); };
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Records", className: "btn btn-danger" }, "\u041E\u0442\u043C\u0435\u043D\u0430"))); };
         return _this;
     }
     return Add;
@@ -1725,19 +1771,19 @@ var AdminRoles = /** @class */ (function (_super) {
     AdminRoles.prototype.render = function () {
         var _a = this.props, data = _a.data, DeleteRole = _a.DeleteRole;
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Roles/Add", className: "btn btn-primary" }, "Create New Role"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Roles/Add", className: "btn btn-primary" }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043D\u043E\u0432\u0443\u044E \u0440\u043E\u043B\u044C"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null,
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
-                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Role Id"),
-                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Name"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "ID \u0440\u043E\u043B\u0438"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "\u0418\u043C\u044F"),
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null)),
                     data
                         ? data.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", { key: item.Id },
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Id),
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Name),
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
-                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: function () { return DeleteRole(item.Id); }, className: "btn btn-danger" }, "Delete")))); })
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: function () { return DeleteRole(item.Id); }, className: "btn btn-danger" }, "\u0423\u0434\u0430\u043B\u0438\u0442\u044C")))); })
                         : null))));
     };
     return AdminRoles;
@@ -1794,10 +1840,10 @@ var Add = /** @class */ (function (_super) {
             _this.props.AddUser(data);
         };
         _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "New User"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "\u041D\u043E\u0432\u044B\u0439 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    "UserName:",
+                    "\u0418\u043C\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F:",
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
@@ -1805,17 +1851,17 @@ var Add = /** @class */ (function (_super) {
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.email }))),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    "Password:",
+                    "\u041F\u0430\u0440\u043E\u043B\u044C:",
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "password", required: true, className: "form-control", ref: _this.password }))),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    "Confirm Password:",
+                    "\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u043F\u0430\u0440\u043E\u043B\u044C:",
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "password", required: true, className: "form-control", ref: _this.passwordConfirm }))),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "Create User", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], { to: "/Admin/Users", className: "btn btn-danger" }, "Cancel"))); };
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], { to: "/Admin/Users", className: "btn btn-danger" }, "\u041E\u0442\u043C\u0435\u043D\u0430"))); };
         return _this;
     }
     return Add;
@@ -1883,16 +1929,16 @@ var AdminUsers = /** @class */ (function (_super) {
     AdminUsers.prototype.render = function () {
         var _a = this.props, location = _a.location, data = _a.data, DeleteUser = _a.DeleteUser;
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { className: "btn btn-primary", to: "/Admin/Users/Add" }, "Create New User"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { className: "btn btn-primary", to: "/Admin/Users/Add" }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043D\u043E\u0432\u043E\u0433\u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_2__["default"], null),
             data.List ? (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", { className: "table table-striped table-bordered table-hover" },
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null,
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
-                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "User Id"),
-                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "User Name"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "ID \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "\u0418\u043C\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F"),
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Email"),
-                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Roles"),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "\u0420\u043E\u043B\u0438"),
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null)),
                         data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", { key: item.Id },
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Id),
@@ -1900,8 +1946,8 @@ var AdminUsers = /** @class */ (function (_super) {
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Email),
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.Roles.map(function (role) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", { key: role }, role)); })),
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
-                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { to: "Users/Edit/" + item.Id, className: "btn btn-primary" }, "Edit"),
-                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: function () { return DeleteUser(item.Id); }, className: "btn btn-danger" }, "Delete")))); }))),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], { to: "Users/Edit/" + item.Id, className: "btn btn-primary" }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C"),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: function () { return DeleteUser(item.Id); }, className: "btn btn-danger" }, "\u0423\u0434\u0430\u043B\u0438\u0442\u044C")))); }))),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_Helpers_PagingHelper__WEBPACK_IMPORTED_MODULE_3__["default"], { query: location.search, pagingInfo: data.PageInfo }))) : null));
     };
     return AdminUsers;
@@ -1953,9 +1999,9 @@ var AddComment = /** @class */ (function (_super) {
         _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: _this.handleSubmit },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "form-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Leave your comment:"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u041E\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u0441\u0432\u043E\u0439 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439:"),
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { ref: _this.content, className: "form-control" })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "Create")))); };
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "btn btn-primary" }, "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C")))); };
         return _this;
     }
     return AddComment;
@@ -2039,16 +2085,23 @@ var Footer = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Footer.prototype.render = function () {
-        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("footer", { className: "page-footer font-small bg-dark pt-4" },
-            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "container text-center text-md-left" },
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("footer", { className: "container-fluid footer bg-dark" },
+            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "container bottom_border" },
                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "col-md-6 mt-md-0 mt-3" },
-                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h5", { className: "text-uppercase" }, "Footer Content"),
-                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("p", null, "Here you can use rows and columns here to organize your footer content.")),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("hr", { className: "clearfix w-100 d-md-none pb-3" }),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "col-md-3 mb-md-0 mb-3" },
-                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h5", { className: "text-uppercase" }, "Links"),
-                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("ul", { className: "list-unstyled" },
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "col-sm-4 col-md col-sm-4 col-12 col" },
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h5", { className: "headin5 col_white pt2" }, "\u041D\u0430\u0448\u0438 \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u044B"),
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("p", null,
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("i", { className: "fa fa-location-arrow" }),
+                            " \u0433. \u041C\u043E\u0433\u0438\u043B\u0435\u0432, \u0443\u043B. \u041B\u0435\u043D\u0438\u043D\u0430, \u0434. 12, \u043E\u0444. 3, 212543"),
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("p", null,
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("i", { className: "fa fa-phone" }),
+                            " +375 33 532-4343"),
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("p", null,
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("i", { className: "fa fa fa-envelope" }),
+                            " info@example.com")),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "col-sm-4 col-md  col-6 col" },
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h5", { className: "headin5 col_white pt2" }, "\u0421\u0442\u0430\u0442\u044C\u0438"),
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("ul", { className: "footer_ul" },
                             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
                                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 1")),
                             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
@@ -2057,9 +2110,9 @@ var Footer = /** @class */ (function (_super) {
                                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 3")),
                             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
                                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 4")))),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "col-md-3 mb-md-0 mb-3" },
-                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h5", { className: "text-uppercase" }, "Links"),
-                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("ul", { className: "list-unstyled" },
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "col-sm-4 col-md  col-6 col" },
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h5", { className: "headin5 col_white pt2" }, "\u0421\u0441\u044B\u043B\u043A\u0438"),
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("ul", { className: "footer_ul" },
                             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
                                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 1")),
                             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
@@ -2067,8 +2120,55 @@ var Footer = /** @class */ (function (_super) {
                             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
                                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 3")),
                             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
-                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 4")))))),
-            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "footer-copyright text-center py-3" }, "\u00A9 2018 Copyright:")));
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#!" }, "Link 4")))),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: " col-sm-4 col-md col-12 col" },
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h5", { className: "headin5 col_white pt2" }, "\u041C\u044B \u0432 \u0441\u043E\u0446-\u0441\u0435\u0442\u044F\u0445"),
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("ul", { className: "footer_ul2" },
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" },
+                                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("i", { className: "fab fa-twitter fleft padding-right" }),
+                                    " "),
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("p", null,
+                                    "Lorem Ipsum is simply dummy text of the printing...",
+                                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" }, "https://www.lipsum.com/"))),
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" },
+                                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("i", { className: "fab fa-twitter fleft padding-right" }),
+                                    " "),
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("p", null,
+                                    "Lorem Ipsum is simply dummy text of the printing...",
+                                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" }, "https://www.lipsum.com/"))),
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" },
+                                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("i", { className: "fab fa-twitter fleft padding-right" }),
+                                    " "),
+                                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("p", null,
+                                    "Lorem Ipsum is simply dummy text of the printing...",
+                                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" }, "https://www.lipsum.com/"))))))),
+            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "container" },
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("ul", { className: "foote_bottom_ul" },
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" }, "\u0413\u043B\u0430\u0432\u043D\u0430\u044F")),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" }, "\u041E \u043D\u0430\u0441")),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" }, "\u041E\u0431\u0440\u0430\u0442\u043D\u0430\u044F \u0441\u0432\u044F\u0437\u044C"))),
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("p", { className: "text-center" },
+                    "\u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043D\u044B @2019 | \u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0430\u043D\u043E ",
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" }, "\u0422\u0438\u043C\u043E\u0444\u0435\u0439 \u0412\u0435\u043B\u0438\u043A\u0430\u043D\u043E\u0432")),
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("ul", { className: "social_footer_ul" },
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" },
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("i", { className: "fab fa-facebook-f" }))),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" },
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("i", { className: "fab fa-twitter" }))),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" },
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("i", { className: "fab fa-linkedin" }))),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("li", null,
+                        react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { href: "#" },
+                            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("i", { className: "fab fa-instagram" })))))));
     };
     return Footer;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
@@ -2133,7 +2233,7 @@ var PagingHelper = /** @class */ (function (_super) {
         if (pagingInfo.TotalPages < 2) {
             return null;
         }
-        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "btn-group float-right" },
             pagingInfo.CurrentPage !== 1 &&
                 this.Build("<", pagingInfo.CurrentPage - 1),
             this.Build("1", 1),
@@ -2189,12 +2289,12 @@ var SearchHelper = /** @class */ (function (_super) {
         _this.handleChange = function (ev) {
             _this.setState({ SearchString: ev.currentTarget.value });
         };
-        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "input-group" },
-            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { onChange: _this.handleChange, className: "form-control", placeholder: "Search..." }),
+        _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "input-group mb-2" },
+            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { onChange: _this.handleChange, className: "form-control", placeholder: "\u041F\u043E\u0438\u0441\u043A..." }),
             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "input-group-append" },
                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { type: "submit", className: "btn btn-info", to: "?" + querystring__WEBPACK_IMPORTED_MODULE_2___default.a.stringify({
                         SearchString: _this.state.SearchString,
-                    }) }, "Search")))); };
+                    }) }, "\u041F\u043E\u0438\u0441\u043A")))); };
         _this.state = { SearchString: "" };
         return _this;
     }
@@ -2242,20 +2342,14 @@ var Nav = /** @class */ (function (_super) {
     };
     Nav.prototype.render = function () {
         var _a = this.props, user = _a.user, isAuthenticated = _a.isAuthenticated, Logout = _a.Logout;
-        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("nav", { className: "navbar bg-dark" },
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("nav", { className: "navbar bg-dark col_white" },
             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "container" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/", className: "navbar-brand" }, "Blog"),
-                isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "text-light" },
-                        "Hello, ",
-                        user.UserName),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { className: "btn btn-danger", onClick: function () { return Logout(); } }, "Log Out"))) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Login" }, "Log In"),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Register" }, "Sign Up"))),
-                user && user.Roles && user.Roles.indexOf("Admin") !== -1 ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Records" }, "Records"),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Users" }, "Users"),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/Admin/Roles" }, "Roles"))) : null)));
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/", className: "navbar-brand" }, "\u0421\u0442\u0430\u0442\u044C\u0438"),
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", null, isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { className: "btn btn-primary mr-1", to: "/Profile" }, user.UserName),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", { className: "btn btn-danger", onClick: function () { return Logout(); } }, "\u0412\u044B\u0439\u0442\u0438"))) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { className: "btn btn-primary mr-1", to: "/Login" }, "\u0412\u043E\u0439\u0442\u0438"),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { className: "btn btn-info", to: "/Register" }, "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F")))))));
     };
     return Nav;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
@@ -2307,20 +2401,20 @@ var Add = /** @class */ (function (_super) {
             _this.props.AddRecord(data);
         };
         _this.render = function () { return (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, _this.props.isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "New Record"),
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "\u041F\u0440\u0435\u0434\u043B\u043E\u0436\u0438\u0442\u044C \u043D\u043E\u0432\u043E\u0441\u0442\u044C"),
             react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", { className: "add", onSubmit: _this.handleSubmit },
                 react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
-                    "Name:",
+                    "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A \u043D\u043E\u0432\u043E\u0441\u0442\u0438:",
                     react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", { required: true, className: "form-control", ref: _this.name }))),
                 react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
-                    "Content:",
+                    "\u041E\u0441\u043D\u043E\u0432\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C:",
                     react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("textarea", { required: true, className: "form-control", ref: _this.content }))),
                 react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "form-group" },
                     react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: "col-md-10" },
                         react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", { type: "submit", value: "Post", className: "btn btn-primary" })))),
-            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], { to: "/", className: "btn btn-danger" }, "Cancel"))) : (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], { to: "Login" })))); };
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], { to: "/", className: "btn btn-danger" }, "\u041E\u0442\u043C\u0435\u043D\u0430"))) : (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], { to: "Login" })))); };
         return _this;
     }
     return Add;
@@ -2391,7 +2485,7 @@ var Blog = /** @class */ (function (_super) {
     Blog.prototype.render = function () {
         var _a = this.props, isAuthenticated = _a.isAuthenticated, location = _a.location, data = _a.data, GetComments = _a.GetComments, CreateComment = _a.CreateComment, ShowComments = _a.ShowComments;
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], { className: "btn btn-primary", to: "/Add" }, "Create New Record"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], { className: "btn mb-2 btn-primary", to: "/Add" }, "\u041F\u0440\u0435\u0434\u043B\u043E\u0436\u0438\u0442\u044C \u0441\u0432\u043E\u044E \u043D\u043E\u0432\u043E\u0441\u0442\u044C"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_Helpers_SearchHelper__WEBPACK_IMPORTED_MODULE_3__["default"], null),
             data.List.map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_records_Record__WEBPACK_IMPORTED_MODULE_5__["default"], { isAuthenticated: isAuthenticated, key: item.Model.RecordId, model: item, ShowComments: function () {
                     ShowComments(item.Model.RecordId),
@@ -2445,14 +2539,16 @@ var Record = /** @class */ (function (_super) {
     Record.prototype.render = function () {
         var _a = this.props.model, Model = _a.Model, IsCommentVisible = _a.IsCommentVisible, Info = _a.Info;
         var _b = this.props, CreateComment = _b.CreateComment, ShowComments = _b.ShowComments, isAuthenticated = _b.isAuthenticated;
-        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "card" },
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "card mb-3" },
             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "card-body" },
                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h4", { className: "card-title" }, Model.Name),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("p", { className: "card-text" }, Model.Content),
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("p", { className: "card-text pb-3 text-muted text-truncate" }, Model.Content),
                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "float-right text-secondary small" }, Model.CreateDate),
                 IsCommentVisible ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-                    isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](Components_Comments_AddComment__WEBPACK_IMPORTED_MODULE_2__["default"], { recordId: Model.RecordId, "\u0421reateComment": function (data) { return CreateComment(data); } })) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], { className: "btn btn-info", to: "/Login" }, "Log In to write comment")),
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](Components_Comments_Comments__WEBPACK_IMPORTED_MODULE_1__["default"], { list: Model.Comments }))) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { onClick: function () { return ShowComments(); }, className: "btn btn-primary" }, "" + (Info > 0 ? "Show " + Info + " Comments" : "Write first comment"))))));
+                    isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](Components_Comments_AddComment__WEBPACK_IMPORTED_MODULE_2__["default"], { recordId: Model.RecordId, "\u0421reateComment": function (data) { return CreateComment(data); } })) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], { className: "btn btn-info", to: "/Login" }, "\u0412\u043E\u0439\u0434\u0438\u0442\u0435 \u0447\u0442\u043E \u0431\u044B \u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0437\u0430\u043F\u0438\u0441\u044C")),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](Components_Comments_Comments__WEBPACK_IMPORTED_MODULE_1__["default"], { list: Model.Comments }))) : (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { onClick: function () { return ShowComments(); }, className: "btn btn-primary" }, "" + (Info > 0
+                    ? "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C " + Info + " \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432"
+                    : "Напишите первый комментарий"))))));
     };
     return Record;
 }(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]));
@@ -2529,6 +2625,32 @@ function mapDispatchToProps(dispatch) {
     };
 }
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(Components_Account_Login__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+
+/***/ }),
+
+/***/ "./Src/Containers/Account/Profile.tsx":
+/*!********************************************!*\
+  !*** ./Src/Containers/Account/Profile.tsx ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Hocs_AllowOnlyAuthenticated__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Hocs/AllowOnlyAuthenticated */ "./Src/Hocs/AllowOnlyAuthenticated.tsx");
+/* harmony import */ var Components_Account_Profile__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/Account/Profile */ "./Src/Components/Account/Profile.tsx");
+
+
+
+function mapStateToProps(_a) {
+    var account = _a.account;
+    return {
+        user: account.user,
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (Object(Hocs_AllowOnlyAuthenticated__WEBPACK_IMPORTED_MODULE_1__["allowOnlyAuthenticated"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, null)(Components_Account_Profile__WEBPACK_IMPORTED_MODULE_2__["default"])));
 
 
 /***/ }),
@@ -3525,6 +3647,71 @@ function mapStateToProps(_a) {
 
 /***/ }),
 
+/***/ "./Src/Hocs/AllowOnlyAuthenticated.tsx":
+/*!*********************************************!*\
+  !*** ./Src/Hocs/AllowOnlyAuthenticated.tsx ***!
+  \*********************************************/
+/*! exports provided: allowOnlyAuthenticated */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "allowOnlyAuthenticated", function() { return allowOnlyAuthenticated; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+
+
+var allowOnlyAuthenticated = function (WrappedComponent) {
+    var AllowOnlyAuthenticated = /** @class */ (function (_super) {
+        __extends(AllowOnlyAuthenticated, _super);
+        function AllowOnlyAuthenticated() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        AllowOnlyAuthenticated.prototype.render = function () {
+            var isAuthenticated = this.props.isAuthenticated;
+            return isAuthenticated ? (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrappedComponent, __assign({}, this.props))) : (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Redirect"], { to: "/Login" }));
+        };
+        return AllowOnlyAuthenticated;
+    }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+    return Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, null)(AllowOnlyAuthenticated);
+};
+function mapStateToProps(_a) {
+    var account = _a.account;
+    return {
+        isAuthenticated: account.isAuthenticated,
+    };
+}
+
+
+/***/ }),
+
 /***/ "./Src/Reducers/Account.ts":
 /*!*********************************!*\
   !*** ./Src/Reducers/Account.ts ***!
@@ -3826,6 +4013,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Containers_Admin_Users_Edit__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Containers/Admin/Users/Edit */ "./Src/Containers/Admin/Users/Edit.tsx");
 /* harmony import */ var Containers_Admin_Roles_Roles__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Containers/Admin/Roles/Roles */ "./Src/Containers/Admin/Roles/Roles.tsx");
 /* harmony import */ var Containers_Admin_Roles_Add__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! Containers/Admin/Roles/Add */ "./Src/Containers/Admin/Roles/Add.tsx");
+/* harmony import */ var Containers_Account_Profile__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! Containers/Account/Profile */ "./Src/Containers/Account/Profile.tsx");
+
 
 
 
@@ -3844,6 +4033,7 @@ var routes = (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__
     react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Add", component: Containers_Records_Add__WEBPACK_IMPORTED_MODULE_3__["default"] }),
     react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Login", component: Containers_Account_Login__WEBPACK_IMPORTED_MODULE_4__["default"] }),
     react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Register", component: Containers_Account_Register__WEBPACK_IMPORTED_MODULE_5__["default"] }),
+    react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Profile", component: Containers_Account_Profile__WEBPACK_IMPORTED_MODULE_14__["default"] }),
     react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Records", component: Containers_Admin_Records_Records__WEBPACK_IMPORTED_MODULE_6__["default"] }),
     react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Records/Add", component: Containers_Admin_Records_Add__WEBPACK_IMPORTED_MODULE_7__["default"] }),
     react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router__WEBPACK_IMPORTED_MODULE_1__["Route"], { exact: true, path: "/Admin/Records/Edit/:id", component: Containers_Admin_Records_Edit__WEBPACK_IMPORTED_MODULE_8__["default"] }),

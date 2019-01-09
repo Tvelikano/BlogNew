@@ -70,8 +70,8 @@ export default class Blog extends React.Component<IProps> {
 
     return (
       <>
-        <Link className="btn btn-primary" to="/Add">
-          Create New Record
+        <Link className="btn mb-2 btn-primary" to="/Add">
+          Предложить свою новость
         </Link>
 
         <SearchHelper />

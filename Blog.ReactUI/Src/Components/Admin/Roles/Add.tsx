@@ -16,11 +16,11 @@ export default class Add extends React.PureComponent<IProps> {
 
   public render = () => (
     <>
-      <h4>New Role</h4>
+      <h4>Новая роль</h4>
 
       <form className="add" onSubmit={this.handleSubmit}>
         <div className="form-group">
-          Name:
+          Имя роли:
           <div className="col-md-10">
             <input required className="form-control" ref={this.name} />
           </div>
@@ -34,7 +34,7 @@ export default class Add extends React.PureComponent<IProps> {
       </form>
 
       <Link to="/Admin/Records" className="btn btn-danger">
-        Cancel
+        Отмена
       </Link>
     </>
   );

@@ -1,4 +1,4 @@
-﻿namespace Blog.Services
+﻿namespace Blog.Services.Models
 {
     public class ReturnModelDTO<T>
     {

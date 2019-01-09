@@ -19,10 +19,12 @@ export default class Record extends React.PureComponent<IProps> {
     const { CreateComment, ShowComments, isAuthenticated } = this.props;
 
     return (
-      <div className="card">
+      <div className="card mb-3">
         <div className="card-body">
           <h4 className="card-title">{Model.Name}</h4>
-          <p className="card-text">{Model.Content}</p>
+          <p className="card-text pb-3 text-muted text-truncate">
+            {Model.Content}
+          </p>
           <div className="float-right text-secondary small">
             {Model.CreateDate}
           </div>
@@ -35,7 +37,7 @@ export default class Record extends React.PureComponent<IProps> {
                 />
               ) : (
                 <Link className="btn btn-info" to="/Login">
-                  Log In to write comment
+                  Войдите что бы прокомментировать запись
                 </Link>
               )}
               <Comments list={Model.Comments} />
@@ -45,7 +47,9 @@ export default class Record extends React.PureComponent<IProps> {
               onClick={() => ShowComments()}
               className="btn btn-primary"
             >{`${
-              Info > 0 ? `Show ${Info} Comments` : "Write first comment"
+              Info > 0
+                ? `Показать ${Info} комментариев`
+                : "Напишите первый комментарий"
             }`}</button>
           )}
         </div>

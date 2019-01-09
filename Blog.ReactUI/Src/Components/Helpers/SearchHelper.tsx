@@ -17,11 +17,11 @@ export default class SearchHelper extends React.PureComponent<any, IState> {
   };
 
   public render = () => (
-    <div className="input-group">
+    <div className="input-group mb-2">
       <input
         onChange={this.handleChange}
         className="form-control"
-        placeholder="Search..."
+        placeholder="Поиск..."
       />
 
       <div className="input-group-append">
@@ -32,7 +32,7 @@ export default class SearchHelper extends React.PureComponent<any, IState> {
             SearchString: this.state.SearchString,
           })}`}
         >
-          Search
+          Поиск
         </Link>
       </div>
     </div>

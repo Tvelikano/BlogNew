@@ -1,10 +1,10 @@
-﻿using Blog.Data.Enums;
-using Blog.Data.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Blog.Data.Enums;
+using Blog.Data.Identity;
 
-namespace Blog.Data
+namespace Blog.Data.Models
 {
     public class Record
     {

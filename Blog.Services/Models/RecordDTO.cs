@@ -1,10 +1,10 @@
-﻿using Blog.Services.Enums;
-using Blog.Services.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Blog.Services.Enums;
+using Blog.Services.Identity;
 
-namespace Blog.Services
+namespace Blog.Services.Models
 {
     public class RecordDTO
     {

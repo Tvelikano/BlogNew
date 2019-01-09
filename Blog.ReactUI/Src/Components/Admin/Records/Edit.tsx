@@ -43,11 +43,11 @@ export default class Edit extends React.PureComponent<IProps> {
     const { record } = this.props;
     return (
       <>
-        <h4>Edit Record</h4>
+        <h4>Редактировать запись</h4>
 
         <form className="add" onSubmit={this.handleSubmit}>
           <div className="form-group">
-            Name:
+            Заголовок:
             <div className="col-md-10">
               <input
                 required
@@ -59,7 +59,7 @@ export default class Edit extends React.PureComponent<IProps> {
           </div>
 
           <div className="form-group">
-            Content:
+            Основная часть:
             <div className="col-md-10">
               <textarea
                 required
@@ -71,7 +71,7 @@ export default class Edit extends React.PureComponent<IProps> {
           </div>
 
           <div className="form-group">
-            State:
+            Кому видна:
             <select
               name="State"
               ref={this.recordState}
@@ -93,7 +93,7 @@ export default class Edit extends React.PureComponent<IProps> {
         </form>
 
         <Link to="/Admin/Records" className="btn btn-danger">
-          Cancel
+          Отмена
         </Link>
       </>
     );

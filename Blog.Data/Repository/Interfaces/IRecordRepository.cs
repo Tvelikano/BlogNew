@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Blog.Data.Models;
 
 namespace Blog.Data.Repository.Interfaces
 {

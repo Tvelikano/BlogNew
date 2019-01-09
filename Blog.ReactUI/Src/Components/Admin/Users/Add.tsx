@@ -26,11 +26,11 @@ export default class Add extends React.Component<IProps> {
 
   public render = () => (
     <>
-      <h4>New User</h4>
+      <h4>Новый пользователь</h4>
 
       <form className="add" onSubmit={this.handleSubmit}>
         <div className="form-group">
-          UserName:
+          Имя пользователя:
           <div className="col-md-10">
             <input required className="form-control" ref={this.name} />
           </div>
@@ -44,7 +44,7 @@ export default class Add extends React.Component<IProps> {
         </div>
 
         <div className="form-group">
-          Password:
+          Пароль:
           <div className="col-md-10">
             <input
               type="password"
@@ -56,7 +56,7 @@ export default class Add extends React.Component<IProps> {
         </div>
 
         <div className="form-group">
-          Confirm Password:
+          Подтвердите пароль:
           <div className="col-md-10">
             <input
               type="password"
@@ -79,7 +79,7 @@ export default class Add extends React.Component<IProps> {
       </form>
 
       <Link to="/Admin/Users" className="btn btn-danger">
-        Cancel
+        Отмена
       </Link>
     </>
   );

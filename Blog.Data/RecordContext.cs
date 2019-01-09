@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using Blog.Data.Models;
 
 namespace Blog.Data
 {

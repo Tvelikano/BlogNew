@@ -25,18 +25,18 @@ export default class Add extends React.Component<IProps> {
     <>
       {this.props.isAuthenticated ? (
         <>
-          <h4>New Record</h4>
+          <h4>Предложить новость</h4>
 
           <form className="add" onSubmit={this.handleSubmit}>
             <div className="form-group">
-              Name:
+              Заголовок новости:
               <div className="col-md-10">
                 <input required className="form-control" ref={this.name} />
               </div>
             </div>
 
             <div className="form-group">
-              Content:
+              Основная часть:
               <div className="col-md-10">
                 <textarea
                   required
@@ -54,7 +54,7 @@ export default class Add extends React.Component<IProps> {
           </form>
 
           <Link to="/" className="btn btn-danger">
-            Cancel
+            Отмена
           </Link>
         </>
       ) : (

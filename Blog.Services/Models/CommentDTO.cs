@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Blog.Data.Identity;
+using Blog.Services.Identity;
 
-namespace Blog.Data
+namespace Blog.Services.Models
 {
-    public class Comment
+    public class CommentDTO
     {
         public int CommentId { get; set; }
 
@@ -13,12 +13,12 @@ namespace Blog.Data
 
         public DateTime CreateDate { get; set; }
 
-        public int UserId { get; set; }
-        
-        public User User { get; set; }
-
         public int RecordId { get; set; }
 
-        public Record Record { get; set; }
+        public RecordDTO Record { get; set; }
+
+        public int UserId { get; set; }
+
+        public UserDTO User { get; set; }
     }
 }

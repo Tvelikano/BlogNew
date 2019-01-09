@@ -53,7 +53,7 @@ export default class AdminRecords extends React.Component<IProps> {
     return (
       <>
         <Link className="btn btn-primary" to="/Admin/Records/Add">
-          Create New Record
+          Создать новую запись
         </Link>
 
         <SearchHelper />
@@ -62,11 +62,11 @@ export default class AdminRecords extends React.Component<IProps> {
             <table className="table table-striped table-bordered table-hover">
               <tbody>
                 <tr>
-                  <th>Record Id</th>
-                  <th>Title</th>
-                  <th>Content</th>
-                  <th>State</th>
-                  <th>Create Date</th>
+                  <th>ID записи</th>
+                  <th>Заголовок</th>
+                  <th>Основная часть</th>
+                  <th>Кому видна</th>
+                  <th>Дата создания</th>
                   <th />
                 </tr>
                 {data.List.map(item => (
@@ -81,13 +81,13 @@ export default class AdminRecords extends React.Component<IProps> {
                         to={`Records/Edit/${item.Model.RecordId}`}
                         className="btn btn-primary"
                       >
-                        Edit
+                        Редактировать
                       </Link>
                       <button
                         onClick={() => DeleteRecord(item.Model.RecordId)}
                         className="btn btn-danger"
                       >
-                        Delete
+                        Удалить
                       </button>
                     </td>
                   </tr>

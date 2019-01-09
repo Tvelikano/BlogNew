@@ -12,12 +12,14 @@ import AdminUsersAdd from "Containers/Admin/Users/Add";
 import AdminUsersEdit from "Containers/Admin/Users/Edit";
 import AdminRoles from "Containers/Admin/Roles/Roles";
 import AdminRolesAdd from "Containers/Admin/Roles/Add";
+import Profile from "Containers/Account/Profile";
 
 const routes = (
   <Switch>
     <Route exact path="/Add" component={Add} />
     <Route exact path="/Login" component={Login} />
     <Route exact path="/Register" component={Register} />
+    <Route exact path="/Profile" component={Profile} />
     <Route exact path="/Admin/Records" component={AdminRecords} />
     <Route exact path="/Admin/Records/Add" component={AdminRecordsAdd} />
     <Route exact path="/Admin/Records/Edit/:id" component={AdminRecordsEdit} />

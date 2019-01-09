@@ -117,21 +117,21 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectConfigModule.cs" />
     <Compile Include="App_Start\ServiceAutoMapperModule.cs" />
-    <Compile Include="CommentDTO.cs" />
+    <Compile Include="Models\CommentDTO.cs" />
     <Compile Include="Enums\RecordStateDTO.cs" />
-    <Compile Include="GetArgsDTO.cs" />
+    <Compile Include="Models\GetArgsDTO.cs" />
     <Compile Include="Identity\AppOAuthProvider.cs" />
     <Compile Include="Identity\AppOAuthAuthorizationServerOptions.cs" />
     <Compile Include="Identity\Interfaces\IOAuthAuthorizationServerOptions.cs" />
     <Compile Include="Identity\Interfaces\IUserService.cs" />
     <Compile Include="Models\OperationDetails.cs" />
-    <Compile Include="ReturnModelDTO.cs" />
-    <Compile Include="ReturnListDTO.cs" />
+    <Compile Include="Models\ReturnModelDTO.cs" />
+    <Compile Include="Models\ReturnListDTO.cs" />
     <Compile Include="Identity\RoleDTO.cs" />
     <Compile Include="Identity\UserDTO.cs" />
     <Compile Include="Identity\UserService.cs" />
     <Compile Include="Interfaces\IRecordService.cs" />
-    <Compile Include="RecordDTO.cs" />
+    <Compile Include="Models\RecordDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordService.cs" />
   </ItemGroup>

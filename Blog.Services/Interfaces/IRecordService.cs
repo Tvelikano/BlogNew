@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Blog.Services.Models;
 
 namespace Blog.Services.Interfaces
 {

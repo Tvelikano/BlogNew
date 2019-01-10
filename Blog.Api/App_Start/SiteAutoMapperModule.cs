@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Blog.Api.Models;
-using Blog.Services.Identity;
+using Blog.Services.Identity.Models;
 using Ninject;
 using Ninject.Modules;
 

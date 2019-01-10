@@ -80,22 +80,22 @@
   <ItemGroup>
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\GetArgs.cs" />
-    <Compile Include="Identity\AppRoleStore.cs" />
-    <Compile Include="Identity\AppUserStore.cs" />
+    <Compile Include="Identity\Models\AppRoleStore.cs" />
+    <Compile Include="Identity\Models\AppUserStore.cs" />
     <Compile Include="Enums\RecordState.cs" />
     <Compile Include="Identity\AppRoleManager.cs" />
     <Compile Include="Identity\AppUserManager.cs" />
-    <Compile Include="Identity\EditUser.cs" />
+    <Compile Include="Identity\Models\EditUser.cs" />
     <Compile Include="Identity\Interfaces\IAppUserManager.cs" />
     <Compile Include="Identity\Interfaces\IAppRoleManager.cs" />
     <Compile Include="Identity\IdentityUnitOfWork.cs" />
-    <Compile Include="Identity\UserClaim.cs" />
-    <Compile Include="Identity\UserLogin.cs" />
-    <Compile Include="Identity\UserRole.cs" />
+    <Compile Include="Identity\Models\UserClaim.cs" />
+    <Compile Include="Identity\Models\UserLogin.cs" />
+    <Compile Include="Identity\Models\UserRole.cs" />
     <Compile Include="Interfaces\IRecordContext.cs" />
     <Compile Include="Identity\Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Identity\Role.cs" />
-    <Compile Include="Identity\User.cs" />
+    <Compile Include="Identity\Models\Role.cs" />
+    <Compile Include="Identity\Models\User.cs" />
     <Compile Include="Migrations\201812070937594_AddUserIdClaim.cs" />
     <Compile Include="Migrations\201812070937594_AddUserIdClaim.Designer.cs">
       <DependentUpon>201812070937594_AddUserIdClaim.cs</DependentUpon>

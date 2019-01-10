@@ -127,8 +127,8 @@
     <Compile Include="Models\OperationDetails.cs" />
     <Compile Include="Models\ReturnModelDTO.cs" />
     <Compile Include="Models\ReturnListDTO.cs" />
-    <Compile Include="Identity\RoleDTO.cs" />
-    <Compile Include="Identity\UserDTO.cs" />
+    <Compile Include="Identity\Models\RoleDTO.cs" />
+    <Compile Include="Identity\Models\UserDTO.cs" />
     <Compile Include="Identity\UserService.cs" />
     <Compile Include="Interfaces\IRecordService.cs" />
     <Compile Include="Models\RecordDTO.cs" />
@@ -136,7 +136,9 @@
     <Compile Include="RecordService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

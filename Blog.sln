@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Tests.Initialize", "Bl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Api.Tests", "Blog.Api.Tests\Blog.Api.Tests.csproj", "{7C589D70-E993-4D0D-A3B0-2097EA5712CC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B35DA7DF-9939-4E72-839F-6DE5BBBE543A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{67373EDF-4DFE-4887-B415-8678E5E9990A} = {B35DA7DF-9939-4E72-839F-6DE5BBBE543A}
+		{2CA9B57B-BFC0-478E-9836-85A963081E24} = {B35DA7DF-9939-4E72-839F-6DE5BBBE543A}
+		{EE79E29A-EE56-4567-ACFE-EF0345CD824B} = {B35DA7DF-9939-4E72-839F-6DE5BBBE543A}
+		{7C589D70-E993-4D0D-A3B0-2097EA5712CC} = {B35DA7DF-9939-4E72-839F-6DE5BBBE543A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D5B8AC75-C566-46D3-80C4-C6987DD75F05}

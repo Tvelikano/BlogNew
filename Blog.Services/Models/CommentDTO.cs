@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Blog.Services.Identity.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
-using Blog.Services.Identity;
 
 namespace Blog.Services.Models
 {

@@ -1,16 +1,8 @@
-﻿using AutoMapper;
-using Blog.Api.Controllers;
+﻿using Blog.Api.Controllers;
 using Blog.Api.Models;
-using Blog.Data.Identity;
-using Blog.Data.Repository;
-using Blog.Services;
-using Blog.Services.Identity;
 using Blog.Services.Models;
 using Blog.Tests.Initialize.EffortSetting;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System.Linq;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,25 +24,10 @@ namespace Blog.Api.Tests.Controllers
         [TestInitialize]
         public void TestInitialize()
         {
-            var repository = new Mock<EfRecordRepository>(EffortProviderFactory.GetFakeContext());
-
-            var conf = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<User, UserDTO>().ForMember(dest => dest.Roles, src => src.MapFrom(o => o.Roles.Select(r => r.RoleId)));
-
-                cfg.CreateMap<IdentityUserRole, string>().ConvertUsing(src => src.RoleId);
-
-                cfg.CreateMap<RoleDTO, Role>().ForMember(dest => dest.Users, src => src.Ignore());
-            });
-
-            var mapper = new Mapper(conf);
-
-            var service = new RecordService(repository.Object, mapper);
-
             var identity = new GenericIdentity("Admin");
             Thread.CurrentPrincipal = new GenericPrincipal(identity, new[] { "Admin" });
 
-            _controller = new RecordController(service);
+            _controller = new RecordController(EffortProviderFactory.GetFakeRecordService());
         }
 
         [TestMethod]

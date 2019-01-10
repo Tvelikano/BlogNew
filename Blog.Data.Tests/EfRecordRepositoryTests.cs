@@ -106,7 +106,7 @@ namespace Blog.Data.Tests
 
             var comments = _repository.GetCommentsById(recordId);
 
-            Assert.AreEqual(1, comments.Count);
+            Assert.AreEqual(3, comments.Count);
         }
 
         [TestMethod]
@@ -124,7 +124,7 @@ namespace Blog.Data.Tests
             await _repository.InsertComment(comment);
             var comments = _repository.GetCommentsById(comment.RecordId);
 
-            Assert.AreEqual(2, comments.Count);
+            Assert.AreEqual(4, comments.Count);
         }
     }
 }

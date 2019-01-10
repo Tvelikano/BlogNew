@@ -1,14 +1,7 @@
-﻿using AutoMapper;
-using Blog.Data.Identity;
-using Blog.Data.Repository;
-using Blog.Services.Identity;
-using Blog.Services.Models;
+﻿using Blog.Services.Models;
 using Blog.Tests.Initialize.EffortSetting;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Blog.Services.Tests
@@ -27,20 +20,10 @@ namespace Blog.Services.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            var repository = new Mock<EfRecordRepository>(EffortProviderFactory.GetFakeContext());
-
-            var conf = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<User, UserDTO>().ForMember(dest => dest.Roles, src => src.MapFrom(o => o.Roles.Select(r => r.RoleId)));
-
-                cfg.CreateMap<IdentityUserRole, string>().ConvertUsing(src => src.RoleId);
-
-                cfg.CreateMap<RoleDTO, Role>().ForMember(dest => dest.Users, src => src.Ignore());
-            });
-
-            var mapper = new Mapper(conf);
-
-            _service = new RecordService(repository.Object, mapper);
+            _service = new RecordService(
+                EffortProviderFactory.GetFakeRecordRepository(),
+                EffortProviderFactory.GetFakeServiceAutoMapper()
+                );
         }
 
         [TestMethod]
@@ -112,7 +95,7 @@ namespace Blog.Services.Tests
 
             var comments = _service.GetCommentsById(recordId);
 
-            Assert.AreEqual(1, comments.Count);
+            Assert.AreEqual(3, comments.Count);
         }
 
         [TestMethod]
@@ -130,7 +113,7 @@ namespace Blog.Services.Tests
             await _service.InsertComment(comment);
             var comments = _service.GetCommentsById(comment.RecordId);
 
-            Assert.AreEqual(2, comments.Count);
+            Assert.AreEqual(4, comments.Count);
         }
     }
 }

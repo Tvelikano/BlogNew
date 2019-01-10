@@ -1,4 +1,4 @@
-﻿namespace Blog.Data.Identity
+﻿namespace Blog.Data.Identity.Models
 {
     public class EditUser
     {

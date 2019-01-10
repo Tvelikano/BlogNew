@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Blog.Api.Models;
-using Blog.Services;
 using Blog.Services.Identity;
 using Blog.Services.Identity.Interfaces;
+using Blog.Services.Identity.Models;
 using Blog.Services.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;

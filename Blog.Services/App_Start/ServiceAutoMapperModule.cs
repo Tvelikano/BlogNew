@@ -1,10 +1,11 @@
-﻿using System.Linq;
-using AutoMapper;
-using Blog.Data.Identity;
+﻿using AutoMapper;
+using Blog.Data.Identity.Models;
 using Blog.Services.Identity;
+using Blog.Services.Identity.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject;
 using Ninject.Modules;
+using System.Linq;
 
 namespace Blog.Services
 {
@@ -20,7 +21,7 @@ namespace Blog.Services
             var conf = new MapperConfiguration(cfg =>
             {
                 cfg.ConstructServicesUsing(type => context.Kernel.Get(type));
-                
+
                 cfg.CreateMap<User, UserDTO>().ForMember(dest => dest.Roles, src => src.MapFrom(o => o.Roles.Select(r => r.RoleId)));
 
                 cfg.CreateMap<IdentityUserRole, string>().ConvertUsing(src => src.RoleId);

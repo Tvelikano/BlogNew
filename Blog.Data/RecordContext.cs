@@ -1,4 +1,5 @@
 ﻿using Blog.Data.Identity;
+using Blog.Data.Identity.Models;
 using Blog.Data.Interfaces;
 using Blog.Data.Models;
 using Microsoft.AspNet.Identity.EntityFramework;

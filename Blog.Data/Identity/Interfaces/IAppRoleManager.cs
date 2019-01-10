@@ -1,6 +1,7 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using Blog.Data.Identity.Models;
 using Microsoft.AspNet.Identity;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Blog.Data.Identity.Interfaces
 {

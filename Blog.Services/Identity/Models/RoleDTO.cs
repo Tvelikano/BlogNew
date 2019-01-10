@@ -1,4 +1,4 @@
-﻿namespace Blog.Services.Identity
+﻿namespace Blog.Services.Identity.Models
 {
     public class RoleDTO
     {

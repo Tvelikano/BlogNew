@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using Blog.Data.Identity;
 using Blog.Data.Identity.Interfaces;
+using Blog.Data.Identity.Models;
 using Blog.Services.Identity.Interfaces;
+using Blog.Services.Identity.Models;
 using Blog.Services.Models;
 using Microsoft.AspNet.Identity;
 using System;
@@ -25,11 +26,11 @@ namespace Blog.Services.Identity
             _userMapper = userMapper;
             _roleMapper = roleMapper;
         }
-        
+
         public ReturnListDTO<TUser> GetAllUsers(GetArgsDTO<TUser> usersArgs)
         {
             var query = _database.UserManager.Users;
-            
+
             if (!string.IsNullOrEmpty(usersArgs.SearchString))
             {
                 query = query.Where(r => r.UserName.Contains(usersArgs.SearchString));
@@ -63,9 +64,9 @@ namespace Blog.Services.Identity
         {
             var result = await _database.UserManager.EditUserAsync(_userMapper.Map<EditUser>(userDto));
 
-            return !result.Succeeded ? 
+            return !result.Succeeded ?
                 new OperationDetails(false, result.Errors) :
-                new OperationDetails(true, new[] {"User information successfully changed"});
+                new OperationDetails(true, new[] { "User information successfully changed" });
         }
 
         public async Task<OperationDetails> CreateUser(TUser userDto)

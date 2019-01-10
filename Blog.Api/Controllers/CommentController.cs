@@ -1,5 +1,4 @@
-﻿using Blog.Services;
-using Blog.Services.Interfaces;
+﻿using Blog.Services.Interfaces;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using System.Web.Http;

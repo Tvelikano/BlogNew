@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Blog.Services.Enums;
+using Blog.Services.Identity.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Blog.Services.Enums;
-using Blog.Services.Identity;
 
 namespace Blog.Services.Models
 {

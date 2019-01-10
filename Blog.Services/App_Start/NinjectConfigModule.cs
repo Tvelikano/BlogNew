@@ -12,6 +12,8 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Ninject.Modules;
 using System.Web;
+using Blog.Data.Identity.Models;
+using Blog.Services.Identity.Models;
 
 namespace Blog.Services
 {

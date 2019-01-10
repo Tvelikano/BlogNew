@@ -1,13 +1,11 @@
 ﻿using Blog.Data.Identity.Interfaces;
-
+using Blog.Data.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
-
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Blog.Data.Models;
 
-namespace Blog.Data.Identity
+namespace Blog.Data.Identity.Models
 {
     public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>
     {

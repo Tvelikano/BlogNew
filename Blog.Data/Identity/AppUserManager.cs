@@ -1,8 +1,7 @@
 ﻿using Blog.Data.Identity.Interfaces;
-
+using Blog.Data.Identity.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-
 using System.Linq;
 using System.Threading.Tasks;
 

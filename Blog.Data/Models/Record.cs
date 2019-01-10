@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Blog.Data.Enums;
+using Blog.Data.Identity.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Blog.Data.Enums;
-using Blog.Data.Identity;
 
 namespace Blog.Data.Models
 {

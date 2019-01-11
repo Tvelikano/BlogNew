@@ -20,6 +20,7 @@ const routes = (
     <Route exact path="/Login" component={Login} />
     <Route exact path="/Register" component={Register} />
     <Route exact path="/Profile" component={Profile} />
+    <Route exact path="/Record/:id" component={Profile} />
     <Route exact path="/Admin/Records" component={AdminRecords} />
     <Route exact path="/Admin/Records/Add" component={AdminRecordsAdd} />
     <Route exact path="/Admin/Records/Edit/:id" component={AdminRecordsEdit} />

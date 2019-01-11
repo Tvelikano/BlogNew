@@ -75,11 +75,13 @@ namespace Blog.Data.Repository
             return await _records.FindAsync(id);
         }
 
-        public async Task Insert(Record entityToInsert)
+        public async Task<int> Insert(Record entityToInsert)
         {
             _records.Add(entityToInsert);
 
             await Save();
+
+            return entityToInsert.RecordId;
         }
 
         public async Task Delete(int id)

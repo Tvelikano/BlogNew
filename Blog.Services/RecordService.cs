@@ -29,11 +29,11 @@ namespace Blog.Services
             return _mapper.Map<RecordDTO>(await _repository.GetById(id));
         }
 
-        public async Task Insert(RecordDTO record)
+        public async Task<int> Insert(RecordDTO record)
         {
             record.CreateDate = DateTime.Now;
 
-            await _repository.Insert(_mapper.Map<Record>(record));
+            return await _repository.Insert(_mapper.Map<Record>(record));
         }
 
         public async Task Update(RecordDTO record)

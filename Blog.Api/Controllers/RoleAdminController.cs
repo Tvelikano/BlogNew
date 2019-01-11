@@ -1,11 +1,10 @@
-﻿using Blog.Services.Identity;
-using Blog.Services.Identity.Interfaces;
+﻿using Blog.Services.Identity.Interfaces;
+using Blog.Services.Identity.Models;
 using Blog.Services.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using Blog.Services.Identity.Models;
 
 namespace Blog.Api.Controllers
 {
@@ -28,8 +27,8 @@ namespace Blog.Api.Controllers
 
         public async Task<IHttpActionResult> Post([FromBody]string name)
         {
-            return !ModelState.IsValid ? 
-                BadRequest(ModelState) : 
+            return !ModelState.IsValid ?
+                BadRequest(ModelState) :
                 ReturnResult(await _userService.CreateRole(name));
         }
 
@@ -42,9 +41,9 @@ namespace Blog.Api.Controllers
         {
             if (result.IsSucceed) return Ok();
 
-            if (result.Message != null)
+            if (result.Errors != null)
             {
-                foreach (var error in result.Message)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error);
                 }

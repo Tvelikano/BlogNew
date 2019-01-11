@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import App from "App";
 import { history, store } from "Store/ConfigureStore";
+import "signalr";
 
 ReactDOM.render(
   <Provider store={store}>

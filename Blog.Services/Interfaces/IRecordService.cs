@@ -9,7 +9,7 @@ namespace Blog.Services.Interfaces
 
         Task<RecordDTO> GetById(int id);
 
-        Task Insert(RecordDTO record);
+        Task<int> Insert(RecordDTO record);
 
         Task Update(RecordDTO record);
 

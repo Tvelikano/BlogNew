@@ -100,9 +100,9 @@ namespace Blog.Api.Controllers
         {
             if (result.IsSucceed) return Ok();
 
-            if (result.Message != null)
+            if (result.Errors != null)
             {
-                foreach (var error in result.Message)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error);
                 }

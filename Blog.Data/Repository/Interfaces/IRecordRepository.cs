@@ -9,7 +9,7 @@ namespace Blog.Data.Repository.Interfaces
 
         Task<Record> GetById(int id);
 
-        Task Insert(Record entityToInsert);
+        Task<int> Insert(Record entityToInsert);
 
         Task Delete(int id);
 

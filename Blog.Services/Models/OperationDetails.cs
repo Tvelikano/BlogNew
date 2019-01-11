@@ -4,14 +4,14 @@ namespace Blog.Services.Models
 {
     public class OperationDetails
     {
-        public OperationDetails(bool isSucceed, IEnumerable<string> message)
+        public OperationDetails(bool isSucceed, IEnumerable<string> errors)
         {
             IsSucceed = isSucceed;
-            Message = message;
+            Errors = errors;
         }
 
         public bool IsSucceed { get; }
 
-        public IEnumerable<string> Message { get; }
+        public IEnumerable<string> Errors { get; }
     }
 }

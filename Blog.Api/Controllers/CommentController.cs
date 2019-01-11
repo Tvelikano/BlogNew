@@ -8,7 +8,7 @@ using Blog.Services.Models;
 namespace Blog.Api.Controllers
 {
     [EnableCors("http://localhost:53695", "*", "*", SupportsCredentials = true)]
-    public class CommentController : ApiController
+    public class CommentController : ApiController 
     {
         private readonly IRecordService _recordService;
 

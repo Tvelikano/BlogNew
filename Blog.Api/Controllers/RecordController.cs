@@ -1,4 +1,5 @@
-﻿using Blog.Api.Models;
+﻿using Blog.Api.Hubs;
+using Blog.Api.Models;
 using Blog.Services.Interfaces;
 using Blog.Services.Models;
 using Microsoft.AspNet.Identity;
@@ -61,10 +62,14 @@ namespace Blog.Api.Controllers
         [Authorize]
         public async Task Post([FromBody]RecordDTO record)
         {
+            record.UserId = User.Identity.GetUserId<int>();
 
-            record.UserId = RequestContext.Principal.Identity.GetUserId<int>();
+            var recordId = await _recordService.Insert(record);
 
-            await _recordService.Insert(record);
+            if (recordId != 0)
+            {
+                RecordHub.Hello(recordId);
+            }
         }
 
         [Authorize(Roles = "Admin")]

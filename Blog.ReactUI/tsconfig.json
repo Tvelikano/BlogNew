@@ -3,6 +3,7 @@
     "lib": ["es6", "dom"],
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
+    "allowJs": true,
     "module": "ESNext",
     "moduleResolution": "node",
     "noImplicitAny": true,

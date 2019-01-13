@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Blog.Services.NinjectConfigModule">
+    <Position X="0.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\NinjectConfigModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Services.ServiceAutoMapperModule">
+    <Position X="10.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\ServiceAutoMapperModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Services.RecordService" BaseTypeListCollapsed="true">
+    <Position X="2" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAABAAAIAAAAFAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>RecordService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Blog.Services.Identity.AppOAuthAuthorizationServerOptions" BaseTypeListCollapsed="true">
+    <Position X="9" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Identity\AppOAuthAuthorizationServerOptions.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Blog.Services.Identity.AppOAuthProvider">
+    <Position X="6" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAABAAAAAACAAAAAAAAAAAAAEAAEIAAAAAAAAAAAgA=</HashCode>
+      <FileName>Identity\AppOAuthProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Services.Identity.UserService&lt;TUser, TRole&gt;" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAIASAEAAAAAAACAAIIAAgAAAQAAAAAAAEQAgA=</HashCode>
+      <FileName>Identity\UserService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Blog.Services.Identity.Models.RoleDTO">
+    <Position X="11.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Identity\Models\RoleDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Services.Identity.Models.UserDTO">
+    <Position X="9.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAAAAgAAAAACAQAAAAAAAAA=</HashCode>
+      <FileName>Identity\Models\UserDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Services.Models.CommentDTO">
+    <Position X="2.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAgAAAAAAAAAAAAgAAAAAAAAgAAABAAIABAA=</HashCode>
+      <FileName>Models\CommentDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Services.Models.OperationDetails">
+    <Position X="9" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Models\OperationDetails.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Services.Models.RecordDTO">
+    <Position X="9.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAgAAAAAAAAAAAAwAAAAAAAAAAAABBAIAIAA=</HashCode>
+      <FileName>Models\RecordDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Services.Models.ReturnListDTO&lt;T&gt;">
+    <Position X="10.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAEAAAAI=</HashCode>
+      <FileName>Models\ReturnListDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Services.Models.ReturnModelDTO&lt;T&gt;">
+    <Position X="3.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAEAAAAA=</HashCode>
+      <FileName>Models\ReturnModelDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Blog.Services.Models.GetArgsDTO&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAACAQAAAAAAAAAAAgCAAAAAAAAAAAECAAAAA=</HashCode>
+      <FileName>Models\GetArgsDTO.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Blog.Services.Identity.Interfaces.IOAuthAuthorizationServerOptions" Collapsed="true">
+    <Position X="5.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Identity\Interfaces\IOAuthAuthorizationServerOptions.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Blog.Services.Identity.Interfaces.IUserService&lt;TUser, TRole&gt;" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAIAQAAAAAAAAACAAIIAAAAAAAAAAAAAAEQAgA=</HashCode>
+      <FileName>Identity\Interfaces\IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Blog.Services.Interfaces.IRecordService" Collapsed="true">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAIAAAAEAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Interfaces\IRecordService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Blog.Services.Enums.RecordStateDTO">
+    <Position X="8" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAEAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Enums\RecordStateDTO.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

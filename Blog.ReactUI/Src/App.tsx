@@ -13,9 +13,7 @@ const App = ({ history }: IProps) => (
   <ConnectedRouter history={history}>
     <>
       <Nav />
-      <div className="bg-light">
-        <div className="container flex-fill py-3">{routes}</div>
-      </div>
+      <div>{routes}</div>
       <Footer />
     </>
   </ConnectedRouter>

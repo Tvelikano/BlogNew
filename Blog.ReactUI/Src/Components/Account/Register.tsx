@@ -50,7 +50,7 @@ export default class Register extends React.Component<IProps> {
         </div>
 
         <div className="form-group">
-          <label>Подтвердитье пароль</label>
+          <label>Подтвердите пароль</label>
           <input
             required
             type="password"

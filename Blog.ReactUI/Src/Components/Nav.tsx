@@ -39,34 +39,61 @@ export default class Nav extends React.Component<IProps, IState> {
   public render() {
     const { user, isAuthenticated, Logout } = this.props;
     return (
-      <nav className="navbar bg-dark col_white">
-        <div className="container">
-          <Link to="/" className="navbar-brand">
-            Статьи
-          </Link>
-          <Popup ref={this.popup} id={this.state.newRecordsId} />
-          <div>
-            {isAuthenticated ? (
-              <>
-                <Link className="btn btn-primary mr-1" to="/Profile">
-                  {user.UserName}
-                </Link>
-                <a className="btn btn-danger" onClick={Logout}>
-                  Выйти
-                </a>
-              </>
-            ) : (
-              <>
-                <Link className="btn btn-primary mr-1" to="/Login">
-                  Войти
-                </Link>
-                <Link className="btn btn-info" to="/Register">
-                  Зарегистрироваться
-                </Link>
-              </>
-            )}
-          </div>
+      <nav className="navbar navbar-expand-sm bg-dark navbar-dark ">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to="/" className="navbar-brand">
+              Статьи
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/" className="nav-link">
+              Новости
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/" className="nav-link">
+              Информация
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/" className="nav-item nav-link">
+              Мероприятия
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/" className="nav-item nav-link">
+              Контакты
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/" className="nav-item nav-link">
+              О нас
+            </Link>
+          </li>
+        </ul>
+        <div>
+          {isAuthenticated ? (
+            <>
+              <Link className="btn btn-primary mr-1" to="/Profile">
+                {user.UserName}
+              </Link>
+              <a className="btn btn-danger" onClick={Logout}>
+                Выйти
+              </a>
+            </>
+          ) : (
+            <>
+              <Link className="btn btn-primary mr-1" to="/Login">
+                Войти
+              </Link>
+              <Link className="btn btn-info" to="/Register">
+                Зарегистрироваться
+              </Link>
+            </>
+          )}
         </div>
+        <Popup ref={this.popup} id={this.state.newRecordsId} />
       </nav>
     );
   }

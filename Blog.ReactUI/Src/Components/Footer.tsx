@@ -3,8 +3,9 @@ import * as React from "react";
 export default class Footer extends React.Component<any> {
   public render() {
     return (
-      <footer className="container-fluid footer bg-dark">
-        <div className="container bottom_border">
+      <footer className="footer bg-dark">
+      <div className="container">
+      <div className="bottom_border">
           <div className="row">
             <div className="col-sm-4 col-md col-sm-4 col-12 col">
               <h5 className="headin5 col_white pt2">Наши контакты</h5>
@@ -15,7 +16,7 @@ export default class Footer extends React.Component<any> {
                 <i className="fa fa-phone" /> +375 33 532-4343
               </p>
               <p>
-                <i className="fa fa fa-envelope" /> info@example.com
+                <i className="fa fa-envelope" /> info@example.com
               </p>
             </div>
 
@@ -37,7 +38,6 @@ export default class Footer extends React.Component<any> {
                 </li>
               </ul>
             </div>
-
             <div className="col-sm-4 col-md  col-6 col">
               <h5 className="headin5 col_white pt2">Ссылки</h5>
 
@@ -87,6 +87,8 @@ export default class Footer extends React.Component<any> {
             <li><a href="#"><i className="fab fa-instagram"></i></a></li>
           </ul>
         </div>
+        </div>
+       
       </footer>
     );
   }

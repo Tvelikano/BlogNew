@@ -37,8 +37,7 @@ namespace Blog.Api
                         PolicyResolver = context =>
                         {
                             var policy = new CorsPolicy { AllowAnyHeader = true, AllowAnyMethod = true, SupportsCredentials = true };
-
-                            // Only allow CORS requests from the trusted domains.
+                            
                             cors.Origins.ToList().ForEach(o => policy.Origins.Add(o));
 
                             return Task.FromResult(policy);

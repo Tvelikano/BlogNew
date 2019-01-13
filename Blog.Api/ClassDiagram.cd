@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Blog.Api.SiteAutoMapperModule">
+    <Position X="7.25" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\SiteAutoMapperModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Startup">
+    <Position X="2.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Startup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Controllers.AccountController">
+    <Position X="2.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAABAAIAAAABABAAAEAEAAAAAAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Controllers.CommentController">
+    <Position X="2.25" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAABAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\CommentController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Controllers.RecordController">
+    <Position X="7.5" Y="3.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAABAACAEAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Controllers\RecordController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Controllers.RoleAdminController">
+    <Position X="0.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAABAAAAAACAEAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Controllers\RoleAdminController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Controllers.UserAdminController">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAABABAAAACAEAAAAAAAAEAAAAAAg=</HashCode>
+      <FileName>Controllers\UserAdminController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Hubs.RecordHub">
+    <Position X="4.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Hubs\RecordHub.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Models.ListViewModel&lt;T&gt;">
+    <Position X="6" Y="8.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACEAAAI=</HashCode>
+      <FileName>Models\ListViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Models.LoginViewModel">
+    <Position X="8.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAAAAAAAAA=</HashCode>
+      <FileName>Models\LoginViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Models.PagingInfo">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Models\PagingInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Models.RegisterViewModel">
+    <Position X="0.75" Y="8.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAgAAAAAACAQAAAAAAAAA=</HashCode>
+      <FileName>Models\RegisterViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Models.SearchQuery">
+    <Position X="4.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAECAAAAA=</HashCode>
+      <FileName>Models\SearchQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Api.Models.UserViewModel">
+    <Position X="2.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAAAggAAAAACAQAAAAAAAAA=</HashCode>
+      <FileName>Models\UserViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

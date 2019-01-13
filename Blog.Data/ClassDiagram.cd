@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Blog.Data.Identity.AppRoleManager" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Identity\AppRoleManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Blog.Data.Identity.AppUserManager" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Identity\AppUserManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Blog.Data.Identity.Models.Role" Collapsed="true">
+    <Position X="5.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Identity\Models\Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Data.Identity.Models.User">
+    <Position X="3.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Identity\Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Data.Models.Comment">
+    <Position X="6.75" Y="3" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAgAAAAAAAAAAAAgAAAAAAAAgAAABAAIABAA=</HashCode>
+      <FileName>Models\Comment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Data.Models.Record">
+    <Position X="6.75" Y="0.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAgAAAAAAAAAAAAwAAAAAAAAAAAABBAIAIAA=</HashCode>
+      <FileName>Models\Record.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blog.Data.RecordContext" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAgAABAAEAAAAEgAAAAAAAAAIAA=</HashCode>
+      <FileName>RecordContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Blog.Data.Repository.EfRecordRepository" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAMAAEAAABAJAAAAEAAAAEAEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Repository\EfRecordRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" Collapsed="true" />
+  </Class>
+  <Interface Name="Blog.Data.Identity.Interfaces.IAppRoleManager" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAIAAAAgAACAAAAAAAAIAAAIA=</HashCode>
+      <FileName>Identity\Interfaces\IAppRoleManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Blog.Data.Identity.Interfaces.IAppUserManager" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAQCAAAIAwAAAAIAAACAAAAAAAAAAAAIAAAIA=</HashCode>
+      <FileName>Identity\Interfaces\IAppUserManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Blog.Data.Interfaces.IRecordContext" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAQAAAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Interfaces\IRecordContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Blog.Data.Repository.Interfaces.IRecordRepository" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAMAAAAAAAAJAAAAEAAAAAAEAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Repository\Interfaces\IRecordRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Blog.Data.Enums.RecordState" Collapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.25" />
+    <Members>
+      <Field Name="Internal" Hidden="true" />
+      <Field Name="Private" Hidden="true" />
+      <Field Name="Public" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAEAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Enums\RecordState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

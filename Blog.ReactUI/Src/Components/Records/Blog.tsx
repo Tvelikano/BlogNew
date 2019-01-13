@@ -9,6 +9,7 @@ import PagingHelper from "Components/Helpers/PagingHelper";
 import Record from "Components/records/Record";
 import CommentDTO from "Types/CommentDTO";
 import SearchQuery from "Types/SearchQuery";
+import Carousel from "Components/Carousel";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -70,26 +71,30 @@ export default class Blog extends React.Component<IProps> {
 
     return (
       <>
-        <Link className="btn mb-2 btn-primary" to="/Add">
-          Предложить свою новость
-        </Link>
+        <Carousel />
 
-        <SearchHelper />
+        <div className="container">
+          <Link className="btn mb-2 btn-primary" to="/Add">
+            Предложить свою новость
+          </Link>
 
-        {data.List.map(item => (
-          <Record
-            isAuthenticated={isAuthenticated}
-            key={item.Model.RecordId}
-            model={item}
-            ShowComments={() => {
-              ShowComments(item.Model.RecordId),
-                GetComments(item.Model.RecordId);
-            }}
-            CreateComment={(data: CommentDTO) => CreateComment(data)}
-          />
-        ))}
+          <SearchHelper />
 
-        <PagingHelper query={location.search} pagingInfo={data.PageInfo} />
+          {data.List.map(item => (
+            <Record
+              isAuthenticated={isAuthenticated}
+              key={item.Model.RecordId}
+              model={item}
+              ShowComments={() => {
+                ShowComments(item.Model.RecordId),
+                  GetComments(item.Model.RecordId);
+              }}
+              CreateComment={(data: CommentDTO) => CreateComment(data)}
+            />
+          ))}
+
+          <PagingHelper query={location.search} pagingInfo={data.PageInfo} />
+        </div>
       </>
     );
   }

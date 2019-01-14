@@ -19,7 +19,7 @@ export default class Record extends React.PureComponent<IProps> {
     const { CreateComment, ShowComments, isAuthenticated } = this.props;
 
     return (
-      <div className="card mb-3">
+      <div className="container card mb-3">
         <div className="card-body">
           <h4 className="card-title">{Model.Name}</h4>
           <p className="card-text pb-3 text-muted text-truncate">

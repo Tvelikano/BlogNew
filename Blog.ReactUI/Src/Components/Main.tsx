@@ -9,7 +9,6 @@ import PagingHelper from "Components/Helpers/PagingHelper";
 import Record from "Components/records/Record";
 import CommentDTO from "Types/CommentDTO";
 import SearchQuery from "Types/SearchQuery";
-import Carousel from "Components/Carousel";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -25,7 +24,7 @@ interface IProps {
   ShowComments: (id: number) => void;
 }
 
-export default class Blog extends React.Component<IProps> {
+export default class Main extends React.Component<IProps> {
   public componentDidMount() {
     const { location, GetRecords } = this.props;
 
@@ -70,32 +69,28 @@ export default class Blog extends React.Component<IProps> {
     } = this.props;
 
     return (
-      <>
-        <Carousel />
+      <div className="container">
+        <Link className="btn mt-2 mb-2 btn-primary" to="/Add">
+          Предложить свою новость
+        </Link>
 
-        <div className="container">
-          <Link className="btn mb-2 btn-primary" to="/Add">
-            Предложить свою новость
-          </Link>
+        <SearchHelper />
 
-          <SearchHelper />
+        {data.List.map(item => (
+          <Record
+            isAuthenticated={isAuthenticated}
+            key={item.Model.RecordId}
+            model={item}
+            ShowComments={() => {
+              ShowComments(item.Model.RecordId),
+                GetComments(item.Model.RecordId);
+            }}
+            CreateComment={(data: CommentDTO) => CreateComment(data)}
+          />
+        ))}
 
-          {data.List.map(item => (
-            <Record
-              isAuthenticated={isAuthenticated}
-              key={item.Model.RecordId}
-              model={item}
-              ShowComments={() => {
-                ShowComments(item.Model.RecordId),
-                  GetComments(item.Model.RecordId);
-              }}
-              CreateComment={(data: CommentDTO) => CreateComment(data)}
-            />
-          ))}
-
-          <PagingHelper query={location.search} pagingInfo={data.PageInfo} />
-        </div>
-      </>
+        <PagingHelper query={location.search} pagingInfo={data.PageInfo} />
+      </div>
     );
   }
 }

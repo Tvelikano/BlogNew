@@ -25,7 +25,7 @@ export default class Add extends React.Component<IProps> {
   };
 
   public render = () => (
-    <>
+    <div className="container">
       <h4>Новый пользователь</h4>
 
       <form className="add" onSubmit={this.handleSubmit}>
@@ -81,6 +81,6 @@ export default class Add extends React.Component<IProps> {
       <Link to="/Admin/Users" className="btn btn-danger">
         Отмена
       </Link>
-    </>
+    </div>
   );
 }

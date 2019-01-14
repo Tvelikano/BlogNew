@@ -48,7 +48,7 @@ export default class AdminUsers extends React.Component<IProps> {
     const { location, data, DeleteUser } = this.props;
 
     return (
-      <>
+      <div className="container">
         <Link className="btn btn-primary" to="/Admin/Users/Add">
           Создать нового пользователя
         </Link>
@@ -98,7 +98,7 @@ export default class AdminUsers extends React.Component<IProps> {
             <PagingHelper query={location.search} pagingInfo={data.PageInfo} />
           </>
         ) : null}
-      </>
+      </div>
     );
   }
 }

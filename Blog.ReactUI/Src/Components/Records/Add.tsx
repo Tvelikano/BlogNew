@@ -22,7 +22,7 @@ export default class Add extends React.Component<IProps> {
   };
 
   public render = () => (
-    <>
+    <div className="container">
       {this.props.isAuthenticated ? (
         <>
           <h4>Предложить новость</h4>
@@ -60,6 +60,6 @@ export default class Add extends React.Component<IProps> {
       ) : (
         <Redirect to="Login" />
       )}
-    </>
+    </div>
   );
 }

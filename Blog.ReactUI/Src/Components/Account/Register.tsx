@@ -25,7 +25,7 @@ export default class Register extends React.Component<IProps> {
   };
 
   public render = () => (
-    <>
+    <div className="container">
       <h2>Регистрация</h2>
       <hr />
       <form onSubmit={this.handleSubmit}>
@@ -63,6 +63,6 @@ export default class Register extends React.Component<IProps> {
           <button className="btn btn-primary">Зарегистрироваться</button>
         </div>
       </form>
-    </>
+    </div>
   );
 }

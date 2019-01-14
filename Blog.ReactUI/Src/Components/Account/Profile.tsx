@@ -10,7 +10,7 @@ export default class Profile extends React.Component<IProps> {
   public render() {
     const { user } = this.props;
     return (
-      <>
+      <div className="container">
         {user && user.Roles && user.Roles.indexOf("Admin") !== -1 ? (
           <>
             <Link className="btn btn-primary m-1" to="/Admin/Records">
@@ -24,7 +24,7 @@ export default class Profile extends React.Component<IProps> {
             </Link>
           </>
         ) : null}
-      </>
+      </div>
     );
   }
 }

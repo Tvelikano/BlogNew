@@ -23,7 +23,7 @@ export default class Add extends React.PureComponent<IProps> {
   };
 
   public render = () => (
-    <>
+    <div className="container">
       <h4>Новая запись</h4>
 
       <form className="add" onSubmit={this.handleSubmit}>
@@ -66,6 +66,6 @@ export default class Add extends React.PureComponent<IProps> {
       <Link to="/Admin/Records" className="btn btn-danger">
         Отмена
       </Link>
-    </>
+    </div>
   );
 }

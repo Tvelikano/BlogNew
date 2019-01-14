@@ -1,8 +1,10 @@
+.routes {
+  min-height: 55vh;
+}
 .col_white {
   color: #fff;
 }
 footer {
-  background-color: #263238;
   padding: 10px 0px 25px 0px;
 }
 .pt2 {
@@ -12,11 +14,7 @@ footer {
 footer p {
   font-size: 13px;
   color: #ccc;
-  padding-bottom: 0px;
   margin-bottom: 8px;
-}
-.mb10 {
-  padding-bottom: 15px;
 }
 .footer_ul {
   margin: 0px;

@@ -51,7 +51,7 @@ export default class AdminRecords extends React.Component<IProps> {
     const { data, DeleteRecord } = this.props;
 
     return (
-      <>
+      <div className="container">
         <Link className="btn btn-primary" to="/Admin/Records/Add">
           Создать новую запись
         </Link>
@@ -97,7 +97,7 @@ export default class AdminRecords extends React.Component<IProps> {
             <PagingHelper query={location.search} pagingInfo={data.PageInfo} />
           </>
         ) : null}
-      </>
+      </div>
     );
   }
 }

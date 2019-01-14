@@ -5,7 +5,7 @@ import * as commentActions from "Actions/CommentActions";
 import { IStoreState } from "Types/Index";
 import CommentDTO from "Types/CommentDTO";
 import SearchQuery from "Types/SearchQuery";
-import Blog from "Components/Records/Blog";
+import Main from "Components/Main";
 
 function mapStateToProps({ records, account }: IStoreState) {
   return {
@@ -40,4 +40,4 @@ function mapDispatchToProps(
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Blog);
+)(Main);

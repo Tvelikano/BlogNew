@@ -68,7 +68,7 @@ namespace Blog.Api.Controllers
 
             if (recordId != 0)
             {
-                RecordHub.Hello(recordId);
+                RecordHub.NewRecord(recordId);
             }
         }
 

@@ -42,7 +42,7 @@ export default class Edit extends React.PureComponent<IProps> {
   public render() {
     const { record } = this.props;
     return (
-      <>
+      <div className="container">
         <h4>Редактировать запись</h4>
 
         <form className="add" onSubmit={this.handleSubmit}>
@@ -95,7 +95,7 @@ export default class Edit extends React.PureComponent<IProps> {
         <Link to="/Admin/Records" className="btn btn-danger">
           Отмена
         </Link>
-      </>
+      </div>
     );
   }
 }

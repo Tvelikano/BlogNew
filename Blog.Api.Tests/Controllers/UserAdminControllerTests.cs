@@ -35,7 +35,16 @@ namespace Blog.Api.Tests.Controllers
         [TestMethod]
         public void Get_ByQuery()
         {
-            const int id = 2;
+            var searchQuery = new SearchQuery
+            {
+                Page = 1,
+                PageSize = 2,
+                SearchString = ""
+            };
+
+            var records = _controller.Get(searchQuery);
+
+            Assert.AreEqual(2, records.List.Count);
         }
 
         [TestMethod]

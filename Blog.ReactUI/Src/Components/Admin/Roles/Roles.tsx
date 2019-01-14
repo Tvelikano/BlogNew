@@ -17,7 +17,7 @@ export default class AdminRoles extends React.Component<IProps> {
     const { data, DeleteRole } = this.props;
 
     return (
-      <>
+      <div className="container">
         <Link to="/Admin/Roles/Add" className="btn btn-primary">
           Создать новую роль
         </Link>
@@ -47,7 +47,7 @@ export default class AdminRoles extends React.Component<IProps> {
               : null}
           </tbody>
         </table>
-      </>
+      </div>
     );
   }
 }

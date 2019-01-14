@@ -4,16 +4,16 @@ namespace Blog.Api.Hubs
 {
     public class RecordHub : Hub
     {
-        private static IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<RecordHub>();
+        private static readonly IHubContext HubContext = GlobalHost.ConnectionManager.GetHubContext<RecordHub>();
 
-        public void Hello()
+        public void NewRecord()
         {
-            Clients.All.hello();
+            Clients.All.newRecord();
         }
 
-        public static void Hello(int id)
+        public static void NewRecord(int id)
         {
-            hubContext.Clients.All.hello(id);
+            HubContext.Clients.All.newRecord(id);
         }
     }
 }

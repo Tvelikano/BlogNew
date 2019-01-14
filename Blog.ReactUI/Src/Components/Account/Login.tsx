@@ -23,7 +23,7 @@ export default class Login extends React.Component<IProps> {
   };
 
   public render = () => (
-    <>
+    <div className="container">
       {!this.props.isAuthenticated ? (
         <>
           <h2>Вход</h2>
@@ -51,6 +51,6 @@ export default class Login extends React.Component<IProps> {
       ) : (
         <Redirect to="/" />
       )}
-    </>
+    </div>
   );
 }

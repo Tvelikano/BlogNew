@@ -2,6 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import UserDTO from "Types/UserDTO";
 import Popup from "Components/Popup";
+import toastr from "toastr";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -28,8 +29,14 @@ export default class Nav extends React.Component<IProps, IState> {
     var connection = $.hubConnection("http://localhost:59525/signalr/hubs");
     var recordHub = connection.createHubProxy("recordHub");
 
-    recordHub.on("hello", data => {
+    recordHub.on("newRecord", data => {
       this.setState({ newRecordsId: data });
+
+      toastr.options.onShown = function() {
+        console.log("hello");
+      };
+      toastr.info("Are you the 6 fingered man?");
+
       this.popup.current.show();
     });
 

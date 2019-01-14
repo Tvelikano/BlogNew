@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Route, Switch } from "react-router";
-import Blog from "Containers/Records/Blog";
+import Main from "Containers/Records/Blog";
 import Add from "Containers/Records/Add";
 import Login from "Containers/Account/Login";
 import Register from "Containers/Account/Register";
@@ -15,22 +15,28 @@ import AdminRolesAdd from "Containers/Admin/Roles/Add";
 import Profile from "Containers/Account/Profile";
 
 const routes = (
-  <Switch>
-    <Route exact path="/Add" component={Add} />
-    <Route exact path="/Login" component={Login} />
-    <Route exact path="/Register" component={Register} />
-    <Route exact path="/Profile" component={Profile} />
-    <Route exact path="/Record/:id" component={Profile} />
-    <Route exact path="/Admin/Records" component={AdminRecords} />
-    <Route exact path="/Admin/Records/Add" component={AdminRecordsAdd} />
-    <Route exact path="/Admin/Records/Edit/:id" component={AdminRecordsEdit} />
-    <Route exact path="/Admin/Users" component={AdminUsers} />
-    <Route exact path="/Admin/Users/Add" component={AdminUsersAdd} />
-    <Route exact path="/Admin/Users/Edit/:id" component={AdminUsersEdit} />
-    <Route exact path="/Admin/Roles" component={AdminRoles} />
-    <Route exact path="/Admin/Roles/Add" component={AdminRolesAdd} />
-    <Route path="/" component={Blog} />
-  </Switch>
+  <div className="routes">
+    <Switch>
+      <Route exact path="/Add" component={Add} />
+      <Route exact path="/Login" component={Login} />
+      <Route exact path="/Register" component={Register} />
+      <Route exact path="/Profile" component={Profile} />
+      <Route exact path="/Record/:id" component={Profile} />
+      <Route exact path="/Admin/Records" component={AdminRecords} />
+      <Route exact path="/Admin/Records/Add" component={AdminRecordsAdd} />
+      <Route
+        exact
+        path="/Admin/Records/Edit/:id"
+        component={AdminRecordsEdit}
+      />
+      <Route exact path="/Admin/Users" component={AdminUsers} />
+      <Route exact path="/Admin/Users/Add" component={AdminUsersAdd} />
+      <Route exact path="/Admin/Users/Edit/:id" component={AdminUsersEdit} />
+      <Route exact path="/Admin/Roles" component={AdminRoles} />
+      <Route exact path="/Admin/Roles/Add" component={AdminRolesAdd} />
+      <Route path="/" component={Main} />
+    </Switch>
+  </div>
 );
 
 export default routes;

@@ -19,9 +19,11 @@
   },
   "homepage": "https://github.com/Tvelikano/BlogNew#readme",
   "dependencies": {
+    "@types/bootstrap": "^4.2.0",
     "@types/jquery": "^3.3.29",
     "@types/react-redux": "^6.0.11",
     "@types/signalr": "^2.2.35",
+    "@types/toastr": "^2.1.35",
     "connected-react-router": "^6.0.0",
     "history": "^4.7.2",
     "query-string": "^6.2.0",
@@ -31,10 +33,11 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "^4.0.8",
-    "reactjs-popup": "^1.3.2",
+    "react-toastify": "^4.5.2",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "signalr": "^2.4.0"
+    "signalr": "^2.4.0",
+    "toastr": "^2.1.4"
   },
   "devDependencies": {
     "@types/history": "^4.7.2",
@@ -45,8 +48,10 @@
     "@types/react-router-dom": "^4.3.1",
     "@types/redux-logger": "^3.0.6",
     "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^2.1.0",
     "redux-logger": "^3.0.6",
     "source-map-loader": "^0.2.4",
+    "style-loader": "^0.23.1",
     "typescript": "^3.2.2",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.27.1",

@@ -1,19 +1,22 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Cors;
-using Blog.Services;
+﻿using Blog.Services;
 using Blog.Services.Identity.Interfaces;
+
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.Cookies;
+
 using Ninject;
 using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
+
 using Owin;
+
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Cors;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using Microsoft.AspNet.SignalR;
-using Microsoft.Owin.Cors;
 
 [assembly: OwinStartup(typeof(Blog.Api.Startup))]
 
@@ -37,7 +40,7 @@ namespace Blog.Api
                         PolicyResolver = context =>
                         {
                             var policy = new CorsPolicy { AllowAnyHeader = true, AllowAnyMethod = true, SupportsCredentials = true };
-                            
+
                             cors.Origins.ToList().ForEach(o => policy.Origins.Add(o));
 
                             return Task.FromResult(policy);
@@ -47,6 +50,7 @@ namespace Blog.Api
                 map.UseCors(corsOption).RunSignalR();
             });
 
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

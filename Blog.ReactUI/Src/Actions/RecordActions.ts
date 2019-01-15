@@ -26,7 +26,7 @@ interface IGetRecordRequest {
 
 interface IGetRecordSuccess {
   type: Constants.GET_RECORD_SUCCESS;
-  data: RecordDTO;
+  data: ReturnModelDTO<RecordDTO>;
 }
 
 interface IGetRecordFail {
@@ -271,12 +271,5 @@ export function DeleteRecord(
           type: Constants.DELETE_RECORDS_FAIL,
         });
       });
-  };
-}
-
-export function ShowComments(id: number): IShowComments {
-  return {
-    data: id,
-    type: Constants.SHOW_COMMENTS,
   };
 }

@@ -18,9 +18,8 @@ namespace Blog.Api.Controllers
         {
             _recordService = recordService;
         }
-
-        [Authorize(Roles = "Admin")]
-        public async Task<RecordDTO> Get(int id)
+        
+        public async Task<ReturnModelDTO<RecordDTO>> Get(int id)
         {
             return await _recordService.GetById(id);
         }

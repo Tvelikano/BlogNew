@@ -7,7 +7,7 @@ namespace Blog.Services.Interfaces
     {
         ReturnListDTO<ReturnModelDTO<RecordDTO>> GetAll(GetArgsDTO<RecordDTO> recordsArgsDto);
 
-        Task<RecordDTO> GetById(int id);
+        Task<ReturnModelDTO<RecordDTO>> GetById(int id);
 
         Task<int> Insert(RecordDTO record);
 

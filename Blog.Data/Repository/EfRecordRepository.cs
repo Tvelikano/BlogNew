@@ -1,11 +1,12 @@
 ﻿using Blog.Data.Enums;
 using Blog.Data.Interfaces;
+using Blog.Data.Models;
 using Blog.Data.Repository.Interfaces;
+
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Blog.Data.Models;
 
 namespace Blog.Data.Repository
 {
@@ -70,9 +71,13 @@ namespace Blog.Data.Repository
             return query.ToList();
         }
 
-        public async Task<Record> GetById(int id)
+        public async Task<ReturnModel<Record>> GetById(int id)
         {
-            return await _records.FindAsync(id);
+            var record = _records.Include(r => r.Comments).Where(r => r.RecordId == id).ToList().FirstOrDefault();
+
+            var model = new ReturnModel<Record> { Model = record, Info = record.Comments.Count };
+
+            return model;
         }
 
         public async Task<int> Insert(Record entityToInsert)
@@ -86,14 +91,14 @@ namespace Blog.Data.Repository
 
         public async Task Delete(int id)
         {
-            _context.Entry(await GetById(id)).State = EntityState.Deleted;
+            _context.Entry((await GetById(id)).Model).State = EntityState.Deleted;
 
             await Save();
         }
 
         public async Task Update(Record entityToUpdate)
         {
-            var record = await GetById(entityToUpdate.RecordId);
+            var record = (await GetById(entityToUpdate.RecordId)).Model;
 
             if (record != null)
             {

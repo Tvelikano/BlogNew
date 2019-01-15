@@ -32,8 +32,6 @@ function mapDispatchToProps(
 
     CreateComment: (data: CommentDTO) =>
       dispatch(commentActions.createComment(data)),
-
-    ShowComments: (id: number) => dispatch(recordActions.ShowComments(id)),
   };
 }
 

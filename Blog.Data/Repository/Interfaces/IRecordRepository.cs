@@ -7,7 +7,7 @@ namespace Blog.Data.Repository.Interfaces
     {
         ReturnList<ReturnModel<Record>> Get(GetArgs<Record> args);
 
-        Task<Record> GetById(int id);
+        Task<ReturnModel<Record>> GetById(int id);
 
         Task<int> Insert(Record entityToInsert);
 

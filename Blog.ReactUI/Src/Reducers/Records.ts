@@ -9,6 +9,7 @@ import ListViewModel from "Types/ListViewModel";
 
 const initialState: IRecordState = {
   data: new ListViewModel<ReturnModelDTO<RecordDTO>>(),
+  currentRecord: new ReturnModelDTO<RecordDTO>(),
   error: "",
   isLoading: false,
   isCommentsLoading: false,
@@ -42,14 +43,9 @@ export default function recordReducer(
       return { ...state, isLoading: true, error: "" };
 
     case recordConstants.GET_RECORD_SUCCESS: {
-      let record = initialState;
-      record.data.List.push(
-        Object.assign(new ReturnModelDTO(), { Model: action.data })
-      );
-
       return {
         ...state,
-        data: record,
+        currentRecord: action.data,
         error: "",
         isLoading: false,
       };
@@ -84,30 +80,35 @@ export default function recordReducer(
         isLoading: false,
       };
 
-    case recordConstants.SHOW_COMMENTS:
+    case recordConstants.ADD_RECORDS_REQUEST:
       return {
         ...state,
-        data: {
-          ...state.data,
-          List: state.data.List.map(item =>
-            item.Model.RecordId === action.data
-              ? {
-                  ...item,
-                  IsCommentVisible: true,
-                }
-              : item
-          ),
-        },
+        isCommentsLoading: true,
       };
 
     case commentConstants.GET_COMMENTS_SUCCESS:
+      let currentRecord =
+        state.currentRecord &&
+        state.currentRecord.Model &&
+        action.data.Info === state.currentRecord.Model.RecordId
+          ? Object.assign(state.currentRecord, {
+              IsCommentVisible: true,
+              Model: Object.assign(state.currentRecord.Model, {
+                Comments: action.data.List,
+              }),
+            })
+          : state.currentRecord;
+
       return {
+        ...state,
+        currentRecord: currentRecord,
         data: {
           ...state.data,
           List: state.data.List.map(item =>
             item.Model.RecordId === action.data.Info
               ? {
                   ...item,
+                  IsCommentVisible: true,
                   Model: { ...item.Model, Comments: action.data.List },
                 }
               : item

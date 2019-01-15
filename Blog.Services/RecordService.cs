@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+
 using Blog.Data.Models;
 using Blog.Data.Repository.Interfaces;
 using Blog.Services.Interfaces;
 using Blog.Services.Models;
+
 using System;
 using System.Threading.Tasks;
 
@@ -24,9 +26,9 @@ namespace Blog.Services
             return _mapper.Map<ReturnListDTO<ReturnModelDTO<RecordDTO>>>(_repository.Get(_mapper.Map<GetArgs<Record>>(recordsArgsDto)));
         }
 
-        public async Task<RecordDTO> GetById(int id)
+        public async Task<ReturnModelDTO<RecordDTO>> GetById(int id)
         {
-            return _mapper.Map<RecordDTO>(await _repository.GetById(id));
+            return _mapper.Map<ReturnModelDTO<RecordDTO>>(await _repository.GetById(id));
         }
 
         public async Task<int> Insert(RecordDTO record)

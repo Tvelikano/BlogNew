@@ -9,19 +9,21 @@ import { Link } from "react-router-dom";
 interface IProps {
   isAuthenticated: boolean;
   model: ReturnModelDTO<RecordDTO>;
-  ShowComments: () => void;
+  GetComments: () => void;
   CreateComment: (data: CommentDTO) => void;
 }
 
 export default class Record extends React.PureComponent<IProps> {
   public render() {
     const { Model, IsCommentVisible, Info } = this.props.model;
-    const { CreateComment, ShowComments, isAuthenticated } = this.props;
+    const { CreateComment, GetComments, isAuthenticated } = this.props;
 
     return (
       <div className="container card mb-3">
         <div className="card-body">
-          <h4 className="card-title">{Model.Name}</h4>
+          <Link to={`Record/${Model.RecordId}`}>
+            <h4 className="card-title">{Model.Name}</h4>
+          </Link>
           <p className="card-text pb-3 text-muted text-truncate">
             {Model.Content}
           </p>
@@ -43,10 +45,7 @@ export default class Record extends React.PureComponent<IProps> {
               <Comments list={Model.Comments} />
             </>
           ) : (
-            <button
-              onClick={() => ShowComments()}
-              className="btn btn-primary"
-            >{`${
+            <button onClick={GetComments} className="btn btn-primary">{`${
               Info > 0
                 ? `Показать ${Info} комментариев`
                 : "Напишите первый комментарий"

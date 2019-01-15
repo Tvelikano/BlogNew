@@ -14,8 +14,14 @@ module.exports = {
     extensions: [".js", ".json", ".ts", ".tsx"],
   },
   module: {
-    loaders: [{ test: /\.css$/, loader: "style!css!" }],
     rules: [
+      {
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          { loader: "css-loader", options: { importLoaders: 1 } },
+        ],
+      },
       {
         test: /\.tsx?$/,
         loader: "awesome-typescript-loader",

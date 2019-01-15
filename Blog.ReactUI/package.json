@@ -19,11 +19,8 @@
   },
   "homepage": "https://github.com/Tvelikano/BlogNew#readme",
   "dependencies": {
-    "@types/bootstrap": "^4.2.0",
-    "@types/jquery": "^3.3.29",
     "@types/react-redux": "^6.0.11",
     "@types/signalr": "^2.2.35",
-    "@types/toastr": "^2.1.35",
     "connected-react-router": "^6.0.0",
     "history": "^4.7.2",
     "query-string": "^6.2.0",
@@ -36,8 +33,7 @@
     "react-toastify": "^4.5.2",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "signalr": "^2.4.0",
-    "toastr": "^2.1.4"
+    "signalr": "^2.4.0"
   },
   "devDependencies": {
     "@types/history": "^4.7.2",

@@ -81,10 +81,7 @@ export default class Main extends React.Component<IProps> {
             isAuthenticated={isAuthenticated}
             key={item.Model.RecordId}
             model={item}
-            ShowComments={() => {
-              ShowComments(item.Model.RecordId),
-                GetComments(item.Model.RecordId);
-            }}
+            GetComments={() => GetComments(item.Model.RecordId)}
             CreateComment={(data: CommentDTO) => CreateComment(data)}
           />
         ))}

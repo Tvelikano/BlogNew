@@ -50,6 +50,8 @@ namespace Blog.Data
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
+            modelBuilder.Entity<Record>().ToTable("Record");
+            modelBuilder.Entity<Comment>().ToTable("Comment");
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<User>().Property(u => u.PasswordHash).HasMaxLength(500);
             modelBuilder.Entity<User>().Property(u => u.PhoneNumber).HasMaxLength(50);

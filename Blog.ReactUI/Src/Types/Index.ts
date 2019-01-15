@@ -21,6 +21,7 @@ export interface IAccountState {
 
 export interface IRecordState {
   data: ListViewModel<ReturnModelDTO<RecordDTO>>;
+  currentRecord: ReturnModelDTO<RecordDTO>;
   isLoading: boolean;
   isCommentsLoading: boolean;
   error: string;

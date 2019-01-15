@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Route, Switch } from "react-router";
-import Main from "Containers/Records/Blog";
+import Main from "Containers/Main";
 import Add from "Containers/Records/Add";
+import RecordFull from "Containers/Records/RecordFull";
 import Login from "Containers/Account/Login";
 import Register from "Containers/Account/Register";
 import AdminRecords from "Containers/Admin/Records/Records";
@@ -21,7 +22,7 @@ const routes = (
       <Route exact path="/Login" component={Login} />
       <Route exact path="/Register" component={Register} />
       <Route exact path="/Profile" component={Profile} />
-      <Route exact path="/Record/:id" component={Profile} />
+      <Route exact path="/Record/:id" component={RecordFull} />
       <Route exact path="/Admin/Records" component={AdminRecords} />
       <Route exact path="/Admin/Records/Add" component={AdminRecordsAdd} />
       <Route

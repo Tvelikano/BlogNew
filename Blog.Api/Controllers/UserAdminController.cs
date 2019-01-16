@@ -1,18 +1,18 @@
 ﻿using AutoMapper;
+
 using Blog.Api.Models;
 using Blog.Services.Identity.Interfaces;
 using Blog.Services.Identity.Models;
 using Blog.Services.Models;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace Blog.Api.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Route("api/admin/users")]
-    [EnableCors("http://localhost:53695", "*", "*", SupportsCredentials = true)]
     public class UserAdminController : ApiController
     {
         private readonly IRuntimeMapper _mapper;

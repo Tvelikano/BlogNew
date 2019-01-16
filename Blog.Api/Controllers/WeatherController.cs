@@ -13,23 +13,17 @@ namespace Blog.Api.Controllers
     {
         public async Task<IHttpActionResult> Get()
         {
-            try
+            const string requestUrl = "http://localhost:9000/api/weather";
+
+            using (var client = new HttpClient())
             {
-                const string requestUrl = "http://localhost:9000/api/weather";
+                client.BaseAddress = new Uri(requestUrl);
+                var responseMessage = await client.GetAsync(requestUrl);
+                var json = await responseMessage.Content.ReadAsStringAsync();
 
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(requestUrl);
-                    var responseMessage = await client.GetAsync(requestUrl);
+                var weather = JsonConvert.DeserializeObject<ClientWeather>(json);
 
-                    var weather = JsonConvert.DeserializeObject<ClientWeather>(await responseMessage.Content.ReadAsStringAsync());
-
-                    return Ok(weather);
-                }
-            }
-            catch (Exception e)
-            {
-                return InternalServerError(e);
+                return Ok(weather);
             }
         }
     }

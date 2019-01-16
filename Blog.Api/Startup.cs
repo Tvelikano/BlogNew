@@ -28,10 +28,8 @@ namespace Blog.Api
         {
             var config = new HttpConfiguration();
 
-            var cors = new EnableCorsAttribute("http://localhost:53695", "*", "*");
+            var cors = new EnableCorsAttribute("http://localhost:53695", "*", "*") { SupportsCredentials = true };
             config.EnableCors(cors);
-
-
 
             var kernel = new StandardKernel(new NinjectConfigModule(), new SiteAutoMapperModule(), new ServiceAutoMapperModule());
 

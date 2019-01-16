@@ -1,18 +1,18 @@
 ﻿using AutoMapper;
+
 using Blog.Api.Models;
-using Blog.Services.Identity;
 using Blog.Services.Identity.Interfaces;
+using Blog.Services.Identity.Models;
 using Blog.Services.Models;
+
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
+
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Cors;
-using Blog.Services.Identity.Models;
 
 namespace Blog.Api.Controllers
 {
-    [EnableCors("http://localhost:53695", "*", "*", SupportsCredentials = true)]
     [RoutePrefix("api/user")]
     public class AccountController : ApiController
     {
@@ -62,7 +62,7 @@ namespace Blog.Api.Controllers
         {
             _authManager.SignOut(CookieAuthenticationDefaults.AuthenticationType);
 
-            return Ok(new { message = "Logout successful." });
+            return Ok();
         }
 
         private IHttpActionResult GetResult(OperationDetails result)
@@ -72,7 +72,10 @@ namespace Blog.Api.Controllers
                 return InternalServerError();
             }
 
-            if (result.IsSucceed) return Ok();
+            if (result.IsSucceed)
+            {
+                return Ok();
+            }
 
             if (result.Errors != null)
             {

@@ -1,13 +1,13 @@
 ﻿using Blog.Services.Interfaces;
+using Blog.Services.Models;
+
 using Microsoft.AspNet.Identity;
+
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Cors;
-using Blog.Services.Models;
 
 namespace Blog.Api.Controllers
 {
-    [EnableCors("http://localhost:53695", "*", "*", SupportsCredentials = true)]
     public class CommentController : ApiController 
     {
         private readonly IRecordService _recordService;

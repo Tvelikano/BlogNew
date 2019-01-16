@@ -63,7 +63,7 @@ namespace Blog.Data.Tests
             var record = await _repository.GetById(id);
 
             Assert.AreNotEqual(null, record);
-            Assert.AreEqual(id, record.RecordId);
+            Assert.AreEqual(id, record.Model.RecordId);
         }
 
         [TestMethod]
@@ -85,7 +85,7 @@ namespace Blog.Data.Tests
             await _repository.Update(record);
             var actualRecord = await _repository.GetById(record.RecordId);
 
-            Assert.AreEqual(record.Name, actualRecord.Name);
+            Assert.AreEqual(record.Name, actualRecord.Model.Name);
         }
 
         [TestMethod]

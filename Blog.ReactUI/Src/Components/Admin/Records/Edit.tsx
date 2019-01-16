@@ -1,7 +1,7 @@
-import RecordDTO from "Types/RecordDTO";
+import RecordDTO from "Types/Records/RecordDTO";
 import React from "react";
 import { Link } from "react-router-dom";
-import RecordStateDTO from "Types/RecordStateDTO";
+import RecordStateDTO from "Types/Records/RecordStateDTO";
 
 interface IProps {
   record: RecordDTO;
@@ -10,6 +10,7 @@ interface IProps {
       id: number;
     };
   };
+  isLoading: boolean;
   GetRecord: (id: number) => void;
   UpdateRecord: (data: RecordDTO) => void;
 }
@@ -40,8 +41,8 @@ export default class Edit extends React.PureComponent<IProps> {
   }
 
   public render() {
-    const { record } = this.props;
-    return (
+    const { record, isLoading } = this.props;
+    return !isLoading && record ? (
       <div className="container">
         <h4>Редактировать запись</h4>
 
@@ -87,7 +88,11 @@ export default class Edit extends React.PureComponent<IProps> {
 
           <div className="form-group">
             <div className="col-md-10">
-              <input type="submit" value="Post" className="btn btn-primary" />
+              <input
+                type="submit"
+                value="Изменить"
+                className="btn btn-primary"
+              />
             </div>
           </div>
         </form>
@@ -96,6 +101,6 @@ export default class Edit extends React.PureComponent<IProps> {
           Отмена
         </Link>
       </div>
-    );
+    ) : null;
   }
 }

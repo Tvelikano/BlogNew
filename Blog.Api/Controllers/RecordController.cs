@@ -1,8 +1,11 @@
 ﻿using Blog.Api.Hubs;
 using Blog.Api.Models;
+using Blog.Services.Enums;
 using Blog.Services.Interfaces;
 using Blog.Services.Models;
+
 using Microsoft.AspNet.Identity;
+
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -18,10 +21,37 @@ namespace Blog.Api.Controllers
         {
             _recordService = recordService;
         }
-        
-        public async Task<ReturnModelDTO<RecordDTO>> Get(int id)
+
+        public async Task<IHttpActionResult> Get(int id)
         {
-            return await _recordService.GetById(id);
+            var record = await _recordService.GetById(id);
+
+            if (record == null)
+            {
+                return NotFound();
+            }
+
+            switch (record.Model.State)
+            {
+                case RecordStateDTO.Private:
+                    if (User.IsInRole("Admin"))
+                    {
+                        return Ok(record);
+                    }
+
+                    return Unauthorized();
+
+                case RecordStateDTO.Internal:
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        return Ok(record);
+                    }
+
+                    return Unauthorized();
+
+                default:
+                    return Ok(record);
+            }
         }
 
         public ListViewModel<ReturnModelDTO<RecordDTO>> Get([FromUri]SearchQuery searchQuery)
@@ -80,6 +110,8 @@ namespace Blog.Api.Controllers
             }
 
             await _recordService.Update(record);
+
+            RecordHub.NewRecord(record.RecordId, record.State);
 
             return Ok();
         }

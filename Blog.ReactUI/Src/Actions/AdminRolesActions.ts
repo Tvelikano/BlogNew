@@ -1,7 +1,7 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import * as Constants from "Actions/Constants/AdminRoles";
 import ReturnModelDTO from "Types/ReturnModelDTO";
-import RoleDTO from "Types/RoleDTO";
+import RoleDTO from "Types/Account/RoleDTO";
 import ListViewModel from "Types/ListViewModel";
 
 interface IGetRolesRequest {

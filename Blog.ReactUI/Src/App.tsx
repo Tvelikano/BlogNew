@@ -6,6 +6,9 @@ import Nav from "Containers/Nav";
 import Footer from "Components/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import Startup from "Startup";
+import Loader from "Components/Helpers/Loader";
+import Progress from "Components/Helpers/Progress";
 
 interface IProps {
   history: History;
@@ -14,10 +17,16 @@ interface IProps {
 const App = ({ history }: IProps) => (
   <ConnectedRouter history={history}>
     <>
-      <Nav />
-      <ToastContainer position="bottom-right" />
-      <div>{routes}</div>
-      <Footer />
+      <Loader />
+      <Startup>
+        <Nav />
+        <ToastContainer position="bottom-right" />
+        <div className="position-relative bg-light">
+          <Progress />
+          {routes}
+        </div>
+        <Footer />
+      </Startup>
     </>
   </ConnectedRouter>
 );

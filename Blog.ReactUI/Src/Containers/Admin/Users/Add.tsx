@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import * as userActions from "Actions/AdminUsersActions";
-import UserViewModel from "Types/UserViewModel";
+import UserViewModel from "Types/Account/UserViewModel";
 import { allowOnlyAdmin } from "Hocs/AllowOnlyAdmin";
 import Add from "Components/Admin/Users/Add";
 

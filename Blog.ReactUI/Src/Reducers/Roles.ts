@@ -1,8 +1,8 @@
 import * as roleConstants from "Actions/Constants/AdminRoles";
 import { RoleActions } from "Actions/AdminRolesActions";
-import { IRoleState } from "Types/Index";
+import { IRoleState } from "Types/Store/Index";
 import { CommentActions } from "Actions/CommentActions";
-import RoleDTO from "Types/RoleDTO";
+import RoleDTO from "Types/Account/RoleDTO";
 
 const initialState: IRoleState = {
   data: new Array<RoleDTO>(),

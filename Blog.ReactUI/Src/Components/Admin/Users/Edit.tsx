@@ -1,5 +1,5 @@
 import React from "react";
-import UserViewModel from "Types/UserViewModel";
+import UserViewModel from "Types/Account/UserViewModel";
 import { Link } from "react-router-dom";
 
 interface IProps {
@@ -77,11 +77,7 @@ export default class Add extends React.Component<IProps> {
 
         <div className="form-group">
           <div className="col-md-10">
-            <input
-              type="submit"
-              value="Create User"
-              className="btn btn-primary"
-            />
+            <input type="submit" value="Изменить" className="btn btn-primary" />
           </div>
         </div>
       </form>

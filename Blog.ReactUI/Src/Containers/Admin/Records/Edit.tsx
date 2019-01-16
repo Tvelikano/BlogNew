@@ -1,17 +1,14 @@
 import { connect } from "react-redux";
 import * as actions from "Actions/RecordActions";
 import { ThunkDispatch } from "redux-thunk";
-import RecordDTO from "Types/RecordDTO";
-import { IStoreState } from "Types/Index";
+import RecordDTO from "Types/Records/RecordDTO";
+import { IStoreState } from "Types/Store/Index";
 import { allowOnlyAdmin } from "Hocs/AllowOnlyAdmin";
 import Edit from "Components/Admin/Records/Edit";
 
 function mapStateToProps({ records }: IStoreState) {
   return {
-    record:
-      !records.isLoading && records.data.List
-        ? records.data.List[0].Model
-        : new RecordDTO(),
+    record: records.currentRecord.Model,
     error: records.error,
     isLoading: records.isLoading,
   };

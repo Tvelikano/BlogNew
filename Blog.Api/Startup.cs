@@ -31,6 +31,15 @@ namespace Blog.Api
             var cors = new EnableCorsAttribute("http://localhost:53695", "*", "*");
             config.EnableCors(cors);
 
+
+
+            var kernel = new StandardKernel(new NinjectConfigModule(), new SiteAutoMapperModule(), new ServiceAutoMapperModule());
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+            app.UseOAuthBearerTokens(kernel.Get<IOAuthAuthorizationServerOptions>().GetOptions());
+
             app.Map("/signalr", map =>
             {
                 var corsOption = new CorsOptions
@@ -57,13 +66,6 @@ namespace Blog.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            var kernel = new StandardKernel(new NinjectConfigModule(), new SiteAutoMapperModule(), new ServiceAutoMapperModule());
-
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
-            app.UseOAuthBearerTokens(kernel.Get<IOAuthAuthorizationServerOptions>().GetOptions());
 
             app.UseNinjectMiddleware(() => kernel)
                 .UseNinjectWebApi(config);

@@ -1,11 +1,11 @@
 import ListViewModel from "Types/ListViewModel";
 import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/RecordDTO";
+import RecordDTO from "Types/Records/RecordDTO";
 import React from "react";
 import queryString from "querystring";
 import SearchQuery from "Types/SearchQuery";
 import { Link } from "react-router-dom";
-import RecordStateDTO from "Types/RecordStateDTO";
+import RecordStateDTO from "Types/Records/RecordStateDTO";
 import PagingHelper from "Components/Helpers/PagingHelper";
 import SearchHelper from "Components/Helpers/SearchHelper";
 
@@ -52,7 +52,7 @@ export default class AdminRecords extends React.Component<IProps> {
 
     return (
       <div className="container">
-        <Link className="btn btn-primary" to="/Admin/Records/Add">
+        <Link className="btn btn-primary mt-2 mb-2" to="/Admin/Records/Add">
           Создать новую запись
         </Link>
 
@@ -79,7 +79,7 @@ export default class AdminRecords extends React.Component<IProps> {
                     <td>
                       <Link
                         to={`Records/Edit/${item.Model.RecordId}`}
-                        className="btn btn-primary"
+                        className="btn btn-primary mb-1"
                       >
                         Редактировать
                       </Link>

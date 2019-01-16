@@ -1,7 +1,7 @@
-import RecordDTO from "Types/RecordDTO";
+import RecordDTO from "Types/Records/RecordDTO";
 import React from "react";
 import { Link } from "react-router-dom";
-import RecordStateDTO from "Types/RecordStateDTO";
+import RecordStateDTO from "Types/Records/RecordStateDTO";
 
 interface IProps {
   AddRecord: (data: RecordDTO) => void;
@@ -58,7 +58,7 @@ export default class Add extends React.PureComponent<IProps> {
 
         <div className="form-group">
           <div className="col-md-10">
-            <input type="submit" value="Post" className="btn btn-primary" />
+            <input type="submit" value="Создать" className="btn btn-primary" />
           </div>
         </div>
       </form>

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import UserDTO from "Types/UserDTO";
+import UserDTO from "Types/Account/UserDTO";
 
 interface IProps {
   user: UserDTO;

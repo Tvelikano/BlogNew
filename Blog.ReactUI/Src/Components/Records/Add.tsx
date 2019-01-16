@@ -1,4 +1,4 @@
-import RecordDTO from "Types/RecordDTO";
+import RecordDTO from "Types/Records/RecordDTO";
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 

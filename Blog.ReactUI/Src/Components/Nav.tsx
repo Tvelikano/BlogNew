@@ -1,37 +1,25 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import UserDTO from "Types/UserDTO";
-import { toast } from "react-toastify";
+import UserDTO from "Types/Account/UserDTO";
+import Weather from "Containers/Weather/Weather";
 
 interface IProps {
   isAuthenticated: boolean;
   user: UserDTO;
   Logout: () => void;
-  GetUserInfo: () => void;
 }
+
 export default class Nav extends React.Component<IProps> {
   componentDidMount() {
-    this.props.GetUserInfo();
-
-    var connection = $.hubConnection("http://localhost:59525/signalr/hubs");
-    var recordHub = connection.createHubProxy("recordHub");
-
-    recordHub.on("newRecord", recordId => {
-      toast(
-        <Link to={`/Record/${recordId}`} className="navbar-brand">
-          Новая запись
-        </Link>
-      );
-    });
-
-    connection.start();
+    $("#root").addClass("loaded");
   }
 
   public render() {
     const { user, isAuthenticated, Logout } = this.props;
+
     return (
       <nav className="navbar navbar-expand-sm bg-dark navbar-dark ">
-        <ul className="navbar-nav mr-auto">
+        <ul className="navbar-nav">
           <li className="nav-item">
             <Link to="/" className="navbar-brand">
               Статьи
@@ -57,33 +45,33 @@ export default class Nav extends React.Component<IProps> {
               Контакты
             </Link>
           </li>
+        </ul>
+        <ul className="nav navbar-nav ml-auto">
           <li className="nav-item">
-            <Link to="/" className="nav-item nav-link">
-              О нас
-            </Link>
+            <Weather />
+          </li>
+          <li className="nav-item">
+            {isAuthenticated ? (
+              <>
+                <Link className="btn btn-primary mr-1" to="/Profile">
+                  {user.UserName}
+                </Link>
+                <a className="btn btn-danger" onClick={Logout}>
+                  Выйти
+                </a>
+              </>
+            ) : (
+              <>
+                <Link className="btn btn-primary mr-1" to="/Login">
+                  Войти
+                </Link>
+                <Link className="btn btn-info" to="/Register">
+                  Зарегистрироваться
+                </Link>
+              </>
+            )}
           </li>
         </ul>
-        <div>
-          {isAuthenticated ? (
-            <>
-              <Link className="btn btn-primary mr-1" to="/Profile">
-                {user.UserName}
-              </Link>
-              <a className="btn btn-danger" onClick={Logout}>
-                Выйти
-              </a>
-            </>
-          ) : (
-            <>
-              <Link className="btn btn-primary mr-1" to="/Login">
-                Войти
-              </Link>
-              <Link className="btn btn-info" to="/Register">
-                Зарегистрироваться
-              </Link>
-            </>
-          )}
-        </div>
       </nav>
     );
   }

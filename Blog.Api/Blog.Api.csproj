@@ -194,7 +194,9 @@
     <Compile Include="Controllers\RecordController.cs" />
     <Compile Include="Controllers\RoleAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="Controllers\WeatherController.cs" />
     <Compile Include="Hubs\RecordHub.cs" />
+    <Compile Include="Models\ClientWeather.cs" />
     <Compile Include="Models\ListViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />

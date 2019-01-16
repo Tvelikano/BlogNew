@@ -1,4 +1,4 @@
-import RoleDTO from "Types/RoleDTO";
+import RoleDTO from "Types/Account/RoleDTO";
 import React from "react";
 import { Link } from "react-router-dom";
 

@@ -28,7 +28,11 @@ export default class Add extends React.PureComponent<IProps> {
 
         <div className="form-group">
           <div className="col-md-10">
-            <input type="submit" value="Add Role" className="btn btn-primary" />
+            <input
+              type="submit"
+              value="Добавить роль"
+              className="btn btn-primary"
+            />
           </div>
         </div>
       </form>

@@ -1,5 +1,5 @@
-import RecordDTO from "types/RecordDTO";
-import UserDTO from "types/UserDTO";
+import RecordDTO from "Types/Records/RecordDTO";
+import UserDTO from "Types/Account/UserDTO";
 
 export default class CommentDTO {
   public CommentId: number;

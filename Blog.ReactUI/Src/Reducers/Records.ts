@@ -1,10 +1,10 @@
 import * as recordConstants from "Actions/Constants/Record";
 import * as commentConstants from "Actions/Constants/Comment";
 import { RecordActions } from "Actions/RecordActions";
-import { IRecordState } from "Types/Index";
+import { IRecordState } from "Types/Store/Index";
 import { CommentActions } from "Actions/CommentActions";
 import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/RecordDTO";
+import RecordDTO from "Types/Records/RecordDTO";
 import ListViewModel from "Types/ListViewModel";
 
 const initialState: IRecordState = {

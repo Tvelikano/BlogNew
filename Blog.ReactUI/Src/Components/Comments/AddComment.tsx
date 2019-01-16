@@ -1,5 +1,5 @@
 import React from "react";
-import CommentDTO from "Types/CommentDTO";
+import CommentDTO from "Types/Comments/CommentDTO";
 
 interface IProps {
   recordId: number;

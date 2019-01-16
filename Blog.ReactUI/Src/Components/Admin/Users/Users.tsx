@@ -4,7 +4,7 @@ import queryString from "querystring";
 import SearchHelper from "Components/Helpers/SearchHelper";
 import PagingHelper from "Components/Helpers/PagingHelper";
 import SearchQuery from "Types/SearchQuery";
-import UserViewModel from "Types/UserViewModel";
+import UserViewModel from "Types/Account/UserViewModel";
 import { Link } from "react-router-dom";
 
 interface IProps {

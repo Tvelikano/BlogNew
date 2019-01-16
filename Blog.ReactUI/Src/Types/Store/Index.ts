@@ -1,10 +1,11 @@
 import { RouterState } from "connected-react-router";
 import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/RecordDTO";
+import RecordDTO from "Types/Records/RecordDTO";
 import ListViewModel from "Types/ListViewModel";
-import RoleDTO from "./RoleDTO";
-import UserViewModel from "./UserViewModel";
-import UserDTO from "./UserDTO";
+import RoleDTO from "../Account/RoleDTO";
+import UserViewModel from "../Account/UserViewModel";
+import UserDTO from "../Account/UserDTO";
+import ClientWeather from "../Weather/ClientWeather";
 
 export interface IStoreState {
   account: IAccountState;
@@ -12,9 +13,11 @@ export interface IStoreState {
   users: IUserState;
   roles: IRoleState;
   router: RouterState;
+  weather: IWeatherState;
 }
 
 export interface IAccountState {
+  isLoading: boolean;
   isAuthenticated: boolean;
   user: UserDTO;
 }
@@ -35,6 +38,12 @@ export interface IUserState {
 
 export interface IRoleState {
   data: RoleDTO[];
+  isLoading: boolean;
+  error: string;
+}
+
+export interface IWeatherState {
+  data: ClientWeather;
   isLoading: boolean;
   error: string;
 }

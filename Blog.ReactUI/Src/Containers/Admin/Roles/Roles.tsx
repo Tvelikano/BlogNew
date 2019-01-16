@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import * as roleActions from "Actions/AdminRolesActions";
-import { IStoreState } from "Types/Index";
+import { IStoreState } from "Types/Store/Index";
 import { allowOnlyAdmin } from "Hocs/AllowOnlyAdmin";
 import AdminRoles from "Components/Admin/Roles/Roles";
 

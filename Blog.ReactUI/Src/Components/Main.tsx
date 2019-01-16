@@ -1,13 +1,13 @@
 import ListViewModel from "Types/ListViewModel";
 import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/RecordDTO";
+import RecordDTO from "Types/Records/RecordDTO";
 import React from "react";
 import queryString from "querystring";
 import { Link } from "react-router-dom";
 import SearchHelper from "Components/Helpers/SearchHelper";
 import PagingHelper from "Components/Helpers/PagingHelper";
 import Record from "Components/records/Record";
-import CommentDTO from "Types/CommentDTO";
+import CommentDTO from "Types/Comments/CommentDTO";
 import SearchQuery from "Types/SearchQuery";
 
 interface IProps {
@@ -21,7 +21,6 @@ interface IProps {
   GetRecords: (searchQuery: SearchQuery) => void;
   GetComments: (id: number) => void;
   CreateComment: (data: CommentDTO) => void;
-  ShowComments: (id: number) => void;
 }
 
 export default class Main extends React.Component<IProps> {
@@ -61,15 +60,21 @@ export default class Main extends React.Component<IProps> {
   public render() {
     const {
       isAuthenticated,
+      isLoading,
       location,
       data,
       GetComments,
       CreateComment,
-      ShowComments,
     } = this.props;
 
+    if (isLoading) {
+      $("#progress").removeClass("d-none");
+    } else {
+      $("#progress").addClass("d-none");
+    }
+
     return (
-      <div className="container">
+      <div className="container position-relative">
         <Link className="btn mt-2 mb-2 btn-primary" to="/Add">
           Предложить свою новость
         </Link>

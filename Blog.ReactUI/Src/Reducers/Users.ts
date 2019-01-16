@@ -1,9 +1,9 @@
 import * as roleConstants from "Actions/Constants/AdminUsers";
 import { UserActions } from "Actions/AdminUsersActions";
-import { IUserState } from "Types/Index";
+import { IUserState } from "Types/Store/Index";
 import { CommentActions } from "Actions/CommentActions";
 import ListViewModel from "Types/ListViewModel";
-import UserViewModel from "Types/UserViewModel";
+import UserViewModel from "Types/Account/UserViewModel";
 
 const initialState: IUserState = {
   data: new ListViewModel<UserViewModel>(),

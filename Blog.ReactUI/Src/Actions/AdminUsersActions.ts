@@ -3,7 +3,7 @@ import * as Constants from "Actions/Constants/AdminUsers";
 import querystring from "querystring";
 import ListViewModel from "Types/ListViewModel";
 import SearchQuery from "Types/SearchQuery";
-import UserViewModel from "Types/UserViewModel";
+import UserViewModel from "Types/Account/UserViewModel";
 
 interface IGetUsersRequest {
   type: Constants.GET_USERS_REQUEST;

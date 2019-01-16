@@ -2,7 +2,9 @@
 using Blog.Api.Models;
 using Blog.Services.Models;
 using Blog.Tests.Initialize.EffortSetting;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,10 +37,13 @@ namespace Blog.Api.Tests.Controllers
         {
             const int id = 2;
 
-            var record = await _controller.Get(id);
+            var result = await _controller.Get(id);
+            var actualRecord = (result as OkNegotiatedContentResult<ReturnModelDTO<RecordDTO>>).Content;
 
-            Assert.AreNotEqual(null, record);
-            Assert.AreEqual(id, record.RecordId);
+            Assert.AreNotEqual(null, result);
+            Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<ReturnModelDTO<RecordDTO>>));
+            Assert.AreNotEqual(null, actualRecord);
+            Assert.AreEqual(id, actualRecord.Model.RecordId);
         }
 
         [TestMethod]
@@ -62,22 +67,24 @@ namespace Blog.Api.Tests.Controllers
             var record = new RecordDTO { RecordId = 4, Name = "4", Content = "4", UserId = 1 };
 
             await _controller.Post(record);
-            var actualRecord = await _controller.Get(record.RecordId);
+            var getResult = await _controller.Get(record.RecordId);
+            var actualRecord = (getResult as OkNegotiatedContentResult<ReturnModelDTO<RecordDTO>>).Content;
 
             Assert.AreNotEqual(null, actualRecord);
-            Assert.AreEqual(record.RecordId, actualRecord.RecordId);
+            Assert.AreEqual(record.RecordId, actualRecord.Model.RecordId);
         }
 
         [TestMethod]
-        public async Task PutTest()
+        public async Task Put_2()
         {
             var record = new RecordDTO { RecordId = 2, Name = "222", Content = "2", UserId = 1 };
 
             var result = await _controller.Put(record);
-            var actualRecord = await _controller.Get(record.RecordId);
+            var getResult = await _controller.Get(record.RecordId);
+            var actualRecord = (getResult as OkNegotiatedContentResult<ReturnModelDTO<RecordDTO>>).Content;
 
             Assert.IsInstanceOfType(result, typeof(OkResult));
-            Assert.AreEqual(record.Name, actualRecord.Name);
+            Assert.AreEqual(record.Name, actualRecord.Model.Name);
         }
 
         [TestMethod]
@@ -86,10 +93,10 @@ namespace Blog.Api.Tests.Controllers
             const int id = 2;
 
             var result = await _controller.Delete(id);
-            var record = await _controller.Get(id);
+            var getResult = await _controller.Get(id);
 
             Assert.IsInstanceOfType(result, typeof(OkResult));
-            Assert.AreEqual(null, record);
+            Assert.IsInstanceOfType(getResult, typeof(NotFoundResult));
         }
     }
 }

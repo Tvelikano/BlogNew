@@ -1,4 +1,4 @@
-import RegisterViewModel from "Types/RegisterViewModel";
+import RegisterViewModel from "Types/Account/RegisterViewModel";
 import { ThunkDispatch } from "redux-thunk";
 import * as Actions from "Actions/AccountActions";
 import { connect } from "react-redux";

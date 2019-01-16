@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import * as userActions from "Actions/AdminUsersActions";
-import UserViewModel from "Types/UserViewModel";
+import UserViewModel from "Types/Account/UserViewModel";
 import { allowOnlyAdmin } from "Hocs/AllowOnlyAdmin";
-import { IStoreState } from "Types/Index";
-import UserDTO from "Types/UserDTO";
+import { IStoreState } from "Types/Store/Index";
+import UserDTO from "Types/Account/UserDTO";
 import Add from "Components/Admin/Users/Add";
 
 function mapStateToProps({ users }: IStoreState) {

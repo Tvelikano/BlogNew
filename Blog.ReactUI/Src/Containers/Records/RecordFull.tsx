@@ -2,8 +2,8 @@ import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import * as recordActions from "Actions/RecordActions";
 import * as commentActions from "Actions/CommentActions";
-import { IStoreState } from "Types/Index";
-import CommentDTO from "Types/CommentDTO";
+import { IStoreState } from "Types/Store/Index";
+import CommentDTO from "Types/Comments/CommentDTO";
 import RecordFull from "Components/Records/RecordFull";
 
 function mapStateToProps({ records, account }: IStoreState) {
@@ -24,8 +24,7 @@ function mapDispatchToProps(
   >
 ) {
   return {
-    GetRecord: async (id: number) =>
-      await dispatch(recordActions.GetRecord(id)),
+    GetRecord: (id: number) => dispatch(recordActions.GetRecord(id)),
 
     GetComments: (id: number) => dispatch(commentActions.getComments(id)),
 

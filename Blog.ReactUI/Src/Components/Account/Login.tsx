@@ -1,5 +1,5 @@
 import React from "react";
-import LoginViewModel from "Types/LoginViewModel";
+import LoginViewModel from "Types/Account/LoginViewModel";
 import { Redirect } from "react-router-dom";
 
 interface IProps {

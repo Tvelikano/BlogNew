@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import * as recordActions from "Actions/RecordActions";
-import { IStoreState } from "Types/Index";
-import RecordDTO from "Types/RecordDTO";
+import { IStoreState } from "Types/Store/Index";
+import RecordDTO from "Types/Records/RecordDTO";
 import SearchQuery from "Types/SearchQuery";
 import { allowOnlyAdmin } from "Hocs/AllowOnlyAdmin";
 import AdminRecords from "Components/Admin/Records/Records";

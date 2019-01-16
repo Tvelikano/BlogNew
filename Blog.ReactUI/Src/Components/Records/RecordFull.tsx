@@ -1,9 +1,9 @@
 import * as React from "react";
 import Comments from "Components/Comments/Comments";
 import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/RecordDTO";
+import RecordDTO from "Types/Records/RecordDTO";
 import AddComment from "Components/Comments/AddComment";
-import CommentDTO from "Types/CommentDTO";
+import CommentDTO from "Types/Comments/CommentDTO";
 import { Link } from "react-router-dom";
 
 interface IProps {

@@ -2,7 +2,7 @@ import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import * as Constants from "Actions/Constants/Record";
 import querystring from "querystring";
 import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/RecordDTO";
+import RecordDTO from "Types/Records/RecordDTO";
 import ListViewModel from "Types/ListViewModel";
 import SearchQuery from "Types/SearchQuery";
 

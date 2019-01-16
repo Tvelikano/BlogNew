@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router";
-import { IStoreState } from "Types/Index";
+import { IStoreState } from "Types/Store/Index";
 import { connect } from "react-redux";
 
 interface IProps {

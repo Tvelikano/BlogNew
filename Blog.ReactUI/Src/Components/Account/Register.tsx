@@ -1,5 +1,5 @@
 import React from "react";
-import RegisterViewModel from "Types/RegisterViewModel";
+import RegisterViewModel from "Types/Account/RegisterViewModel";
 
 interface IProps {
   Register: (data: RegisterViewModel) => void;

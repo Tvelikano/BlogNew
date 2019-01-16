@@ -1,4 +1,4 @@
-import { IStoreState } from "Types/Index";
+import { IStoreState } from "Types/Store/Index";
 import * as accountActions from "Actions/AccountActions";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
@@ -16,8 +16,6 @@ function mapDispatchToProps(
 ) {
   return {
     Logout: async () => await dispatch(accountActions.Logout()),
-
-    GetUserInfo: async () => await dispatch(accountActions.GetUserInfo()),
   };
 }
 

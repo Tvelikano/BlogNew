@@ -51,7 +51,7 @@ namespace Blog.Services.Tests
             var record = await _service.GetById(id);
 
             Assert.AreNotEqual(null, record);
-            Assert.AreEqual(id, record.RecordId);
+            Assert.AreEqual(id, record.Model.RecordId);
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace Blog.Services.Tests
             var actualRecord = await _service.GetById(record.RecordId);
 
             Assert.AreNotEqual(null, actualRecord);
-            Assert.AreEqual(record.RecordId, actualRecord.RecordId);
+            Assert.AreEqual(record.RecordId, actualRecord.Model.RecordId);
         }
 
         [TestMethod]
@@ -74,7 +74,7 @@ namespace Blog.Services.Tests
             await _service.Update(record);
             var actualRecord = await _service.GetById(record.RecordId);
 
-            Assert.AreEqual(record.Name, actualRecord.Name);
+            Assert.AreEqual(record.Name, actualRecord.Model.Name);
         }
 
         [TestMethod]

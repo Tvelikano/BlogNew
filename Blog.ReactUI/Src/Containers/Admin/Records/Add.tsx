@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import * as actions from "Actions/RecordActions";
 import { ThunkDispatch } from "redux-thunk";
-import RecordDTO from "Types/RecordDTO";
+import RecordDTO from "Types/Records/RecordDTO";
 import { allowOnlyAdmin } from "Hocs/AllowOnlyAdmin";
 import Add from "Components/Admin/Records/Add";
 

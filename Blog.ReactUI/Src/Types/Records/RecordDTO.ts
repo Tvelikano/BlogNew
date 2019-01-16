@@ -1,6 +1,6 @@
-import RecordStateDTO from "Types/RecordStateDTO";
-import UserDTO from "Types/UserDTO";
-import CommentDTO from "Types/CommentDTO";
+import RecordStateDTO from "Types/Records/RecordStateDTO";
+import UserDTO from "Types/Account/UserDTO";
+import CommentDTO from "Types/Comments/CommentDTO";
 
 export default class RecordDTO {
   public RecordId: number;

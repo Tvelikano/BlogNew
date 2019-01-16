@@ -1,7 +1,7 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import * as Constants from "Actions/Constants/Comment";
 import ReturnListDTO from "Types/ReturnListDTO";
-import CommentDTO from "Types/CommentDTO";
+import CommentDTO from "Types/Comments/CommentDTO";
 
 interface IGetCommentsRequest {
   type: Constants.GET_COMMENTS_REQUEST;

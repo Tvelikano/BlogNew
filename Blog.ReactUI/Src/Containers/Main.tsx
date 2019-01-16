@@ -2,8 +2,8 @@ import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import * as recordActions from "Actions/RecordActions";
 import * as commentActions from "Actions/CommentActions";
-import { IStoreState } from "Types/Index";
-import CommentDTO from "Types/CommentDTO";
+import { IStoreState } from "Types/Store/Index";
+import CommentDTO from "Types/Comments/CommentDTO";
 import SearchQuery from "Types/SearchQuery";
 import Main from "Components/Main";
 

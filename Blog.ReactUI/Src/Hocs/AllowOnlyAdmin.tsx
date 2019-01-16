@@ -1,7 +1,7 @@
 import React from "react";
-import UserDTO from "Types/UserDTO";
+import UserDTO from "Types/Account/UserDTO";
 import { Redirect } from "react-router";
-import { IStoreState } from "Types/Index";
+import { IStoreState } from "Types/Store/Index";
 import { connect } from "react-redux";
 
 interface IProps {

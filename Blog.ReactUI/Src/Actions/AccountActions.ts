@@ -1,9 +1,9 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import * as Constants from "Actions/Constants/Account";
 import querystring from "querystring";
-import LoginViewModel from "Types/LoginViewModel";
-import RegisterViewModel from "Types/RegisterViewModel";
-import UserDTO from "Types/UserDTO";
+import LoginViewModel from "Types/Account/LoginViewModel";
+import RegisterViewModel from "Types/Account/RegisterViewModel";
+import UserDTO from "Types/Account/UserDTO";
 
 interface ILoginRequest {
   type: Constants.LOGIN_REQUEST;
@@ -86,6 +86,9 @@ export function GetUserInfo(): ThunkAction<
   return async (
     dispatch: ThunkDispatch<{}, {}, AccountActions>
   ): Promise<void> => {
+    dispatch({
+      type: Constants.LOGIN_REQUEST,
+    });
     fetch("http://localhost:59525/api/user/getuserinfo", {
       credentials: "include",
     })
@@ -96,16 +99,17 @@ export function GetUserInfo(): ThunkAction<
           throw new Error(response.statusText);
         }
       })
-      .then(async user => {
+      .then(user => {
         dispatch({
           type: Constants.LOGIN_SUCCESS,
           data: user,
         });
       })
       .catch(ex => {
-        if (ex.message !== "Unauthorized") {
-          console.log(ex);
-        }
+        dispatch({
+          type: Constants.LOGIN_FAIL,
+          data: ex,
+        });
       });
   };
 }

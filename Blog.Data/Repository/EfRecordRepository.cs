@@ -73,11 +73,16 @@ namespace Blog.Data.Repository
 
         public async Task<ReturnModel<Record>> GetById(int id)
         {
-            var record = _records.Include(r => r.Comments).Where(r => r.RecordId == id).ToList().FirstOrDefault();
+            var record = await _records.Include(r => r.Comments).FirstOrDefaultAsync(r => r.RecordId == id);
+            if (record == null)
+            {
+                return null;
+            }
 
             var model = new ReturnModel<Record> { Model = record, Info = record.Comments.Count };
 
             return model;
+
         }
 
         public async Task<int> Insert(Record entityToInsert)

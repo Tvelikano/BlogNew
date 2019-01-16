@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import * as actions from "Actions/RecordActions";
 import { ThunkDispatch } from "redux-thunk";
-import RecordDTO from "Types/RecordDTO";
-import { IStoreState } from "Types/Index";
+import RecordDTO from "Types/Records/RecordDTO";
+import { IStoreState } from "Types/Store/Index";
 import Add from "Components/Records/Add";
 
 function mapStateToProps({ account }: IStoreState) {

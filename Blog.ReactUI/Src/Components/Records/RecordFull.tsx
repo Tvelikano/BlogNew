@@ -1,15 +1,17 @@
 import * as React from "react";
 import Comments from "Components/Comments/Comments";
-import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/Records/RecordDTO";
-import AddComment from "Components/Comments/AddComment";
-import CommentDTO from "Types/Comments/CommentDTO";
+import ReturnModel from "Types/ReturnModel";
+import Record from "Types/Records/Record";
+import Add from "Components/Comments/Add";
+import Comment from "Types/Comments/Comment";
 import { Link } from "react-router-dom";
+import ModelState from "Types/ModelState";
+import Interweave from "interweave";
 
 interface IProps {
   isAuthenticated: boolean;
-  currentRecord: ReturnModelDTO<RecordDTO>;
-  error: string;
+  currentRecord: ReturnModel<Record>;
+  error: ModelState;
   isLoading: boolean;
   isCommentsLoading: boolean;
 
@@ -21,7 +23,7 @@ interface IProps {
 
   GetRecord: (id: number) => void;
   GetComments: (id: number) => void;
-  CreateComment: (data: CommentDTO) => void;
+  CreateComment: (data: Comment) => void;
 }
 
 export default class RecordFull extends React.PureComponent<IProps> {
@@ -45,23 +47,27 @@ export default class RecordFull extends React.PureComponent<IProps> {
           this.props.currentRecord.Model &&
           !isLoading ? (
             <div>
-              <h4 className="card-title">{currentRecord.Model.Name}</h4>
-              <p className="card-text pb-3">{currentRecord.Model.Content}</p>
+              <h4 className="card-title">{currentRecord.Model.Name} /></h4>
+              <p className="card-text pb-3">
+                <Interweave content={currentRecord.Model.Content} />
+              </p>
               <div className="float-right text-secondary small">
                 {currentRecord.Model.CreateDate}
               </div>
+
               {currentRecord.IsCommentVisible ? (
                 <>
                   {isAuthenticated ? (
-                    <AddComment
+                    <Add
                       recordId={currentRecord.Model.RecordId}
-                      СreateComment={(data: CommentDTO) => CreateComment(data)}
+                      СreateComment={(data: Comment) => CreateComment(data)}
                     />
                   ) : (
                     <Link className="btn btn-info" to="/Login">
                       Войдите что бы прокомментировать запись
                     </Link>
                   )}
+
                   <Comments list={currentRecord.Model.Comments} />
                 </>
               ) : (

@@ -1,9 +1,9 @@
-import RoleDTO from "Types/Account/RoleDTO";
+import Role from "Types/Account/Role";
 import React from "react";
 import { Link } from "react-router-dom";
 
 interface IProps {
-  data: RoleDTO[];
+  data: Role[];
   GetRoles: () => void;
   DeleteRole: (id: number) => void;
 }
@@ -18,7 +18,7 @@ export default class AdminRoles extends React.Component<IProps> {
 
     return (
       <div className="container">
-        <Link to="/Admin/Roles/Add" className="btn btn-primary">
+        <Link to="/Admin/Roles/Add" className="btn btn-primary mt-2 mb-2">
           Создать новую роль
         </Link>
 

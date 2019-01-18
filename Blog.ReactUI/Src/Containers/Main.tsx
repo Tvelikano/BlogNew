@@ -3,7 +3,7 @@ import { ThunkDispatch } from "redux-thunk";
 import * as recordActions from "Actions/RecordActions";
 import * as commentActions from "Actions/CommentActions";
 import { IStoreState } from "Types/Store/Index";
-import CommentDTO from "Types/Comments/CommentDTO";
+import Comment from "Types/Comments/Comment";
 import SearchQuery from "Types/SearchQuery";
 import Main from "Components/Main";
 
@@ -25,12 +25,12 @@ function mapDispatchToProps(
   >
 ) {
   return {
-    GetRecords: async (searchQuery: SearchQuery) =>
-      await dispatch(recordActions.GetRecords(searchQuery)),
+    GetRecords: (searchQuery: SearchQuery) =>
+      dispatch(recordActions.GetRecords(searchQuery)),
 
     GetComments: (id: number) => dispatch(commentActions.getComments(id)),
 
-    CreateComment: (data: CommentDTO) =>
+    CreateComment: (data: Comment) =>
       dispatch(commentActions.createComment(data)),
   };
 }

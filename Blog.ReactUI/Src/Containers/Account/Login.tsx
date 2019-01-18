@@ -7,7 +7,7 @@ import Login from "Components/Account/Login";
 
 function mapStateToProps({ account }: IStoreState) {
   return {
-    isAuthenticated: account.isAuthenticated,
+    error: account.error,
   };
 }
 
@@ -15,7 +15,7 @@ function mapDispatchToProps(
   dispatch: ThunkDispatch<{}, {}, Actions.AccountActions>
 ) {
   return {
-    Login: async (data: LoginViewModel) => await dispatch(Actions.Login(data)),
+    Login: (data: LoginViewModel) => dispatch(Actions.Login(data)),
   };
 }
 

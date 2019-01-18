@@ -8,8 +8,7 @@ function mapDispatchToProps(
   dispatch: ThunkDispatch<{}, {}, Actions.AccountActions>
 ) {
   return {
-    Register: async (data: RegisterViewModel) =>
-      await dispatch(Actions.Register(data)),
+    Register: (data: RegisterViewModel) => dispatch(Actions.Register(data)),
   };
 }
 

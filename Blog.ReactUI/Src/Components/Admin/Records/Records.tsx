@@ -1,22 +1,22 @@
 import ListViewModel from "Types/ListViewModel";
-import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/Records/RecordDTO";
+import ReturnModel from "Types/ReturnModel";
+import Record from "Types/Records/Record";
 import React from "react";
 import queryString from "querystring";
 import SearchQuery from "Types/SearchQuery";
 import { Link } from "react-router-dom";
-import RecordStateDTO from "Types/Records/RecordStateDTO";
+import RecordState from "Types/Records/RecordState";
 import PagingHelper from "Components/Helpers/PagingHelper";
 import SearchHelper from "Components/Helpers/SearchHelper";
 
 interface IProps {
-  data: ListViewModel<ReturnModelDTO<RecordDTO>>;
+  data: ListViewModel<ReturnModel<Record>>;
   isLoading: boolean;
   location: {
     search: string;
   };
   GetRecords: (searchQuery: SearchQuery) => void;
-  AddRecord: (data: RecordDTO) => void;
+  AddRecord: (data: Record) => void;
   DeleteRecord: (id: number) => void;
 }
 
@@ -74,18 +74,18 @@ export default class AdminRecords extends React.Component<IProps> {
                     <td>{item.Model.RecordId}</td>
                     <td>{item.Model.Name}</td>
                     <td>{item.Model.Content}</td>
-                    <td>{RecordStateDTO[item.Model.State]}</td>
+                    <td>{RecordState[item.Model.State]}</td>
                     <td>{item.Model.CreateDate}</td>
                     <td>
                       <Link
                         to={`Records/Edit/${item.Model.RecordId}`}
-                        className="btn btn-primary mb-1"
+                        className="btn btn-primary m-1"
                       >
                         Редактировать
                       </Link>
                       <button
                         onClick={() => DeleteRecord(item.Model.RecordId)}
-                        className="btn btn-danger"
+                        className="btn btn-danger m-1"
                       >
                         Удалить
                       </button>

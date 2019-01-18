@@ -3,7 +3,7 @@ import { ThunkDispatch } from "redux-thunk";
 import * as recordActions from "Actions/RecordActions";
 import * as commentActions from "Actions/CommentActions";
 import { IStoreState } from "Types/Store/Index";
-import CommentDTO from "Types/Comments/CommentDTO";
+import Comment from "Types/Comments/Comment";
 import RecordFull from "Components/Records/RecordFull";
 
 function mapStateToProps({ records, account }: IStoreState) {
@@ -28,7 +28,7 @@ function mapDispatchToProps(
 
     GetComments: (id: number) => dispatch(commentActions.getComments(id)),
 
-    CreateComment: (data: CommentDTO) =>
+    CreateComment: (data: Comment) =>
       dispatch(commentActions.createComment(data)),
   };
 }

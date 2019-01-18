@@ -87,8 +87,13 @@ namespace Blog.Api.Controllers
         }
 
         [Authorize]
-        public async Task Post([FromBody]RecordDTO record)
+        public async Task<IHttpActionResult> Post([FromBody]RecordDTO record)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             record.UserId = User.Identity.GetUserId<int>();
 
             var recordId = await _recordService.Insert(record);
@@ -97,6 +102,8 @@ namespace Blog.Api.Controllers
             {
                 RecordHub.NewRecord(recordId);
             }
+
+            return Ok();
         }
 
         [Authorize(Roles = "Admin")]

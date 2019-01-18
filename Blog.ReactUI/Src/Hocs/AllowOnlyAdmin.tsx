@@ -1,12 +1,12 @@
 import React from "react";
-import UserDTO from "Types/Account/UserDTO";
+import User from "Types/Account/User";
 import { Redirect } from "react-router";
 import { IStoreState } from "Types/Store/Index";
 import { connect } from "react-redux";
 
 interface IProps {
   isAuthenticated: boolean;
-  user: UserDTO;
+  user: User;
 }
 
 export const allowOnlyAdmin = <P extends any>(

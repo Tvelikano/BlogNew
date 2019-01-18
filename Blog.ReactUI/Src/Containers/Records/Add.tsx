@@ -1,13 +1,15 @@
 import { connect } from "react-redux";
 import * as actions from "Actions/RecordActions";
 import { ThunkDispatch } from "redux-thunk";
-import RecordDTO from "Types/Records/RecordDTO";
+import Record from "Types/Records/Record";
 import { IStoreState } from "Types/Store/Index";
 import Add from "Components/Records/Add";
+import { allowOnlyAuthenticated } from "Hocs/AllowOnlyAuthenticated";
 
-function mapStateToProps({ account }: IStoreState) {
+function mapStateToProps({ account, records }: IStoreState) {
   return {
     isAuthenticated: account.isAuthenticated,
+    error: records.error,
   };
 }
 
@@ -15,12 +17,13 @@ function mapDispatchToProps(
   dispatch: ThunkDispatch<{}, {}, actions.RecordActions>
 ) {
   return {
-    AddRecord: async (data: RecordDTO) =>
-      await dispatch(actions.AddRecord(data)),
+    AddRecord: (data: Record) => dispatch(actions.AddRecord(data)),
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Add);
+export default allowOnlyAuthenticated(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Add)
+);

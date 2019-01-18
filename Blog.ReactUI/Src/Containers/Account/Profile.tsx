@@ -9,9 +9,4 @@ function mapStateToProps({ account }: IStoreState) {
   };
 }
 
-export default allowOnlyAuthenticated(
-  connect(
-    mapStateToProps,
-    null
-  )(Profile)
-);
+export default allowOnlyAuthenticated(connect(mapStateToProps)(Profile));

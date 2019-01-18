@@ -1,4 +1,5 @@
 ﻿using Blog.Services.Identity.Models;
+
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,6 +10,7 @@ namespace Blog.Services.Models
         public int CommentId { get; set; }
 
         [Required]
+        [MinLength(4)]
         public string Content { get; set; }
 
         public DateTime CreateDate { get; set; }

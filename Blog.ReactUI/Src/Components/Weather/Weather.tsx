@@ -16,10 +16,10 @@ export default class Weather extends React.PureComponent<IProps> {
   public render() {
     const { isLoading, data, GetWeather } = this.props;
 
-    return !isLoading ? (
+    return !isLoading && data ? (
       <div className="panel panel-default text-light">
         <span className="align-middle h4 mr-1">
-          {data.Temperature > 0 ? `+${data.Temperature}` : data.Temperature}
+          {data.Temperature >= 0 ? `+${data.Temperature}` : data.Temperature}
         </span>
         <span className="align-bottom font-weight-light text-capitalize">
           {` ${data.Description}`}

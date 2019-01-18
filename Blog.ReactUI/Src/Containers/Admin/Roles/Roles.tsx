@@ -16,10 +16,9 @@ function mapDispatchToProps(
   dispatch: ThunkDispatch<{}, {}, roleActions.RoleActions>
 ) {
   return {
-    GetRoles: async () => await dispatch(roleActions.GetRoles()),
+    GetRoles: () => dispatch(roleActions.GetRoles()),
 
-    DeleteRole: async (id: number) =>
-      await dispatch(roleActions.DeleteRole(id)),
+    DeleteRole: (id: number) => dispatch(roleActions.DeleteRole(id)),
   };
 }
 

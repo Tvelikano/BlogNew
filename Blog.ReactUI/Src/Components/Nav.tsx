@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import UserDTO from "Types/Account/UserDTO";
+import User from "Types/Account/User";
 import Weather from "Containers/Weather/Weather";
 
 interface IProps {
   isAuthenticated: boolean;
-  user: UserDTO;
+  user: User;
   Logout: () => void;
 }
 

@@ -1,26 +1,26 @@
 import React from "react";
-import CommentDTO from "Types/Comments/CommentDTO";
+import Comment from "Types/Comments/Comment";
 
 interface IProps {
   recordId: number;
-  СreateComment: (data: CommentDTO) => void;
+  СreateComment: (data: Comment) => void;
 }
 
-export default class AddComment extends React.PureComponent<IProps> {
+export default class Add extends React.PureComponent<IProps> {
   private content = React.createRef<HTMLInputElement>();
 
   private handleSubmit: React.ReactEventHandler<HTMLFormElement> = ev => {
     ev.preventDefault();
 
-    let comment = new CommentDTO();
+    let comment = new Comment();
     comment.RecordId = this.props.recordId;
     comment.Content = this.content.current!.value;
 
     this.props.СreateComment(comment);
   };
 
-  public render = () => (
-    <>
+  public render() {
+    return (
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
           <label>Оставьте свой комментарий:</label>
@@ -30,6 +30,6 @@ export default class AddComment extends React.PureComponent<IProps> {
 
         <button className="btn btn-primary">Отправить</button>
       </form>
-    </>
-  );
+    );
+  }
 }

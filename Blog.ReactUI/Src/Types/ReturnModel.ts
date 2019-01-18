@@ -1,4 +1,4 @@
-export default class ReturnModelDTO<T> {
+export default class ReturnModel<T> {
   public Model: T;
 
   public IsCommentVisible: boolean;

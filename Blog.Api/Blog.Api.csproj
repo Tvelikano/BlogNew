@@ -193,6 +193,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\RecordController.cs" />
     <Compile Include="Controllers\RoleAdminController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\WeatherController.cs" />
     <Compile Include="Hubs\RecordHub.cs" />
@@ -217,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\UserImages\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Blog.Services\Blog.Services.csproj">

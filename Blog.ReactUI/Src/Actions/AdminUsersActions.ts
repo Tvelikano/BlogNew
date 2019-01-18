@@ -4,19 +4,20 @@ import querystring from "querystring";
 import ListViewModel from "Types/ListViewModel";
 import SearchQuery from "Types/SearchQuery";
 import UserViewModel from "Types/Account/UserViewModel";
+import ModelState from "Types/ModelState";
 
 interface IGetUsersRequest {
   type: Constants.GET_USERS_REQUEST;
 }
 
 interface IGetUsersSuccess {
-  data: ListViewModel<UserViewModel>;
   type: Constants.GET_USERS_SUCCESS;
+  data: ListViewModel<UserViewModel>;
 }
 
 interface IGetUsersFail {
-  data: Error;
   type: Constants.GET_USERS_FAIL;
+  data: ModelState;
 }
 
 interface IGetUserRequest {
@@ -29,8 +30,8 @@ interface IGetUserSuccess {
 }
 
 interface IGetUserFail {
-  data: Error;
   type: Constants.GET_USER_FAIL;
+  data: ModelState;
 }
 
 interface IAddUserRequest {
@@ -43,7 +44,7 @@ interface IAddUserSuccess {
 
 interface IAddUserFail {
   type: Constants.ADD_USERS_FAIL;
-  data: Error;
+  data: ModelState;
 }
 
 interface IUpdateUserRequest {
@@ -56,7 +57,7 @@ interface IUpdateUserSuccess {
 
 interface IUpdateUserFail {
   type: Constants.UPDATE_USERS_FAIL;
-  data: Error;
+  data: ModelState;
 }
 
 interface IDeleteUserRequest {
@@ -69,7 +70,7 @@ interface IDeleteUserSuccess {
 
 interface IDeleteUserFail {
   type: Constants.DELETE_USERS_FAIL;
-  data: Error;
+  data: ModelState;
 }
 
 export type UserActions =
@@ -115,8 +116,8 @@ export function GetUsers(
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
           type: Constants.GET_USERS_FAIL,
+          data: new ModelState(),
         });
       });
   };
@@ -149,8 +150,8 @@ export function GetUser(
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
           type: Constants.GET_USER_FAIL,
+          data: new ModelState(),
         });
       });
   };
@@ -180,13 +181,19 @@ export function AddUser(
           });
           dispatch(GetUsers(new SearchQuery()));
         } else {
-          throw new Error(response.statusText);
+          return response.json();
         }
+      })
+      .then(error => {
+        dispatch({
+          data: error,
+          type: Constants.ADD_USERS_FAIL,
+        });
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
           type: Constants.ADD_USERS_FAIL,
+          data: new ModelState(),
         });
       });
   };
@@ -216,13 +223,19 @@ export function UpdateUser(
           });
           dispatch(GetUsers(new SearchQuery()));
         } else {
-          throw new Error(response.statusText);
+          return response.json();
         }
+      })
+      .then(error => {
+        dispatch({
+          data: error,
+          type: Constants.UPDATE_USERS_FAIL,
+        });
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
           type: Constants.UPDATE_USERS_FAIL,
+          data: new ModelState(),
         });
       });
   };
@@ -252,13 +265,19 @@ export function DeleteUser(
           });
           dispatch(GetUsers(new SearchQuery()));
         } else {
-          throw new Error(response.statusText);
+          return response.json();
         }
+      })
+      .then(error => {
+        dispatch({
+          data: error,
+          type: Constants.DELETE_USERS_FAIL,
+        });
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
           type: Constants.DELETE_USERS_FAIL,
+          data: new ModelState(),
         });
       });
   };

@@ -1,5 +1,6 @@
 ﻿using Blog.Services.Enums;
 using Blog.Services.Identity.Models;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,9 +12,11 @@ namespace Blog.Services.Models
         public int RecordId { get; set; }
 
         [Required]
+        [MinLength(6)]
         public string Name { get; set; }
 
         [Required]
+        [MinLength(6)]
         public string Content { get; set; }
 
         public DateTime CreateDate { get; set; }

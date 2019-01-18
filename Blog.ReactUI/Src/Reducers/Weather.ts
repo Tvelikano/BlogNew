@@ -1,12 +1,11 @@
 import * as Constants from "Actions/Constants/Weather";
 import { IWeatherState } from "Types/Store/Index";
-import ClientWeather from "Types/Weather/ClientWeather";
 import { WeatherActions } from "Actions/WeatherActions";
 
 const initialState: IWeatherState = {
-  data: new ClientWeather(),
-  error: "",
+  data: null,
   isLoading: false,
+  error: "",
 };
 
 export default function weatherReducer(
@@ -21,7 +20,6 @@ export default function weatherReducer(
       return {
         ...state,
         data: action.data,
-        error: "",
         isLoading: false,
       };
     }
@@ -29,8 +27,8 @@ export default function weatherReducer(
     case Constants.GET_WEATHER_FAIL:
       return {
         ...state,
-        error: action.data.message,
         isLoading: false,
+        error: action.data.message,
       };
 
     default:

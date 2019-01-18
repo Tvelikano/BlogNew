@@ -3,14 +3,14 @@ import * as commentConstants from "Actions/Constants/Comment";
 import { RecordActions } from "Actions/RecordActions";
 import { IRecordState } from "Types/Store/Index";
 import { CommentActions } from "Actions/CommentActions";
-import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/Records/RecordDTO";
+import ReturnModel from "Types/ReturnModel";
+import Record from "Types/Records/Record";
 import ListViewModel from "Types/ListViewModel";
 
 const initialState: IRecordState = {
-  data: new ListViewModel<ReturnModelDTO<RecordDTO>>(),
-  currentRecord: new ReturnModelDTO<RecordDTO>(),
-  error: "",
+  data: new ListViewModel<ReturnModel<Record>>(),
+  currentRecord: new ReturnModel<Record>(),
+  error: null,
   isLoading: false,
   isCommentsLoading: false,
 };
@@ -21,13 +21,13 @@ export default function recordReducer(
 ) {
   switch (action.type) {
     case recordConstants.GET_RECORDS_REQUEST:
-      return { ...state, isLoading: true, error: "" };
+      return { ...state, isLoading: true, error: null };
 
     case recordConstants.GET_RECORDS_SUCCESS: {
       return {
         ...state,
         data: action.data,
-        error: "",
+        error: null,
         isLoading: false,
       };
     }
@@ -35,18 +35,18 @@ export default function recordReducer(
     case recordConstants.GET_RECORDS_FAIL:
       return {
         ...state,
-        error: action.data.message,
+        error: action.data,
         isLoading: false,
       };
 
     case recordConstants.GET_RECORD_REQUEST:
-      return { ...state, isLoading: true, error: "" };
+      return { ...state, isLoading: true, error: null };
 
     case recordConstants.GET_RECORD_SUCCESS: {
       return {
         ...state,
         currentRecord: action.data,
-        error: "",
+        error: null,
         isLoading: false,
       };
     }
@@ -54,7 +54,7 @@ export default function recordReducer(
     case recordConstants.GET_RECORD_FAIL:
       return {
         ...state,
-        error: action.data.message,
+        error: action.data,
         isLoading: false,
       };
 
@@ -62,21 +62,21 @@ export default function recordReducer(
       return {
         ...state,
         isLoading: true,
-        error: "",
+        error: null,
       };
 
     case recordConstants.ADD_RECORDS_SUCCESS: {
       return {
         ...state,
         isLoading: false,
-        error: "",
+        error: null,
       };
     }
 
     case recordConstants.ADD_RECORDS_FAIL:
       return {
         ...state,
-        error: action.data.message,
+        error: action.data,
         isLoading: false,
       };
 
@@ -84,6 +84,7 @@ export default function recordReducer(
       return {
         ...state,
         isCommentsLoading: true,
+        error: null,
       };
 
     case commentConstants.GET_COMMENTS_SUCCESS:
@@ -114,24 +115,22 @@ export default function recordReducer(
               : item
           ),
         },
-        error: "",
         isCommentsLoading: false,
       };
 
     case commentConstants.GET_COMMENTS_FAIL:
       return {
         ...state,
-        error: action.data.message,
+        error: action.data,
         isCommentsLoading: false,
       };
 
     case commentConstants.CREATE_COMMENTS_REQUEST:
-      return { ...state, isCommentsLoading: true, error: "" };
+      return { ...state, isCommentsLoading: true, error: null };
 
     case commentConstants.CREATE_COMMENTS_SUCCESS: {
       return {
         ...state,
-        error: "",
         isCommentsLoading: false,
       };
     }
@@ -139,7 +138,7 @@ export default function recordReducer(
     case commentConstants.CREATE_COMMENTS_FAIL:
       return {
         ...state,
-        error: action.data.message,
+        error: action.data,
         isCommentsLoading: false,
       };
 

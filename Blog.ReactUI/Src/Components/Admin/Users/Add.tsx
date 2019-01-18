@@ -1,14 +1,17 @@
 import React from "react";
 import UserViewModel from "Types/Account/UserViewModel";
 import { Link } from "react-router-dom";
+import ModelErrors from "Components/ModelErrors";
+import ModelState from "Types/ModelState";
 
 interface IProps {
+  error: ModelState;
   AddUser: (data: UserViewModel) => void;
 }
 
 export default class Add extends React.Component<IProps> {
   private name = React.createRef<HTMLInputElement>();
-  private email = React.createRef<HTMLTextAreaElement>();
+  private email = React.createRef<HTMLInputElement>();
   private password = React.createRef<HTMLInputElement>();
   private passwordConfirm = React.createRef<HTMLInputElement>();
 
@@ -24,63 +27,104 @@ export default class Add extends React.Component<IProps> {
     this.props.AddUser(data);
   };
 
-  public render = () => (
-    <div className="container">
-      <h4>Новый пользователь</h4>
+  public render() {
+    const { error } = this.props;
 
-      <form className="add" onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          Имя пользователя:
-          <div className="col-md-10">
-            <input required className="form-control" ref={this.name} />
+    return (
+      <div className="container pt-2">
+        <h4>Новый пользователь</h4>
+        <hr />
+        <ModelErrors error={error} />
+
+        <form className="add" onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="userName">Имя пользователя</label>
+
+            <input
+              required
+              id="userName"
+              aria-describedby="userNameHelp"
+              placeholder="Введите имя"
+              className="form-control"
+              ref={this.name}
+            />
+
+            <small id="userNameHelp" className="form-text text-muted">
+              Имя пользователя должно быть уникальным
+            </small>
           </div>
-        </div>
 
-        <div className="form-group">
-          Email:
-          <div className="col-md-10">
-            <textarea required className="form-control" ref={this.email} />
+          <div className="form-group">
+            <label htmlFor="userEmail">Email</label>
+
+            <input
+              required
+              id="userEmail"
+              aria-describedby="userEmailHelp"
+              placeholder="Введите Email"
+              className="form-control"
+              ref={this.email}
+            />
+
+            <small id="userEmaileHelp" className="form-text text-muted">
+              Email должен быть уникальным
+            </small>
           </div>
-        </div>
 
-        <div className="form-group">
-          Пароль:
-          <div className="col-md-10">
+          <div className="form-group">
+            <label htmlFor="userPassword">Пароль</label>
+
             <input
               type="password"
               required
+              id="userPassword"
+              aria-describedby="userPasswordHelp"
+              placeholder="Введите пароль"
               className="form-control"
               ref={this.password}
             />
-          </div>
-        </div>
 
-        <div className="form-group">
-          Подтвердите пароль:
-          <div className="col-md-10">
+            <small id="userPasswordHelp" className="form-text text-muted">
+              Пароль должен содержать как минимум 6 символов
+            </small>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="userConfirmPassword">Подтвердите пароль</label>
+
             <input
               type="password"
               required
+              id="userConfirmPassword"
+              aria-describedby="userConfirmPasswordHelp"
+              placeholder="Повторите пароль"
               className="form-control"
               ref={this.passwordConfirm}
             />
-          </div>
-        </div>
 
-        <div className="form-group">
-          <div className="col-md-10">
+            <small
+              id="userConfirmPasswordHelp"
+              className="form-text text-muted"
+            >
+              Пароли должны совпадать
+            </small>
+          </div>
+
+          <div className="form-group">
             <input
               type="submit"
               value="Добавить пользователя"
               className="btn btn-primary"
             />
           </div>
-        </div>
-      </form>
+        </form>
 
-      <Link to="/Admin/Users" className="btn btn-danger">
-        Отмена
-      </Link>
-    </div>
-  );
+        <div className="form-group">
+          <Link to="/Admin/Users" className="btn btn-danger">
+            Отмена
+          </Link>
+        </div>
+      </div>
+    );
+  }
 }

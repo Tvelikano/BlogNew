@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import * as recordActions from "Actions/RecordActions";
 import { IStoreState } from "Types/Store/Index";
-import RecordDTO from "Types/Records/RecordDTO";
+import Record from "Types/Records/Record";
 import SearchQuery from "Types/SearchQuery";
 import { allowOnlyAdmin } from "Hocs/AllowOnlyAdmin";
 import AdminRecords from "Components/Admin/Records/Records";
@@ -19,14 +19,12 @@ function mapDispatchToProps(
   dispatch: ThunkDispatch<{}, {}, recordActions.RecordActions>
 ) {
   return {
-    GetRecords: async (searchQuery: SearchQuery) =>
-      await dispatch(recordActions.GetRecords(searchQuery)),
+    GetRecords: (searchQuery: SearchQuery) =>
+      dispatch(recordActions.GetRecords(searchQuery)),
 
-    AddRecord: async (data: RecordDTO) =>
-      await dispatch(recordActions.AddRecord(data)),
+    AddRecord: (data: Record) => dispatch(recordActions.AddRecord(data)),
 
-    DeleteRecord: async (id: number) =>
-      await dispatch(recordActions.DeleteRecord(id)),
+    DeleteRecord: (id: number) => dispatch(recordActions.DeleteRecord(id)),
   };
 }
 

@@ -18,11 +18,10 @@ function mapDispatchToProps(
   dispatch: ThunkDispatch<{}, {}, userActions.UserActions>
 ) {
   return {
-    GetUsers: async (searchQuery: SearchQuery) =>
-      await dispatch(userActions.GetUsers(searchQuery)),
+    GetUsers: (searchQuery: SearchQuery) =>
+      dispatch(userActions.GetUsers(searchQuery)),
 
-    DeleteUser: async (id: number) =>
-      await dispatch(userActions.DeleteUser(id)),
+    DeleteUser: (id: number) => dispatch(userActions.DeleteUser(id)),
   };
 }
 

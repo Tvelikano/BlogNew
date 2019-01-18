@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import * as actions from "Actions/RecordActions";
 import { ThunkDispatch } from "redux-thunk";
-import RecordDTO from "Types/Records/RecordDTO";
+import Record from "Types/Records/Record";
 import { IStoreState } from "Types/Store/Index";
 import { allowOnlyAdmin } from "Hocs/AllowOnlyAdmin";
 import Edit from "Components/Admin/Records/Edit";
@@ -18,10 +18,9 @@ function mapDispatchToProps(
   dispatch: ThunkDispatch<{}, {}, actions.RecordActions>
 ) {
   return {
-    GetRecord: async (id: number) => await dispatch(actions.GetRecord(id)),
+    GetRecord: (id: number) => dispatch(actions.GetRecord(id)),
 
-    UpdateRecord: async (data: RecordDTO) =>
-      await dispatch(actions.UpdateRecord(data)),
+    UpdateRecord: (data: Record) => dispatch(actions.UpdateRecord(data)),
   };
 }
 

@@ -1,9 +1,9 @@
 import React from "react";
 import LoginViewModel from "Types/Account/LoginViewModel";
-import { Redirect } from "react-router-dom";
+import LoginError from "Types/Account/LoginError";
 
 interface IProps {
-  isAuthenticated: boolean;
+  error: LoginError;
   Login: (data: LoginViewModel) => void;
 }
 
@@ -22,35 +22,47 @@ export default class Login extends React.Component<IProps> {
     this.props.Login(data);
   };
 
-  public render = () => (
-    <div className="container">
-      {!this.props.isAuthenticated ? (
-        <>
-          <h2>Вход</h2>
-          <hr />
-          <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label>Имя пользователя</label>
-              <input className="form-control" ref={this.name} />
-            </div>
+  public render() {
+    const { error } = this.props;
+    return (
+      <div className="container">
+        <h2>Вход</h2>
+        <hr />
+        {error ? (
+          <p className="text-danger">{error.error_description}</p>
+        ) : null}
 
-            <div className="form-group">
-              <label>Пароль</label>
-              <input
-                type="password"
-                className="form-control"
-                ref={this.password}
-              />
-            </div>
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="userName">Имя пользователя</label>
 
-            <div className="col-md-10">
-              <button className="btn btn-primary">Войти</button>
-            </div>
-          </form>
-        </>
-      ) : (
-        <Redirect to="/" />
-      )}
-    </div>
-  );
+            <input
+              required
+              id="userName"
+              placeholder="Введите имя"
+              className="form-control"
+              ref={this.name}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="userPassword">Пароль</label>
+
+            <input
+              type="password"
+              required
+              id="userPassword"
+              placeholder="Введите пароль"
+              className="form-control"
+              ref={this.password}
+            />
+          </div>
+
+          <div className="form-group">
+            <button className="btn btn-primary">Войти</button>
+          </div>
+        </form>
+      </div>
+    );
+  }
 }

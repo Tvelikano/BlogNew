@@ -1,14 +1,14 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import * as Constants from "Actions/Constants/Comment";
-import ReturnListDTO from "Types/ReturnListDTO";
-import CommentDTO from "Types/Comments/CommentDTO";
+import ReturnList from "Types/ReturnList";
+import Comment from "Types/Comments/Comment";
 
 interface IGetCommentsRequest {
   type: Constants.GET_COMMENTS_REQUEST;
 }
 
 interface IGetCommentsSuccess {
-  data: ReturnListDTO<CommentDTO>;
+  data: ReturnList<Comment>;
   type: Constants.GET_COMMENTS_SUCCESS;
 }
 
@@ -69,7 +69,7 @@ export function getComments(
 }
 
 export function createComment(
-  data: CommentDTO
+  data: Comment
 ): ThunkAction<Promise<void>, {}, {}, CommentActions> {
   return async (
     dispatch: ThunkDispatch<{}, {}, CommentActions>

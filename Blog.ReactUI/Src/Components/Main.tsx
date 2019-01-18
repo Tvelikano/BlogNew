@@ -1,18 +1,18 @@
 import ListViewModel from "Types/ListViewModel";
-import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/Records/RecordDTO";
+import ReturnModel from "Types/ReturnModel";
+import Record from "Types/Records/Record";
 import React from "react";
 import queryString from "querystring";
 import { Link } from "react-router-dom";
 import SearchHelper from "Components/Helpers/SearchHelper";
 import PagingHelper from "Components/Helpers/PagingHelper";
-import Record from "Components/records/Record";
-import CommentDTO from "Types/Comments/CommentDTO";
+import RecordLess from "Components/Records/RecordLess";
+import Comment from "Types/Comments/Comment";
 import SearchQuery from "Types/SearchQuery";
 
 interface IProps {
   isAuthenticated: boolean;
-  data: ListViewModel<ReturnModelDTO<RecordDTO>>;
+  data: ListViewModel<ReturnModel<Record>>;
   isLoading: boolean;
   isCommentsLoading: boolean;
   location: {
@@ -20,7 +20,7 @@ interface IProps {
   };
   GetRecords: (searchQuery: SearchQuery) => void;
   GetComments: (id: number) => void;
-  CreateComment: (data: CommentDTO) => void;
+  CreateComment: (data: Comment) => void;
 }
 
 export default class Main extends React.Component<IProps> {
@@ -82,12 +82,12 @@ export default class Main extends React.Component<IProps> {
         <SearchHelper />
 
         {data.List.map(item => (
-          <Record
+          <RecordLess
             isAuthenticated={isAuthenticated}
             key={item.Model.RecordId}
             model={item}
             GetComments={() => GetComments(item.Model.RecordId)}
-            CreateComment={(data: CommentDTO) => CreateComment(data)}
+            CreateComment={(data: Comment) => CreateComment(data)}
           />
         ))}
 

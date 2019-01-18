@@ -1,8 +1,8 @@
 import React from "react";
-import CommentDTO from "Types/Comments/CommentDTO";
+import Comment from "Types/Comments/Comment";
 
 interface IProps {
-  list: CommentDTO[];
+  list: Comment[];
 }
 
 export default class Comments extends React.PureComponent<IProps> {

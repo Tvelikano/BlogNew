@@ -1,19 +1,19 @@
 import * as React from "react";
 import Comments from "Components/Comments/Comments";
-import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/Records/RecordDTO";
-import AddComment from "Components/Comments/AddComment";
-import CommentDTO from "Types/Comments/CommentDTO";
+import ReturnModel from "Types/ReturnModel";
+import Record from "Types/Records/Record";
+import Add from "Components/Comments/Add";
+import Comment from "Types/Comments/Comment";
 import { Link } from "react-router-dom";
 
 interface IProps {
   isAuthenticated: boolean;
-  model: ReturnModelDTO<RecordDTO>;
+  model: ReturnModel<Record>;
   GetComments: () => void;
-  CreateComment: (data: CommentDTO) => void;
+  CreateComment: (data: Comment) => void;
 }
 
-export default class Record extends React.PureComponent<IProps> {
+export default class RecordLess extends React.PureComponent<IProps> {
   public render() {
     const { Model, IsCommentVisible, Info } = this.props.model;
     const { CreateComment, GetComments, isAuthenticated } = this.props;
@@ -33,9 +33,9 @@ export default class Record extends React.PureComponent<IProps> {
           {IsCommentVisible ? (
             <>
               {isAuthenticated ? (
-                <AddComment
+                <Add
                   recordId={Model.RecordId}
-                  СreateComment={(data: CommentDTO) => CreateComment(data)}
+                  СreateComment={(data: Comment) => CreateComment(data)}
                 />
               ) : (
                 <Link className="btn btn-info" to="/Login">

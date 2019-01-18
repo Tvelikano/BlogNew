@@ -15,7 +15,7 @@ function mapDispatchToProps(
   dispatch: ThunkDispatch<{}, {}, accountActions.AccountActions>
 ) {
   return {
-    Logout: async () => await dispatch(accountActions.Logout()),
+    Logout: () => dispatch(accountActions.Logout()),
   };
 }
 

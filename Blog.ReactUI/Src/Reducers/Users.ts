@@ -7,7 +7,7 @@ import UserViewModel from "Types/Account/UserViewModel";
 
 const initialState: IUserState = {
   data: new ListViewModel<UserViewModel>(),
-  error: "",
+  error: null,
   isLoading: false,
 };
 
@@ -17,13 +17,12 @@ export default function roleReducer(
 ) {
   switch (action.type) {
     case roleConstants.GET_USERS_REQUEST:
-      return { ...state, isLoading: true, error: "" };
+      return { ...state, isLoading: true, error: null };
 
     case roleConstants.GET_USERS_SUCCESS: {
       return {
         ...state,
         data: action.data,
-        error: "",
         isLoading: false,
       };
     }
@@ -31,12 +30,12 @@ export default function roleReducer(
     case roleConstants.GET_USERS_FAIL:
       return {
         ...state,
-        error: action.data.message,
         isLoading: false,
+        error: action.data,
       };
 
     case roleConstants.GET_USER_REQUEST:
-      return { ...state, isLoading: true, error: "" };
+      return { ...state, isLoading: true, error: null };
 
     case roleConstants.GET_USER_SUCCESS: {
       let user = initialState;
@@ -45,7 +44,6 @@ export default function roleReducer(
       return {
         ...state,
         data: user,
-        error: "",
         isLoading: false,
       };
     }
@@ -53,30 +51,29 @@ export default function roleReducer(
     case roleConstants.GET_USER_FAIL:
       return {
         ...state,
-        error: action.data.message,
         isLoading: false,
+        error: action.data,
       };
 
     case roleConstants.ADD_USERS_REQUEST:
       return {
         ...state,
         isLoading: true,
-        error: "",
+        error: null,
       };
 
     case roleConstants.ADD_USERS_SUCCESS: {
       return {
         ...state,
         isLoading: false,
-        error: "",
       };
     }
 
     case roleConstants.ADD_USERS_FAIL:
       return {
         ...state,
-        error: action.data.message,
         isLoading: false,
+        error: action.data,
       };
 
     default:

@@ -1,21 +1,22 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import * as Constants from "Actions/Constants/AdminRoles";
-import ReturnModelDTO from "Types/ReturnModelDTO";
-import RoleDTO from "Types/Account/RoleDTO";
+import ReturnModel from "Types/ReturnModel";
+import Role from "Types/Account/Role";
 import ListViewModel from "Types/ListViewModel";
+import ModelState from "Types/ModelState";
 
 interface IGetRolesRequest {
   type: Constants.GET_ROLES_REQUEST;
 }
 
 interface IGetRolesSuccess {
-  data: ListViewModel<ReturnModelDTO<RoleDTO>>;
+  data: ListViewModel<ReturnModel<Role>>;
   type: Constants.GET_ROLES_SUCCESS;
 }
 
 interface IGetRolesFail {
-  data: Error;
   type: Constants.GET_ROLES_FAIL;
+  data: ModelState;
 }
 
 interface IAddRoleRequest {
@@ -28,7 +29,7 @@ interface IAddRoleSuccess {
 
 interface IAddRoleFail {
   type: Constants.ADD_ROLES_FAIL;
-  data: Error;
+  data: ModelState;
 }
 
 interface IDeleteRoleRequest {
@@ -41,7 +42,7 @@ interface IDeleteRoleSuccess {
 
 interface IDeleteRoleFail {
   type: Constants.DELETE_ROLES_FAIL;
-  data: Error;
+  data: ModelState;
 }
 
 export type RoleActions =
@@ -80,7 +81,7 @@ export function GetRoles(): ThunkAction<Promise<void>, {}, {}, RoleActions> {
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
+          data: new ModelState(),
           type: Constants.GET_ROLES_FAIL,
         });
       });
@@ -111,12 +112,18 @@ export function AddRole(
           });
           dispatch(GetRoles());
         } else {
-          throw new Error(response.statusText);
+          return response.json();
         }
+      })
+      .then(error => {
+        dispatch({
+          data: error,
+          type: Constants.ADD_ROLES_FAIL,
+        });
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
+          data: new ModelState(),
           type: Constants.ADD_ROLES_FAIL,
         });
       });
@@ -147,13 +154,19 @@ export function DeleteRole(
           });
           dispatch(GetRoles());
         } else {
-          throw new Error(response.statusText);
+          return response.json();
         }
+      })
+      .then(error => {
+        dispatch({
+          type: Constants.DELETE_ROLES_FAIL,
+          data: error,
+        });
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
           type: Constants.DELETE_ROLES_FAIL,
+          data: new ModelState(),
         });
       });
   };

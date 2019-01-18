@@ -1,10 +1,11 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import * as Constants from "Actions/Constants/Record";
 import querystring from "querystring";
-import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/Records/RecordDTO";
+import ReturnModel from "Types/ReturnModel";
+import Record from "Types/Records/Record";
 import ListViewModel from "Types/ListViewModel";
 import SearchQuery from "Types/SearchQuery";
+import ModelState from "Types/ModelState";
 
 interface IGetRecordsRequest {
   type: Constants.GET_RECORDS_REQUEST;
@@ -12,12 +13,12 @@ interface IGetRecordsRequest {
 
 interface IGetRecordsSuccess {
   type: Constants.GET_RECORDS_SUCCESS;
-  data: ListViewModel<ReturnModelDTO<RecordDTO>>;
+  data: ListViewModel<ReturnModel<Record>>;
 }
 
 interface IGetRecordsFail {
   type: Constants.GET_RECORDS_FAIL;
-  data: Error;
+  data: ModelState;
 }
 
 interface IGetRecordRequest {
@@ -26,12 +27,12 @@ interface IGetRecordRequest {
 
 interface IGetRecordSuccess {
   type: Constants.GET_RECORD_SUCCESS;
-  data: ReturnModelDTO<RecordDTO>;
+  data: ReturnModel<Record>;
 }
 
 interface IGetRecordFail {
-  data: Error;
   type: Constants.GET_RECORD_FAIL;
+  data: ModelState;
 }
 
 interface IAddRecordRequest {
@@ -44,7 +45,7 @@ interface IAddRecordSuccess {
 
 interface IAddRecordFail {
   type: Constants.ADD_RECORDS_FAIL;
-  data: Error;
+  data: ModelState;
 }
 
 interface IUpdateRecordRequest {
@@ -57,7 +58,7 @@ interface IUpdateRecordSuccess {
 
 interface IUpdateRecordFail {
   type: Constants.UPDATE_RECORDS_FAIL;
-  data: Error;
+  data: ModelState;
 }
 
 interface IDeleteRecordRequest {
@@ -70,7 +71,7 @@ interface IDeleteRecordSuccess {
 
 interface IDeleteRecordFail {
   type: Constants.DELETE_RECORDS_FAIL;
-  data: Error;
+  data: ModelState;
 }
 
 interface IShowComments {
@@ -126,7 +127,7 @@ export function GetRecords(
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
+          data: new ModelState(),
           type: Constants.GET_RECORDS_FAIL,
         });
       });
@@ -160,7 +161,7 @@ export function GetRecord(
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
+          data: new ModelState(),
           type: Constants.GET_RECORD_FAIL,
         });
       });
@@ -168,7 +169,7 @@ export function GetRecord(
 }
 
 export function AddRecord(
-  data: RecordDTO
+  data: Record
 ): ThunkAction<Promise<void>, {}, {}, RecordActions> {
   return async (
     dispatch: ThunkDispatch<{}, {}, RecordActions>
@@ -190,20 +191,26 @@ export function AddRecord(
             type: Constants.ADD_RECORDS_SUCCESS,
           });
         } else {
-          throw new Error(response.statusText);
+          return response.json();
         }
+      })
+      .then(error => {
+        dispatch({
+          data: error,
+          type: Constants.ADD_RECORDS_FAIL,
+        });
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
           type: Constants.ADD_RECORDS_FAIL,
+          data: new ModelState(),
         });
       });
   };
 }
 
 export function UpdateRecord(
-  data: RecordDTO
+  data: Record
 ): ThunkAction<Promise<void>, {}, {}, RecordActions> {
   return async (
     dispatch: ThunkDispatch<{}, {}, RecordActions>
@@ -226,12 +233,18 @@ export function UpdateRecord(
           });
           dispatch(GetRecords(new SearchQuery()));
         } else {
-          throw new Error(response.statusText);
+          return response.json();
         }
+      })
+      .then(error => {
+        dispatch({
+          data: error,
+          type: Constants.UPDATE_RECORDS_FAIL,
+        });
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
+          data: new ModelState(),
           type: Constants.UPDATE_RECORDS_FAIL,
         });
       });
@@ -262,12 +275,18 @@ export function DeleteRecord(
           });
           dispatch(GetRecords(new SearchQuery()));
         } else {
-          throw new Error(response.statusText);
+          return response.json();
         }
+      })
+      .then(error => {
+        dispatch({
+          data: error,
+          type: Constants.DELETE_RECORDS_FAIL,
+        });
       })
       .catch(ex => {
         dispatch({
-          data: new Error(ex),
+          data: new ModelState(),
           type: Constants.DELETE_RECORDS_FAIL,
         });
       });

@@ -2,11 +2,11 @@ import * as roleConstants from "Actions/Constants/AdminRoles";
 import { RoleActions } from "Actions/AdminRolesActions";
 import { IRoleState } from "Types/Store/Index";
 import { CommentActions } from "Actions/CommentActions";
-import RoleDTO from "Types/Account/RoleDTO";
+import Role from "Types/Account/Role";
 
 const initialState: IRoleState = {
-  data: new Array<RoleDTO>(),
-  error: "",
+  data: new Array<Role>(),
+  error: null,
   isLoading: false,
 };
 
@@ -16,13 +16,12 @@ export default function roleReducer(
 ) {
   switch (action.type) {
     case roleConstants.GET_ROLES_REQUEST:
-      return { ...state, isLoading: true, error: "" };
+      return { ...state, isLoading: true, error: null };
 
     case roleConstants.GET_ROLES_SUCCESS: {
       return {
         ...state,
         data: action.data,
-        error: "",
         isLoading: false,
       };
     }
@@ -30,30 +29,29 @@ export default function roleReducer(
     case roleConstants.GET_ROLES_FAIL:
       return {
         ...state,
-        error: action.data.message,
         isLoading: false,
+        error: action.data,
       };
 
     case roleConstants.ADD_ROLES_REQUEST:
       return {
         ...state,
         isLoading: true,
-        error: "",
+        error: null,
       };
 
     case roleConstants.ADD_ROLES_SUCCESS: {
       return {
         ...state,
         isLoading: false,
-        error: "",
       };
     }
 
     case roleConstants.ADD_ROLES_FAIL:
       return {
         ...state,
-        error: action.data.message,
         isLoading: false,
+        error: action.data,
       };
 
     default:

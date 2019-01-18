@@ -48,8 +48,8 @@ export default class AdminUsers extends React.Component<IProps> {
     const { location, data, DeleteUser } = this.props;
 
     return (
-      <div className="container">
-        <Link className="btn btn-primary" to="/Admin/Users/Add">
+      <div className="container pt-2">
+        <Link className="btn btn-primary mb-2" to="/Admin/Users/Add">
           Создать нового пользователя
         </Link>
 
@@ -79,13 +79,13 @@ export default class AdminUsers extends React.Component<IProps> {
                     <td>
                       <Link
                         to={`Users/Edit/${item.Id}`}
-                        className="btn btn-primary"
+                        className="btn btn-primary m-1"
                       >
                         Редактировать
                       </Link>
                       <button
                         onClick={() => DeleteUser(item.Id)}
-                        className="btn btn-danger"
+                        className="btn btn-danger m-1"
                       >
                         Удалить
                       </button>

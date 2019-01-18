@@ -1,12 +1,12 @@
 import * as accountConstants from "Actions/Constants/Account";
 import { AccountActions } from "Actions/AccountActions";
 import { IAccountState } from "Types/Store/Index";
-import UserDTO from "Types/Account/UserDTO";
 
 const initialState: IAccountState = {
   isLoading: true,
   isAuthenticated: false,
-  user: new UserDTO(),
+  user: null,
+  error: null,
 };
 
 export default function recordReducer(
@@ -15,7 +15,7 @@ export default function recordReducer(
 ) {
   switch (action.type) {
     case accountConstants.LOGIN_REQUEST:
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, error: null };
 
     case accountConstants.LOGIN_SUCCESS:
       return {
@@ -23,9 +23,10 @@ export default function recordReducer(
         isLoading: false,
         isAuthenticated: true,
         user: action.data,
+        error: null,
       };
     case accountConstants.LOGIN_FAIL:
-      return { ...state, isLoading: false };
+      return { ...state, isLoading: false, error: action.data };
 
     case accountConstants.LOGOUT:
       return { ...initialState, isLoading: false };

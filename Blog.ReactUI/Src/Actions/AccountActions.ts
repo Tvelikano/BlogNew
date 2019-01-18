@@ -3,7 +3,8 @@ import * as Constants from "Actions/Constants/Account";
 import querystring from "querystring";
 import LoginViewModel from "Types/Account/LoginViewModel";
 import RegisterViewModel from "Types/Account/RegisterViewModel";
-import UserDTO from "Types/Account/UserDTO";
+import User from "Types/Account/User";
+import LoginError from "Types/Account/LoginError";
 
 interface ILoginRequest {
   type: Constants.LOGIN_REQUEST;
@@ -11,11 +12,11 @@ interface ILoginRequest {
 
 interface ILoginSuccess {
   type: Constants.LOGIN_SUCCESS;
-  data: UserDTO;
+  data: User;
 }
 
 interface ILoginFail {
-  data: Error;
+  data: LoginError;
   type: Constants.LOGIN_FAIL;
 }
 
@@ -65,12 +66,22 @@ export function Login(
         if (response.ok) {
           dispatch(GetUserInfo());
         } else {
-          throw new Error(response.statusText);
+          return response.json();
         }
       })
-      .catch(ex => {
+      .then(error => {
         dispatch({
-          data: new Error(ex),
+          data: error,
+          type: Constants.LOGIN_FAIL,
+        });
+      })
+      .catch(ex => {
+        let error = new LoginError();
+        error.error = ex;
+        error.error_description = ex;
+
+        dispatch({
+          data: new LoginError(),
           type: Constants.LOGIN_FAIL,
         });
       });

@@ -1,11 +1,13 @@
 import { RouterState } from "connected-react-router";
-import ReturnModelDTO from "Types/ReturnModelDTO";
-import RecordDTO from "Types/Records/RecordDTO";
+import ReturnModel from "Types/ReturnModel";
+import Record from "Types/Records/Record";
 import ListViewModel from "Types/ListViewModel";
-import RoleDTO from "../Account/RoleDTO";
+import Role from "../Account/Role";
 import UserViewModel from "../Account/UserViewModel";
-import UserDTO from "../Account/UserDTO";
+import User from "../Account/User";
 import ClientWeather from "../Weather/ClientWeather";
+import LoginError from "Types/Account/LoginError";
+import ModelState from "Types/ModelState";
 
 export interface IStoreState {
   account: IAccountState;
@@ -19,27 +21,28 @@ export interface IStoreState {
 export interface IAccountState {
   isLoading: boolean;
   isAuthenticated: boolean;
-  user: UserDTO;
+  user: User;
+  error: LoginError;
 }
 
 export interface IRecordState {
-  data: ListViewModel<ReturnModelDTO<RecordDTO>>;
-  currentRecord: ReturnModelDTO<RecordDTO>;
+  data: ListViewModel<ReturnModel<Record>>;
+  currentRecord: ReturnModel<Record>;
   isLoading: boolean;
   isCommentsLoading: boolean;
-  error: string;
+  error: ModelState;
 }
 
 export interface IUserState {
   data: ListViewModel<UserViewModel>;
   isLoading: boolean;
-  error: string;
+  error: ModelState;
 }
 
 export interface IRoleState {
-  data: RoleDTO[];
+  data: Role[];
   isLoading: boolean;
-  error: string;
+  error: ModelState;
 }
 
 export interface IWeatherState {

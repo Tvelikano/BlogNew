@@ -6,6 +6,7 @@ using Blog.Services.Interfaces;
 using Blog.Services.Models;
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Blog.Services
@@ -24,6 +25,11 @@ namespace Blog.Services
         public ReturnListDTO<ReturnModelDTO<RecordDTO>> GetAll(GetArgsDTO<RecordDTO> recordsArgsDto)
         {
             return _mapper.Map<ReturnListDTO<ReturnModelDTO<RecordDTO>>>(_repository.Get(_mapper.Map<GetArgs<Record>>(recordsArgsDto)));
+        }
+
+        public IEnumerable<AdminUserDTO> GetAllAdminUsers()
+        {
+            return _mapper.Map<IEnumerable<AdminUserDTO>>(_repository.GetAllAdminUsers());
         }
 
         public async Task<ReturnModelDTO<RecordDTO>> GetById(int id)

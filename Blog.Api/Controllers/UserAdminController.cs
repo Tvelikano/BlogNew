@@ -3,6 +3,7 @@
 using Blog.Api.Models;
 using Blog.Services.Identity.Interfaces;
 using Blog.Services.Identity.Models;
+using Blog.Services.Interfaces;
 using Blog.Services.Models;
 
 using System.Collections.Generic;
@@ -17,17 +18,25 @@ namespace Blog.Api.Controllers
     {
         private readonly IRuntimeMapper _mapper;
         private readonly IUserService<UserDTO, RoleDTO> _userService;
+        private readonly IRecordService _recordService;
 
-        public UserAdminController(IUserService<UserDTO, RoleDTO> service, IRuntimeMapper mapper)
+        public UserAdminController(IUserService<UserDTO, RoleDTO> service, IRecordService recordService, IRuntimeMapper mapper)
         {
             _userService = service;
             _mapper = mapper;
+            _recordService = recordService;
         }
 
         [Route("api/admin/users/{id}")]
         public async Task<UserViewModel> Get(int id)
         {
             return _mapper.Map<UserViewModel>(await _userService.GetUserById(id));
+        }
+
+        [Route("api/admin/allUsers")]
+        public IEnumerable<AdminUserDTO> GetAdminUsers()
+        {
+            return _recordService.GetAllAdminUsers();
         }
 
         public ListViewModel<UserViewModel> Get([FromUri]SearchQuery searchQuery)

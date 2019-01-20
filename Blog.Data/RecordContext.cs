@@ -1,8 +1,9 @@
-﻿using Blog.Data.Identity;
-using Blog.Data.Identity.Models;
+﻿using Blog.Data.Identity.Models;
 using Blog.Data.Interfaces;
 using Blog.Data.Models;
+
 using Microsoft.AspNet.Identity.EntityFramework;
+
 using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
@@ -15,13 +16,15 @@ namespace Blog.Data
 
         public virtual DbSet<Comment> Comments { get; set; }
 
+        public virtual DbSet<AdminUser> AdminUsers { get; set; }
+
         public virtual DbSet<UserLogin> UserLogins { get; set; }
 
         public virtual DbSet<UserClaim> UserClaims { get; set; }
 
         public virtual DbSet<UserRole> UserRoles { get; set; }
 
-        public RecordContext() : base("RecordsDataBase")
+        public RecordContext() : base("data source=DESKTOP-0J72RO9\\SQLEXPRESS; Initial Catalog=RecordsDataBase;Integrated Security=SSPI;")
         {
 
         }
@@ -53,6 +56,8 @@ namespace Blog.Data
             modelBuilder.Entity<Record>().ToTable("Record");
             modelBuilder.Entity<Comment>().ToTable("Comment");
             modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<AdminUser>().HasKey(u => u.UserId);
+            modelBuilder.Entity<AdminUser>().ToTable("AdminUser");
             modelBuilder.Entity<User>().Property(u => u.PasswordHash).HasMaxLength(500);
             modelBuilder.Entity<User>().Property(u => u.PhoneNumber).HasMaxLength(50);
 

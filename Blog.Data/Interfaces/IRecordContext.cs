@@ -12,6 +12,8 @@ namespace Blog.Data.Interfaces
 
         DbSet<Comment> Comments{ get; set; }
 
+        DbSet<AdminUser> AdminUsers { get; set; }
+
         DbSet Set(Type entityType);
 
         Task<int> SaveChangesAsync();

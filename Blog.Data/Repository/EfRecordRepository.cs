@@ -15,12 +15,14 @@ namespace Blog.Data.Repository
         private readonly IRecordContext _context;
         private readonly DbSet<Record> _records;
         private readonly DbSet<Comment> _comments;
+        private readonly DbSet<AdminUser> _adminUsers;
 
         public EfRecordRepository(IRecordContext context)
         {
             _context = context;
             _records = _context.Records;
             _comments = _context.Comments;
+            _adminUsers = _context.AdminUsers;
         }
 
         public ReturnList<ReturnModel<Record>> Get(GetArgs<Record> args)
@@ -67,6 +69,13 @@ namespace Blog.Data.Repository
         public IEnumerable<Record> GetAll()
         {
             IQueryable<Record> query = _records;
+
+            return query.ToList();
+        }
+
+        public IEnumerable<AdminUser> GetAllAdminUsers()
+        {
+            IQueryable<AdminUser> query = _adminUsers;
 
             return query.ToList();
         }

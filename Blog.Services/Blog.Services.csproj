@@ -117,6 +117,7 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectConfigModule.cs" />
     <Compile Include="App_Start\ServiceAutoMapperModule.cs" />
+    <Compile Include="Models\AdminUserDTO.cs" />
     <Compile Include="Models\CommentDTO.cs" />
     <Compile Include="Enums\RecordStateDTO.cs" />
     <Compile Include="Models\GetArgsDTO.cs" />

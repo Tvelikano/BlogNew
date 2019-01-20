@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Blog.Data.Models;
 
 namespace Blog.Data.Repository.Interfaces
@@ -7,8 +8,10 @@ namespace Blog.Data.Repository.Interfaces
     {
         ReturnList<ReturnModel<Record>> Get(GetArgs<Record> args);
 
-        Task<ReturnModel<Record>> GetById(int id);
+        IEnumerable<AdminUser> GetAllAdminUsers();
 
+        Task<ReturnModel<Record>> GetById(int id);
+        
         Task<int> Insert(Record entityToInsert);
 
         Task Delete(int id);

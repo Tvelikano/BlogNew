@@ -17,6 +17,7 @@ namespace Blog.Api.Tests.Controllers
         {
             _controller = new UserAdminController(
                 EffortProviderFactory.GetFakeUserService(),
+                null,
                 EffortProviderFactory.GetFakeSiteAutoMapper()
                 );
         }

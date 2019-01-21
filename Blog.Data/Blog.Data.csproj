@@ -92,9 +92,9 @@
     <Compile Include="Migrations\201812281227341_ChangeIdType.Designer.cs">
       <DependentUpon>201812281227341_ChangeIdType.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901201702390_adminUser.cs" />
-    <Compile Include="Migrations\201901201702390_adminUser.Designer.cs">
-      <DependentUpon>201901201702390_adminUser.cs</DependentUpon>
+    <Compile Include="Migrations\201901210637429_AdminUser.cs" />
+    <Compile Include="Migrations\201901210637429_AdminUser.Designer.cs">
+      <DependentUpon>201901210637429_AdminUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminUser.cs" />
@@ -144,8 +144,8 @@
     <EmbeddedResource Include="Migrations\201812281227341_ChangeIdType.resx">
       <DependentUpon>201812281227341_ChangeIdType.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901201702390_adminUser.resx">
-      <DependentUpon>201901201702390_adminUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901210637429_AdminUser.resx">
+      <DependentUpon>201901210637429_AdminUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

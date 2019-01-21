@@ -13,7 +13,7 @@ using System.Web.Http;
 namespace Blog.Api.Controllers
 {
     [Authorize(Roles = "Admin")]
-    [Route("api/admin/users")]
+    [RoutePrefix("api/admin/users")]
     public class UserAdminController : ApiController
     {
         private readonly IRuntimeMapper _mapper;
@@ -27,13 +27,13 @@ namespace Blog.Api.Controllers
             _recordService = recordService;
         }
 
-        [Route("api/admin/users/{id}")]
+        [Route("/{id}")]
         public async Task<UserViewModel> Get(int id)
         {
             return _mapper.Map<UserViewModel>(await _userService.GetUserById(id));
         }
 
-        [Route("api/admin/allUsers")]
+        [Route("/stats")]
         public IEnumerable<AdminUserDTO> GetAdminUsers()
         {
             return _recordService.GetAllAdminUsers();

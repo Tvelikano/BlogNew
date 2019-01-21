@@ -24,7 +24,7 @@ namespace Blog.Data
 
         public virtual DbSet<UserRole> UserRoles { get; set; }
 
-        public RecordContext() : base("data source=DESKTOP-0J72RO9\\SQLEXPRESS; Initial Catalog=RecordsDataBase;Integrated Security=SSPI;")
+        public RecordContext() : base("RecordsDataBase")
         {
 
         }
